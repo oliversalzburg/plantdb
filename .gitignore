@@ -9,4 +9,5 @@
 node_modules
 tsconfig.tsbuildinfo
 
+plantlog.csv
 plants.csv
