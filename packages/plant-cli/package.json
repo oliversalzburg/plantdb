@@ -5,10 +5,12 @@
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "scripts": {
     "build": "node build.cjs",
+    "cli:run": "yarn build && node output/main.cjs",
     "lint": "eslint source && tsc --noEmit"
   },
   "dependencies": {
-    "@plantdb/libplantdb": "workspace:*"
+    "@plantdb/libplantdb": "workspace:*",
+    "csv-parse": "5.0.4"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
