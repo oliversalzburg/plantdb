@@ -308,6 +308,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@plantdb/plant-cli@workspace:packages/plant-cli":
+  version: 0.0.0-use.local
+  resolution: "@plantdb/plant-cli@workspace:packages/plant-cli"
+  dependencies:
+    "@plantdb/libplantdb": "workspace:*"
+    "@types/node": 17.0.23
+    esbuild: 0.14.38
+    tslib: 2.4.0
+    typescript: 4.6.3
+  languageName: unknown
+  linkType: soft
+
 "@rollup/plugin-commonjs@npm:^16.0.0":
   version: 16.0.0
   resolution: "@rollup/plugin-commonjs@npm:16.0.0"
@@ -3734,18 +3746,6 @@ __metadata:
   checksum: 1aa0f3a6e137ef957f1f371b6d6c9e332eef6a8791e5453bee089a056984691d5f402b168a8b054176f143e36eef290653a35b79203ba1bc40cd694bb0575590
   languageName: node
   linkType: hard
-
-"node-project@workspace:packages/node-project":
-  version: 0.0.0-use.local
-  resolution: "node-project@workspace:packages/node-project"
-  dependencies:
-    "@plantdb/libplantdb": "workspace:*"
-    "@types/node": 17.0.23
-    esbuild: 0.14.38
-    tslib: 2.4.0
-    typescript: 4.6.3
-  languageName: unknown
-  linkType: soft
 
 "node-scripts-docs@npm:0.0.13":
   version: 0.0.13

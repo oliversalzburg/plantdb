@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "node-project",
+  "name": "@plantdb/plant-cli",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "scripts": {

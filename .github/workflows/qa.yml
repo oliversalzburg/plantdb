@@ -35,7 +35,7 @@ jobs:
       - name: Build
         run: |
           yarn workspace @plantdb/libplantdb build
-          yarn workspace node-project build
+          yarn workspace @plantdb/plant-cli build
           yarn workspace web-project build
 
       # Post-build QA
