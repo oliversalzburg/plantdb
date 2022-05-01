@@ -11,6 +11,6 @@
   "types": "typings/index.d.ts",
   "devDependencies": {
     "tslib": "2.4.0",
-    "typescript": "4.6.3"
+    "typescript": "4.6.4"
   }
 }
