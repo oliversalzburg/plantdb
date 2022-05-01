@@ -13,7 +13,7 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/eslint": "8",
+    "@types/eslint": "8.4.1",
     "@types/web": "0.0.61",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.18.0",
