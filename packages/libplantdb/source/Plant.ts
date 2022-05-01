@@ -15,6 +15,14 @@ export class Plant {
   #tempIdeal: number | undefined;
   #notes = "";
 
+  identify() {
+    return `Plant ${this.#plantId ?? "<unidentified>"}`;
+  }
+
+  toString() {
+    return this.identify();
+  }
+
   static deserialize(dataRow: Array<string>): Plant {
     const plant = new Plant();
     plant.#plantId = dataRow[0];
