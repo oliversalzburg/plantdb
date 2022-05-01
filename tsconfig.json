@@ -2,7 +2,7 @@
   "files": [],
   "references": [
     {
-      "path": "packages/js-lib"
+      "path": "packages/libplantdb"
     },
     {
       "path": "packages/node-project"

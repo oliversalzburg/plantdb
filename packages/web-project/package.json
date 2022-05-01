@@ -9,7 +9,7 @@
     "serve": "snowpack dev"
   },
   "dependencies": {
-    "js-lib": "workspace:*"
+    "@plantdb/libplantdb": "workspace:*"
   },
   "devDependencies": {
     "@types/web": "0.0.61",

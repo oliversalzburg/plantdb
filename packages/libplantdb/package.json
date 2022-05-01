@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "js-lib",
+  "name": "@plantdb/libplantdb",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "module": "output/index.js",
