@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "typings",
+    "declarationMap": true,
+    "isolatedModules": true,
+    "outDir": "output",
+    "rootDir": "source"
+  },
+  "include": ["../../@types", "source"],
+  "references": []
+}

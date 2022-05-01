@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "packages/js-lib"
+    },
+    {
+      "path": "packages/node-project"
+    },
+    {
+      "path": "packages/web-project"
+    }
+  ]
+}

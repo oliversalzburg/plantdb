@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "documentation",
+  "version": "latest",
+  "description": "Yarn 3 Monorepo Documentation",
+  "license": "MIT",
+  "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
+  "main": "Dockerfile",
+  "scripts": {
+    "docs:build": ".scripts/build.sh",
+    "docs:publish": ".scripts/publish.sh",
+    "docs:serve": ".scripts/serve.sh"
+  },
+  "engines": {
+    "node": "^16"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "name": "yarn3-monorepo",
+  "license": "MIT",
+  "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
+  "scripts": {
+    "docs:scripts:build": "nsd --docs-location \"packages/documentation/docs/reference/Repository Scripts/\"",
+    "docs:scripts:check": "nsd --docs-location \"packages/documentation/docs/reference/Repository Scripts/\" --check-only",
+    "lint:eslint": "eslint packages/*/source",
+    "lint:tsc": "tsc --noEmit"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/eslint": "8",
+    "@types/web": "0.0.61",
+    "@typescript-eslint/eslint-plugin": "5.17.0",
+    "@typescript-eslint/parser": "5.18.0",
+    "eslint": "8.12.0",
+    "lint-staged": "12.3.7",
+    "node-scripts-docs": "0.0.13",
+    "prettier": "2.6.1",
+    "prettier-package-json": "2.6.3",
+    "prettier-plugin-organize-imports": "2.3.4",
+    "prettier-plugin-sh": "0.10.1",
+    "tslib": "2.4.0",
+    "typescript": "4.6.3"
+  },
+  "packageManager": "yarn@3.2.0"
+}

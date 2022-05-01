@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "js-lib",
+  "license": "MIT",
+  "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
+  "module": "output/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint source && tsc --noEmit"
+  },
+  "types": "typings/index.d.ts",
+  "devDependencies": {
+    "tslib": "2.4.0",
+    "typescript": "4.6.3"
+  }
+}
