@@ -532,10 +532,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.61":
-  version: 0.0.61
-  resolution: "@types/web@npm:0.0.61"
-  checksum: c92df4195fd7a5ce590081db3986c4b3efaefb8a166016e255b42bda4a2a1737e21de76741c729e374a92b89872645833381abeef16626ef110c6ba237057ffd
+"@types/web@npm:0.0.63":
+  version: 0.0.63
+  resolution: "@types/web@npm:0.0.63"
+  checksum: 0981ec14a05eb50466ed57ff42fbd4db6375cf9aeb45f926f72434d05e1328ac41740f2d8d2a3ce7591d54543202227ce18a7ca851a4d812ad91cd81b28b2650
   languageName: node
   linkType: hard
 
@@ -5483,7 +5483,7 @@ __metadata:
   resolution: "web-project@workspace:packages/web-project"
   dependencies:
     "@plantdb/libplantdb": "workspace:*"
-    "@types/web": 0.0.61
+    "@types/web": 0.0.63
     snowpack: 3.8.8
     tslib: 2.4.0
     typescript: 4.6.3
@@ -5599,7 +5599,7 @@ __metadata:
   resolution: "yarn3-monorepo@workspace:."
   dependencies:
     "@types/eslint": 8.4.1
-    "@types/web": 0.0.61
+    "@types/web": 0.0.63
     "@typescript-eslint/eslint-plugin": 5.17.0
     "@typescript-eslint/parser": 5.18.0
     eslint: 8.12.0
