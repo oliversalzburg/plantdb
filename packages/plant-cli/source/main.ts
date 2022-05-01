@@ -7,7 +7,7 @@ console.log(`Application ready. Using ${JS_LIB_VERSION}`);
 
 const main = async () => {
   const plantDataRaw = await fs.readFile(path.resolve("../../plants.csv"));
-  const plantData = parse(plantDataRaw, { columns: false, delimiter: "\t", from: 1 }) as Array<
+  const plantData = parse(plantDataRaw, { columns: false, delimiter: "\t", from: 2 }) as Array<
     Array<string>
   >;
   for (const plantRecord of plantData) {
