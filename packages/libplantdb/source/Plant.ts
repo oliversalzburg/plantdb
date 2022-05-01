@@ -6,8 +6,8 @@ export class Plant {
   #name: string | undefined;
   #kind: string | undefined;
   #substrate: string | undefined;
-  #potShapeTop: PotShapeTop | undefined;
-  #potColor: PotColor | undefined;
+  #potShapeTop: PotShapeTop | string | undefined;
+  #potColor: PotColor | string | undefined;
   #onSaucer: boolean | undefined;
   #location: string | undefined;
   #phIdeal: number | undefined;
@@ -16,7 +16,9 @@ export class Plant {
   #notes = "";
 
   identify() {
-    return `Plant ${this.#plantId ?? "<unidentified>"}`;
+    return `Plant ${this.#plantId ?? "<unidentified>"} ${this.#name ?? "<unnamed>"} ${
+      this.#kind ?? "<unknown kind>"
+    } `;
   }
 
   toString() {
@@ -26,6 +28,17 @@ export class Plant {
   static deserialize(dataRow: Array<string>): Plant {
     const plant = new Plant();
     plant.#plantId = dataRow[0];
+    plant.#name = dataRow[1];
+    plant.#kind = dataRow[2];
+    plant.#substrate = dataRow[3];
+    plant.#potShapeTop = dataRow[4];
+    plant.#potColor = dataRow[5];
+    plant.#onSaucer = dataRow[6] === "TRUE";
+    plant.#location = dataRow[7];
+    plant.#phIdeal = Number(dataRow[8]);
+    plant.#ecIdeal = Number(dataRow[9]);
+    plant.#tempIdeal = Number(dataRow[10]);
+    plant.#notes = dataRow[11];
     return plant;
   }
 }
