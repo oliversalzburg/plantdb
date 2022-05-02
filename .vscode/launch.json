@@ -4,8 +4,8 @@
     {
       "name": "Launch Program",
       "preLaunchTask": "predebug",
-      "program": "${workspaceFolder}/packages/plant-cli/source/main.mts",
-      "outFiles": ["${workspaceFolder}/packages/*/output/**/*.mjs", "!**/node_modules/**"],
+      "program": "${workspaceFolder}/packages/plant-cli/source/main.ts",
+      "outFiles": ["${workspaceFolder}/packages/*/output/**/*.js", "!**/node_modules/**"],
       "cwd": "${workspaceFolder}",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],

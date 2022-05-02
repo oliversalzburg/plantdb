@@ -19,6 +19,7 @@ const main = async () => {
     console.debug(plant.identify());
   }
   for (const logRecord of plantLogData) {
+    LogEntry.validate(logRecord);
     const logEntry = LogEntry.deserialize(logRecord);
     console.debug(logEntry.render());
   }
