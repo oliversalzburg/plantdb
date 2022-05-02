@@ -303,6 +303,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@plantdb/libplantdb@workspace:packages/libplantdb"
   dependencies:
+    "@types/luxon": ^2
+    luxon: 2.3.2
     tslib: 2.4.0
     typescript: 4.6.4
   languageName: unknown
@@ -496,6 +498,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: ff8f54fc49621210291f815fe5b15d809fd7d032941b3180743440bd507ecdf08b9e844625fa346af568c84bf34114eb378dcdc3e921a08ba1e2a08d7e3c809c
+  languageName: node
+  linkType: hard
+
+"@types/luxon@npm:^2":
+  version: 2.3.2
+  resolution: "@types/luxon@npm:2.3.2"
+  checksum: a099fb5b0d3a0c1682756400bed1edd451f2feb221c8eed3e95ef7d344550a1d38d3acbb037f177adcaa8abf93fb00a448e4e751685496b6a8c279592cc48425
   languageName: node
   linkType: hard
 
@@ -3338,6 +3347,13 @@ __metadata:
   version: 7.8.1
   resolution: "lru-cache@npm:7.8.1"
   checksum: ed652388c2d624d32c901602d75f8711f74b2730fc134156966ac133ffb323fe761ef37dc6d521c1a8f713d07cfa9a0951f6bf4bd5464e408374c9593fa9fa42
+  languageName: node
+  linkType: hard
+
+"luxon@npm:2.3.2":
+  version: 2.3.2
+  resolution: "luxon@npm:2.3.2"
+  checksum: d7f79c1dbcb28e0091deb3db1c51de09bda73ed753cd7e1da81f633befc905e858e748019f9a7ced7594840807338958485443063b06d576d86b214cc9ec54b6
   languageName: node
   linkType: hard
 

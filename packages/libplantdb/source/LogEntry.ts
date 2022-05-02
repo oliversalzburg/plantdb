@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+import { DatabaseFormat } from "./DatabaseFormat.js";
 import { MATCH_PID } from "./Plant.js";
 
 export class LogEntry {
@@ -26,8 +28,12 @@ export class LogEntry {
     return hasValidPid && hasValidDate;
   }
 
-  static deserialize(dataRow: Array<string>): LogEntry {
-    const logEntry = new LogEntry(dataRow[0], new Date(dataRow[1]), dataRow[2]);
+  static deserialize(dataRow: Array<string>, format: DatabaseFormat): LogEntry {
+    const logEntry = new LogEntry(
+      dataRow[0],
+      DateTime.fromFormat(dataRow[1], format.dateFormat).toJSDate(),
+      dataRow[2]
+    );
     logEntry.#ec = Number(dataRow[3]);
     logEntry.#ph = Number(dataRow[4]);
     logEntry.#product = dataRow[5];

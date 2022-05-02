@@ -11,7 +11,11 @@
     "lint": "eslint source && tsc --noEmit"
   },
   "types": "./typings/index.d.ts",
+  "dependencies": {
+    "luxon": "2.3.2"
+  },
   "devDependencies": {
+    "@types/luxon": "^2",
     "tslib": "2.4.0",
     "typescript": "4.6.4"
   },
