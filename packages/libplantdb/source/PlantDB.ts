@@ -3,8 +3,12 @@ import { LogEntry } from "./LogEntry";
 import { Plant } from "./Plant";
 
 export class PlantDB {
-  #plants = new Array<Plant>();
+  #plants = new Map<string, Plant>();
   #log = new Array<LogEntry>();
+
+  get plants() {
+    return this.#plants;
+  }
 
   get log() {
     return this.#log;
@@ -19,7 +23,7 @@ export class PlantDB {
 
     for (const plantRecord of plantData) {
       const plant = Plant.deserialize(plantRecord);
-      plantDb.#plants.push(plant);
+      plantDb.#plants.set(plant.id, plant);
     }
     for (const logRecord of plantLogData) {
       const logEntry = LogEntry.deserialize(logRecord, databaseFormat);

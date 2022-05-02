@@ -6,7 +6,7 @@ export type PotShapeTop = "Round" | "Square";
 export type PotColor = "Grey" | "LightGrey" | "White";
 
 export class Plant {
-  #plantId: string | undefined;
+  #plantId: string;
   #name: string | undefined;
   #kind: string | Array<string> | undefined;
   #substrate: string | undefined;
@@ -19,6 +19,14 @@ export class Plant {
   #tempIdeal: number | undefined;
   #notes = "";
 
+  get id() {
+    return this.#plantId;
+  }
+
+  constructor(plantId: string) {
+    this.#plantId = plantId;
+  }
+
   identify() {
     return `Plant ${this.#plantId ?? "<unidentified>"} ${this.#name ?? "<unnamed>"} ${renderKind(
       this.#kind
@@ -30,8 +38,7 @@ export class Plant {
   }
 
   static deserialize(dataRow: Array<string>): Plant {
-    const plant = new Plant();
-    plant.#plantId = dataRow[0];
+    const plant = new Plant(dataRow[0]);
     plant.#name = dataRow[1];
     plant.#kind = dataRow[2].includes("\n") ? dataRow[2].split("\n") : dataRow[2];
     plant.#substrate = dataRow[3];

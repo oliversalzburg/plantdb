@@ -11,6 +11,10 @@ export class LogEntry {
   #product: string | undefined;
   #note: string | undefined;
 
+  get plantId() {
+    return this.#plantId;
+  }
+
   get timestamp() {
     return this.#timestamp;
   }

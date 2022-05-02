@@ -30,7 +30,7 @@ const main = async () => {
   const plantDb = PlantDB.deserialize(plantDbConfig, plantData, plantLogData);
 
   for (const logRecord of plantDb.log) {
-    console.debug(logRecord.render());
+    console.debug(plantDb.plants.get(logRecord.plantId)?.identify(), logRecord.render());
   }
 };
 
