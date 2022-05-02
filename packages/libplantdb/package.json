@@ -18,10 +18,10 @@
   },
   "exports": {
     ".": {
-      "import": "output/index.mjs"
+      "import": "./output/index.mjs"
     },
     "./*": {
-      "import": "output/*.mjs"
+      "import": "./output/*.mjs"
     }
   }
 }
