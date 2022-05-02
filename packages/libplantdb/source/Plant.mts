@@ -1,4 +1,4 @@
-import { renderKind } from "./Tools";
+import { renderKind } from "./Tools.mjs";
 
 export type PotShapeTop = "Round" | "Square";
 export type PotColor = "Grey" | "LightGrey" | "White";

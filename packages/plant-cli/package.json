@@ -3,9 +3,12 @@
   "name": "@plantdb/plant-cli",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
+  "type": "module",
   "scripts": {
     "build": "node build.cjs",
+    "clean": "rm -rf tsconfig.tsbuildinfo output",
     "cli:run": "yarn build && node output/main.cjs",
+    "predebug": "tsc",
     "lint": "eslint source && tsc --noEmit"
   },
   "dependencies": {

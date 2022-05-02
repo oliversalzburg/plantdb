@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Program",
+      "preLaunchTask": "predebug:plant-cli",
+      "program": "${workspaceFolder}/packages/plant-cli/source/main.mts",
+      "outFiles": ["${workspaceFolder}/packages/plant-cli/output/**/*.mjs", "!**/node_modules/**"],
+      "cwd": "${workspaceFolder}",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
+}
