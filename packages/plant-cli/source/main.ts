@@ -1,5 +1,6 @@
 import { DatabaseFormat, PlantDB } from "@plantdb/libplantdb";
 import { parse } from "csv-parse/sync";
+import { DateTime } from "luxon";
 import minimist from "minimist";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -30,7 +31,15 @@ const main = async () => {
   const plantDb = PlantDB.deserialize(plantDbConfig, plantData, plantLogData);
 
   for (const logRecord of plantDb.log) {
-    console.debug(plantDb.plants.get(logRecord.plantId)?.identify(), logRecord.render());
+    const plant = plantDb.plants.get(logRecord.plantId);
+    if (!plant) {
+      continue;
+    }
+    console.debug(
+      `${plant.name} (${plant.id}) ${DateTime.fromJSDate(logRecord.timestamp).toLocaleString(
+        DateTime.DATETIME_SHORT
+      )} ${logRecord.type}`
+    );
   }
 };
 

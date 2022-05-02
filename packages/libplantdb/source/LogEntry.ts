@@ -25,6 +25,22 @@ export class LogEntry {
     return this.#type;
   }
 
+  get ec() {
+    return this.#ec;
+  }
+
+  get ph() {
+    return this.#ph;
+  }
+
+  get product() {
+    return this.#product;
+  }
+
+  get node() {
+    return this.#note;
+  }
+
   render(): string {
     return `${this.#plantId} ${this.#timestamp.toISOString()} ${this.type} ${
       this.#note ?? "<no note provided>"

@@ -14,9 +14,11 @@
   "dependencies": {
     "@plantdb/libplantdb": "workspace:*",
     "csv-parse": "5.0.4",
+    "luxon": "2.3.2",
     "minimist": "1.2.6"
   },
   "devDependencies": {
+    "@types/luxon": "^2",
     "@types/minimist": "^1",
     "@types/node": "17.0.23",
     "esbuild": "0.14.38",

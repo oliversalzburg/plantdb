@@ -23,6 +23,46 @@ export class Plant {
     return this.#plantId;
   }
 
+  get name() {
+    return this.#name;
+  }
+
+  get substrate() {
+    return this.#substrate;
+  }
+
+  get potShapeTop() {
+    return this.#potShapeTop;
+  }
+
+  get potColor() {
+    return this.#potColor;
+  }
+
+  get onSaucer() {
+    return this.#onSaucer;
+  }
+
+  get location() {
+    return this.#location;
+  }
+
+  get phIdeal() {
+    return this.#phIdeal;
+  }
+
+  get ecIdeal() {
+    return this.#ecIdeal;
+  }
+
+  get tempIdeal() {
+    return this.#tempIdeal;
+  }
+
+  get notes() {
+    return this.#notes;
+  }
+
   constructor(plantId: string) {
     this.#plantId = plantId;
   }
