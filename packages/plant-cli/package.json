@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "node build.cjs",
-    "clean": "rm -rf tsconfig.tsbuildinfo output",
+    "clean": "rm -rf tsconfig.tsbuildinfo output typings",
     "cli:run": "yarn build && node output/main.cjs",
     "predebug": "tsc",
     "lint": "eslint source && tsc --noEmit"

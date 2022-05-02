@@ -1,4 +1,6 @@
-import { renderKind } from "./Tools.mjs";
+import { renderKind } from "./Tools.js";
+
+export const MATCH_PID = /PID-\n{1,6}/;
 
 export type PotShapeTop = "Round" | "Square";
 export type PotColor = "Grey" | "LightGrey" | "White";

@@ -1,3 +1,5 @@
+import { MATCH_PID } from "./Plant.js";
+
 export class LogEntry {
   #plantId: string;
   #timestamp: Date;
@@ -15,6 +17,13 @@ export class LogEntry {
     this.#plantId = plantId;
     this.#timestamp = timestamp;
     this.#type = type;
+  }
+
+  static validate(dataRow: Array<string>) {
+    const hasValidPid = MATCH_PID.test(dataRow[0]);
+    const date = new Date(dataRow[1]);
+    const hasValidDate = !isNaN(date.valueOf());
+    return hasValidPid && hasValidDate;
   }
 
   static deserialize(dataRow: Array<string>): LogEntry {

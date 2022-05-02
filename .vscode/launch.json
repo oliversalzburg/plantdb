@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Launch Program",
-      "preLaunchTask": "predebug:plant-cli",
+      "preLaunchTask": "predebug",
       "program": "${workspaceFolder}/packages/plant-cli/source/main.mts",
       "outFiles": ["${workspaceFolder}/packages/*/output/**/*.mjs", "!**/node_modules/**"],
       "cwd": "${workspaceFolder}",

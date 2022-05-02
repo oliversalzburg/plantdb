@@ -9,5 +9,5 @@
     "types": ["@types/node"]
   },
   "include": ["../../@types", "source"],
-  "references": []
+  "references": [{ "path": "../libplantdb" }]
 }
