@@ -1,4 +1,4 @@
-import { DatabaseFormat, LogEntry, Plant } from "@plantdb/libplantdb";
+import { DatabaseFormat, PlantDB } from "@plantdb/libplantdb";
 import { parse } from "csv-parse/sync";
 import minimist from "minimist";
 import fs from "node:fs/promises";
@@ -27,14 +27,10 @@ const main = async () => {
     from: plantDbConfig.hasHeaderRow ? 2 : 1,
   }) as Array<Array<string>>;
 
-  for (const plantRecord of plantData) {
-    const plant = Plant.deserialize(plantRecord);
-    console.debug(plant.identify());
-  }
-  for (const logRecord of plantLogData) {
-    LogEntry.validate(logRecord);
-    const logEntry = LogEntry.deserialize(logRecord, plantDbConfig);
-    console.debug(logEntry.render());
+  const plantDb = PlantDB.deserialize(plantDbConfig, plantData, plantLogData);
+
+  for (const logRecord of plantDb.log) {
+    console.debug(logRecord.render());
   }
 };
 

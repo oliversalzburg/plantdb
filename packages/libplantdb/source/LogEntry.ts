@@ -11,6 +11,10 @@ export class LogEntry {
   #product: string | undefined;
   #note: string | undefined;
 
+  get timestamp() {
+    return this.#timestamp;
+  }
+
   render(): string {
     return `${this.#plantId} ${this.#timestamp.toISOString()} ${
       this.#note ?? "<no note provided>"
