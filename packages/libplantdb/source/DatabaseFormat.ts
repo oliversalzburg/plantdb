@@ -31,6 +31,7 @@ export class DatabaseFormat {
     format.#columnSeparator = data.columnSeparator;
     format.#dateFormat = data.dateFormat;
     format.#hasHeaderRow = data.hasHeaderRow;
+    format.#timezone = data.timezone;
     return format;
   }
 }
