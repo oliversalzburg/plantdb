@@ -35,12 +35,16 @@ const main = async () => {
     if (!plant) {
       continue;
     }
-    console.debug(
+    console.info(
       `${plant.name ?? "?"} (${plant.id}) ${DateTime.fromJSDate(logRecord.timestamp).toLocaleString(
         DateTime.DATETIME_SHORT
       )} ${logRecord.type}`
     );
   }
+
+  console.info(
+    `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`
+  );
 };
 
 main().catch(console.error);

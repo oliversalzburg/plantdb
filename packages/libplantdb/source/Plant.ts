@@ -77,7 +77,7 @@ export class Plant {
 
   static deserialize(dataRow: Array<string>): Plant {
     const plant = new Plant(dataRow[0]);
-    plant.#name = String(dataRow[1]);
+    plant.#name = dataRow[1];
     plant.#kind = dataRow[2].includes("\n") ? dataRow[2].split("\n") : dataRow[2];
     plant.#substrate = dataRow[3];
     plant.#potShapeTop = dataRow[4];

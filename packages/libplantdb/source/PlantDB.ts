@@ -5,13 +5,18 @@ import { Plant } from "./Plant";
 export class PlantDB {
   #plants = new Map<string, Plant>();
   #log = new Array<LogEntry>();
+  #entryTypes = new Set<string>();
 
-  get plants() {
+  get plants(): ReadonlyMap<string, Plant> {
     return this.#plants;
   }
 
-  get log() {
+  get log(): ReadonlyArray<LogEntry> {
     return this.#log;
+  }
+
+  get entryTypes(): ReadonlySet<string> {
+    return this.#entryTypes;
   }
 
   static deserialize(
@@ -28,6 +33,7 @@ export class PlantDB {
     for (const logRecord of plantLogData) {
       const logEntry = LogEntry.deserialize(logRecord, databaseFormat);
       plantDb.#log.push(logEntry);
+      plantDb.#entryTypes.add(logEntry.type);
     }
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
