@@ -36,7 +36,7 @@ const main = async () => {
       continue;
     }
     console.debug(
-      `${plant.name} (${plant.id}) ${DateTime.fromJSDate(logRecord.timestamp).toLocaleString(
+      `${plant.name ?? "?"} (${plant.id}) ${DateTime.fromJSDate(logRecord.timestamp).toLocaleString(
         DateTime.DATETIME_SHORT
       )} ${logRecord.type}`
     );
