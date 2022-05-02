@@ -2,16 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "predebug:libplantdb",
-      "type": "shell",
-      "command": ["yarn", "workspace", "@plantdb/libplantdb", "predebug"],
-      "problemMatcher": ["$tsc"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
       "label": "predebug:plant-cli",
       "type": "shell",
       "command": ["yarn", "workspace", "@plantdb/plant-cli", "predebug"],

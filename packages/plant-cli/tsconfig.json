@@ -1,6 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "typings",
+    "declarationMap": true,
     "outDir": "output",
     "rootDir": "source",
     "types": ["@types/node"]
