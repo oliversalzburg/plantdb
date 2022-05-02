@@ -2,10 +2,12 @@ import { DateTime } from "luxon";
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { MATCH_PID } from "./Plant.js";
 
+export type LogEntryType = "Fertilized" | "Fumigated" | "Other" | "Pruned" | "Watered";
+
 export class LogEntry {
   #plantId: string;
   #timestamp: Date;
-  #type: string;
+  #type: LogEntryType | string;
   #ec: number | undefined;
   #ph: number | undefined;
   #product: string | undefined;
@@ -19,13 +21,21 @@ export class LogEntry {
     return this.#timestamp;
   }
 
+  get type() {
+    return this.#type;
+  }
+
   render(): string {
-    return `${this.#plantId} ${this.#timestamp.toISOString()} ${
+    return `${this.#plantId} ${this.#timestamp.toISOString()} ${this.type} ${
       this.#note ?? "<no note provided>"
     }`;
   }
 
-  constructor(plantId: string, timestamp: Date = new Date(), type = "") {
+  constructor(
+    plantId: string,
+    timestamp: Date = new Date(),
+    type: LogEntryType | string = "Other"
+  ) {
     this.#plantId = plantId;
     this.#timestamp = timestamp;
     this.#type = type;
