@@ -1,8 +1,8 @@
 export class DatabaseFormat {
   #columnSeparator = "\t";
-  #dateFormat = "MM/dd/YYYY hh:mm:ss";
+  #dateFormat = "yyyy-MM-dd hh:mm:ss";
   #hasHeaderRow = true;
-  #timezone = "UTC";
+  #timezone = "utc";
 
   get columnSeparator() {
     return this.#columnSeparator;
@@ -17,6 +17,13 @@ export class DatabaseFormat {
 
   get hasHeaderRow() {
     return this.#hasHeaderRow;
+  }
+
+  /**
+   * @see https://moment.github.io/luxon/#/zones?id=specifying-a-zone
+   */
+  get timezone() {
+    return this.#timezone;
   }
 
   static deserialize(data: DatabaseFormat) {

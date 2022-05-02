@@ -61,7 +61,7 @@ export class LogEntry {
   static deserialize(dataRow: Array<string>, format: DatabaseFormat): LogEntry {
     const logEntry = new LogEntry(
       dataRow[0],
-      DateTime.fromFormat(dataRow[1], format.dateFormat).toJSDate(),
+      DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
     logEntry.#ec = Number(dataRow[3]);
