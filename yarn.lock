@@ -315,9 +315,11 @@ __metadata:
   resolution: "@plantdb/plant-cli@workspace:packages/plant-cli"
   dependencies:
     "@plantdb/libplantdb": "workspace:*"
+    "@types/minimist": ^1
     "@types/node": 17.0.23
     csv-parse: 5.0.4
     esbuild: 0.14.38
+    minimist: 1.2.6
     tslib: 2.4.0
     typescript: 4.6.4
   languageName: unknown
@@ -505,6 +507,13 @@ __metadata:
   version: 2.3.2
   resolution: "@types/luxon@npm:2.3.2"
   checksum: a099fb5b0d3a0c1682756400bed1edd451f2feb221c8eed3e95ef7d344550a1d38d3acbb037f177adcaa8abf93fb00a448e4e751685496b6a8c279592cc48425
+  languageName: node
+  linkType: hard
+
+"@types/minimist@npm:^1":
+  version: 1.2.2
+  resolution: "@types/minimist@npm:1.2.2"
+  checksum: f220f57f682bbc3793dab4518f8e2180faa79d8e2589c79614fd777d7182be203ba399020c3a056a115064f5d57a065004a32b522b2737246407621681b24137
   languageName: node
   linkType: hard
 

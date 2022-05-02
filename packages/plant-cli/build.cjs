@@ -2,10 +2,10 @@ const esbuild = require("esbuild");
 
 esbuild
   .build({
-    entryPoints: ["./source/main.mts"],
+    entryPoints: ["./source/main.ts"],
     outfile: "./output/main.cjs",
     platform: "node",
-    target: "node16",
+    target: "node18",
     bundle: true,
   })
   .catch(console.error);

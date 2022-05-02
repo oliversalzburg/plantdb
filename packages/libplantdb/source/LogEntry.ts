@@ -12,7 +12,9 @@ export class LogEntry {
   #note: string | undefined;
 
   render(): string {
-    return `${this.#plantId} ${this.#timestamp.toISOString()} did something`;
+    return `${this.#plantId} ${this.#timestamp.toISOString()} ${
+      this.#note ?? "<no note provided>"
+    }`;
   }
 
   constructor(plantId: string, timestamp: Date = new Date(), type = "") {

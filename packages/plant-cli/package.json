@@ -7,15 +7,17 @@
   "scripts": {
     "build": "node build.cjs",
     "clean": "rm -rf tsconfig.tsbuildinfo output typings",
-    "cli:run": "yarn build && node output/main.cjs",
+    "cli:run": "yarn build && node output/main.cjs --cwd=\"$INIT_CWD\"",
     "predebug": "tsc",
     "lint": "eslint source && tsc --noEmit"
   },
   "dependencies": {
     "@plantdb/libplantdb": "workspace:*",
-    "csv-parse": "5.0.4"
+    "csv-parse": "5.0.4",
+    "minimist": "1.2.6"
   },
   "devDependencies": {
+    "@types/minimist": "^1",
     "@types/node": "17.0.23",
     "esbuild": "0.14.38",
     "tslib": "2.4.0",

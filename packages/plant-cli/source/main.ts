@@ -1,12 +1,17 @@
 import { DatabaseFormat, LogEntry, Plant } from "@plantdb/libplantdb";
 import { parse } from "csv-parse/sync";
+import minimist from "minimist";
 import fs from "node:fs/promises";
 import path from "node:path";
 
+const argv = minimist(process.argv.slice(2));
+
+const cwd: string = (argv.cwd as string) ?? process.cwd();
+
 const main = async () => {
-  const plantDbConfigRaw = await fs.readFile(path.resolve("plantdb.json"), "utf-8");
-  const plantDataRaw = await fs.readFile(path.resolve("plants.csv"), "utf-8");
-  const plantLogDataRaw = await fs.readFile(path.resolve("plantlog.csv"), "utf-8");
+  const plantDbConfigRaw = await fs.readFile(path.resolve(cwd, "plantdb.json"), "utf-8");
+  const plantDataRaw = await fs.readFile(path.resolve(cwd, "plants.csv"), "utf-8");
+  const plantLogDataRaw = await fs.readFile(path.resolve(cwd, "plantlog.csv"), "utf-8");
 
   const plantDbConfigParsed = JSON.parse(plantDbConfigRaw) as DatabaseFormat;
   const plantDbConfig = DatabaseFormat.deserialize(plantDbConfigParsed);
