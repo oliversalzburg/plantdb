@@ -3267,9 +3267,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:12.3.7":
-  version: 12.3.7
-  resolution: "lint-staged@npm:12.3.7"
+"lint-staged@npm:12.4.1":
+  version: 12.4.1
+  resolution: "lint-staged@npm:12.4.1"
   dependencies:
     cli-truncate: ^3.1.0
     colorette: ^2.0.16
@@ -3287,7 +3287,7 @@ __metadata:
     yaml: ^1.10.2
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 85f8e39c3e6697710588cc52096d14c1ffbdfb2ac1eac89752c04ba68f420d0dbb755017cc837dad6bab181abab6eb5b3dd4504905449b6f88e82a36b88b1c7e
+  checksum: fb2225596f63c171f2d16d75b766a15c6902ccbe988b28472c8e4a912b89dd6ced6a5e812011754825b688dd6fa2afb6b841ab972f6ad5c55e1092e1c4e22e55
   languageName: node
   linkType: hard
 
@@ -5611,7 +5611,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.17.0
     "@typescript-eslint/parser": 5.18.0
     eslint: 8.14.0
-    lint-staged: 12.3.7
+    lint-staged: 12.4.1
     node-scripts-docs: 0.0.13
     prettier: 2.6.2
     prettier-package-json: 2.6.3
