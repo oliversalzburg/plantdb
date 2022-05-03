@@ -9,6 +9,7 @@ module.exports = {
     public: "/",
   },
   plugins: [
+    "@snowpack/plugin-sass",
     [
       "snowpack-plugin-raw-file-loader",
       {

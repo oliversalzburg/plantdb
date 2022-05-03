@@ -2,10 +2,35 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>My Project</title>
+    <title>PlantDB Playground</title>
     <link rel="stylesheet" href="%PUBLIC_URL%index.css" />
   </head>
   <body>
+    <form id="plant-db-input">
+      <textarea id="plant-data"></textarea>
+      <textarea id="log-data"></textarea>
+
+      <label for="db-configuration">Database Configuration</label>
+      <section id="db-configuration">
+        <label for="column-separator">Column separator</label>
+        <select id="column-separator">
+          <option value="\t">Tab</option>
+        </select>
+
+        <label for="date-format">Timestamp format</label>
+        <select id="date-format">
+          <option value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</option>
+        </select>
+
+        <input type="checkbox" id="has-header-row"></input>
+        <label for="has-header-row">Has header row?</label>
+
+        <label for="timezone">Timezone</label>
+        <select id="timezone">
+          <option value="Europe/Berlin">Europe/Berlin</option>
+        </select>
+      </section>
+    </form>
     <script type="module" src="%PUBLIC_URL%output/index.js"></script>
   </body>
 </html>
