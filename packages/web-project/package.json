@@ -6,7 +6,9 @@
   "scripts": {
     "build": "vite build",
     "lint": "eslint source && tsc --noEmit",
-    "serve": "vite preview"
+    "preview": "vite preview",
+    "serve": "vite",
+    "watch": "vite build --watch"
   },
   "dependencies": {
     "@plantdb/libplantdb": "workspace:*"

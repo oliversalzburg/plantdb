@@ -7,29 +7,39 @@
   </head>
   <body>
     <form id="plant-db-input">
-      <textarea id="plant-data"></textarea>
-      <textarea id="log-data"></textarea>
+      <fieldset class="import-container">
+        <legend>Import Data</legend>
+        <label for="plant-data">Plant data<textarea id="plant-data"></textarea></label>
 
-      <label for="db-configuration">Database Configuration</label>
-      <section id="db-configuration">
-        <label for="column-separator">Column separator</label>
-        <select id="column-separator">
-          <option value="\t">Tab</option>
-        </select>
+        <label for="log-data">Plant log<textarea id="log-data"></textarea></label>
+      </fieldset>
 
-        <label for="date-format">Timestamp format</label>
-        <select id="date-format">
-          <option value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</option>
-        </select>
+      <fieldset id="db-configuration">
+        <legend>Database Configuration</legend>
+        <label for="column-separator"
+          >Column separator
+          <select id="column-separator">
+            <option value="\t">Tab</option>
+          </select>
+        </label>
 
-        <input type="checkbox" id="has-header-row"/>
-        <label for="has-header-row">Has header row?</label>
+        <label for="date-format"
+          >Timestamp format
+          <select id="date-format">
+            <option value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</option>
+          </select>
+        </label>
 
-        <label for="timezone">Timezone</label>
-        <select id="timezone">
-          <option value="Europe/Berlin">Europe/Berlin</option>
-        </select>
-      </section>
+        <label for="has-header-row"
+          >Has header row?<input type="checkbox" id="has-header-row"
+        /></label>
+
+        <label for="timezone"
+          >Timezone<select id="timezone">
+            <option value="Europe/Berlin">Europe/Berlin</option>
+          </select></label
+        >
+      </fieldset>
     </form>
     <script type="module" src="./source/index.ts"></script>
   </body>
