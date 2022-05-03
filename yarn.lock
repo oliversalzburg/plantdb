@@ -195,13 +195,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.4.1":
-  version: 8.4.1
-  resolution: "@types/eslint@npm:8.4.1"
+"@types/eslint@npm:8.4.2":
+  version: 8.4.2
+  resolution: "@types/eslint@npm:8.4.2"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
-  checksum: 3ba1ddb8d2362316bafe65f90aa41ce23f923f8ae6a131e382540a7c0d8ad5f04117e6aba788392717a616bd6e2589a1d954630c49edb364d28dc8eeb5214890
+  checksum: 2cce3e57ba5befc7453aa308c032df8ad3a37565d62f0990287d9f651a8c7b67f4b92f8b8deee0d0b22deae3e7e87fa73096f1b9fbb09b68040a909c4eb0b03d
   languageName: node
   linkType: hard
 
@@ -2181,16 +2181,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.2":
-  version: 3.3.3
-  resolution: "nanoid@npm:3.3.3"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: d7ab68893cdb92dd2152d505e56571d571c65b71a9815f9dfb3c9a8cbf943fe43c9777d9a95a3b81ef01e442fec8409a84375c08f90a5753610a9f22672d953a
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:^3.3.3":
+"nanoid@npm:^3.3.2, nanoid@npm:^3.3.3":
   version: 3.3.4
   resolution: "nanoid@npm:3.3.4"
   bin:
@@ -3238,7 +3229,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "yarn3-monorepo@workspace:."
   dependencies:
-    "@types/eslint": 8.4.1
+    "@types/eslint": 8.4.2
     "@types/web": 0.0.63
     "@typescript-eslint/eslint-plugin": 5.22.0
     "@typescript-eslint/parser": 5.22.0
