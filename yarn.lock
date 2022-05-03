@@ -327,6 +327,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@plantdb/web-project@workspace:packages/web-project":
+  version: 0.0.0-use.local
+  resolution: "@plantdb/web-project@workspace:packages/web-project"
+  dependencies:
+    "@plantdb/libplantdb": "workspace:*"
+    "@types/web": 0.0.63
+    snowpack: 3.8.8
+    snowpack-plugin-raw-file-loader: 1.0.9
+    tslib: 2.4.0
+    typescript: 4.6.4
+  languageName: unknown
+  linkType: soft
+
 "@rollup/plugin-commonjs@npm:^16.0.0":
   version: 16.0.0
   resolution: "@rollup/plugin-commonjs@npm:16.0.0"
@@ -4871,6 +4884,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"snowpack-plugin-raw-file-loader@npm:1.0.9":
+  version: 1.0.9
+  resolution: "snowpack-plugin-raw-file-loader@npm:1.0.9"
+  checksum: b6e6a8d5e69a1e0d695c5fdd8a8e5ff458e1e1224e907558747e4cf4408b77f4f6c0804c3791852ef57b65e69b039e32759440ed5b9260fa22413941b264baf8
+  languageName: node
+  linkType: hard
+
 "snowpack@npm:3.8.8":
   version: 3.8.8
   resolution: "snowpack@npm:3.8.8"
@@ -5467,18 +5487,6 @@ __metadata:
   checksum: e2dc2346acfeec355c8af17095aa8689b57906f0f3ad5f3ff1b0a29a36ee41904608e9a3545a933a2cfa22f20905e2bbe5dd6469cb31b110c8e129c23103e985
   languageName: node
   linkType: hard
-
-"web-project@workspace:packages/web-project":
-  version: 0.0.0-use.local
-  resolution: "web-project@workspace:packages/web-project"
-  dependencies:
-    "@plantdb/libplantdb": "workspace:*"
-    "@types/web": 0.0.63
-    snowpack: 3.8.8
-    tslib: 2.4.0
-    typescript: 4.6.4
-  languageName: unknown
-  linkType: soft
 
 "which@npm:^2.0.1, which@npm:^2.0.2":
   version: 2.0.2

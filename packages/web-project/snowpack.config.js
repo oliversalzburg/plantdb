@@ -8,6 +8,14 @@ module.exports = {
     source: "/output",
     public: "/",
   },
+  plugins: [
+    [
+      "snowpack-plugin-raw-file-loader",
+      {
+        exts: [".csv"],
+      },
+    ],
+  ],
   buildOptions: {
     baseUrl: "/",
     clean: false,
