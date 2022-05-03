@@ -5,6 +5,7 @@ esbuild
     entryPoints: ["./source/main.ts"],
     outfile: "./output/main.cjs",
     platform: "node",
+    sourcemap: true,
     target: "node18",
     bundle: true,
   })
