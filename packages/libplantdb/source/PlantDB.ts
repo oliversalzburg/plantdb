@@ -1,6 +1,6 @@
-import { DatabaseFormat } from "./DatabaseFormat";
-import { LogEntry } from "./LogEntry";
-import { Plant } from "./Plant";
+import { DatabaseFormat } from "./DatabaseFormat.js";
+import { LogEntry } from "./LogEntry.js";
+import { Plant } from "./Plant.js";
 
 export class PlantDB {
   #plants = new Map<string, Plant>();
