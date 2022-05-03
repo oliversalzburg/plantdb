@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "output",
     "rootDir": "source",
-    "types": ["@types/web"]
+    "types": ["@types/web", "vite/client"]
   },
   "include": ["../../@types", "source"],
   "references": []
