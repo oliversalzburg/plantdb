@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@snowpack/plugin-sass": "1.4.0",
-    "@types/web": "0.0.63",
+    "@types/web": "0.0.64",
     "tslib": "2.4.0",
     "typescript": "4.6.4",
     "vite": "2.9.8"
