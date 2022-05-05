@@ -172,7 +172,7 @@ __metadata:
     "@types/web": 0.0.63
     tslib: 2.4.0
     typescript: 4.6.4
-    vite: 2.9.7
+    vite: 2.9.8
   languageName: unknown
   linkType: soft
 
@@ -3126,9 +3126,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:2.9.7":
-  version: 2.9.7
-  resolution: "vite@npm:2.9.7"
+"vite@npm:2.9.8":
+  version: 2.9.8
+  resolution: "vite@npm:2.9.8"
   dependencies:
     esbuild: ^0.14.27
     fsevents: ~2.3.2
@@ -3151,7 +3151,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 6572b839c1802819e0c45aa95dcf57b07d0333ccee387d3550dd480d3a78238ae01afd0cbbd21d7d7d58a966ce58730c55a0edc2cb3c6310e70667b79468850f
+  checksum: 8d950e336acf895213e69fbd10b9f46b8bce4eda03e312e86b2e14c6060df643096891a82fca35273e43eb91ecd4f18c00d6d475b3e7bf5fd7a80127f9482748
   languageName: node
   linkType: hard
 
