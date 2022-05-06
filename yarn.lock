@@ -170,6 +170,8 @@ __metadata:
     "@plantdb/libplantdb": "workspace:*"
     "@snowpack/plugin-sass": 1.4.0
     "@types/web": 0.0.64
+    csv-parse: 5.0.4
+    luxon: 2.3.2
     tslib: 2.4.0
     typescript: 4.6.4
     vite: 2.9.8

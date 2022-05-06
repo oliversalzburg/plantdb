@@ -6,12 +6,14 @@
   "scripts": {
     "build": "vite build",
     "lint": "eslint source && tsc --noEmit",
-    "preview": "vite preview",
     "serve": "vite",
+    "preview": "vite preview",
     "watch": "vite build --watch"
   },
   "dependencies": {
-    "@plantdb/libplantdb": "workspace:*"
+    "@plantdb/libplantdb": "workspace:*",
+    "csv-parse": "5.0.4",
+    "luxon": "2.3.2"
   },
   "devDependencies": {
     "@snowpack/plugin-sass": "1.4.0",
