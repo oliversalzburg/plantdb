@@ -11,6 +11,7 @@
     "watch": "vite build --watch"
   },
   "dependencies": {
+    "@picocss/pico": "1.5.0",
     "@plantdb/libplantdb": "workspace:*",
     "csv-parse": "5.0.4",
     "luxon": "2.3.2"

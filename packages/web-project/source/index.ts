@@ -52,6 +52,13 @@ const processData = (
   console.info(
     `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`
   );
+
+  const plantContainer = document.querySelector("#plant-container") as HTMLDivElement;
+  for (const plant of plantDb.plants.values()) {
+    const plantElement = document.createElement("article");
+    plantElement.textContent = plant.name ?? "";
+    plantContainer.appendChild(plantElement);
+  }
 };
 
 export {};

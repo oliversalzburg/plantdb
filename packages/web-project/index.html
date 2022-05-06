@@ -1,47 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>PlantDB Playground</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./source/index.scss" />
+    <title>PlantDB Playground</title>
   </head>
   <body>
-    <form id="plant-db-input">
-      <fieldset class="import-container">
-        <legend>Import Data</legend>
-        <label for="plant-data">Plant data<textarea id="plant-data" rows="20" placeholder="paste plants.csv here"></textarea></label>
+    <main class="container">
+      <details>
+        <summary>Configuration</summary>
+        <form id="plant-db-input">
+          <fieldset class="import-container">
+            <legend>Import Data</legend>
+            <label for="plant-data"
+              >Plant data<textarea
+                id="plant-data"
+                rows="10"
+                placeholder="paste plants.csv here"
+              ></textarea>
+            </label>
 
-        <label for="log-data">Plant log<textarea id="log-data" rows="20" placeholder="paste plantlog.csv here"></textarea></label>
-      </fieldset>
+            <label for="log-data"
+              >Plant log<textarea
+                id="log-data"
+                rows="10"
+                placeholder="paste plantlog.csv here"
+              ></textarea>
+            </label>
+          </fieldset>
 
-      <fieldset id="db-configuration">
-        <legend>Database Configuration</legend>
-        <label for="column-separator"
-          >Column separator
-          <select id="column-separator">
-            <option value="\t">Tab</option>
-          </select>
-        </label>
+          <fieldset id="db-configuration">
+            <legend>Database Configuration</legend>
+            <label for="has-header-row"
+              ><input type="checkbox" id="has-header-row" checked />Has header row?</label
+            >
 
-        <label for="date-format"
-          >Timestamp format
-          <select id="date-format">
-            <option value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</option>
-          </select>
-        </label>
+            <label for="column-separator"
+              >Column separator
+              <select id="column-separator">
+                <option value="\t">Tab</option>
+              </select>
+            </label>
 
-        <label for="has-header-row"
-          >Has header row?<input type="checkbox" id="has-header-row"
-        /></label>
+            <label for="date-format"
+              >Timestamp format
+              <select id="date-format">
+                <option value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</option>
+              </select>
+            </label>
 
-        <label for="timezone"
-          >Timezone<select id="timezone">
-            <option value="Europe/Berlin">Europe/Berlin</option>
-          </select></label
-        >
-      </fieldset>
-      <button id="process">Process</button>
-    </form>
-    <script type="module" src="./source/index.ts"></script>
+            <label for="timezone"
+              >Timezone<select id="timezone">
+                <option value="Europe/Berlin">Europe/Berlin</option>
+              </select></label
+            >
+          </fieldset>
+          <button id="process">Process</button>
+        </form>
+      </details>
+      <div id="plant-container"></div>
+    </main>
   </body>
+  <script type="module" src="./source/index.ts"></script>
 </html>
