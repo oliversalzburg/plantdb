@@ -1,3 +1,4 @@
+import { LogEntry } from "./LogEntry.js";
 import { renderKind } from "./Tools.js";
 
 export const MATCH_PID = /PID-\n{1,6}/;
@@ -19,12 +20,18 @@ export class Plant {
   #tempIdeal: number | undefined;
   #notes = "";
 
+  #log = new Array<LogEntry>();
+
   get id() {
     return this.#plantId;
   }
 
   get name() {
     return this.#name;
+  }
+
+  get kind() {
+    return this.#kind;
   }
 
   get substrate() {
@@ -63,6 +70,10 @@ export class Plant {
     return this.#notes;
   }
 
+  get log() {
+    return this.#log;
+  }
+
   constructor(plantId: string) {
     this.#plantId = plantId;
   }
@@ -75,7 +86,7 @@ export class Plant {
     return this.identify();
   }
 
-  static deserialize(dataRow: Array<string>): Plant {
+  static deserialize(dataRow: Array<string>, log = new Array<LogEntry>()): Plant {
     const plant = new Plant(dataRow[0]);
     plant.#name = dataRow[1];
     plant.#kind = dataRow[2].includes("\n") ? dataRow[2].split("\n") : dataRow[2];
@@ -88,6 +99,8 @@ export class Plant {
     plant.#ecIdeal = Number(dataRow[9]);
     plant.#tempIdeal = Number(dataRow[10]);
     plant.#notes = dataRow[11];
+
+    plant.#log = log;
     return plant;
   }
 }

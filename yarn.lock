@@ -74,6 +74,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lit/reactive-element@npm:^1.3.0":
+  version: 1.3.2
+  resolution: "@lit/reactive-element@npm:1.3.2"
+  checksum: b273ae2d2a0605cc492956d66414f724a88cb8f866f24c2ae145b9f3c37b71b9b7953c32e53c1a3fb61149383ea0ce6233ff10223c126a9d2db7b236796d3b6f
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -179,6 +186,7 @@ __metadata:
     "@snowpack/plugin-sass": 1.4.0
     "@types/web": 0.0.64
     csv-parse: 5.0.4
+    lit: 2.2.3
     luxon: 2.3.2
     tslib: 2.4.0
     typescript: 4.6.4
@@ -261,6 +269,13 @@ __metadata:
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: 1d3012ab2fcdad1ba313e1d065b737578f6506c8958e2a7a5bdbdef517c7e930796cb1599ee067d5dee942fb3a764df64b5eef7e9ae98548d776e86dcffba985
+  languageName: node
+  linkType: hard
+
+"@types/trusted-types@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@types/trusted-types@npm:2.0.2"
+  checksum: 8c5253d7a297ba375b1dff7704013fb8d31c08c681d257db9e7e0624309cbb4a1e0c916bdd5a8c378992391126af0adb731720ba7642244a2f2c1ff42aba5bcf
   languageName: node
   linkType: hard
 
@@ -1964,6 +1979,36 @@ __metadata:
     enquirer:
       optional: true
   checksum: 0e64dc5e66fbd4361f6b35c49489ed842a1d7de30cf2b5c06bf4569669449288698b8ea93f7842aaf3c510963a1e554bca31376b9054d1521445d1ce4c917ea1
+  languageName: node
+  linkType: hard
+
+"lit-element@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "lit-element@npm:3.2.0"
+  dependencies:
+    "@lit/reactive-element": ^1.3.0
+    lit-html: ^2.2.0
+  checksum: d3b3e8b7fe47c4fbf75de0dca70bfa4c7f874dede7a2a5561a4c03e5bd7b4d18ba111b1c36cea14423ab2a7fd9b8c1a4d2f224a5012ab23b3ddb46600e08d5af
+  languageName: node
+  linkType: hard
+
+"lit-html@npm:^2.2.0":
+  version: 2.2.3
+  resolution: "lit-html@npm:2.2.3"
+  dependencies:
+    "@types/trusted-types": ^2.0.2
+  checksum: 55d9dc8dfa4e1a9db318793b5d147729b485c95574eaf6644fc0962f49a007c1c94a4aac30ad28f6730620647208d42a52196cee7a425e4ece5610a18a77ab73
+  languageName: node
+  linkType: hard
+
+"lit@npm:2.2.3":
+  version: 2.2.3
+  resolution: "lit@npm:2.2.3"
+  dependencies:
+    "@lit/reactive-element": ^1.3.0
+    lit-element: ^3.2.0
+    lit-html: ^2.2.0
+  checksum: 31db44cf757f28c4486433906a2a85bf1ebded0047179a15e0d4c95110327be188c6b79026d9b1bdc97ce8c7977d2933531a38ed3aceea13d1be7339d6a55aaa
   languageName: node
   linkType: hard
 

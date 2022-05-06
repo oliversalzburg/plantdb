@@ -1,9 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "experimentalDecorators": true,
     "outDir": "output",
     "rootDir": "source",
-    "types": ["@types/web", "vite/client"]
+    "types": ["@types/web", "vite/client"],
+    "useDefineForClassFields": false
   },
   "include": ["../../@types", "source"],
   "references": []
