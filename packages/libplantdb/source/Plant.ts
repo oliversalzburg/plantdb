@@ -1,5 +1,5 @@
 import { LogEntry } from "./LogEntry.js";
-import { renderKind } from "./Tools.js";
+import { kindFlatten, kindSummarize } from "./Tools.js";
 
 export const MATCH_PID = /PID-\n{1,6}/;
 
@@ -32,6 +32,10 @@ export class Plant {
 
   get kind() {
     return this.#kind;
+  }
+
+  get indexableText() {
+    return `${this.id} ${this.name ?? ""} ${kindFlatten(this.kind)}`.toLocaleLowerCase();
   }
 
   get substrate() {
@@ -86,7 +90,7 @@ export class Plant {
   }
 
   identify() {
-    return `Plant ${this.#name ?? "<unnamed>"} (${this.id}) ${renderKind(this.#kind)}`;
+    return `Plant ${this.#name ?? "<unnamed>"} (${this.id}) ${kindSummarize(this.#kind)}`;
   }
 
   toString() {

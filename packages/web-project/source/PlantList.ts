@@ -27,11 +27,7 @@ export class PlantList extends LitElement {
         @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
       ></sl-input>`,
       this.plants
-        .filter(
-          plant =>
-            plant.id.toLocaleLowerCase().indexOf(this.filter.toLocaleLowerCase()) !== -1 ||
-            plant.name?.toLocaleLowerCase().indexOf(this.filter.toLocaleLowerCase()) !== -1
-        )
+        .filter(plant => plant.indexableText.indexOf(this.filter.toLocaleLowerCase()) !== -1)
         .sort((a, b) => a.logEntryOldest.timestamp.valueOf() - b.logEntryOldest.timestamp.valueOf())
         .map(
           plant =>

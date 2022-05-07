@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <base href="/" />
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,12 +9,7 @@
   </head>
   <body>
     <main class="container">
-      <details>
-        <summary>Configuration</summary>
-        <plant-db-config id="db-config"></plant-db-config>
-      </details>
-      <sl-button id="process">Process</sl-button>
-      <plant-list id="plant-container"></plant-list>
+      <plant-app></plant-app>
     </main>
   </body>
   <script type="module" src="./source/index.ts"></script>
