@@ -229,7 +229,6 @@ __metadata:
     tslib: 2.4.0
     typescript: 4.6.4
     vite: 2.9.8
-    vite-plugin-copy: 0.1.6
   languageName: unknown
   linkType: soft
 
@@ -1758,7 +1757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.7, fast-glob@npm:^3.2.9":
+"fast-glob@npm:^3.2.9":
   version: 3.2.11
   resolution: "fast-glob@npm:3.2.11"
   dependencies:
@@ -4765,15 +4764,6 @@ __metadata:
     core-util-is: 1.0.2
     extsprintf: ^1.2.0
   checksum: 37ccdf8542b5863c525128908ac80f2b476eed36a32cb944de930ca1e2e78584cc435c4b9b4c68d0fc13a47b45ff364b4be43aa74f8804f9050140f660fb660d
-  languageName: node
-  linkType: hard
-
-"vite-plugin-copy@npm:0.1.6":
-  version: 0.1.6
-  resolution: "vite-plugin-copy@npm:0.1.6"
-  dependencies:
-    fast-glob: ^3.2.7
-  checksum: bf1a7ff05b025c66775bc9e3e31279afaac00afd450593974f13665045cd51f58d84228d073b80edc3e57b57bc86d8d51f4affe1863050d9db022ff8d347b26a
   languageName: node
   linkType: hard
 

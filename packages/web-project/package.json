@@ -5,7 +5,7 @@
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "type": "module",
   "scripts": {
-    "build": "node scss.mjs && vite build",
+    "build": "vite build",
     "lint": "eslint source && tsc --noEmit",
     "serve": "vite",
     "preview": "vite preview",

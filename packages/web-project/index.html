@@ -10,44 +10,10 @@
     <main class="container">
       <details>
         <summary>Configuration</summary>
-        <form id="plant-db-input">
-          <fieldset class="import-container">
-            <legend>Import Data</legend>
-            <sl-textarea
-              id="plant-data"
-              rows="10"
-              placeholder="paste plants.csv here"
-              label="Plant data"
-            ></sl-textarea>
-
-            <sl-textarea
-              id="log-data"
-              rows="10"
-              placeholder="paste plantlog.csv here"
-              label="Plant log"
-            ></sl-textarea>
-          </fieldset>
-
-          <fieldset id="db-configuration">
-            <legend>Database Configuration</legend>
-            <sl-checkbox id="has-header-row" checked>Has header row?</sl-checkbox>
-
-            <sl-select id="column-separator" label="Column separator">
-              <sl-menu-item value="&#9;">Tab</sl-menu-item>
-            </sl-select>
-
-            <sl-select id="date-format" label="Timestamp format">
-              <sl-menu-item value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</sl-menu-item>
-            </sl-select>
-
-            <sl-select id="timezone" label="Timezone">
-              <sl-menu-item value="Europe/Berlin">Europe/Berlin</sl-menu-item>
-            </sl-select>
-          </fieldset>
-        </form>
+        <plant-db-config id="db-config"></plant-db-config>
       </details>
       <sl-button id="process">Process</sl-button>
-      <div id="plant-container"></div>
+      <plant-list id="plant-container"></plant-list>
     </main>
   </body>
   <script type="module" src="./source/index.ts"></script>
