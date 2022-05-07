@@ -10,16 +10,31 @@ import { DateTime } from "luxon";
 import "./PlantCard";
 import { PlantCard } from "./PlantCard";
 
-console.log("Application ready. Using ...");
-
 document.addEventListener("DOMContentLoaded", () => {
+  init().catch(console.error);
+});
+
+const init = async () => {
+  const { default: plantsData } = await import("../../../plants.csv?raw");
+  const { default: plantsLogData } = await import("../../../plantlog.csv?raw");
+  const { default: plantsDbData } = await import("../../../plantdb.json?raw");
+
   const plantData = document.querySelector("#plant-data") as HTMLTextAreaElement;
   const plantLogData = document.querySelector("#log-data") as HTMLTextAreaElement;
+
+  plantData.value = plantsData;
+  plantLogData.value = plantsLogData;
 
   const hasHeaderRow = document.querySelector("#has-header-row") as HTMLInputElement;
   const columnSeparator = document.querySelector("#column-separator") as HTMLSelectElement;
   const dateFormat = document.querySelector("#date-format") as HTMLSelectElement;
   const timezone = document.querySelector("#timezone") as HTMLSelectElement;
+
+  const plantDbConfig = JSON.parse(plantsDbData) as DatabaseFormat;
+  hasHeaderRow.checked = plantDbConfig.hasHeaderRow;
+  columnSeparator.value = plantDbConfig.columnSeparator;
+  dateFormat.value = plantDbConfig.dateFormat;
+  timezone.value = plantDbConfig.timezone;
 
   const processButton = document.querySelector("#process") as HTMLButtonElement;
   processButton.addEventListener("click", (event: MouseEvent) => {
@@ -35,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } as DatabaseFormat);
     processData(plantDataRaw, plantLogDataRaw, plantDbConfig);
   });
-});
+};
 
 const processData = (
   plantDataRaw: string,

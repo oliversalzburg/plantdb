@@ -83,7 +83,7 @@ const writeFile = (outFile, data) => {
 };
 
 const sassRender = async () => {
-  const template = "import { css } from \"lit-element\";\n\nexport const style = css`{0}`;\n";
+  const template = "import { css } from \"lit\";\n\nexport const style = css`{0}`;\n";
   const opts = getArgs();
 
   const sassFiles = await getSassFiles(opts.srcDir);

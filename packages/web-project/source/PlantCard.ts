@@ -1,3 +1,5 @@
+import "@shoelace-style/shoelace/dist/components/button/button";
+import "@shoelace-style/shoelace/dist/components/card/card";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -23,17 +25,17 @@ export class PlantCard extends LitElement {
   lastUpdated = "";
 
   render() {
-    return html`<sl-card class="card-basic">
+    return html`<sl-card>
       <header><code>${this.plantId}</code></header>
       ${this.name}
       <em>${this.kind}</em>
-      <footer>
+      <div slot="footer">
         <ul>
           <li>Added: ${DateTime.fromJSDate(new Date(this.dateCreated)).toRelative()}</li>
           <li>Last updated: ${DateTime.fromJSDate(new Date(this.lastUpdated)).toRelative()}</li>
         </ul>
         <sl-button href="#confirm" role="button">Update</sl-button>
-      </footer>
+      </div>
     </sl-card>`;
   }
 }
