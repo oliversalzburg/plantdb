@@ -5,7 +5,6 @@ import { Plant } from "./Plant.js";
 export class PlantDB {
   #plants = new Map<string, Plant>();
   #log = new Array<LogEntry>();
-  #plantLog = new Map<string, Array<LogEntry>>();
   #entryTypes = new Set<string>();
 
   get plants(): ReadonlyMap<string, Plant> {
@@ -31,19 +30,13 @@ export class PlantDB {
       const logEntry = LogEntry.deserialize(logRecord, databaseFormat);
       plantDb.#log.push(logEntry);
       plantDb.#entryTypes.add(logEntry.type);
-
-      if (plantDb.#plantLog.get(logEntry.plantId) === undefined) {
-        plantDb.#plantLog.set(logEntry.plantId, new Array<LogEntry>());
-      }
-      plantDb.#plantLog.get(logEntry.plantId)?.push(logEntry);
     }
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
     for (const plantRecord of plantData) {
       const initialParse = Plant.deserialize(plantRecord);
-      const log = plantDb.#plantLog.get(initialParse.id);
-      const plant = Plant.deserialize(plantRecord, log);
+      const plant = Plant.deserialize(plantRecord, plantDb.#log);
       plantDb.#plants.set(initialParse.id, plant);
     }
 

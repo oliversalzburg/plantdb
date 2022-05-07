@@ -1,4 +1,5 @@
 import { Plant } from "@plantdb/libplantdb";
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
@@ -15,14 +16,33 @@ export class PlantList extends LitElement {
   @property({ type: [Plant] })
   plants = new Array<Plant>();
 
+  @property()
+  filter = "";
+
   render() {
-    return this.plants.map(
-      plant =>
-        html`<plant-card
-          plantId="${plant.id}"
-          name="${plant.name}"
-          kind="${plant.kind}"
-        ></plant-card>`
-    );
+    return [
+      html`<sl-input
+        placeholder="Type filter here"
+        .value="${this.filter}"
+        @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
+      ></sl-input>`,
+      this.plants
+        .filter(
+          plant =>
+            plant.id.toLocaleLowerCase().indexOf(this.filter.toLocaleLowerCase()) !== -1 ||
+            plant.name?.toLocaleLowerCase().indexOf(this.filter.toLocaleLowerCase()) !== -1
+        )
+        .sort((a, b) => a.logEntryOldest.timestamp.valueOf() - b.logEntryOldest.timestamp.valueOf())
+        .map(
+          plant =>
+            html`<plant-card
+              plantId="${plant.id}"
+              name="${plant.name}"
+              kind="${plant.kind}"
+              dateCreated="${plant.logEntryOldest.timestamp}"
+              lastUpdated="${plant.logEntryLatest.timestamp}"
+            ></plant-card>`
+        ),
+    ];
   }
 }

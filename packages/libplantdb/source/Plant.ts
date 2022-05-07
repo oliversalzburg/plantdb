@@ -71,7 +71,14 @@ export class Plant {
   }
 
   get log() {
-    return this.#log;
+    return this.#log.filter(logEntry => logEntry.plantId === this.id);
+  }
+
+  get logEntryOldest() {
+    return this.log[0];
+  }
+  get logEntryLatest() {
+    return this.log[this.log.length - 1];
   }
 
   constructor(plantId: string) {
