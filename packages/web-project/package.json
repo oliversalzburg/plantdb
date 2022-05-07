@@ -3,6 +3,7 @@
   "name": "@plantdb/web-project",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
+  "type": "module",
   "scripts": {
     "build": "vite build",
     "lint": "eslint source && tsc --noEmit",
@@ -11,15 +12,17 @@
     "watch": "vite build --watch"
   },
   "dependencies": {
-    "@picocss/pico": "1.5.0",
     "@plantdb/libplantdb": "workspace:*",
     "csv-parse": "5.0.4",
     "lit": "2.2.3",
     "luxon": "2.3.2"
   },
   "devDependencies": {
-    "@snowpack/plugin-sass": "1.4.0",
+    "@shoelace-style/shoelace": "2.0.0-beta.73",
     "@types/web": "0.0.64",
+    "node-sass": "7.0.1",
+    "node-sass-import": "2.0.1",
+    "sass": "1.51.0",
     "tslib": "2.4.0",
     "typescript": "4.6.4",
     "vite": "2.9.8"

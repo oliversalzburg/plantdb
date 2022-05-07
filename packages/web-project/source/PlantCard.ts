@@ -1,12 +1,10 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { buttonStyles } from "./buttonStyles";
 
 @customElement("plant-card")
 export class PlantCard extends LitElement {
   static styles = [
-    buttonStyles,
     css`
       :host {
         display: block;

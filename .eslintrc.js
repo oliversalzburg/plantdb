@@ -4,6 +4,7 @@ module.exports = {
     node: true,
     es2022: true,
   },
+  parserOptions: { sourceType: "module" },
   extends: ["eslint:recommended"],
   plugins: ["@typescript-eslint"],
   overrides: [

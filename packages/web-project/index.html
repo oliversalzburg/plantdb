@@ -13,52 +13,40 @@
         <form id="plant-db-input">
           <fieldset class="import-container">
             <legend>Import Data</legend>
-            <label for="plant-data"
-              >Plant data<textarea
-                id="plant-data"
-                rows="10"
-                placeholder="paste plants.csv here"
-              ></textarea>
-            </label>
+            <sl-textarea
+              id="plant-data"
+              rows="10"
+              placeholder="paste plants.csv here"
+              label="Plant data"
+            ></sl-textarea>
 
-            <label for="log-data"
-              >Plant log<textarea
-                id="log-data"
-                rows="10"
-                placeholder="paste plantlog.csv here"
-              ></textarea>
-            </label>
+            <sl-textarea
+              id="log-data"
+              rows="10"
+              placeholder="paste plantlog.csv here"
+              label="Plant log"
+            ></sl-textarea>
           </fieldset>
 
           <fieldset id="db-configuration">
             <legend>Database Configuration</legend>
-            <label for="has-header-row"
-              ><input type="checkbox" id="has-header-row" checked />Has header row?</label
-            >
+            <sl-checkbox id="has-header-row" checked>Has header row?</sl-checkbox>
 
-            <label for="column-separator"
-              >Column separator
-              <select id="column-separator">
-                <option value="&#9;">Tab</option>
-              </select>
-            </label>
+            <sl-select id="column-separator" label="Column separator">
+              <sl-menu-item value="&#9;">Tab</sl-menu-item>
+            </sl-select>
 
-            <label for="date-format"
-              >Timestamp format
-              <select id="date-format">
-                <option value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</option>
-              </select>
-            </label>
+            <sl-select id="date-format" label="Timestamp format">
+              <sl-menu-item value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</sl-menu-item>
+            </sl-select>
 
-            <label for="timezone"
-              >Timezone<select id="timezone">
-                <option value="Europe/Berlin">Europe/Berlin</option>
-              </select></label
-            >
+            <sl-select id="timezone" label="Timezone">
+              <sl-menu-item value="Europe/Berlin">Europe/Berlin</sl-menu-item>
+            </sl-select>
           </fieldset>
         </form>
       </details>
-      <button id="process">Process</button>
+      <sl-button id="process">Process</sl-button>
       <div id="plant-container"></div>
     </main>
   </body>

@@ -1,7 +1,7 @@
 /**
  * @type {import("vite").UserConfig}
  */
-module.exports = {
+export default {
   build: {
     outDir: "output",
   },
