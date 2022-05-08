@@ -34,7 +34,13 @@ export class PlantLog extends LitElement {
         @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
       ></sl-input>`,
       this.plantDb.log
-        .filter(entry => entry.note?.indexOf(this.filter.toLocaleLowerCase()) !== -1)
+        .filter(
+          entry =>
+            entry.note?.indexOf(this.filter.toLocaleLowerCase()) !== -1 ||
+            this.plantDb.plants
+              .get(entry.plantId)
+              ?.indexableText.indexOf(this.filter.toLocaleLowerCase()) !== -1
+        )
         .reverse()
         .map(
           entry =>
