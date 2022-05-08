@@ -13,8 +13,8 @@ export class PlantLogEntry extends LitElement {
       }
 
       :host sl-card {
-        width: 95%;
-        margin: 1rem;
+        padding: 1rem;
+        width: 100%;
       }
 
       :host sl-card [slot="header"] {
@@ -92,12 +92,17 @@ export class PlantLogEntry extends LitElement {
       <section>
         <div>
           ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
-          <small>${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}</small>
+          <small
+            >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.plant
+              .logEntryOldest === this.logEntry
+              ? "🌟"
+              : ""}</small
+          >
         </div>
         <sl-divider vertical></sl-divider>
         <div>
           <strong
-            >${identifiedType ?? this.logEntry.type}:
+            >${this.logEntry.type}:
             ${this.extractTypeDetails(this.logEntry, identifiedType)}</strong
           >
           <br /><cite>${this.logEntry.note}</cite>
