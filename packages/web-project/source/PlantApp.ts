@@ -10,6 +10,7 @@ import {
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
+import { PlantDbStorage } from "./PlantDbStorage";
 
 @customElement("plant-app")
 export class PlantApp extends LitElement {
@@ -88,13 +89,16 @@ export class PlantApp extends LitElement {
   loadPage(page: string, pageParams = new Array<string>()) {
     switch (page) {
       case "log":
-        import("./PlantLog.js");
+        import("./PlantLog");
         break;
       case "list":
-        import("./PlantList.js");
+        import("./PlantList");
         break;
       case "plant":
         import("./PlantDetails");
+        break;
+      case "types":
+        import("./PlantTypeMap");
         break;
       case "import":
         import("./PlantImport");
@@ -120,6 +124,7 @@ export class PlantApp extends LitElement {
           <sl-menu-item @click=${() => this.navigateInvoke("/")}>Log</sl-menu-item>
           <sl-menu-item @click=${() => this.navigateInvoke("/list")}>Plants</sl-menu-item>
           <sl-divider></sl-divider>
+          <sl-menu-item @click=${() => this.navigateInvoke("/types")}>Type mappings</sl-menu-item>
           <sl-menu-item @click=${() => this.navigateInvoke("/import")}>Import</sl-menu-item>
           <sl-button
             slot="footer"
@@ -139,6 +144,16 @@ export class PlantApp extends LitElement {
         ></sl-icon-button>
 
         <plant-404 class="view" ?active=${this.page === "view404"}></plant-404>
+        <plant-type-map
+          class="view"
+          ?active=${this.page === "types"}
+          .plantDb=${this.plantDb}
+          @config-changed=${(event: CustomEvent<DatabaseFormat>) => {
+            console.debug(event.detail);
+            this.plantDb = PlantDB.fromPlantDB(this.plantDb, { config: event.detail });
+            PlantDbStorage.persistPlantDb(this.plantDb);
+          }}
+        ></plant-type-map>
         <plant-import
           class="view"
           ?active=${this.page === "import"}

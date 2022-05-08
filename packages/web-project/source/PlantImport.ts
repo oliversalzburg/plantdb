@@ -4,6 +4,7 @@ import { parse } from "csv-parse/browser/esm/sync";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
+import { PlantDbStorage } from "./PlantDbStorage";
 
 @customElement("plant-import")
 export class PlantImport extends LitElement {
@@ -87,17 +88,7 @@ export class PlantImport extends LitElement {
 
     this.plants = [...plantDb.plants.values()];
 
-    this.persistPlantDb(plantDb);
-  }
-
-  persistPlantDb(plantDb: PlantDB) {
-    const config = JSON.stringify(plantDb.config);
-    const log = JSON.stringify(plantDb.log);
-    const plants = JSON.stringify([...plantDb.plants.values()]);
-
-    localStorage.setItem("plantdb.config", config);
-    localStorage.setItem("plantdb.log", log);
-    localStorage.setItem("plantdb.plants", plants);
+    PlantDbStorage.persistPlantDb(plantDb);
   }
 
   render() {
