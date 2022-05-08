@@ -85,7 +85,7 @@ export class Plant {
     return this.log[this.log.length - 1];
   }
 
-  constructor(plantId: string) {
+  private constructor(plantId: string) {
     this.#plantId = plantId;
   }
 
@@ -95,6 +95,10 @@ export class Plant {
 
   toString() {
     return this.identify();
+  }
+
+  static Empty() {
+    return new Plant("PID-0");
   }
 
   static deserialize(dataRow: Array<string>, log = new Array<LogEntry>()): Plant {

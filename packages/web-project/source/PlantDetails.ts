@@ -1,3 +1,4 @@
+import { Plant } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
@@ -5,13 +6,13 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 
-@customElement("plant-card")
-export class PlantCard extends LitElement {
+@customElement("plant-details")
+export class PlantDetails extends LitElement {
   static readonly styles = [
     css`
       :host {
         display: inline-block;
-        width: 400px;
+        width: 600px;
       }
 
       :host sl-card {
@@ -41,34 +42,28 @@ export class PlantCard extends LitElement {
   ];
 
   @property()
-  plantId = "";
-
-  @property()
-  name = "";
-
-  @property()
-  kind = "";
-
-  @property()
-  dateCreated = "";
-
-  @property()
-  lastUpdated = "";
+  plant: Plant | undefined;
 
   render() {
+    if (!this.plant) {
+      return;
+    }
+
     return html`<sl-card>
-      <div slot="header"><sl-badge variant="neutral">${this.plantId}</sl-badge></div>
-      ${this.name}
+      <div slot="header"><sl-badge variant="neutral">${this.plant.id}</sl-badge></div>
+      ${this.plant.name}
       <br />
-      <small><em>${this.kind}</em></small>
+      <small><em>${this.plant.kind}</em></small>
       <div slot="footer">
         <small>
           <ul>
-            <li>Added: ${DateTime.fromJSDate(new Date(this.dateCreated)).toRelative()}</li>
-            <li>Last updated: ${DateTime.fromJSDate(new Date(this.lastUpdated)).toRelative()}</li>
+            <li>Added: ${DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()}</li>
+            <li>
+              Last updated: ${DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()}
+            </li>
           </ul>
         </small>
-        <sl-button href="/plant/${this.plantId}" role="button">Update</sl-button>
+        <sl-button href="#confirm" role="button">Update</sl-button>
       </div>
     </sl-card>`;
   }

@@ -1,14 +1,23 @@
 import { DatabaseFormat, Plant, PlantDB } from "@plantdb/libplantdb";
 import { parse } from "csv-parse/browser/esm/sync";
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
+import { installRouter } from "pwa-helpers/router.js";
 
 @customElement("plant-app")
 export class PlantApp extends LitElement {
   static readonly styles = [
     css`
       :host {
+        display: block;
+      }
+
+      .view {
+        display: none;
+      }
+
+      .view[active] {
         display: block;
       }
     `,
@@ -34,6 +43,48 @@ export class PlantApp extends LitElement {
 
   @property()
   plants = new Array<Plant>();
+
+  @state()
+  private page = "list";
+  private pageParams = new Array<string>();
+
+  firstUpdated() {
+    installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
+  }
+
+  navigate(path: string) {
+    // Extract the page name from path.
+    const pathString = path === "/" ? "list" : path.slice(1);
+
+    if (pathString.includes("/")) {
+      const pathParts = pathString.split("/");
+      return this.loadPage(pathParts[0], pathParts.slice(1));
+    }
+
+    // Any other info you might want to extract from the path (like page type),
+    // you can do here
+    this.loadPage(pathString);
+
+    // Close the drawer - in case the *path* change came from a link in the drawer.
+    //dispatch(updateDrawerState(false));
+  }
+
+  loadPage(page: string, pageParams = new Array<string>()) {
+    switch (page) {
+      case "list":
+        import("./PlantList.js");
+        break;
+      case "plant":
+        import("./PlantDetails");
+        break;
+      default:
+        page = "view404";
+        import("./InvalidRouteView");
+    }
+
+    this.page = page;
+    this.pageParams = pageParams;
+  }
 
   process(event?: MouseEvent) {
     event?.preventDefault();
@@ -98,7 +149,17 @@ export class PlantApp extends LitElement {
         <sl-button id="process" @click="${(event: MouseEvent) => this.process(event)}"
           >Process</sl-button
         >
-        <plant-list .plants="${this.plants}"></plant-list>`,
+        <plant-404 class="view" ?active=${this.page === "view404"}></plant-404>
+        <plant-list
+          class="view"
+          ?active=${this.page === "list"}
+          .plants=${this.plants}
+        ></plant-list>
+        <plant-details
+          class="view"
+          ?active=${this.page === "plant"}
+          .plant=${this.plants.find(plant => plant.id === this.pageParams[0])}
+        ></plant-details>`,
     ];
   }
 }

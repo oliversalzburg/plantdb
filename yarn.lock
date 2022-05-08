@@ -225,6 +225,7 @@ __metadata:
     luxon: 2.3.2
     node-sass: 7.0.1
     node-sass-import: 2.0.1
+    pwa-helpers: 0.9.1
     sass: 1.51.0
     tslib: 2.4.0
     typescript: 4.6.4
@@ -3731,6 +3732,13 @@ __metadata:
   version: 2.1.1
   resolution: "punycode@npm:2.1.1"
   checksum: 83815ca9b9177f055771f31980cbec7ffaef10257d50a95ab99b4a30f0404846e85fa6887ee1bbc0aaddb7bad6d96e2fa150a016051ff0f6b92be4ad613ddca8
+  languageName: node
+  linkType: hard
+
+"pwa-helpers@npm:0.9.1":
+  version: 0.9.1
+  resolution: "pwa-helpers@npm:0.9.1"
+  checksum: e60a4fba1064ab592ca5af51bb6bc3cd0e7725bb688556e83d8eda04edd888a483c2f04f0de7562636a0885948bb7896fa308aac83c64a249acbce4d285e67c7
   languageName: node
   linkType: hard
 

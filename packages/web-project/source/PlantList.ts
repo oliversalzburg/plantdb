@@ -19,6 +19,13 @@ export class PlantList extends LitElement {
   @property()
   filter = "";
 
+  @property({ type: Boolean })
+  active = false;
+
+  protected shouldUpdate(): boolean {
+    return this.active;
+  }
+
   render() {
     return [
       html`<sl-input
