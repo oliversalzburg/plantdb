@@ -1,6 +1,7 @@
 import {
   DatabaseFormat,
   DatabaseFormatSerialized,
+  EventType,
   LogEntry,
   LogEntrySerialized,
   Plant,
@@ -84,6 +85,7 @@ export class PlantApp extends LitElement {
 
     // Close the drawer - in case the *path* change came from a link in the drawer.
     //dispatch(updateDrawerState(false));
+    this.drawerOpen = false;
   }
 
   loadPage(page: string, pageParams = new Array<string>()) {
@@ -148,8 +150,16 @@ export class PlantApp extends LitElement {
           class="view"
           ?active=${this.page === "types"}
           .plantDb=${this.plantDb}
+          .proposedMapping=${new Map(
+            [...this.plantDb.entryTypes.values()]
+              .map(entryType =>
+                this.plantDb.config.typeMap.has(entryType)
+                  ? [entryType, this.plantDb.config.typeMap.get(entryType)]
+                  : undefined
+              )
+              .filter(Boolean) as Array<[string, EventType]>
+          )}
           @config-changed=${(event: CustomEvent<DatabaseFormat>) => {
-            console.debug(event.detail);
             this.plantDb = PlantDB.fromPlantDB(this.plantDb, { config: event.detail });
             PlantDbStorage.persistPlantDb(this.plantDb);
           }}

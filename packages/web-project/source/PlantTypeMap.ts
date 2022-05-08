@@ -29,14 +29,15 @@ export class PlantTypeMap extends LitElement {
     `,
   ];
 
-  @property()
+  @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
 
+  @property({ type: Map })
   proposedMapping = new Map<string, EventType>();
 
   render() {
     return [
-      html` <h2>Type mapping</h2>
+      html`<h2>Type mapping</h2>
         <p>
           On the left, you see the event types that you have used in your input data. Assign the
           PlantDB type identifiers on the right to make your events recognizable in the app.
@@ -67,12 +68,13 @@ export class PlantTypeMap extends LitElement {
         </ul>
         <sl-button
           variant="primary"
-          @click=${() =>
+          @click=${() => {
             this.dispatchEvent(
               new CustomEvent("config-changed", {
                 detail: this.plantDb.config.withNewTypeMap(this.proposedMapping),
               })
-            )}
+            );
+          }}
           >Save mapping</sl-button
         >`,
     ];
