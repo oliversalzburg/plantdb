@@ -3,9 +3,14 @@ import { LogEntry } from "./LogEntry.js";
 import { Plant } from "./Plant.js";
 
 export class PlantDB {
+  #config = new DatabaseFormat();
   #plants = new Map<string, Plant>();
   #log = new Array<LogEntry>();
   #entryTypes = new Set<string>();
+
+  get config() {
+    return this.#config;
+  }
 
   get plants(): ReadonlyMap<string, Plant> {
     return this.#plants;
@@ -25,6 +30,8 @@ export class PlantDB {
     plantLogData: Array<Array<string>>
   ) {
     const plantDb = new PlantDB();
+
+    plantDb.#config = databaseFormat;
 
     for (const logRecord of plantLogData) {
       const logEntry = LogEntry.deserialize(logRecord, databaseFormat);

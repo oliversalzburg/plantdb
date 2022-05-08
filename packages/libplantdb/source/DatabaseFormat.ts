@@ -26,12 +26,21 @@ export class DatabaseFormat {
     return this.#timezone;
   }
 
-  static deserialize(data: DatabaseFormat) {
+  static deserialize(data: Partial<DatabaseFormat>) {
     const format = new DatabaseFormat();
-    format.#columnSeparator = data.columnSeparator;
-    format.#dateFormat = data.dateFormat;
-    format.#hasHeaderRow = data.hasHeaderRow;
-    format.#timezone = data.timezone;
+    format.#columnSeparator = data.columnSeparator ?? format.#columnSeparator;
+    format.#dateFormat = data.dateFormat ?? format.#dateFormat;
+    format.#hasHeaderRow = data.hasHeaderRow ?? format.#hasHeaderRow;
+    format.#timezone = data.timezone ?? format.#timezone;
     return format;
+  }
+
+  toJSON() {
+    return {
+      columnSeparator: this.columnSeparator,
+      dateFormat: this.dateFormat,
+      hasHeaderRow: this.hasHeaderRow,
+      timezone: this.timezone,
+    };
   }
 }

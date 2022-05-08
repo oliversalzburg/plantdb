@@ -35,7 +35,7 @@ export class LogEntry {
     return this.#product;
   }
 
-  get node() {
+  get note() {
     return this.#note;
   }
 
@@ -69,5 +69,17 @@ export class LogEntry {
     logEntry.#product = dataRow[5];
     logEntry.#note = dataRow[6];
     return logEntry;
+  }
+
+  toJSON() {
+    return {
+      plantId: this.plantId,
+      timestamp: this.timestamp,
+      type: this.type,
+      ec: this.ec,
+      ph: this.ph,
+      product: this.product,
+      note: this.note,
+    };
   }
 }

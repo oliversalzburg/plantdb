@@ -118,4 +118,21 @@ export class Plant {
     plant.#log = log;
     return plant;
   }
+
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      kind: this.kind,
+      substrate: this.substrate,
+      potShapeTop: this.potShapeTop,
+      potColor: this.potColor,
+      onSaucer: this.onSaucer,
+      location: this.location,
+      phIdeal: this.phIdeal,
+      ecIdeal: this.ecIdeal,
+      tempIdeal: this.tempIdeal,
+      notes: this.notes,
+    };
+  }
 }
