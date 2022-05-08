@@ -50,6 +50,11 @@ export class PlantApp extends LitElement {
     }
   }
 
+  navigateInvoke(path: string) {
+    history.pushState(null, "", path);
+    return this.navigate(path);
+  }
+
   navigate(path: string) {
     // Extract the page name from path.
     const pathString = path === "/" ? "list" : path.slice(1);
@@ -90,13 +95,15 @@ export class PlantApp extends LitElement {
   render() {
     return [
       html`<sl-drawer
-          label="Drawer"
+          label="Plant App"
           placement="start"
           class="drawer-placement-start"
           ?open=${this.drawerOpen}
           @sl-after-hide=${() => (this.drawerOpen = false)}
         >
-          This drawer slides in from the start.
+          <sl-menu-item @click=${() => this.navigateInvoke("/")}>Plant list</sl-menu-item>
+          <sl-divider></sl-divider>
+          <sl-menu-item @click=${() => this.navigateInvoke("/import")}>Import</sl-menu-item>
           <sl-button
             slot="footer"
             variant="primary"
