@@ -34,7 +34,7 @@ export class PlantDB {
     plantDb.#config = databaseFormat;
 
     for (const logRecord of plantLogData) {
-      const logEntry = LogEntry.deserialize(logRecord, databaseFormat);
+      const logEntry = LogEntry.fromCSV(logRecord, databaseFormat);
       plantDb.#log.push(logEntry);
       plantDb.#entryTypes.add(logEntry.type);
     }
@@ -42,9 +42,8 @@ export class PlantDB {
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
     for (const plantRecord of plantData) {
-      const initialParse = Plant.deserialize(plantRecord);
-      const plant = Plant.deserialize(plantRecord, plantDb.#log);
-      plantDb.#plants.set(initialParse.id, plant);
+      const plant = Plant.fromCSV(plantRecord, plantDb.#log);
+      plantDb.#plants.set(plant.id, plant);
     }
 
     return plantDb;

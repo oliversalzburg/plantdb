@@ -19,7 +19,7 @@ export class PlantList extends LitElement {
   @property()
   filter = "";
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   active = false;
 
   protected shouldUpdate(): boolean {

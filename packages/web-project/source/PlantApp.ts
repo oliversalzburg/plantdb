@@ -1,8 +1,6 @@
-import { DatabaseFormat, Plant, PlantDB } from "@plantdb/libplantdb";
-import { parse } from "csv-parse/browser/esm/sync";
+import { DatabaseFormat, LogEntry, Plant } from "@plantdb/libplantdb";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { DateTime } from "luxon";
 import { installRouter } from "pwa-helpers/router.js";
 
 @customElement("plant-app")
@@ -24,24 +22,6 @@ export class PlantApp extends LitElement {
   ];
 
   @property()
-  plantData = "";
-
-  @property()
-  plantLogData = "";
-
-  @property()
-  columnSeparator = "\t";
-
-  @property()
-  dateFormat = "yyyy-MM-dd hh:mm:ss";
-
-  @property({ type: Boolean })
-  hasHeaderRow = false;
-
-  @property()
-  timezone = "utc";
-
-  @property()
   plants = new Array<Plant>();
 
   @state()
@@ -50,6 +30,21 @@ export class PlantApp extends LitElement {
 
   firstUpdated() {
     installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
+
+    const storedConfig = localStorage.getItem("plantdb.config");
+    if (storedConfig) {
+      const storedLog = localStorage.getItem("plantdb.log");
+      const storedPlants = localStorage.getItem("plantdb.plants");
+
+      if (storedLog && storedPlants) {
+        const config = DatabaseFormat.deserialize(JSON.parse(storedConfig) as DatabaseFormat);
+        const logData = JSON.parse(storedLog) as Array<LogEntry>;
+        const log = logData.map(logEntry => LogEntry.fromJSON(logEntry));
+
+        const plants = JSON.parse(storedPlants) as Array<Plant>;
+        this.plants = plants.map(plant => Plant.fromJSON(plant, log));
+      }
+    }
   }
 
   navigate(path: string) {
@@ -77,79 +72,26 @@ export class PlantApp extends LitElement {
       case "plant":
         import("./PlantDetails");
         break;
+      case "import":
+        import("./PlantImport");
+        break;
       default:
         page = "view404";
-        import("./InvalidRouteView");
+        import("./Plant404");
     }
 
     this.page = page;
     this.pageParams = pageParams;
   }
 
-  process(event?: MouseEvent) {
-    event?.preventDefault();
-    console.info("Processing data...");
-    const plantDataRaw = this.plantData;
-    const plantLogDataRaw = this.plantLogData;
-    const plantDbConfig = DatabaseFormat.deserialize({
-      columnSeparator: this.columnSeparator,
-      dateFormat: this.dateFormat,
-      hasHeaderRow: this.hasHeaderRow,
-      timezone: this.timezone,
-    } as DatabaseFormat);
-    this.processData(plantDataRaw, plantLogDataRaw, plantDbConfig);
-  }
-
-  processData(plantDataRaw: string, plantLogDataRaw: string, plantDbConfig: DatabaseFormat) {
-    const plantData = parse(plantDataRaw, {
-      columns: false,
-      delimiter: plantDbConfig.columnSeparator,
-      from: plantDbConfig.hasHeaderRow ? 2 : 1,
-    }) as Array<Array<string>>;
-    const plantLogData = parse(plantLogDataRaw, {
-      columns: false,
-      delimiter: plantDbConfig.columnSeparator,
-      from: plantDbConfig.hasHeaderRow ? 2 : 1,
-    }) as Array<Array<string>>;
-
-    const plantDb = PlantDB.deserialize(plantDbConfig, plantData, plantLogData);
-
-    for (const logRecord of plantDb.log) {
-      const plant = plantDb.plants.get(logRecord.plantId);
-      if (!plant) {
-        continue;
-      }
-      console.info(
-        `${plant.name ?? "?"} (${plant.id}) ${DateTime.fromJSDate(
-          logRecord.timestamp
-        ).toLocaleString(DateTime.DATETIME_SHORT)} ${logRecord.type}`
-      );
-    }
-
-    console.info(
-      `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`
-    );
-
-    this.plants = [...plantDb.plants.values()];
-  }
-
   render() {
     return [
-      html`<details>
-          <summary>Configuration</summary>
-          <plant-db-config
-            .plantData="${this.plantData}"
-            .plantLogData="${this.plantLogData}"
-            .hasHeaderRow="${this.hasHeaderRow}"
-            .columnSeparator="${this.columnSeparator}"
-            .dateFormat="${this.dateFormat}"
-            .timezone="${this.timezone}"
-          ></plant-db-config>
-        </details>
-        <sl-button id="process" @click="${(event: MouseEvent) => this.process(event)}"
-          >Process</sl-button
-        >
-        <plant-404 class="view" ?active=${this.page === "view404"}></plant-404>
+      html`<plant-404 class="view" ?active=${this.page === "view404"}></plant-404>
+        <plant-import
+          class="view"
+          ?active=${this.page === "import"}
+          .plants="${this.plants}"
+        ></plant-import>
         <plant-list
           class="view"
           ?active=${this.page === "list"}

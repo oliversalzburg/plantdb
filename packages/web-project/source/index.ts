@@ -1,16 +1,17 @@
-import { DatabaseFormat } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/button/button.js";
 import "@shoelace-style/shoelace/dist/components/checkbox/checkbox.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
 import "@shoelace-style/shoelace/dist/components/menu-item/menu-item";
 import "@shoelace-style/shoelace/dist/components/select/select.js";
 import "@shoelace-style/shoelace/dist/components/textarea/textarea";
+import "./Plant404";
 import "./PlantApp";
-import { PlantApp } from "./PlantApp";
 import "./PlantCard";
 import "./PlantDbConfig";
+import "./PlantDetails";
+import "./PlantImport";
 import "./PlantList";
-
+/*
 document.addEventListener("DOMContentLoaded", () => {
   init().catch(console.error);
 });
@@ -30,3 +31,4 @@ const init = async () => {
   plantApp.dateFormat = plantDbConfig.dateFormat;
   plantApp.timezone = plantDbConfig.timezone;
 };
+*/

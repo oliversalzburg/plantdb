@@ -101,7 +101,7 @@ export class Plant {
     return new Plant("PID-0");
   }
 
-  static deserialize(dataRow: Array<string>, log = new Array<LogEntry>()): Plant {
+  static fromCSV(dataRow: Array<string>, log = new Array<LogEntry>()): Plant {
     const plant = new Plant(dataRow[0]);
     plant.#name = dataRow[1];
     plant.#kind = dataRow[2].includes("\n") ? dataRow[2].split("\n") : dataRow[2];
@@ -114,6 +114,24 @@ export class Plant {
     plant.#ecIdeal = Number(dataRow[9]);
     plant.#tempIdeal = Number(dataRow[10]);
     plant.#notes = dataRow[11];
+
+    plant.#log = log;
+    return plant;
+  }
+
+  static fromJSON(dataObject: Partial<Plant> & { id: string }, log = new Array<LogEntry>()) {
+    const plant = new Plant(dataObject.id);
+    plant.#name = dataObject.name ?? plant.#name;
+    plant.#kind = dataObject.kind ?? plant.#kind;
+    plant.#substrate = dataObject.substrate ?? plant.#substrate;
+    plant.#potShapeTop = dataObject.potShapeTop ?? plant.#potShapeTop;
+    plant.#potColor = dataObject.potColor ?? plant.#potColor;
+    plant.#onSaucer = dataObject.onSaucer ?? plant.#onSaucer;
+    plant.#location = dataObject.location ?? plant.#location;
+    plant.#phIdeal = dataObject.phIdeal ?? plant.#phIdeal;
+    plant.#ecIdeal = dataObject.ecIdeal ?? plant.#ecIdeal;
+    plant.#tempIdeal = dataObject.tempIdeal ?? plant.#tempIdeal;
+    plant.#notes = dataObject.notes ?? plant.#notes;
 
     plant.#log = log;
     return plant;

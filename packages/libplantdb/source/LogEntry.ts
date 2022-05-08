@@ -58,7 +58,7 @@ export class LogEntry {
     return hasValidPid && hasValidDate;
   }
 
-  static deserialize(dataRow: Array<string>, format: DatabaseFormat): LogEntry {
+  static fromCSV(dataRow: Array<string>, format: DatabaseFormat): LogEntry {
     const logEntry = new LogEntry(
       dataRow[0],
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
@@ -68,6 +68,17 @@ export class LogEntry {
     logEntry.#ph = Number(dataRow[4]);
     logEntry.#product = dataRow[5];
     logEntry.#note = dataRow[6];
+    return logEntry;
+  }
+
+  static fromJSON(
+    dataObject: Partial<LogEntry> & { plantId: string; timestamp: Date; type: string }
+  ) {
+    const logEntry = new LogEntry(dataObject.plantId, dataObject.timestamp, dataObject.type);
+    logEntry.#ec = dataObject.ec ?? logEntry.#ec;
+    logEntry.#ph = dataObject.ph ?? logEntry.#ph;
+    logEntry.#product = dataObject.product ?? logEntry.#product;
+    logEntry.#note = dataObject.note ?? logEntry.#note;
     return logEntry;
   }
 

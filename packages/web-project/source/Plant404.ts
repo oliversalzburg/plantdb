@@ -2,7 +2,7 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 @customElement("plant-404")
-export class InvalidRouteView extends LitElement {
+export class Plant404 extends LitElement {
   static readonly styles = [
     css`
       :host {
