@@ -1,4 +1,4 @@
-import { Plant } from "@plantdb/libplantdb";
+import { Plant, PlantDB } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
@@ -12,6 +12,9 @@ export class PlantList extends LitElement {
       }
     `,
   ];
+
+  @property({ type: PlantDB })
+  plantDb = PlantDB.Empty();
 
   @property({ type: [Plant] })
   plants = new Array<Plant>();
@@ -36,16 +39,7 @@ export class PlantList extends LitElement {
       this.plants
         .filter(plant => plant.indexableText.indexOf(this.filter.toLocaleLowerCase()) !== -1)
         .sort((a, b) => a.logEntryOldest.timestamp.valueOf() - b.logEntryOldest.timestamp.valueOf())
-        .map(
-          plant =>
-            html`<plant-card
-              plantId="${plant.id}"
-              name="${plant.name}"
-              kind="${plant.kind}"
-              dateCreated="${plant.logEntryOldest.timestamp}"
-              lastUpdated="${plant.logEntryLatest.timestamp}"
-            ></plant-card>`
-        ),
+        .map(plant => html`<plant-card .plant=${plant} .plantDb=${this.plantDb}></plant-card>`),
     ];
   }
 }

@@ -59,8 +59,8 @@ export class PlantTypeMap extends LitElement {
                     }
                     this.proposedMapping.set(entryType, value as EventType);
                   }}
-                  >${EventTypes.map(
-                    type => html`<sl-menu-item .value="${type}">${type}</sl-menu-item>`
+                  >${Object.entries(EventTypes).map(
+                    ([type, label]) => html`<sl-menu-item .value="${type}">${label}</sl-menu-item>`
                   )}</sl-select
                 >
               </li>`

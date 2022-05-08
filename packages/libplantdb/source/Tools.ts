@@ -25,7 +25,7 @@ export const kindFlatten = (plantKind: string | string[] | undefined) => {
   return plantKind;
 };
 
-export const identifyLogType = (entryType: string, plantDb: PlantDB) => {
+export const identifyLogType = (entryType: string, plantDb: PlantDB): EventType | undefined => {
   if (!plantDb.config.typeMap.has(entryType)) {
     return undefined;
   }

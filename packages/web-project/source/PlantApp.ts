@@ -174,6 +174,7 @@ export class PlantApp extends LitElement {
           class="view"
           ?active=${this.page === "list"}
           .plants=${this.plants}
+          .plantDb=${this.plantDb}
         ></plant-list>
         <plant-details
           class="view"

@@ -1,55 +1,55 @@
-export const EventTypes = [
+export const EventTypes = {
   /**
    * Typically, this marks the first event of a plant, if that plant was acquired (purchased) from a vendor.
    */
-  "Acquisition",
+  Acquisition: "Acquisition",
   /**
    * A plant was fertilized.
    */
-  "Fertilization",
+  Fertilization: "Fertilization",
   /**
    * A measurement has been taken from the plant.
    */
-  "Measurement",
+  Measurement: "Measurement",
   /**
    * Something not further categorizable has been observed about the plant.
    */
-  "Observation",
+  Observation: "Observation",
   /**
    * A pest situation has been acted on.
    */
-  "Pest Control",
+  PestControl: "Pest Control",
   /**
    * A pest situation has been identified.
    */
-  "Pest Infestation",
+  PestInfestation: "Pest Infestation",
   /**
    * Branches have been pruned.
    */
-  "Pruning",
+  Pruning: "Pruning",
   /**
    * Plant was moved from one location to another one.
    */
-  "Relocation",
+  Relocation: "Relocation",
   /**
    * Plant was put into a (new) pot. Usually also marks the first event of a plant that was created from a cutting.
    */
-  "Repotting",
+  Repotting: "Repotting",
   /**
    * Roots have been pruned.
    */
-  "Root pruning",
+  RootPruning: "Root pruning",
   /**
    * The plant was shaped. For example, through wiring branches. Not to be confused with Pruning.
    */
-  "Shaping",
+  Shaping: "Shaping",
   /**
    * Any form of irrigation
    */
-  "Watering",
-] as const;
+  Watering: "Watering",
+} as const;
 
-export type EventType = keyof typeof EventTypes;
+export type EventType = typeof EventTypes[keyof typeof EventTypes];
 
 export type DatabaseFormatSerialized = {
   columnSeparator: string;

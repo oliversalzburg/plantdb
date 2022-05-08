@@ -24,7 +24,7 @@ export class PlantLog extends LitElement {
     `,
   ];
 
-  @property({ type: [PlantDB] })
+  @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
 
   @property()
