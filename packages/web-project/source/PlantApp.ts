@@ -21,6 +21,9 @@ export class PlantApp extends LitElement {
     `,
   ];
 
+  @property({ type: Boolean })
+  drawerOpen = false;
+
   @property()
   plants = new Array<Plant>();
 
@@ -86,7 +89,32 @@ export class PlantApp extends LitElement {
 
   render() {
     return [
-      html`<plant-404 class="view" ?active=${this.page === "view404"}></plant-404>
+      html`<sl-drawer
+          label="Drawer"
+          placement="start"
+          class="drawer-placement-start"
+          ?open=${this.drawerOpen}
+          @sl-after-hide=${() => (this.drawerOpen = false)}
+        >
+          This drawer slides in from the start.
+          <sl-button
+            slot="footer"
+            variant="primary"
+            @click=${() => {
+              this.drawerOpen = false;
+            }}
+            >Close</sl-button
+          >
+        </sl-drawer>
+        <sl-icon-button
+          name="list"
+          label="Drawer"
+          @click=${() => {
+            this.drawerOpen = true;
+          }}
+        ></sl-icon-button>
+
+        <plant-404 class="view" ?active=${this.page === "view404"}></plant-404>
         <plant-import
           class="view"
           ?active=${this.page === "import"}
