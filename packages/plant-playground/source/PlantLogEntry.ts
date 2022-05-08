@@ -18,6 +18,10 @@ export class PlantLogEntry extends LitElement {
       }
 
       :host sl-card [slot="header"] {
+        display: none;
+      }
+
+      :host([headervisible]) sl-card [slot="header"] {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -41,6 +45,9 @@ export class PlantLogEntry extends LitElement {
   @property({ type: Plant })
   plant = Plant.Empty();
 
+  @property({ type: Boolean, attribute: true, reflect: true })
+  headerVisible = true;
+
   extractTypeDetails(logEntry: LogEntry, eventType?: EventType) {
     switch (eventType) {
       case "Acquisition":
@@ -55,9 +62,9 @@ export class PlantLogEntry extends LitElement {
         }`;
       case "Observation":
         return "🔍";
-      case "Pest Control":
+      case "PestControl":
         return `☠ ${logEntry.product ? logEntry.product : ""}`;
-      case "Pest Infestation":
+      case "PestInfestation":
         return "🐛";
       case "Pruning":
         return "✂";
@@ -65,7 +72,7 @@ export class PlantLogEntry extends LitElement {
         return "🏠";
       case "Repotting":
         return "🌻";
-      case "Root pruning":
+      case "RootPruning":
         return "✂";
       case "Shaping":
         return "✂";
@@ -80,34 +87,38 @@ export class PlantLogEntry extends LitElement {
 
   render() {
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
-    return html`<sl-card>
-      <div slot="header">
-        <div>
-          ${this.plant.name}
-          <br />
-          <small><em>${this.plant.kind}</em></small>
-        </div>
-        <sl-badge variant="neutral">${this.plant.id}</sl-badge>
-      </div>
-      <section>
-        <div>
-          ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
-          <small
-            >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.plant
-              .logEntryOldest === this.logEntry
-              ? "🌟"
-              : ""}</small
-          >
-        </div>
-        <sl-divider vertical></sl-divider>
-        <div>
-          <strong
-            >${this.logEntry.type}:
-            ${this.extractTypeDetails(this.logEntry, identifiedType)}</strong
-          >
-          <br /><cite>${this.logEntry.note}</cite>
-        </div>
-      </section>
-    </sl-card>`;
+    return [
+      html`<sl-card>
+        ${this.headerVisible
+          ? html`<div slot="header">
+              <div>
+                ${this.plant.name}
+                <br />
+                <small><em>${this.plant.kind}</em></small>
+              </div>
+              <sl-badge variant="neutral">${this.plant.id}</sl-badge>
+            </div>`
+          : html``}
+        <section>
+          <div>
+            ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
+            <small
+              >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.plant
+                .logEntryOldest === this.logEntry
+                ? "🌟"
+                : ""}</small
+            >
+          </div>
+          <sl-divider vertical></sl-divider>
+          <div>
+            <strong
+              >${this.logEntry.type}:
+              ${this.extractTypeDetails(this.logEntry, identifiedType)}</strong
+            >
+            <br /><cite>${this.logEntry.note}</cite>
+          </div>
+        </section>
+      </sl-card>`,
+    ];
   }
 }

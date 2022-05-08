@@ -1,4 +1,4 @@
-import { Plant } from "@plantdb/libplantdb";
+import { Plant, PlantDB } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
@@ -11,12 +11,10 @@ export class PlantDetails extends LitElement {
   static readonly styles = [
     css`
       :host {
-        display: inline-block;
-        width: 600px;
+        display: block;
       }
 
       :host sl-card {
-        width: 95%;
         margin: 1rem;
       }
 
@@ -41,8 +39,11 @@ export class PlantDetails extends LitElement {
     `,
   ];
 
-  @property()
+  @property({ type: Plant })
   plant: Plant | undefined;
+
+  @property({ type: PlantDB })
+  plantDb = PlantDB.Empty();
 
   render() {
     if (!this.plant) {
@@ -50,21 +51,28 @@ export class PlantDetails extends LitElement {
     }
 
     return html`<sl-card>
-      <div slot="header"><sl-badge variant="neutral">${this.plant.id}</sl-badge></div>
-      ${this.plant.name}
-      <br />
-      <small><em>${this.plant.kind}</em></small>
-      <div slot="footer">
-        <small>
-          <ul>
-            <li>Added: ${DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()}</li>
-            <li>
-              Last updated: ${DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()}
-            </li>
-          </ul>
-        </small>
-        <sl-button href="#confirm" role="button">Update</sl-button>
-      </div>
-    </sl-card>`;
+        <div slot="header"><sl-badge variant="neutral">${this.plant.id}</sl-badge></div>
+        ${this.plant.name}
+        <br />
+        <small><em>${this.plant.kind}</em></small>
+        <div slot="footer">
+          <small>
+            <ul>
+              <li>
+                Added: ${DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()}
+              </li>
+              <li>
+                Last updated:
+                ${DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()}
+              </li>
+            </ul>
+          </small>
+        </div>
+      </sl-card>
+      <plant-log
+        .plantDb=${this.plantDb}
+        .log=${this.plant.log}
+        .headerVisible=${false}
+      ></plant-log>`;
   }
 }

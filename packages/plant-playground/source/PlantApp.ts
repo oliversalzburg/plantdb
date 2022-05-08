@@ -118,13 +118,13 @@ export class PlantApp extends LitElement {
   loadPage(page: string, pageParams = new Array<string>()) {
     switch (page) {
       case "log":
-        import("./PlantLog");
+        import("./views/PlantLogView");
         break;
       case "list":
         import("./PlantList");
         break;
       case "plant":
-        import("./PlantDetails");
+        import("./views/PlantDetailsView");
         break;
       case "types":
         import("./PlantTypeMap");
@@ -202,18 +202,23 @@ export class PlantApp extends LitElement {
           ?active=${this.page === "import"}
           .plants="${this.plants}"
         ></plant-import>
-        <plant-log class="view" ?active=${this.page === "log"} .plantDb=${this.plantDb}></plant-log>
+        <plant-log-view
+          class="view"
+          ?active=${this.page === "log"}
+          .plantDb=${this.plantDb}
+        ></plant-log-view>
         <plant-list
           class="view"
           ?active=${this.page === "list"}
           .plants=${this.plants}
           .plantDb=${this.plantDb}
         ></plant-list>
-        <plant-details
+        <plant-details-view
           class="view"
           ?active=${this.page === "plant"}
           .plant=${this.plants.find(plant => plant.id === this.pageParams[0])}
-        ></plant-details>`,
+          .plantDb=${this.plantDb}
+        ></plant-details-view>`,
     ];
   }
 }

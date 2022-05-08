@@ -1,4 +1,4 @@
-import { PlantDB } from "@plantdb/libplantdb";
+import { LogEntry, PlantDB } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { css, html, LitElement } from "lit";
@@ -27,18 +27,17 @@ export class PlantLog extends LitElement {
   @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
 
+  @property({ type: [LogEntry] })
+  log = this.plantDb.log;
+
   @property()
   filter = "";
 
+  @property({ type: Boolean })
+  headerVisible = true;
+
   @state()
   private _filterEventTypes = new Array<string>();
-
-  @property({ type: Boolean, reflect: true })
-  active = false;
-
-  protected shouldUpdate(): boolean {
-    return this.active;
-  }
 
   render() {
     return [
@@ -65,7 +64,7 @@ export class PlantLog extends LitElement {
             )}</sl-select
         >
       </div>`,
-      this.plantDb.log
+      this.log
         .filter(
           entry =>
             // Filter event type
@@ -83,6 +82,7 @@ export class PlantLog extends LitElement {
               .plantDb=${this.plantDb}
               .plant=${this.plantDb.plants.get(entry.plantId)}
               .logEntry=${entry}
+              .headerVisible=${this.headerVisible}
             ></plant-log-entry>`
         ),
     ];
