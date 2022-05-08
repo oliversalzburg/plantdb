@@ -1,4 +1,4 @@
-import { EventTypes, identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb";
+import { identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
@@ -59,7 +59,7 @@ export class PlantCard extends LitElement {
     let lastPestInfestation;
     let lastPestControl;
     const logsPestInfestation = this.plant.log.filter(
-      logEntry => identifyLogType(logEntry.type, this.plantDb) === EventTypes.PestInfestation
+      logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestInfestation"
     );
     if (0 < logsPestInfestation.length) {
       lastPestInfestation = logsPestInfestation[0];
@@ -68,7 +68,7 @@ export class PlantCard extends LitElement {
       }
     }
     const logsPestControl = this.plant.log.filter(
-      logEntry => identifyLogType(logEntry.type, this.plantDb) === EventTypes.PestControl
+      logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestControl"
     );
     if (0 < logsPestControl.length) {
       lastPestControl = logsPestControl[0];

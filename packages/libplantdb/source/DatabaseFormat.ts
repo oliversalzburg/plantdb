@@ -49,7 +49,7 @@ export const EventTypes = {
   Watering: "Watering",
 } as const;
 
-export type EventType = typeof EventTypes[keyof typeof EventTypes];
+export type EventType = keyof typeof EventTypes;
 
 export type DatabaseFormatSerialized = {
   columnSeparator: string;
