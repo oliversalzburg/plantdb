@@ -8,7 +8,7 @@
       "path": "packages/plant-cli"
     },
     {
-      "path": "packages/web-project"
+      "path": "packages/plant-playground"
     }
   ]
 }

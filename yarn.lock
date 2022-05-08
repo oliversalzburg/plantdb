@@ -193,9 +193,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@plantdb/web-project@workspace:packages/web-project":
+"@plantdb/plant-playground@workspace:packages/plant-playground":
   version: 0.0.0-use.local
-  resolution: "@plantdb/web-project@workspace:packages/web-project"
+  resolution: "@plantdb/plant-playground@workspace:packages/plant-playground"
   dependencies:
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.73

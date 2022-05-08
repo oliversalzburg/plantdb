@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@plantdb/web-project",
+  "name": "@plantdb/plant-playground",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "type": "module",

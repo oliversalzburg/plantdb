@@ -36,7 +36,7 @@ jobs:
         run: |
           yarn workspace @plantdb/libplantdb build
           yarn workspace @plantdb/plant-cli build
-          yarn workspace @plantdb/web-project build
+          yarn workspace @plantdb/plant-playground build
 
       # Post-build QA
       - name: Lint ESLint
