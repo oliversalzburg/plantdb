@@ -28,6 +28,25 @@ export class PlantDB {
     return new PlantDB();
   }
 
+  static fromPlantDB(other: PlantDB, initializer?: Partial<PlantDB>) {
+    const plantDb = new PlantDB();
+    plantDb.#config = initializer?.config
+      ? DatabaseFormat.fromDatabaseFormat(initializer.config)
+      : DatabaseFormat.fromDatabaseFormat(other.#config);
+    plantDb.#entryTypes = initializer?.entryTypes
+      ? new Set(initializer.entryTypes)
+      : new Set(other.#entryTypes);
+    plantDb.#log = initializer?.log
+      ? [...initializer.log]
+      : other.#log.map(entry => LogEntry.fromLogEntry(entry));
+    plantDb.#plants = initializer?.plants
+      ? new Map(initializer.plants)
+      : new Map(
+          [...other.#plants.entries()].map(([plantId, plant]) => [plantId, Plant.fromPlant(plant)])
+        );
+    return plantDb;
+  }
+
   static fromCSV(
     databaseFormat: DatabaseFormat,
     plantData: Array<Array<string>>,

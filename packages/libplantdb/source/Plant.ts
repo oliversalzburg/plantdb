@@ -116,6 +116,22 @@ export class Plant {
     return new Plant("PID-0");
   }
 
+  static fromPlant(other: Plant) {
+    const plant = new Plant(other.id);
+    plant.#name = other.#name;
+    plant.#kind = other.#kind;
+    plant.#substrate = other.#substrate;
+    plant.#potShapeTop = other.#potShapeTop;
+    plant.#potColor = other.#potColor;
+    plant.#location = other.#location;
+    plant.#phIdeal = other.#phIdeal;
+    plant.#ecIdeal = other.#ecIdeal;
+    plant.#tempIdeal = other.#tempIdeal;
+    plant.#notes = other.#notes;
+    plant.#log = other.#log;
+    return plant;
+  }
+
   static fromCSV(dataRow: Array<string>, log = new Array<LogEntry>()): Plant {
     const plant = new Plant(dataRow[0]);
     plant.#name = dataRow[1];

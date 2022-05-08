@@ -68,6 +68,15 @@ export class LogEntry {
     return hasValidPid && hasValidDate;
   }
 
+  static fromLogEntry(other: LogEntry) {
+    const logEntry = new LogEntry(other.#plantId, other.#timestamp, other.#type);
+    logEntry.#ec = other.#ec;
+    logEntry.#ph = other.#ph;
+    logEntry.#product = other.#product;
+    logEntry.#note = other.#note;
+    return logEntry;
+  }
+
   static fromCSV(dataRow: Array<string>, format: DatabaseFormat): LogEntry {
     const logEntry = new LogEntry(
       dataRow[0],
