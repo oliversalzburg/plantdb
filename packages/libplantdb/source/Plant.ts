@@ -6,8 +6,23 @@ export const MATCH_PID = /PID-\n{1,6}/;
 export type PotShapeTop = "Round" | "Square";
 export type PotColor = "Grey" | "LightGrey" | "White";
 
+export type PlantSerialized = {
+  id: string;
+  name?: string;
+  kind?: string | Array<string>;
+  substrate?: string;
+  potShapeTop?: string;
+  potColor?: string;
+  onSaucer?: boolean;
+  location?: string;
+  phIdeal?: number;
+  ecIdeal?: number;
+  tempIdeal?: number;
+  notes?: string;
+};
+
 export class Plant {
-  #plantId: string;
+  #id: string;
   #name: string | undefined;
   #kind: string | Array<string> | undefined;
   #substrate: string | undefined;
@@ -23,7 +38,7 @@ export class Plant {
   #log = new Array<LogEntry>();
 
   get id() {
-    return this.#plantId;
+    return this.#id;
   }
 
   get name() {
@@ -86,7 +101,7 @@ export class Plant {
   }
 
   private constructor(plantId: string) {
-    this.#plantId = plantId;
+    this.#id = plantId;
   }
 
   identify() {
@@ -119,7 +134,7 @@ export class Plant {
     return plant;
   }
 
-  static fromJSON(dataObject: Partial<Plant> & { id: string }, log = new Array<LogEntry>()) {
+  static fromJSON(dataObject: PlantSerialized, log = new Array<LogEntry>()) {
     const plant = new Plant(dataObject.id);
     plant.#name = dataObject.name ?? plant.#name;
     plant.#kind = dataObject.kind ?? plant.#kind;
@@ -137,7 +152,7 @@ export class Plant {
     return plant;
   }
 
-  toJSON() {
+  toJSON(): PlantSerialized {
     return {
       id: this.id,
       name: this.name,

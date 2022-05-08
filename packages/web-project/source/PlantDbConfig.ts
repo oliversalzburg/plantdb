@@ -26,6 +26,15 @@ export class PlantDbConfig extends LitElement {
   @property()
   timezone = "utc";
 
+  toPlantDbConfig() {
+    return DatabaseFormat.fromJSON({
+      columnSeparator: this.columnSeparator,
+      dateFormat: this.dateFormat,
+      hasHeaderRow: this.hasHeaderRow,
+      timezone: this.timezone,
+    });
+  }
+
   render() {
     return html`<fieldset id="db-configuration">
       <legend>Database Configuration</legend>
@@ -35,7 +44,7 @@ export class PlantDbConfig extends LitElement {
         @sl-change="${(event: MouseEvent) => {
           this.hasHeaderRow = (event.target as SlCheckbox).checked;
           this.dispatchEvent(
-            new CustomEvent("config-changed", { detail: DatabaseFormat.deserialize(this) })
+            new CustomEvent("config-changed", { detail: DatabaseFormat.fromJSON(this) })
           );
         }}"
         >Has header row?</sl-checkbox
@@ -48,7 +57,7 @@ export class PlantDbConfig extends LitElement {
         @sl-change="${(event: MouseEvent) => {
           this.columnSeparator = (event.target as SlSelect).value as string;
           this.dispatchEvent(
-            new CustomEvent("config-changed", { detail: DatabaseFormat.deserialize(this) })
+            new CustomEvent("config-changed", { detail: DatabaseFormat.fromJSON(this) })
           );
         }}"
       >
@@ -62,7 +71,7 @@ export class PlantDbConfig extends LitElement {
         @sl-change="${(event: MouseEvent) => {
           this.dateFormat = (event.target as SlSelect).value as string;
           this.dispatchEvent(
-            new CustomEvent("config-changed", { detail: DatabaseFormat.deserialize(this) })
+            new CustomEvent("config-changed", { detail: DatabaseFormat.fromJSON(this) })
           );
         }}"
       >
@@ -76,7 +85,7 @@ export class PlantDbConfig extends LitElement {
         @sl-change="${(event: MouseEvent) => {
           this.timezone = (event.target as SlSelect).value as string;
           this.dispatchEvent(
-            new CustomEvent("config-changed", { detail: DatabaseFormat.deserialize(this) })
+            new CustomEvent("config-changed", { detail: DatabaseFormat.fromJSON(this) })
           );
         }}"
       >

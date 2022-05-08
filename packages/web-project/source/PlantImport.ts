@@ -1,4 +1,4 @@
-import { DatabaseFormat, Plant, PlantDB } from "@plantdb/libplantdb";
+import { DatabaseFormat, DatabaseFormatSerialized, Plant, PlantDB } from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { parse } from "csv-parse/browser/esm/sync";
 import { css, html, LitElement } from "lit";
@@ -37,7 +37,7 @@ export class PlantImport extends LitElement {
   firstUpdated() {
     const storedConfig = localStorage.getItem("plantdb.config");
     if (storedConfig) {
-      this.config = DatabaseFormat.deserialize(JSON.parse(storedConfig) as DatabaseFormat);
+      this.config = DatabaseFormat.fromJSON(JSON.parse(storedConfig) as DatabaseFormatSerialized);
     }
   }
 
@@ -46,12 +46,12 @@ export class PlantImport extends LitElement {
     console.info("Processing data...");
     const plantDataRaw = this.plantData;
     const plantLogDataRaw = this.plantLogData;
-    const plantDbConfig = DatabaseFormat.deserialize({
+    const plantDbConfig = DatabaseFormat.fromJSON({
       columnSeparator: this.config.columnSeparator,
       dateFormat: this.config.dateFormat,
       hasHeaderRow: this.config.hasHeaderRow,
       timezone: this.config.timezone,
-    } as DatabaseFormat);
+    } as DatabaseFormatSerialized);
     this.processData(plantDataRaw, plantLogDataRaw, plantDbConfig);
   }
 
@@ -67,7 +67,7 @@ export class PlantImport extends LitElement {
       from: plantDbConfig.hasHeaderRow ? 2 : 1,
     }) as Array<Array<string>>;
 
-    const plantDb = PlantDB.deserialize(plantDbConfig, plantData, plantLogData);
+    const plantDb = PlantDB.fromCSV(plantDbConfig, plantData, plantLogData);
 
     for (const logRecord of plantDb.log) {
       const plant = plantDb.plants.get(logRecord.plantId);

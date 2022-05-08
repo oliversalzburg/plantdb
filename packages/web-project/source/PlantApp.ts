@@ -1,4 +1,12 @@
-import { DatabaseFormat, LogEntry, Plant } from "@plantdb/libplantdb";
+import {
+  DatabaseFormat,
+  DatabaseFormatSerialized,
+  LogEntry,
+  LogEntrySerialized,
+  Plant,
+  PlantDB,
+  PlantSerialized,
+} from "@plantdb/libplantdb";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
@@ -27,6 +35,8 @@ export class PlantApp extends LitElement {
   @property()
   plants = new Array<Plant>();
 
+  plantDb = PlantDB.Empty();
+
   @state()
   private page = "list";
   private pageParams = new Array<string>();
@@ -40,12 +50,15 @@ export class PlantApp extends LitElement {
       const storedPlants = localStorage.getItem("plantdb.plants");
 
       if (storedLog && storedPlants) {
-        const config = DatabaseFormat.deserialize(JSON.parse(storedConfig) as DatabaseFormat);
-        const logData = JSON.parse(storedLog) as Array<LogEntry>;
+        const config = DatabaseFormat.fromJSON(
+          JSON.parse(storedConfig) as DatabaseFormatSerialized
+        );
+        const logData = JSON.parse(storedLog) as Array<LogEntrySerialized>;
         const log = logData.map(logEntry => LogEntry.fromJSON(logEntry));
 
-        const plants = JSON.parse(storedPlants) as Array<Plant>;
+        const plants = JSON.parse(storedPlants) as Array<PlantSerialized>;
         this.plants = plants.map(plant => Plant.fromJSON(plant, log));
+        this.plantDb = PlantDB.fromJSON(config, plants, logData);
       }
     }
   }
@@ -57,7 +70,7 @@ export class PlantApp extends LitElement {
 
   navigate(path: string) {
     // Extract the page name from path.
-    const pathString = path === "/" ? "list" : path.slice(1);
+    const pathString = path === "/" ? "log" : path.slice(1);
 
     if (pathString.includes("/")) {
       const pathParts = pathString.split("/");
@@ -74,6 +87,9 @@ export class PlantApp extends LitElement {
 
   loadPage(page: string, pageParams = new Array<string>()) {
     switch (page) {
+      case "log":
+        import("./PlantLog.js");
+        break;
       case "list":
         import("./PlantList.js");
         break;
@@ -101,7 +117,8 @@ export class PlantApp extends LitElement {
           ?open=${this.drawerOpen}
           @sl-after-hide=${() => (this.drawerOpen = false)}
         >
-          <sl-menu-item @click=${() => this.navigateInvoke("/")}>Plant list</sl-menu-item>
+          <sl-menu-item @click=${() => this.navigateInvoke("/")}>Log</sl-menu-item>
+          <sl-menu-item @click=${() => this.navigateInvoke("/list")}>Plants</sl-menu-item>
           <sl-divider></sl-divider>
           <sl-menu-item @click=${() => this.navigateInvoke("/import")}>Import</sl-menu-item>
           <sl-button
@@ -127,6 +144,7 @@ export class PlantApp extends LitElement {
           ?active=${this.page === "import"}
           .plants="${this.plants}"
         ></plant-import>
+        <plant-log class="view" ?active=${this.page === "log"} .plantDb=${this.plantDb}></plant-log>
         <plant-list
           class="view"
           ?active=${this.page === "list"}

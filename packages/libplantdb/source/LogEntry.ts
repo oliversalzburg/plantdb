@@ -2,6 +2,16 @@ import { DateTime } from "luxon";
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { MATCH_PID } from "./Plant.js";
 
+export type LogEntrySerialized = {
+  plantId: string;
+  timestamp: string;
+  type: string;
+  ec?: number;
+  ph?: number;
+  product?: string;
+  note?: string;
+};
+
 export class LogEntry {
   #plantId: string;
   #timestamp: Date;
@@ -71,10 +81,12 @@ export class LogEntry {
     return logEntry;
   }
 
-  static fromJSON(
-    dataObject: Partial<LogEntry> & { plantId: string; timestamp: Date; type: string }
-  ) {
-    const logEntry = new LogEntry(dataObject.plantId, dataObject.timestamp, dataObject.type);
+  static fromJSON(dataObject: LogEntrySerialized) {
+    const logEntry = new LogEntry(
+      dataObject.plantId,
+      new Date(dataObject.timestamp),
+      dataObject.type
+    );
     logEntry.#ec = dataObject.ec ?? logEntry.#ec;
     logEntry.#ph = dataObject.ph ?? logEntry.#ph;
     logEntry.#product = dataObject.product ?? logEntry.#product;
@@ -82,10 +94,10 @@ export class LogEntry {
     return logEntry;
   }
 
-  toJSON() {
+  toJSON(): LogEntrySerialized {
     return {
       plantId: this.plantId,
-      timestamp: this.timestamp,
+      timestamp: this.timestamp.toISOString(),
       type: this.type,
       ec: this.ec,
       ph: this.ph,

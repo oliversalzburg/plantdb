@@ -15,7 +15,7 @@ const main = async () => {
   const plantLogDataRaw = await fs.readFile(path.resolve(cwd, "plantlog.csv"), "utf-8");
 
   const plantDbConfigParsed = JSON.parse(plantDbConfigRaw) as DatabaseFormat;
-  const plantDbConfig = DatabaseFormat.deserialize(plantDbConfigParsed);
+  const plantDbConfig = DatabaseFormat.fromJSON(plantDbConfigParsed);
 
   const plantData = parse(plantDataRaw, {
     columns: false,
@@ -28,7 +28,7 @@ const main = async () => {
     from: plantDbConfig.hasHeaderRow ? 2 : 1,
   }) as Array<Array<string>>;
 
-  const plantDb = PlantDB.deserialize(plantDbConfig, plantData, plantLogData);
+  const plantDb = PlantDB.fromCSV(plantDbConfig, plantData, plantLogData);
 
   for (const logRecord of plantDb.log) {
     const plant = plantDb.plants.get(logRecord.plantId);

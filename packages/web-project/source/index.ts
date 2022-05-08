@@ -13,6 +13,8 @@ import "./PlantDbConfig";
 import "./PlantDetails";
 import "./PlantImport";
 import "./PlantList";
+import "./PlantLog";
+import "./PlantLogEntry";
 /*
 document.addEventListener("DOMContentLoaded", () => {
   init().catch(console.error);

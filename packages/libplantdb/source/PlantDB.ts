@@ -1,6 +1,6 @@
 import { DatabaseFormat } from "./DatabaseFormat.js";
-import { LogEntry } from "./LogEntry.js";
-import { Plant } from "./Plant.js";
+import { LogEntry, LogEntrySerialized } from "./LogEntry.js";
+import { Plant, PlantSerialized } from "./Plant.js";
 
 export class PlantDB {
   #config = new DatabaseFormat();
@@ -24,7 +24,11 @@ export class PlantDB {
     return this.#entryTypes;
   }
 
-  static deserialize(
+  static Empty() {
+    return new PlantDB();
+  }
+
+  static fromCSV(
     databaseFormat: DatabaseFormat,
     plantData: Array<Array<string>>,
     plantLogData: Array<Array<string>>
@@ -45,6 +49,29 @@ export class PlantDB {
       const plant = Plant.fromCSV(plantRecord, plantDb.#log);
       plantDb.#plants.set(plant.id, plant);
     }
+
+    return plantDb;
+  }
+
+  static fromJSON(
+    databaseFormat: DatabaseFormat,
+    plants: Array<PlantSerialized>,
+    plantLogData: Array<LogEntrySerialized>
+  ) {
+    const plantDb = new PlantDB();
+
+    plantDb.#config = databaseFormat;
+    plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSON(logEntry));
+
+    for (const logEntry of plantDb.#log) {
+      plantDb.#entryTypes.add(logEntry.type);
+    }
+
+    for (const plant of plants) {
+      plantDb.#plants.set(plant.id, Plant.fromJSON(plant, plantDb.#log));
+    }
+
+    plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
     return plantDb;
   }
