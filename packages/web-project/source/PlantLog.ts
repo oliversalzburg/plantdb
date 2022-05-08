@@ -45,8 +45,9 @@ export class PlantLog extends LitElement {
         .map(
           entry =>
             html`<plant-log-entry
+              .plantDb=${this.plantDb}
               .plant=${this.plantDb.plants.get(entry.plantId)}
-              .log=${entry}
+              .logEntry=${entry}
             ></plant-log-entry>`
         ),
     ];

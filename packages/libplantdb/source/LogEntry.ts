@@ -83,11 +83,37 @@ export class LogEntry {
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
-    logEntry.#ec = Number(dataRow[3]);
-    logEntry.#ph = Number(dataRow[4]);
+    logEntry.#ec = LogEntry.tryParseEC(dataRow[3]);
+    logEntry.#ph = LogEntry.tryParsePh(dataRow[4]);
     logEntry.#product = dataRow[5];
     logEntry.#note = dataRow[6];
     return logEntry;
+  }
+
+  static tryParseEC(dataValue: string) {
+    const number = Number(dataValue);
+    if (number === Number(dataValue)) {
+      return number;
+    }
+
+    if (dataValue.endsWith("µS/cm")) {
+      return Number(dataValue.slice(0, dataValue.length - 5));
+    }
+
+    return undefined;
+  }
+
+  static tryParsePh(dataValue: string) {
+    const number = Number(dataValue);
+    if (number === Number(dataValue)) {
+      return number;
+    }
+
+    if (dataValue.includes(",") && !dataValue.includes(".")) {
+      return Number(dataValue.replace(/,/, "."));
+    }
+
+    return undefined;
   }
 
   static fromJSON(dataObject: LogEntrySerialized) {

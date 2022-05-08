@@ -43,6 +43,10 @@ export const EventTypes = [
    * The plant was shaped. For example, through wiring branches. Not to be confused with Pruning.
    */
   "Shaping",
+  /**
+   * Any form of irrigation
+   */
+  "Watering",
 ] as const;
 
 export type EventType = keyof typeof EventTypes;

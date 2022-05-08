@@ -1,4 +1,4 @@
-import { LogEntry, Plant } from "@plantdb/libplantdb";
+import { EventType, identifyLogType, LogEntry, Plant, PlantDB } from "@plantdb/libplantdb";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -32,13 +32,34 @@ export class PlantLogEntry extends LitElement {
     `,
   ];
 
+  @property({ type: PlantDB })
+  plantDb = PlantDB.Empty();
+
   @property({ type: [LogEntry] })
-  log = new LogEntry("");
+  logEntry = new LogEntry("");
 
   @property({ type: Plant })
   plant = Plant.Empty();
 
+  extractTypeDetails(logEntry: LogEntry, eventType?: EventType) {
+    switch (eventType) {
+      case "Acquisition":
+        return "🌟";
+      case "Fertilization":
+        return `🧪 ${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+          logEntry.ph ? `pH: ${logEntry.ph}` : ""
+        }`;
+      case "Measurement":
+        return `📏 ${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+          logEntry.ph ? `pH: ${logEntry.ph}` : ""
+        }`;
+      default:
+        return "";
+    }
+  }
+
   render() {
+    const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
     return html`<sl-card>
       <div slot="header">
         <div>
@@ -50,11 +71,12 @@ export class PlantLogEntry extends LitElement {
       </div>
       <section>
         <div>
-          ${DateTime.fromJSDate(new Date(this.log.timestamp)).toFormat("f")}<br />
-          <small>${DateTime.fromJSDate(new Date(this.log.timestamp)).toRelative()}</small>
+          ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
+          <small>${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}</small>
         </div>
         <sl-divider vertical></sl-divider>
-        ${this.log.type}: ${this.log.note}
+        ${identifiedType ?? this.logEntry.type}:
+        ${this.extractTypeDetails(this.logEntry, identifiedType)} ${this.logEntry.note}
       </section>
     </sl-card>`;
   }

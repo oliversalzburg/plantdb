@@ -1,4 +1,4 @@
-import { DatabaseFormat, PlantDB } from "@plantdb/libplantdb";
+import { DatabaseFormat, DatabaseFormatSerialized, PlantDB } from "@plantdb/libplantdb";
 import { parse } from "csv-parse/sync";
 import { DateTime } from "luxon";
 import minimist from "minimist";
@@ -14,7 +14,7 @@ const main = async () => {
   const plantDataRaw = await fs.readFile(path.resolve(cwd, "plants.csv"), "utf-8");
   const plantLogDataRaw = await fs.readFile(path.resolve(cwd, "plantlog.csv"), "utf-8");
 
-  const plantDbConfigParsed = JSON.parse(plantDbConfigRaw) as DatabaseFormat;
+  const plantDbConfigParsed = JSON.parse(plantDbConfigRaw) as DatabaseFormatSerialized;
   const plantDbConfig = DatabaseFormat.fromJSON(plantDbConfigParsed);
 
   const plantData = parse(plantDataRaw, {

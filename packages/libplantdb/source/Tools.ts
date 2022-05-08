@@ -1,3 +1,6 @@
+import { EventType } from "./DatabaseFormat";
+import { PlantDB } from "./PlantDB";
+
 export const kindSummarize = (plantKind: string | string[] | undefined) => {
   if (plantKind === undefined) {
     return "<unknown kind>";
@@ -20,4 +23,12 @@ export const kindFlatten = (plantKind: string | string[] | undefined) => {
   }
 
   return plantKind;
+};
+
+export const identifyLogType = (entryType: string, plantDb: PlantDB) => {
+  if (!plantDb.config.typeMap.has(entryType)) {
+    return undefined;
+  }
+
+  return plantDb.config.typeMap.get(entryType) as EventType;
 };
