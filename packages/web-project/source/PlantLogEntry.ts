@@ -53,6 +53,26 @@ export class PlantLogEntry extends LitElement {
         return `📏 ${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
           logEntry.ph ? `pH: ${logEntry.ph}` : ""
         }`;
+      case "Observation":
+        return "🔍";
+      case "Pest Control":
+        return `☠ ${logEntry.product ? logEntry.product : ""}`;
+      case "Pest Infestation":
+        return "🐛";
+      case "Pruning":
+        return "✂";
+      case "Relocation":
+        return "🏠";
+      case "Repotting":
+        return "🌻";
+      case "Root pruning":
+        return "✂";
+      case "Shaping":
+        return "✂";
+      case "Watering":
+        return `💧 ${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+          logEntry.ph ? `pH: ${logEntry.ph}` : ""
+        }`;
       default:
         return "";
     }
@@ -75,8 +95,13 @@ export class PlantLogEntry extends LitElement {
           <small>${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}</small>
         </div>
         <sl-divider vertical></sl-divider>
-        ${identifiedType ?? this.logEntry.type}:
-        ${this.extractTypeDetails(this.logEntry, identifiedType)} ${this.logEntry.note}
+        <div>
+          <strong
+            >${identifiedType ?? this.logEntry.type}:
+            ${this.extractTypeDetails(this.logEntry, identifiedType)}</strong
+          >
+          <br /><cite>${this.logEntry.note}</cite>
+        </div>
       </section>
     </sl-card>`;
   }
