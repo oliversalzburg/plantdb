@@ -199,8 +199,10 @@ __metadata:
   dependencies:
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.73
+    "@types/dygraphs": ^2
     "@types/web": 0.0.64
     csv-parse: 5.0.4
+    dygraphs: 2.1.0
     lit: 2.2.3
     luxon: 2.4.0
     pwa-helpers: 0.9.1
@@ -247,6 +249,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dygraphs@npm:^2":
+  version: 2.1.4
+  resolution: "@types/dygraphs@npm:2.1.4"
+  dependencies:
+    "@types/google.visualization": "*"
+  checksum: 5a99f7de1e58a93d4752b038ca2f5f56426b9c8da30ae978d0d22120353f2a90782712b2280568bed326492f3f48b0b803ea832881f549f1028280daed96242a
+  languageName: node
+  linkType: hard
+
 "@types/eslint@npm:8.4.2":
   version: 8.4.2
   resolution: "@types/eslint@npm:8.4.2"
@@ -261,6 +272,13 @@ __metadata:
   version: 0.0.51
   resolution: "@types/estree@npm:0.0.51"
   checksum: a70c60d5e634e752fcd45b58c9c046ef22ad59ede4bc93ad5193c7e3b736ebd6bcd788ade59d9c3b7da6eeb0939235f011d4c59bb4fc04d8c346b76035099dd1
+  languageName: node
+  linkType: hard
+
+"@types/google.visualization@npm:*":
+  version: 0.0.68
+  resolution: "@types/google.visualization@npm:0.0.68"
+  checksum: 4a46a06c10433bfdb5093f4c6b3ef31d5d5221f1eadbedac66b4d9d9402c343314180ea6f70723f896e5959a0d71bc4e85c83199b940b03b91c59a28dd5b9213
   languageName: node
   linkType: hard
 
@@ -969,6 +987,13 @@ __metadata:
   resolution: "documentation@workspace:packages/documentation"
   languageName: unknown
   linkType: soft
+
+"dygraphs@npm:2.1.0":
+  version: 2.1.0
+  resolution: "dygraphs@npm:2.1.0"
+  checksum: 4f057819e9f6a6ef6d11974504652181c46ed06e09462cb766ae0fceadbe5388b5f149f03f678e37bf73990e4149e798bd709fd23edda24de8494e020809bfe2
+  languageName: node
+  linkType: hard
 
 "eastasianwidth@npm:^0.2.0":
   version: 0.2.0

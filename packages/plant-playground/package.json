@@ -14,12 +14,14 @@
   "dependencies": {
     "@plantdb/libplantdb": "workspace:*",
     "csv-parse": "5.0.4",
+    "dygraphs": "2.1.0",
     "lit": "2.2.3",
     "luxon": "2.4.0",
     "pwa-helpers": "0.9.1"
   },
   "devDependencies": {
     "@shoelace-style/shoelace": "2.0.0-beta.73",
+    "@types/dygraphs": "^2",
     "@types/web": "0.0.64",
     "sass": "1.51.0",
     "tslib": "2.4.0",
