@@ -18,5 +18,8 @@ import "./PlantDygraph";
 import "./PlantList";
 import "./PlantLog";
 import "./PlantLogEntry";
+import "./stores/PlantStore";
 import "./stores/PlantStoreUi";
+import "./views/PlantDetailsView";
 import "./views/PlantImportView";
+import "./views/PlantLogView";
