@@ -1,8 +1,9 @@
 import { Plant, roundTo } from "@plantdb/libplantdb";
 import Dygraph from "dygraphs";
 import { css, html, LitElement, PropertyValueMap } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { DarkModeController } from "./DarkModeController";
+import { customElement, property, state } from "lit/decorators.js";
+import { mustExist } from "./Maybe";
+import { PlantStoreUi, retrieveStore } from "./stores/PlantStoreUi";
 
 @customElement("plant-dygraph")
 export class PlantDygraph extends LitElement {
@@ -27,12 +28,6 @@ export class PlantDygraph extends LitElement {
         font-size: 14px;
         z-index: 10;
         width: 250px; /* labelsDivWidth */
-        /*
-        dygraphs determines these based on the presence of chart labels.
-        It might make more sense to create a wrapper div around the chart proper.
-        top: 0px;
-        right: 2px;
-        */
         background: transparent;
         line-height: normal;
         text-align: left;
@@ -48,7 +43,6 @@ export class PlantDygraph extends LitElement {
         height: 1px;
         border-bottom-width: 2px;
         border-bottom-style: solid;
-        /* border-bottom-color is set based on the series color */
       }
 
       /* styles for a dashed line in the legend, e.g. when strokePattern is set */
@@ -59,9 +53,6 @@ export class PlantDygraph extends LitElement {
         height: 1px;
         border-bottom-width: 2px;
         border-bottom-style: solid;
-        /* border-bottom-color is set based on the series color */
-        /* margin-right is set based on the stroke pattern */
-        /* padding-left is set based on the stroke pattern */
       }
 
       .dygraph-roller {
@@ -79,9 +70,12 @@ export class PlantDygraph extends LitElement {
       /* This class only applies to annotations without icons */
       /* Old class name: .dygraphDefaultAnnotation */
       .dygraph-default-annotation {
-        border: 1px solid white;
+        border: 1px solid black;
         background-color: transparent;
         text-align: center;
+      }
+      .dark-theme .dygraph-default-annotation {
+        border: 1px solid white;
       }
 
       .dygraph-axis-label {
@@ -90,7 +84,10 @@ export class PlantDygraph extends LitElement {
         z-index: 10;
         line-height: normal;
         overflow: hidden;
-        color: white; /* replaces old axisLabelColor option */
+        color: black;
+      }
+      .dark-theme .dygraph-axis-label {
+        color: white;
       }
 
       .dygraph-axis-label-x {
@@ -106,12 +103,10 @@ export class PlantDygraph extends LitElement {
         font-weight: bold;
         z-index: 10;
         text-align: center;
-        /* font-size: based on titleHeight option */
       }
 
       .dygraph-xlabel {
         text-align: center;
-        /* font-size: based on xLabelHeight option */
       }
 
       /* For y-axis label */
@@ -134,7 +129,46 @@ export class PlantDygraph extends LitElement {
   @property({ type: Plant })
   plant: Plant | undefined;
 
-  private darkModeController = new DarkModeController();
+  @property({ type: Boolean })
+  darkMode = false;
+
+  @state()
+  private _plantStoreUi: PlantStoreUi | undefined;
+
+  private _onThemeChangeHandler: ((event: Event) => void) | undefined;
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this._plantStoreUi = mustExist(retrieveStore());
+    this.darkMode = this._plantStoreUi.darkMode;
+    if (this.darkMode) {
+      this.classList.add("dark-theme");
+    } else {
+      this.classList.remove("dark-theme");
+    }
+    this._onThemeChangeHandler = (event: Event) => {
+      this.darkMode = (event as CustomEvent<"dark" | "light">).detail === "dark";
+      this._handleThemeChange();
+    };
+    this._plantStoreUi.addEventListener("plant-theme-change", this._onThemeChangeHandler);
+  }
+
+  disconnectedCallback(): void {
+    if (this._onThemeChangeHandler) {
+      this._plantStoreUi?.removeEventListener("plant-theme-change", this._onThemeChangeHandler);
+      this._onThemeChangeHandler = undefined;
+    }
+  }
+
+  private _handleThemeChange() {
+    if (this.darkMode) {
+      this.classList.add("dark-theme");
+    } else {
+      this.classList.remove("dark-theme");
+    }
+
+    this.renderGraph();
+  }
 
   protected updated(
     _changedProperties: PropertyValueMap<PlantDygraph> | Map<PropertyKey, unknown>
@@ -155,7 +189,7 @@ export class PlantDygraph extends LitElement {
 
     const colorSets = [
       ["#fab601", "#00bcf2", "#8AE234"],
-      ["#444444", "#888888", "#DDDDDD"],
+      ["#be3400", "#0230aa", "#DDDDDD"],
     ];
 
     new Dygraph(
@@ -174,7 +208,7 @@ export class PlantDygraph extends LitElement {
             },
           },
         },
-        colors: colorSets[this.darkModeController.darkMode ? 0 : 1],
+        colors: colorSets[this._plantStoreUi?.darkMode ? 0 : 1],
         series: {
           pH: {
             axis: "y2",
@@ -187,6 +221,6 @@ export class PlantDygraph extends LitElement {
   }
 
   render() {
-    return [html`<div class="graph"></div>`];
+    return [html`<div class="graph ${this.darkMode ? "dark-theme" : ""}"></div>`];
   }
 }

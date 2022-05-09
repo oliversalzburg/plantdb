@@ -11,8 +11,9 @@ import {
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
-import { DarkModeController } from "./DarkModeController";
+import { assertExists } from "./Maybe";
 import { PlantDbStorage } from "./PlantDbStorage";
+import { PlantStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-app")
 export class PlantApp extends LitElement {
@@ -37,10 +38,12 @@ export class PlantApp extends LitElement {
 
   @property({ type: Boolean })
   darkMode = false;
-  private darkModeController = new DarkModeController();
 
   @property()
   plants = new Array<Plant>();
+
+  @state()
+  private _plantStoreUi: PlantStoreUi | undefined;
 
   plantDb = PlantDB.Empty();
 
@@ -49,9 +52,22 @@ export class PlantApp extends LitElement {
   private pageParams = new Array<string>();
 
   firstUpdated() {
-    installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
+    for (const child of this.children) {
+      if (child instanceof PlantStoreUi) {
+        this._plantStoreUi = child;
+        break;
+      }
+    }
 
-    this.darkModeController.install();
+    assertExists(this._plantStoreUi);
+
+    this.darkMode = this._plantStoreUi.darkMode;
+
+    this._plantStoreUi.addEventListener("plant-theme-change", (event: Event) => {
+      this.darkMode = (event as CustomEvent<"dark" | "light">).detail === "dark";
+    });
+
+    installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
 
     const storedConfig = localStorage.getItem("plantdb.config");
     if (storedConfig) {
@@ -151,14 +167,14 @@ export class PlantApp extends LitElement {
             this.drawerOpen = true;
           }}
         ></sl-icon-button>
-        ${this.darkModeController.darkMode
+        ${this._plantStoreUi?.darkMode
           ? html`<sl-icon-button
               name="sun"
-              @click=${() => this.darkModeController.darkModeLeave()}
+              @click=${() => this._plantStoreUi?.darkModeLeave()}
             ></sl-icon-button>`
           : html`<sl-icon-button
               name="moon"
-              @click=${() => this.darkModeController.darkModeEnter()}
+              @click=${() => this._plantStoreUi?.darkModeEnter()}
             ></sl-icon-button>`}
 
         <plant-404 class="view" ?active=${this.page === "view404"}></plant-404>
