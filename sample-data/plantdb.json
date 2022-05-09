@@ -1,0 +1,10 @@
+{
+  "columnSeparator": "\t",
+  "dateFormat": "dd/MM/yyyy HH:mm",
+  "hasHeaderRow": true,
+  "timezone": "Europe/Berlin",
+  "typeMap": {
+    "Anschaffung": "Acquisition",
+    "Umtopfung": "Repotting"
+  }
+}

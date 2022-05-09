@@ -1,0 +1,41 @@
+PlantID	Name	Kind	Substrate	Pot shape top	Pot color	On saucer	Location	pH ideal	EC ideal	Temp min	Notes
+PID-1	Plant 1	Ficus elastica					Wohnzimmer	6.0-7.0			
+PID-2	Plant 2	Ficus elastica					Wohnzimmer				
+PID-3	Plant 3	Dieffenbachia					Wohnzimmer	6.1-6.5			
+PID-4	Plant 4	Schefflera					Schreibtisch	6.0-6.5			
+PID-5	Plant 5	Monstera deliciosa		Square	Grey		Wohnzimmer	5.5-7.0			
+PID-6	Plant 6	Monstera deliciosa					Wohnzimmer				
+PID-7	Plant 7	Schefflera					Schlafzimmer				
+PID-8	Plant 8	Ficus elastica variegata					Wohnzimmer				
+PID-9	Plant 9	Yucca gigantea					Wohnzimmer				
+PID-10	Plant 10	Ficus retusa					Wohnzimmer				
+PID-11	Plant 11	Ficus retusa					Wohnzimmer				
+PID-12	Plant 12	Schefflera					Schlafzimmer				
+PID-13	Plant 13	Schefflera		Round	White	FALSE	Küche				
+PID-14	Plant 14	Tradescantia zebrina, pallida					Schlafzimmer				
+PID-15	Plant 15	Lophophora williamsii					Wohnzimmer				
+PID-16	Plant 16	Lophophora williamsii					Wohnzimmer				
+PID-17	Plant 17	Ficus benjamina					Küche				
+PID-18	Plant 18	Plumeria					Wohnzimmer			4	
+PID-19	Plant 19	Ficus benjamina					Wohnzimmer				
+PID-20	Plant 20	Trachycarpus fortunei					Balkon			-15	
+PID-21	Plant 21	Yucca gigantea		Round	Orange	TRUE	Balkon			-2	
+PID-22	Plant 22	Ficus retusa					Wohnzimmer				
+PID-23	Plant 23	Ficus retusa					Wohnzimmer				
+PID-24	Plant 24	Ficus benjamina		Round	Black		Wohnzimmer				
+PID-25	Plant 25	Howea forsteriana		Round	Brown		Wohnzimmer				
+PID-26	Plant 26	Ficus benjamina variegata		Round	White		Wohnzimmer				
+PID-27	Plant 27	Dieffenbachia camilla		Round	Brown		Wohnzimmer				
+PID-28	Plant 28	Dieffenbachia camilla		Round	Grey		Wohnzimmer				
+PID-29	Plant 29	Dracaena marginata		Round	Transparent		Wohnzimmer				
+PID-30	Plant 30	Chlorophytum comosum		Round	Brown		Küche				
+PID-31	Plant 31	Pilea peperomioides	Mischsubstrat	Round	Transparent	TRUE	Wohnzimmer				
+PID-32	Plant 32	Epipremnum	Anzuchterde	Round	Light grey	FALSE	Wohnzimmer				
+PID-33	Plant 33	Epipremnum	Seramis	Square	White	FALSE	Wohnzimmer				
+PID-34	Plant 34	"Chlorophytum comosum
+Epipremnum
+Monstera adansonii
+Aloe"	Mischsubstrat	Oval	Grey	FALSE	Wohnzimmer				
+PID-35	Plant 35	Yucca gigantea	Seramis	Round	Brown	FALSE	Wohnzimmer				
+PID-36	Plant 36	Dracaena fragans	Mischsubstrat	Round	Light grey	FALSE	Wohnzimmer				
+PID-37	Plant 37	Dracaena marginata	Mischsubstrat	Rectangle	Orange	FALSE	Bad				
