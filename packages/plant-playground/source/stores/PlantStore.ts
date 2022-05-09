@@ -1,16 +1,16 @@
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-let globalStore: PlantStoreUi | undefined;
+let globalStore: PlantStore | undefined;
 
 export const retrieveStore = () => globalStore;
 
-@customElement("plant-store-ui")
-export class PlantStoreUi extends LitElement {
+@customElement("plant-store")
+export class PlantStore extends LitElement {
   @property({ type: Boolean })
   darkMode = false;
 
-  private _onSchemePreferenceChanged: ((event: MediaQueryListEvent) => void) | undefined;
+  private _onChange: ((event: MediaQueryListEvent) => void) | undefined;
 
   connectedCallback(): void {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -20,7 +20,7 @@ export class PlantStoreUi extends LitElement {
 
     // Watch for global theme preference change. If this happens, it overrides everything.
     if (window.matchMedia) {
-      this._onSchemePreferenceChanged = (event: MediaQueryListEvent) => {
+      this._onChange = (event: MediaQueryListEvent) => {
         const newColorScheme = event.matches ? "dark" : "light";
         if (newColorScheme === "dark") {
           this.darkModeEnter();
@@ -28,9 +28,7 @@ export class PlantStoreUi extends LitElement {
           this.darkModeLeave();
         }
       };
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", this._onSchemePreferenceChanged);
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", this._onChange);
     }
 
     if (
@@ -53,11 +51,11 @@ export class PlantStoreUi extends LitElement {
   disconnectedCallback(): void {
     globalStore = undefined;
 
-    if (this._onSchemePreferenceChanged) {
+    if (this._onChange) {
       window
         .matchMedia("(prefers-color-scheme: dark)")
-        .removeEventListener("change", this._onSchemePreferenceChanged);
-      this._onSchemePreferenceChanged = undefined;
+        .removeEventListener("change", this._onChange);
+      this._onChange = undefined;
     }
   }
 

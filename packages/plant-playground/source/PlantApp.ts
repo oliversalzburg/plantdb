@@ -9,10 +9,11 @@ import {
   PlantSerialized,
 } from "@plantdb/libplantdb";
 import { css, html, LitElement } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
 import { assertExists } from "./Maybe";
 import { PlantDbStorage } from "./PlantDbStorage";
+import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-app")
@@ -36,36 +37,24 @@ export class PlantApp extends LitElement {
   @property({ type: Boolean })
   drawerOpen = false;
 
-  @property({ type: Boolean })
-  darkMode = false;
-
   @property()
   plants = new Array<Plant>();
 
-  @state()
-  private _plantStoreUi: PlantStoreUi | undefined;
+  //@state()
+  //private _plantStoreUi= new PlantStoreUi();
+  @query("#plant-store-ui")
+  private _plantStoreUi: PlantStoreUi | null | undefined;
+  @query("#plant-store")
+  private _plantStore: PlantStore | null | undefined;
 
-  plantDb = PlantDB.Empty();
+  private _plantDb = PlantDB.Empty();
 
   @state()
   private page = "list";
   private pageParams = new Array<string>();
 
   firstUpdated() {
-    for (const child of this.children) {
-      if (child instanceof PlantStoreUi) {
-        this._plantStoreUi = child;
-        break;
-      }
-    }
-
     assertExists(this._plantStoreUi);
-
-    this.darkMode = this._plantStoreUi.darkMode;
-
-    this._plantStoreUi.addEventListener("plant-theme-change", (event: Event) => {
-      this.darkMode = (event as CustomEvent<"dark" | "light">).detail === "dark";
-    });
 
     installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
 
@@ -83,7 +72,7 @@ export class PlantApp extends LitElement {
 
         const plants = JSON.parse(storedPlants) as Array<PlantSerialized>;
         this.plants = plants.map(plant => Plant.fromJSON(plant, log));
-        this.plantDb = PlantDB.fromJSON(config, plants, logData);
+        this._plantDb = PlantDB.fromJSON(config, plants, logData);
       }
     }
   }
@@ -126,7 +115,7 @@ export class PlantApp extends LitElement {
         import("./PlantTypeMap");
         break;
       case "import":
-        import("./PlantImport");
+        import("./views/PlantImportView");
         break;
       default:
         page = "view404";
@@ -139,7 +128,9 @@ export class PlantApp extends LitElement {
 
   render() {
     return [
-      html`<sl-drawer
+      html`<plant-store-ui id="plant-store-ui"></plant-store-ui
+        ><plant-store id="plant-store"></plant-store
+        ><sl-drawer
           label="Plant App"
           placement="start"
           class="drawer-placement-start"
@@ -181,42 +172,42 @@ export class PlantApp extends LitElement {
         <plant-type-map
           class="view"
           ?active=${this.page === "types"}
-          .plantDb=${this.plantDb}
+          .plantDb=${this._plantDb}
           .proposedMapping=${new Map(
-            [...this.plantDb.entryTypes.values()]
+            [...this._plantDb.entryTypes.values()]
               .map(entryType =>
-                this.plantDb.config.typeMap.has(entryType)
-                  ? [entryType, this.plantDb.config.typeMap.get(entryType)]
+                this._plantDb.config.typeMap.has(entryType)
+                  ? [entryType, this._plantDb.config.typeMap.get(entryType)]
                   : undefined
               )
               .filter(Boolean) as Array<[string, EventType]>
           )}
           @config-changed=${(event: CustomEvent<DatabaseFormat>) => {
-            this.plantDb = PlantDB.fromPlantDB(this.plantDb, { config: event.detail });
-            PlantDbStorage.persistPlantDb(this.plantDb);
+            this._plantDb = PlantDB.fromPlantDB(this._plantDb, { config: event.detail });
+            PlantDbStorage.persistPlantDb(this._plantDb);
           }}
         ></plant-type-map>
-        <plant-import
+        <plant-import-view
           class="view"
           ?active=${this.page === "import"}
           .plants="${this.plants}"
-        ></plant-import>
+        ></plant-import-view>
         <plant-log-view
           class="view"
           ?active=${this.page === "log"}
-          .plantDb=${this.plantDb}
+          .plantDb=${this._plantDb}
         ></plant-log-view>
         <plant-list
           class="view"
           ?active=${this.page === "list"}
           .plants=${this.plants}
-          .plantDb=${this.plantDb}
+          .plantDb=${this._plantDb}
         ></plant-list>
         <plant-details-view
           class="view"
           ?active=${this.page === "plant"}
           .plant=${this.plants.find(plant => plant.id === this.pageParams[0])}
-          .plantDb=${this.plantDb}
+          .plantDb=${this._plantDb}
         ></plant-details-view>`,
     ];
   }

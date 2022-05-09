@@ -36,8 +36,7 @@ export class PlantDbConfig extends LitElement {
   }
 
   render() {
-    return html`<fieldset id="db-configuration">
-      <legend>Database Configuration</legend>
+    return html`<h3>Database Configuration</h3>
       <sl-checkbox
         id="has-header-row"
         ?checked=${this.hasHeaderRow}
@@ -90,7 +89,6 @@ export class PlantDbConfig extends LitElement {
         }}"
       >
         <sl-menu-item value="Europe/Berlin">Europe/Berlin</sl-menu-item>
-      </sl-select>
-    </fieldset>`;
+      </sl-select>`;
   }
 }

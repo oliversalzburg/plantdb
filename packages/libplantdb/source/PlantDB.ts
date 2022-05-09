@@ -28,6 +28,10 @@ export class PlantDB {
     return new PlantDB();
   }
 
+  withNewLog(log: ReadonlyArray<LogEntry>) {
+    return PlantDB.fromPlantDB(this, { log });
+  }
+
   static fromPlantDB(other: PlantDB, initializer?: Partial<PlantDB>) {
     const plantDb = new PlantDB();
     plantDb.#config = initializer?.config

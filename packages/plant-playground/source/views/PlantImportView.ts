@@ -1,27 +1,21 @@
-import { DatabaseFormat, DatabaseFormatSerialized, Plant, PlantDB } from "@plantdb/libplantdb";
+import {
+  DatabaseFormat,
+  DatabaseFormatSerialized,
+  Plant,
+  PlantDB,
+  PlantLog,
+} from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { parse } from "csv-parse/browser/esm/sync";
-import { css, html, LitElement } from "lit";
+import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { PlantDbStorage } from "./PlantDbStorage";
+import { PlantDbStorage } from "../PlantDbStorage";
+import { View } from "./View";
 
-@customElement("plant-import")
-export class PlantImport extends LitElement {
-  static readonly styles = [
-    css`
-      :host {
-        display: block;
-      }
-    `,
-  ];
-
-  @property({ type: Boolean })
-  active = false;
-
-  protected shouldUpdate(): boolean {
-    return this.active;
-  }
+@customElement("plant-import-view")
+export class PlantImportView extends View {
+  static readonly styles = [...View.styles];
 
   @property()
   plantData = "";
@@ -91,6 +85,23 @@ export class PlantImport extends LitElement {
     PlantDbStorage.persistPlantDb(plantDb);
   }
 
+  updateLog() {
+    throw new Error("not implemented");
+    const plantLogDataRaw = this.plantLogData;
+    const plantDbConfig = DatabaseFormat.fromJSON({
+      columnSeparator: this.config.columnSeparator,
+      dateFormat: this.config.dateFormat,
+      hasHeaderRow: this.config.hasHeaderRow,
+      timezone: this.config.timezone,
+    } as DatabaseFormatSerialized);
+    const plantLogData = parse(plantLogDataRaw, {
+      columns: false,
+      delimiter: plantDbConfig.columnSeparator,
+      from: plantDbConfig.hasHeaderRow ? 2 : 1,
+    }) as Array<Array<string>>;
+    const plantLog = PlantLog.fromCSV(plantDbConfig, plantLogData);
+  }
+
   render() {
     if (!this.config) {
       return;
@@ -105,33 +116,33 @@ export class PlantImport extends LitElement {
           .timezone=${this.config.timezone}
           @config-changed=${(event: CustomEvent<DatabaseFormat>) => (this.config = event.detail)}
         ></plant-db-config>
-        <fieldset class="import-container">
-          <legend>Import Data</legend>
-          <sl-textarea
-            id="plant-data"
-            rows="10"
-            placeholder="paste plants.csv here"
-            label="Plant data"
-            .value=${this.plantData}
-            @sl-blur="${(event: InputEvent) => {
-              this.plantData = (event.target as SlTextarea).value;
-            }}"
-          ></sl-textarea>
 
-          <sl-textarea
-            id="log-data"
-            rows="10"
-            placeholder="paste plantlog.csv here"
-            label="Plant log"
-            .value=${this.plantLogData}
-            @sl-blur="${(event: InputEvent) => {
-              this.plantLogData = (event.target as SlTextarea).value;
-            }}"
-          ></sl-textarea>
-        </fieldset>
+        <h3>Import Data</h3>
+        <sl-textarea
+          id="plant-data"
+          rows="10"
+          placeholder="paste plants.csv here"
+          label="Plant data"
+          .value=${this.plantData}
+          @sl-blur="${(event: InputEvent) => {
+            this.plantData = (event.target as SlTextarea).value;
+          }}"
+        ></sl-textarea>
+
+        <sl-textarea
+          id="log-data"
+          rows="10"
+          placeholder="paste plantlog.csv here"
+          label="Plant log"
+          .value=${this.plantLogData}
+          @sl-blur="${(event: InputEvent) => {
+            this.plantLogData = (event.target as SlTextarea).value;
+          }}"
+        ></sl-textarea>
+
         <sl-button id="process" @click="${(event: MouseEvent) => this.process(event)}"
           >Import</sl-button
-        >`,
+        ><sl-button id="process" @click="${() => this.updateLog()}">Update Log</sl-button>`,
     ];
   }
 }
