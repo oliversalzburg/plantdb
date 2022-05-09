@@ -15,7 +15,7 @@
     "@plantdb/libplantdb": "workspace:*",
     "csv-parse": "5.0.4",
     "lit": "2.2.3",
-    "luxon": "2.3.2",
+    "luxon": "2.4.0",
     "pwa-helpers": "0.9.1"
   },
   "devDependencies": {

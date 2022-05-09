@@ -170,7 +170,7 @@ __metadata:
   resolution: "@plantdb/libplantdb@workspace:packages/libplantdb"
   dependencies:
     "@types/luxon": 2.3.2
-    luxon: 2.3.2
+    luxon: 2.4.0
     tslib: 2.4.0
     typescript: 4.6.4
   languageName: unknown
@@ -186,7 +186,7 @@ __metadata:
     "@types/node": 17.0.23
     csv-parse: 5.0.4
     esbuild: 0.14.38
-    luxon: 2.3.2
+    luxon: 2.4.0
     minimist: 1.2.6
     tslib: 2.4.0
     typescript: 4.6.4
@@ -202,7 +202,7 @@ __metadata:
     "@types/web": 0.0.64
     csv-parse: 5.0.4
     lit: 2.2.3
-    luxon: 2.3.2
+    luxon: 2.4.0
     pwa-helpers: 0.9.1
     sass: 1.51.0
     tslib: 2.4.0
@@ -2098,10 +2098,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxon@npm:2.3.2":
-  version: 2.3.2
-  resolution: "luxon@npm:2.3.2"
-  checksum: d7f79c1dbcb28e0091deb3db1c51de09bda73ed753cd7e1da81f633befc905e858e748019f9a7ced7594840807338958485443063b06d576d86b214cc9ec54b6
+"luxon@npm:2.4.0":
+  version: 2.4.0
+  resolution: "luxon@npm:2.4.0"
+  checksum: 6e753c6eb07b3b2c78e06dd0c365c0b8e9050e9110c48c8dbc7ca7f5230d3da15f09769afccbfdbdc731db92d0bae3b3774e215cbefdf625551005d8e490e866
   languageName: node
   linkType: hard
 
