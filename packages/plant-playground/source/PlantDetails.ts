@@ -1,4 +1,4 @@
-import { Plant, PlantDB } from "@plantdb/libplantdb";
+import { identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
@@ -47,7 +47,6 @@ export class PlantDetails extends LitElement {
         display: inline-block;
         width: 400px;
         height: 250px;
-        background-color: #444;
       }
     `,
   ];
@@ -62,7 +61,10 @@ export class PlantDetails extends LitElement {
     return (
       "Date,pH,EC\n" +
       plant.log
-        .filter(entry => entry.ph || entry.ec)
+        .filter(
+          entry =>
+            identifyLogType(entry.type, this.plantDb) === "Measurement" && (entry.ph || entry.ec)
+        )
         .map(entry => `${entry.timestamp.toISOString()},${(entry.ph ?? 0) * 100},${entry.ec ?? 0}`)
         .join("\n")
     );

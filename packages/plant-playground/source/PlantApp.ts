@@ -11,6 +11,7 @@ import {
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
+import { DarkModeController } from "./DarkModeController";
 import { PlantDbStorage } from "./PlantDbStorage";
 
 @customElement("plant-app")
@@ -36,6 +37,7 @@ export class PlantApp extends LitElement {
 
   @property({ type: Boolean })
   darkMode = false;
+  private darkModeController = new DarkModeController();
 
   @property()
   plants = new Array<Plant>();
@@ -49,20 +51,7 @@ export class PlantApp extends LitElement {
   firstUpdated() {
     installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
 
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      this.darkModeEnter();
-    }
-
-    if (window.matchMedia) {
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
-        const newColorScheme = event.matches ? "dark" : "light";
-        if (newColorScheme === "dark") {
-          this.darkModeEnter();
-        } else {
-          this.darkModeLeave();
-        }
-      });
-    }
+    this.darkModeController.install();
 
     const storedConfig = localStorage.getItem("plantdb.config");
     if (storedConfig) {
@@ -81,15 +70,6 @@ export class PlantApp extends LitElement {
         this.plantDb = PlantDB.fromJSON(config, plants, logData);
       }
     }
-  }
-
-  darkModeEnter() {
-    document.documentElement.classList.add("sl-theme-dark");
-    this.darkMode = true;
-  }
-  darkModeLeave() {
-    document.documentElement.classList.remove("sl-theme-dark");
-    this.darkMode = false;
   }
 
   navigateInvoke(path: string) {
@@ -171,11 +151,14 @@ export class PlantApp extends LitElement {
             this.drawerOpen = true;
           }}
         ></sl-icon-button>
-        ${this.darkMode
-          ? html`<sl-icon-button name="sun" @click=${() => this.darkModeLeave()}></sl-icon-button>`
+        ${this.darkModeController.darkMode
+          ? html`<sl-icon-button
+              name="sun"
+              @click=${() => this.darkModeController.darkModeLeave()}
+            ></sl-icon-button>`
           : html`<sl-icon-button
               name="moon"
-              @click=${() => this.darkModeEnter()}
+              @click=${() => this.darkModeController.darkModeEnter()}
             ></sl-icon-button>`}
 
         <plant-404 class="view" ?active=${this.page === "view404"}></plant-404>

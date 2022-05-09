@@ -9,6 +9,7 @@ import "@shoelace-style/shoelace/dist/components/menu-item/menu-item";
 import "@shoelace-style/shoelace/dist/components/select/select";
 import "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip";
+import "./DarkModeController";
 import "./Plant404";
 import "./PlantApp";
 import "./PlantCard";

@@ -32,3 +32,8 @@ export const identifyLogType = (entryType: string, plantDb: PlantDB): EventType 
 
   return plantDb.config.typeMap.get(entryType) as EventType;
 };
+
+export const roundTo = (input: number, digits = 2) => {
+  const power = Math.pow(10, digits);
+  return Math.round(input * power) / power;
+};

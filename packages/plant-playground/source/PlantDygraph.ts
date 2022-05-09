@@ -1,7 +1,8 @@
-import { Plant } from "@plantdb/libplantdb";
+import { Plant, roundTo } from "@plantdb/libplantdb";
 import Dygraph from "dygraphs";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { DarkModeController } from "./DarkModeController";
 
 @customElement("plant-dygraph")
 export class PlantDygraph extends LitElement {
@@ -116,23 +117,13 @@ export class PlantDygraph extends LitElement {
       /* For y-axis label */
       .dygraph-label-rotate-left {
         text-align: center;
-        /* See http://caniuse.com/#feat=transforms2d */
         transform: rotate(90deg);
-        -webkit-transform: rotate(90deg);
-        -moz-transform: rotate(90deg);
-        -o-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
       }
 
       /* For y2-axis label */
       .dygraph-label-rotate-right {
         text-align: center;
-        /* See http://caniuse.com/#feat=transforms2d */
         transform: rotate(-90deg);
-        -webkit-transform: rotate(-90deg);
-        -moz-transform: rotate(-90deg);
-        -o-transform: rotate(-90deg);
-        -ms-transform: rotate(-90deg);
       }
     `,
   ];
@@ -142,6 +133,8 @@ export class PlantDygraph extends LitElement {
 
   @property({ type: Plant })
   plant: Plant | undefined;
+
+  private darkModeController = new DarkModeController();
 
   protected updated(
     _changedProperties: PropertyValueMap<PlantDygraph> | Map<PropertyKey, unknown>
@@ -156,6 +149,15 @@ export class PlantDygraph extends LitElement {
       console.warn("Tried to create chart before DOM ready.");
     }
 
+    if (!this.plant) {
+      return;
+    }
+
+    const colorSets = [
+      ["#fab601", "#00bcf2", "#8AE234"],
+      ["#444444", "#888888", "#DDDDDD"],
+    ];
+
     new Dygraph(
       // containing div
       this.shadowRoot?.querySelector(".graph") as HTMLDivElement,
@@ -163,12 +165,23 @@ export class PlantDygraph extends LitElement {
       this.data,
       {
         axes: {
-          y: {
+          y2: {
+            axisLabelFormatter: (v: number | Date) => {
+              return String(roundTo(v.valueOf() / 100));
+            },
             valueFormatter: (y, opts, series_name) => {
-              return String(series_name === "pH" ? y / 100 : y);
+              return String(roundTo(series_name === "pH" ? y / 100 : y));
             },
           },
         },
+        colors: colorSets[this.darkModeController.darkMode ? 0 : 1],
+        series: {
+          pH: {
+            axis: "y2",
+          },
+        },
+        ylabel: "EC µS/cm",
+        y2label: "pH",
       }
     );
   }
