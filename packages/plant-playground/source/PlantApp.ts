@@ -80,14 +80,14 @@ export class PlantApp extends LitElement {
         import("./views/PlantDetailsView");
         break;
       case "types":
-        import("./PlantTypeMap");
+        import("./views/PlantTypeMapView");
         break;
       case "import":
         import("./views/PlantImportView");
         break;
       default:
         page = "view404";
-        import("./Plant404");
+        import("./views/Plant404View");
     }
 
     this.page = page;
@@ -140,8 +140,27 @@ export class PlantApp extends LitElement {
               @click=${() => this._plantStoreUi?.darkModeEnter()}
             ></sl-icon-button>`}
 
-        <plant-404 class="view" ?active=${this.page === "view404"}></plant-404>
-        <plant-type-map
+        <plant-404-view class="view" ?active=${this.page === "view404"}></plant-404-view>
+
+        <plant-log-view
+          class="view"
+          ?active=${this.page === "log"}
+          .plantDb=${this._plantStore?.plantDb}
+        ></plant-log-view>
+        <plant-list
+          class="view"
+          ?active=${this.page === "list"}
+          .plants=${this.plants}
+          .plantDb=${this._plantStore?.plantDb}
+        ></plant-list>
+        <plant-details-view
+          class="view"
+          ?active=${this.page === "plant"}
+          .plant=${this.plants.find(plant => plant.id === this.pageParams[0])}
+          .plantDb=${this._plantStore?.plantDb}
+        ></plant-details-view>
+
+        <plant-type-map-view
           class="view"
           ?active=${this.page === "types"}
           .plantDb=${this._plantStore?.plantDb}
@@ -159,29 +178,12 @@ export class PlantApp extends LitElement {
               PlantDB.fromPlantDB(mustExist(this._plantStore).plantDb, { config: event.detail })
             );
           }}
-        ></plant-type-map>
+        ></plant-type-map-view>
         <plant-import-view
           class="view"
           ?active=${this.page === "import"}
           .plants="${this.plants}"
-        ></plant-import-view>
-        <plant-log-view
-          class="view"
-          ?active=${this.page === "log"}
-          .plantDb=${this._plantStore?.plantDb}
-        ></plant-log-view>
-        <plant-list
-          class="view"
-          ?active=${this.page === "list"}
-          .plants=${this.plants}
-          .plantDb=${this._plantStore?.plantDb}
-        ></plant-list>
-        <plant-details-view
-          class="view"
-          ?active=${this.page === "plant"}
-          .plant=${this.plants.find(plant => plant.id === this.pageParams[0])}
-          .plantDb=${this._plantStore?.plantDb}
-        ></plant-details-view>`,
+        ></plant-import-view>`,
     ];
   }
 }
