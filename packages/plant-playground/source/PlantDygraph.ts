@@ -3,7 +3,7 @@ import Dygraph from "dygraphs";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { mustExist } from "./Maybe";
-import { PlantStoreUi, retrieveStore } from "./stores/PlantStoreUi";
+import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-dygraph")
 export class PlantDygraph extends LitElement {
@@ -139,7 +139,7 @@ export class PlantDygraph extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    this._plantStoreUi = mustExist(retrieveStore());
+    this._plantStoreUi = mustExist(retrieveStoreUi());
     this.darkMode = this._plantStoreUi.darkMode;
     if (this.darkMode) {
       this.classList.add("dark-theme");

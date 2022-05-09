@@ -2,6 +2,7 @@ import { EventType, identifyLogType, LogEntry, Plant, PlantDB } from "@plantdb/l
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
+import { retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-log-entry")
 export class PlantLogEntry extends LitElement {
@@ -90,7 +91,12 @@ export class PlantLogEntry extends LitElement {
     return [
       html`<sl-card>
         ${this.headerVisible
-          ? html`<div slot="header">
+          ? html`<div
+              slot="header"
+              @click=${() => {
+                retrieveStoreUi()?.navigatePath(`/plant/${this.plant.id}`);
+              }}
+            >
               <div>
                 ${this.plant.name}
                 <br />

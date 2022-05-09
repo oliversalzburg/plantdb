@@ -3,12 +3,20 @@ import { customElement, property } from "lit/decorators.js";
 
 let globalStore: PlantStoreUi | undefined;
 
-export const retrieveStore = () => globalStore;
+export const retrieveStoreUi = () => globalStore;
 
 @customElement("plant-store-ui")
 export class PlantStoreUi extends LitElement {
   @property({ type: Boolean })
   darkMode = false;
+
+  @property({ type: Boolean })
+  drawerIsOpen = false;
+
+  @property({ type: String })
+  page = "list";
+  @property({ type: [String] })
+  pageParams = new Array<string>();
 
   private _onSchemePreferenceChanged: ((event: MediaQueryListEvent) => void) | undefined;
 
@@ -75,5 +83,37 @@ export class PlantStoreUi extends LitElement {
     localStorage.setItem("plant-theme", "light");
 
     this.dispatchEvent(new CustomEvent("plant-theme-change", { detail: "light" }));
+  }
+
+  drawerOpen() {
+    this.drawerIsOpen = true;
+    this.dispatchEvent(new CustomEvent("plant-drawer-open", { detail: true }));
+  }
+
+  drawerClose() {
+    this.drawerIsOpen = false;
+    this.dispatchEvent(new CustomEvent("plant-drawer-open", { detail: false }));
+  }
+
+  navigate(page: string, pageParams = new Array<string>()) {
+    this.page = page;
+    this.pageParams = pageParams;
+
+    this.dispatchEvent(new CustomEvent("plant-navigate", { detail: { page, pageParams } }));
+  }
+  navigatePath(path: string) {
+    history.pushState(null, "", path);
+
+    // Extract the page name from path.
+    const pathString = path === "/" ? "log" : path.slice(1);
+
+    if (pathString.includes("/")) {
+      const pathParts = pathString.split("/");
+      return this.navigate(pathParts[0], pathParts.slice(1));
+    }
+
+    // Any other info you might want to extract from the path (like page type),
+    // you can do here
+    this.navigate(pathString);
   }
 }
