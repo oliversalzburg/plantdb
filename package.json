@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "yarn3-monorepo",
+  "name": "plantdb",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "scripts": {
