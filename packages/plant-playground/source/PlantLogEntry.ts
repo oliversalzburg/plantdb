@@ -2,11 +2,13 @@ import { EventType, identifyLogType, LogEntry, Plant, PlantDB } from "@plantdb/l
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
+import { Typography } from "./PlantComponentStyles";
 import { retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-log-entry")
 export class PlantLogEntry extends LitElement {
   static readonly styles = [
+    Typography,
     css`
       :host {
         display: inline-block;

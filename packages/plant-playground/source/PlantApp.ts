@@ -3,12 +3,14 @@ import { css, html, LitElement } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
 import { mustExist } from "./Maybe";
+import { Typography } from "./PlantComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-app")
 export class PlantApp extends LitElement {
   static readonly styles = [
+    Typography,
     css`
       :host {
         display: block;
