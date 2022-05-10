@@ -52,4 +52,4 @@
 
     !!! example
 
-        Right now, you might want to look at the [event types](../reference/Event%20types.md) that are commonly used with PlantDB.
+        Right now, you might want to look at the [event types](../reference/event-types.md) that are commonly used with PlantDB.
