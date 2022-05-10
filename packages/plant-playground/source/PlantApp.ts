@@ -44,7 +44,7 @@ export class PlantApp extends LitElement {
   }
 
   handleNavigation(page: string) {
-    if (!["view404", "log", "list", "plant", "types"].includes(page)) {
+    if (!["view404", "log", "list", "plant", "types", "import"].includes(page)) {
       this._plantStoreUi?.navigate("view404");
     }
 
