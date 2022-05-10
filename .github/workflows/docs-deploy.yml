@@ -28,7 +28,7 @@ jobs:
       - name: Build documentation
         run: |
           yarn workspace @plantdb/libplantdb build
-          yarn workspace @plantdb/plant-playground build
+          yarn workspace @plantdb/plant-playground build --base=/plantdb/playground
           yarn docs:build
           cp --recursive packages/plant-playground/output \
             packages/documentation/public/playground
