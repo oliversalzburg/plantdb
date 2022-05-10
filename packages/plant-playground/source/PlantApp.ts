@@ -33,10 +33,22 @@ export class PlantApp extends LitElement {
   private _plantStore: PlantStore | null | undefined;
 
   firstUpdated() {
-    installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
-
-    this._plantStoreUi?.addEventListener("plant-navigate", () => this.requestUpdate());
+    this._plantStoreUi?.addEventListener("plant-navigate", (event: Event) => {
+      const { page } = (event as CustomEvent<{ page: string; pageParams: Array<string> }>).detail;
+      this.handleNavigation(page);
+    });
     this._plantStoreUi?.addEventListener("plant-drawer-open", () => this.requestUpdate());
+    this._plantStoreUi?.addEventListener("plant-theme-change", () => this.requestUpdate());
+
+    installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
+  }
+
+  handleNavigation(page: string) {
+    if (!["view404", "log", "list", "plant", "types"].includes(page)) {
+      this._plantStoreUi?.navigate("view404");
+    }
+
+    this.requestUpdate();
   }
 
   navigate(path: string) {

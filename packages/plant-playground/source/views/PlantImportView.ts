@@ -1,10 +1,4 @@
-import {
-  DatabaseFormat,
-  DatabaseFormatSerialized,
-  Plant,
-  PlantDB,
-  PlantLog,
-} from "@plantdb/libplantdb";
+import { DatabaseFormat, DatabaseFormatSerialized, Plant, PlantDB } from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { parse } from "csv-parse/browser/esm/sync";
 import { html } from "lit";
@@ -87,6 +81,7 @@ export class PlantImportView extends View {
 
   updateLog() {
     throw new Error("not implemented");
+    /*
     const plantLogDataRaw = this.plantLogData;
     const plantDbConfig = DatabaseFormat.fromJSON({
       columnSeparator: this.config.columnSeparator,
@@ -100,6 +95,7 @@ export class PlantImportView extends View {
       from: plantDbConfig.hasHeaderRow ? 2 : 1,
     }) as Array<Array<string>>;
     const plantLog = PlantLog.fromCSV(plantDbConfig, plantLogData);
+    */
   }
 
   render() {

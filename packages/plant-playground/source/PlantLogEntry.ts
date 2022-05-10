@@ -121,10 +121,27 @@ export class PlantLogEntry extends LitElement {
               >${this.logEntry.type}:
               ${this.extractTypeDetails(this.logEntry, identifiedType)}</strong
             >
-            <br /><cite>${this.logEntry.note}</cite>
+            <br /><cite>${this.linkify(this.logEntry.note)}</cite>
           </div>
         </section>
       </sl-card>`,
     ];
+  }
+
+  linkify(text = "") {
+    const matches = text.matchAll(/PID-\d{1,6}/g);
+    const output = [];
+    let lastIndex = 0;
+    for (const match of matches) {
+      if (!match.index) {
+        continue;
+      }
+      output.push(html`${text.substring(lastIndex, match.index)}`);
+      output.push(html`<a href="/plant/${match[0]}">${match[0]}</a>`);
+      lastIndex = match.index + match[0].length;
+      console.debug(match.index);
+    }
+    output.push(html`${text.substring(lastIndex)}`);
+    return output;
   }
 }

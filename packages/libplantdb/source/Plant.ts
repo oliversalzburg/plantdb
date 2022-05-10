@@ -1,7 +1,7 @@
 import { LogEntry } from "./LogEntry.js";
 import { kindFlatten, kindSummarize } from "./Tools.js";
 
-export const MATCH_PID = /PID-\n{1,6}/;
+export const MATCH_PID = /PID-\d{1,6}/;
 
 export type PotShapeTop = "Round" | "Square";
 export type PotColor = "Grey" | "LightGrey" | "White";
