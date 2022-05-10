@@ -25,5 +25,16 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Build/deploy documentation
-        run: yarn docs:publish
+      - name: Build documentation
+        run: |
+          yarn workspace @plantdb/libplantdb build
+          yarn workspace @plantdb/plant-playground build
+          yarn docs:build
+          cp --recursive packages/plant-playground/output \
+            packages/documentation/docs/playground
+
+      - name: Deploy documentation
+        uses: JamesIves/github-pages-deploy-action@v4.3.2
+        with:
+          branch: gh-pages
+          folder: packages/documentation/public

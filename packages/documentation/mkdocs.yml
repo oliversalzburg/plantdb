@@ -7,6 +7,7 @@ extra:
       link: https://github.com/oliversalzburg/
 markdown_extensions:
   - admonition
+  - attr_list
   - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
@@ -29,9 +30,9 @@ plugins:
   - git-revision-date-localized:
       fallback_to_build_date: true
   - search
-repo_name: oliversalzburg/yarn3-monorepo
-repo_url: https://github.com/oliversalzburg/yarn3-monorepo
-site_name: MonoLit
+repo_name: oliversalzburg/plantdb
+repo_url: https://github.com/oliversalzburg/plantdb
+site_name: PlantDB
 theme:
   features:
     - navigation.instant
@@ -44,15 +45,15 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      accent: amber
-      primary: indigo
+      accent: teal
+      primary: green
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      accent: indigo
-      primary: amber
+      accent: light green
+      primary: green
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode

@@ -1,5 +1,5 @@
-# Yarn 3 Monorepo Documentation
+# PlantDB Documentation
 
-A mkdocs-material-based documentation website scaffold.
+PlantDB is a way to keep track of everything relating to your plants, and preserving that data to be useful without PlantDB.
 
-It uses <https://github.com/oliversalzburg/node-scripts-docs> to document that `scripts` sections of the manifests in this monorepo.
+[Try PlantDB in the playground](https://oliversalzburg.github.io/plantdb/playground/index.html)
