@@ -30,13 +30,17 @@ jobs:
           yarn workspace @plantdb/libplantdb build
           yarn workspace @plantdb/plant-playground build --base=/plantdb/playground/
           yarn docs:build
+          mkdir /tmp/plant-deploy
+          cp packages/landing-page/index.html /tmp/plant-deploy/
+          cp --recursive packages/documentation/public \
+            /tmp/plant-deploy/docs
           cp --recursive packages/plant-playground/output \
-            packages/documentation/public/playground
-          ls -lha packages/documentation/public
+            /tmp/plant-deploy/playground
+          ls -lha /tmp/plant-deploy/
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4.3.2
         with:
           branch: gh-pages
-          folder: packages/documentation/public
+          folder: /tmp/plant-deploy
           force: true

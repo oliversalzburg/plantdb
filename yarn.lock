@@ -151,6 +151,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@plantdb/landing-page@workspace:packages/landing-page":
+  version: 0.0.0-use.local
+  resolution: "@plantdb/landing-page@workspace:packages/landing-page"
+  languageName: unknown
+  linkType: soft
+
 "@plantdb/libplantdb@workspace:*, @plantdb/libplantdb@workspace:packages/libplantdb":
   version: 0.0.0-use.local
   resolution: "@plantdb/libplantdb@workspace:packages/libplantdb"

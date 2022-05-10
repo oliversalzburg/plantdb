@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "@plantdb/landing-page",
+  "version": "latest",
+  "description": "Landing Page",
+  "license": "MIT",
+  "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
+  "main": "index.html"
+}
