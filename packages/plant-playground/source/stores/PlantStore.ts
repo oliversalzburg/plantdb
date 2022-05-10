@@ -39,7 +39,7 @@ export class PlantStore extends LitElement {
         this.plantDb = PlantDB.fromJSON(config, plants, logData);
       }
 
-      this.dispatchEvent(new CustomEvent("config-changed", { detail: this.plantDb }));
+      this.dispatchEvent(new CustomEvent("plant-config-changed", { detail: this.plantDb }));
     }
   }
 

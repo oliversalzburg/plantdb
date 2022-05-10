@@ -1,6 +1,6 @@
-import { DatabaseFormat, EventType, Plant, PlantDB } from "@plantdb/libplantdb";
+import { DatabaseFormat, EventType, PlantDB } from "@plantdb/libplantdb";
 import { css, html, LitElement } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, query } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
 import { mustExist } from "./Maybe";
 import { Typography } from "./PlantComponentStyles";
@@ -26,15 +26,14 @@ export class PlantApp extends LitElement {
     `,
   ];
 
-  @property()
-  plants = new Array<Plant>();
-
   @query("#plant-store-ui")
   private _plantStoreUi: PlantStoreUi | null | undefined;
   @query("#plant-store")
   private _plantStore: PlantStore | null | undefined;
 
   firstUpdated() {
+    this._plantStore?.addEventListener("plant-theme-change", () => this.requestUpdate());
+
     this._plantStoreUi?.addEventListener("plant-navigate", (event: Event) => {
       const { page } = (event as CustomEvent<{ page: string; pageParams: Array<string> }>).detail;
       this.handleUserNavigationEvent(page);
@@ -49,7 +48,7 @@ export class PlantApp extends LitElement {
 
   /**
    * Invoked when the user clicked on a link.
-   * @param path The path of the link the user clicked on.
+   * @param page The path of the link the user clicked on.
    */
   handleUserNavigationEvent(page: string) {
     if (!["view404", "log", "list", "plant", "types", "import"].includes(page)) {
@@ -64,8 +63,7 @@ export class PlantApp extends LitElement {
       html`<plant-store-ui id="plant-store-ui"></plant-store-ui
         ><plant-store
           id="plant-store"
-          @config-changed=${() =>
-            (this.plants = [...(this._plantStore?.plantDb.plants.values() ?? [])])}
+          @plant-config-changed=${() => this.requestUpdate()}
         ></plant-store
         ><sl-drawer
           label="Plant App"
@@ -124,13 +122,13 @@ export class PlantApp extends LitElement {
         <plant-list
           class="view"
           ?active=${this._plantStoreUi?.page === "list"}
-          .plants=${this.plants}
+          .plants=${[...(this._plantStore?.plantDb.plants.values() ?? [])]}
           .plantDb=${this._plantStore?.plantDb}
         ></plant-list>
         <plant-details-view
           class="view"
           ?active=${this._plantStoreUi?.page === "plant"}
-          .plant=${this.plants.find(plant => plant.id === this._plantStoreUi?.pageParams[0])}
+          .plant=${this._plantStore?.plantDb.plants.get(this._plantStoreUi?.pageParams[0] ?? "")}
           .plantDb=${this._plantStore?.plantDb}
         ></plant-details-view>
 
@@ -147,7 +145,7 @@ export class PlantApp extends LitElement {
               )
               .filter(Boolean) as Array<[string, EventType]>
           )}
-          @config-changed=${(event: CustomEvent<DatabaseFormat>) => {
+          @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) => {
             this._plantStore?.updatePlantDb(
               PlantDB.fromPlantDB(mustExist(this._plantStore).plantDb, { config: event.detail })
             );
@@ -156,7 +154,7 @@ export class PlantApp extends LitElement {
         <plant-import-view
           class="view"
           ?active=${this._plantStoreUi?.page === "import"}
-          .plants="${this.plants}"
+          .plantStore=${this._plantStore}
         ></plant-import-view>`,
     ];
   }

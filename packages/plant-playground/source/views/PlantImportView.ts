@@ -1,10 +1,10 @@
-import { DatabaseFormat, DatabaseFormatSerialized, Plant, PlantDB } from "@plantdb/libplantdb";
+import { DatabaseFormat, DatabaseFormatSerialized, PlantDB } from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { parse } from "csv-parse/browser/esm/sync";
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { PlantDbStorage } from "../PlantDbStorage";
+import { PlantStore } from "../stores/PlantStore";
 import { View } from "./View";
 
 @customElement("plant-import-view")
@@ -21,7 +21,7 @@ export class PlantImportView extends View {
   config = new DatabaseFormat();
 
   @property()
-  plants = new Array<Plant>();
+  plantStore: PlantStore | null = null;
 
   firstUpdated() {
     const storedConfig = localStorage.getItem("plantdb.config");
@@ -74,9 +74,7 @@ export class PlantImportView extends View {
       `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`
     );
 
-    this.plants = [...plantDb.plants.values()];
-
-    PlantDbStorage.persistPlantDb(plantDb);
+    this.plantStore?.updatePlantDb(plantDb);
   }
 
   updateLog() {
@@ -110,7 +108,8 @@ export class PlantImportView extends View {
           .columnSeparator=${this.config.columnSeparator}
           .dateFormat=${this.config.dateFormat}
           .timezone=${this.config.timezone}
-          @config-changed=${(event: CustomEvent<DatabaseFormat>) => (this.config = event.detail)}
+          @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) =>
+            (this.config = event.detail)}
         ></plant-db-config>
 
         <h3>Import Data</h3>
