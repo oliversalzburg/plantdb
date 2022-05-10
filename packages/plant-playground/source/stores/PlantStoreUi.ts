@@ -47,6 +47,7 @@ export class PlantStoreUi extends LitElement {
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
       this.darkModeEnter();
+      return;
     }
 
     if (userConfiguredTheme === "dark") {
@@ -72,7 +73,7 @@ export class PlantStoreUi extends LitElement {
   darkModeEnter() {
     document.documentElement.classList.add("sl-theme-dark");
     this.darkMode = true;
-    localStorage.setItem("plant-theme", "dark");
+    localStorage.setItem("plantdb.theme", "dark");
 
     this.dispatchEvent(new CustomEvent("plant-theme-change", { detail: "dark" }));
   }
@@ -80,7 +81,7 @@ export class PlantStoreUi extends LitElement {
   darkModeLeave() {
     document.documentElement.classList.remove("sl-theme-dark");
     this.darkMode = false;
-    localStorage.setItem("plant-theme", "light");
+    localStorage.setItem("plantdb.theme", "light");
 
     this.dispatchEvent(new CustomEvent("plant-theme-change", { detail: "light" }));
   }
