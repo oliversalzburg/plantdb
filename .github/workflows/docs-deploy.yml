@@ -31,7 +31,7 @@ jobs:
           yarn workspace @plantdb/plant-playground build
           yarn docs:build
           cp --recursive packages/plant-playground/output \
-            packages/documentation/docs/playground
+            packages/documentation/public/playground
           ls -lha packages/documentation/public
 
       - name: Deploy documentation
