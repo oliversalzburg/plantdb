@@ -132,7 +132,7 @@ export class PlantStoreUi extends LitElement {
     );
   }
   navigatePath(href: string) {
-    history.pushState(null, "", href);
+    history.pushState(null, "", import.meta.env.BASE_URL + href);
 
     const { path, pathParameters } = PlantStoreUi.parsePath(href);
 
