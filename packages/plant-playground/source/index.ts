@@ -9,6 +9,7 @@ import "@shoelace-style/shoelace/dist/components/menu-item/menu-item";
 import "@shoelace-style/shoelace/dist/components/select/select";
 import "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip";
+import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
 import "./PlantApp";
 import "./PlantCard";
 import "./PlantDbConfig";
@@ -26,3 +27,5 @@ import "./views/PlantImportView";
 import "./views/PlantListView";
 import "./views/PlantLogView";
 import "./views/PlantTypeMapView";
+
+setBasePath(import.meta.env.BASE_URL);
