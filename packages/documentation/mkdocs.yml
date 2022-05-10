@@ -34,12 +34,14 @@ repo_name: oliversalzburg/plantdb
 repo_url: https://github.com/oliversalzburg/plantdb/docs
 site_name: PlantDB
 theme:
+  favicon: assets/images/favicon.ico
   features:
     - navigation.instant
     - navigation.sections
     - navigation.tabs
     - navigation.tabs.sticky
   icon:
+    logo: material/flower
     repo: fontawesome/brands/github
   name: material
   palette:
