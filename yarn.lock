@@ -199,7 +199,7 @@ __metadata:
   dependencies:
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.73
-    "@types/dygraphs": ^2
+    "@types/dygraphs": 2.1.4
     "@types/web": 0.0.64
     csv-parse: 5.0.4
     dygraphs: 2.1.0
@@ -249,7 +249,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/dygraphs@npm:^2":
+"@types/dygraphs@npm:2.1.4":
   version: 2.1.4
   resolution: "@types/dygraphs@npm:2.1.4"
   dependencies:

@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@shoelace-style/shoelace": "2.0.0-beta.73",
-    "@types/dygraphs": "^2",
+    "@types/dygraphs": "2.1.4",
     "@types/web": "0.0.64",
     "sass": "1.51.0",
     "tslib": "2.4.0",
