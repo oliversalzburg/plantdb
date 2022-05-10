@@ -1,4 +1,4 @@
-# Event types
+# Event Types
 
 PlantDB does not dictate the names of any event types or the language you record them in. It only cares about you being consistent.
 

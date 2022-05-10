@@ -1,8 +1,8 @@
-# Getting Started - User
+# Getting Started for Users
 
 1.  Create a new workbook in your favorite spreadsheet application.
 
-    ![image-20220510225702059](Getting started - User.assets/image-20220510225702059.png)
+    ![image-20220510225702059](getting-started-user.assets/image-20220510225702059.png)
 
 1.  Now add all the default columns that go into a PlantDB record log. Which are:
 
@@ -20,7 +20,7 @@
 
     Your sheet should now look something like this:
 
-    ![image-20220510230654123](Getting started - User.assets/image-20220510230654123.png)
+    ![image-20220510230654123](getting-started-user.assets/image-20220510230654123.png)
 
 1.  Pick any of your plants. This is now the first plant you will take a record of. The first plant in your log will be `PID-1`. So put that in the first column under **PID** (cell `A2`).
 
@@ -40,7 +40,7 @@
 
     > Recorded my favorite plant into PlantDB today. Exciting!
 
-    ![image-20220510231850124](Getting started - User.assets/image-20220510231850124.png)
+    ![image-20220510231850124](getting-started-user.assets/image-20220510231850124.png)
 
 1.  That's it! You now have a PlantDB-complient record log of your plant data. Keep on doing this for a while, try to remember old information, and extend your log.
 
