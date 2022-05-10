@@ -86,34 +86,67 @@ export class PlantStoreUi extends LitElement {
   }
 
   drawerOpen() {
+    if (this.drawerIsOpen) {
+      return;
+    }
+
     this.drawerIsOpen = true;
     this.dispatchEvent(new CustomEvent("plant-drawer-open", { detail: true }));
   }
 
   drawerClose() {
+    if (!this.drawerIsOpen) {
+      return;
+    }
+
     this.drawerIsOpen = false;
     this.dispatchEvent(new CustomEvent("plant-drawer-open", { detail: false }));
+  }
+
+  /**
+   * Invoked when the user clicked on a link.
+   * @param path The path of the link the user clicked on.
+   */
+  handleUserNavigationEvent(href: string) {
+    const { path, pathParameters } = PlantStoreUi.parsePath(href);
+    this.page = path;
+    this.pageParams = pathParameters;
+
+    this.dispatchEvent(
+      new CustomEvent("plant-navigate", {
+        detail: { page: this.page, pageParams: this.pageParams },
+      })
+    );
   }
 
   navigate(page: string, pageParams = new Array<string>()) {
     this.page = page;
     this.pageParams = pageParams;
 
-    this.dispatchEvent(new CustomEvent("plant-navigate", { detail: { page, pageParams } }));
-  }
-  navigatePath(path: string) {
-    history.pushState(null, "", path);
+    this.drawerClose();
 
-    // Extract the page name from path.
-    const pathString = path === "/" ? "log" : path.slice(1);
+    this.dispatchEvent(
+      new CustomEvent("plant-navigate", {
+        detail: { page: this.page, pageParams: this.pageParams },
+      })
+    );
+  }
+  navigatePath(href: string) {
+    history.pushState(null, "", href);
+
+    const { path, pathParameters } = PlantStoreUi.parsePath(href);
+
+    this.navigate(path, pathParameters);
+  }
+
+  static parsePath(href: string, assumePathForRoot = "log") {
+    const pathString = href === "/" ? assumePathForRoot : href.slice(1);
 
     if (pathString.includes("/")) {
       const pathParts = pathString.split("/");
-      return this.navigate(pathParts[0], pathParts.slice(1));
+      return { path: pathParts[0], pathParameters: pathParts.slice(1) };
     }
 
-    // Any other info you might want to extract from the path (like page type),
-    // you can do here
-    this.navigate(pathString);
+    return { path: pathString, pathParameters: [] };
   }
 }

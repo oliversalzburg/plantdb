@@ -141,7 +141,6 @@ export class PlantLogEntry extends LitElement {
       output.push(html`${text.substring(lastIndex, match.index)}`);
       output.push(html`<a href="/plant/${match[0]}">${match[0]}</a>`);
       lastIndex = match.index + match[0].length;
-      console.debug(match.index);
     }
     output.push(html`${text.substring(lastIndex)}`);
     return output;

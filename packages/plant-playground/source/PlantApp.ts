@@ -37,26 +37,26 @@ export class PlantApp extends LitElement {
   firstUpdated() {
     this._plantStoreUi?.addEventListener("plant-navigate", (event: Event) => {
       const { page } = (event as CustomEvent<{ page: string; pageParams: Array<string> }>).detail;
-      this.handleNavigation(page);
+      this.handleUserNavigationEvent(page);
     });
     this._plantStoreUi?.addEventListener("plant-drawer-open", () => this.requestUpdate());
     this._plantStoreUi?.addEventListener("plant-theme-change", () => this.requestUpdate());
 
-    installRouter(location => this.navigate(decodeURIComponent(location.pathname)));
+    installRouter(location =>
+      this._plantStoreUi?.handleUserNavigationEvent(decodeURIComponent(location.pathname))
+    );
   }
 
-  handleNavigation(page: string) {
+  /**
+   * Invoked when the user clicked on a link.
+   * @param path The path of the link the user clicked on.
+   */
+  handleUserNavigationEvent(page: string) {
     if (!["view404", "log", "list", "plant", "types", "import"].includes(page)) {
       this._plantStoreUi?.navigate("view404");
     }
 
     this.requestUpdate();
-  }
-
-  navigate(path: string) {
-    mustExist(this._plantStoreUi).drawerIsOpen = false;
-
-    this._plantStoreUi?.navigatePath(path);
   }
 
   render() {
@@ -74,11 +74,17 @@ export class PlantApp extends LitElement {
           ?open=${this._plantStoreUi?.drawerIsOpen}
           @sl-after-hide=${() => mustExist(this._plantStoreUi).drawerClose()}
         >
-          <sl-menu-item @click=${() => this.navigate("/")}>Log</sl-menu-item>
-          <sl-menu-item @click=${() => this.navigate("/list")}>Plants</sl-menu-item>
+          <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/")}>Log</sl-menu-item>
+          <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/list")}
+            >Plants</sl-menu-item
+          >
           <sl-divider></sl-divider>
-          <sl-menu-item @click=${() => this.navigate("/types")}>Type mappings</sl-menu-item>
-          <sl-menu-item @click=${() => this.navigate("/import")}>Import</sl-menu-item>
+          <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/types")}
+            >Type mappings</sl-menu-item
+          >
+          <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/import")}
+            >Import</sl-menu-item
+          >
           <sl-button
             slot="footer"
             variant="primary"
