@@ -108,7 +108,7 @@ export class PlantStoreUi extends LitElement {
    * @param path The path of the link the user clicked on.
    */
   handleUserNavigationEvent(href: string) {
-    const { path, pathParameters } = PlantStoreUi.parsePath(href);
+    const { path, pathParameters } = this.parsePath(href);
     this.page = path;
     this.pageParams = pathParameters;
 
@@ -132,15 +132,21 @@ export class PlantStoreUi extends LitElement {
     );
   }
   navigatePath(href: string) {
-    history.pushState(null, "", import.meta.env.BASE_URL + href);
+    const newPath = import.meta.env.BASE_URL + (href.startsWith("/") ? href.slice(1) : href);
+    history.pushState(null, "", newPath);
 
-    const { path, pathParameters } = PlantStoreUi.parsePath(href);
+    const { path, pathParameters } = this.parsePath(href);
 
     this.navigate(path, pathParameters);
   }
 
-  static parsePath(href: string, assumePathForRoot = "log") {
-    const pathString = href === "/" ? assumePathForRoot : href.slice(1);
+  parsePath(href: string, assumePathForRoot = "log") {
+    if (href.startsWith(import.meta.env.BASE_URL)) {
+      href = href.slice(import.meta.env.BASE_URL.length - 1);
+    }
+
+    const pathString =
+      href === "/" ? assumePathForRoot : href.startsWith("/") ? href.slice(1) : href;
 
     if (pathString.includes("/")) {
       const pathParts = pathString.split("/");

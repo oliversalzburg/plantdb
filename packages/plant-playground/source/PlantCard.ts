@@ -127,7 +127,7 @@ export class PlantCard extends LitElement {
             </li>
           </ul>
         </small>
-        <sl-button href="/plant/${this.plant.id}" role="button">Details</sl-button>
+        <sl-button href="plant/${this.plant.id}" role="button">Details</sl-button>
       </div>
     </sl-card>`;
   }
