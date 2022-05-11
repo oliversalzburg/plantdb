@@ -107,8 +107,8 @@ export class PlantLogEntry extends LitElement {
 
   augmentType(logEntry: LogEntry, eventType?: EventType) {
     const { icon, details } = PlantLogEntry.extractTypeDetails(logEntry, eventType);
-    return html`<sl-icon name="${icon}"></sl-icon>${icon ? " " : ""}${this.logEntry.type}
-      ${details ?? ""}`;
+    return html`${icon ? html`<sl-icon name="${icon}"></sl-icon> ` : undefined}${this.logEntry.type}
+    ${details ?? ""}`;
   }
 
   render() {
