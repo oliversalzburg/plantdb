@@ -1,8 +1,9 @@
-import { LogEntry, PlantDB } from "@plantdb/libplantdb";
+import { identifyLogType, LogEntry, PlantDB } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { PlantLogEntry } from "./PlantLogEntry";
 
 @customElement("plant-log")
 export class PlantLog extends LitElement {
@@ -19,7 +20,10 @@ export class PlantLog extends LitElement {
       }
 
       .filters sl-input {
-        flex: 1;
+        flex: 0.7;
+      }
+      .filters sl-select {
+        flex: 0.3;
       }
     `,
   ];
@@ -64,13 +68,21 @@ export class PlantLog extends LitElement {
           .value=${this._filterEventTypes}
           @sl-change=${(event: Event) => {
             const value = (event.target as SlSelect).value as string[];
-            console.debug(value);
             this._filterEventTypes = value;
           }}
           >${[...this.plantDb.entryTypes.values()]
             .sort()
             .map(
-              entryType => html`<sl-menu-item value="${entryType}">${entryType}</sl-menu-item>`
+              entryType =>
+                html`<sl-menu-item value="${entryType}"
+                  >${entryType}<sl-icon
+                    slot="prefix"
+                    name="${PlantLogEntry.extractTypeDetails(
+                      undefined,
+                      identifyLogType(entryType, this.plantDb)
+                    ).icon}"
+                  ></sl-icon
+                ></sl-menu-item>`
             )}</sl-select
         >
       </div>`,

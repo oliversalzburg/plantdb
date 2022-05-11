@@ -59,28 +59,28 @@ export class PlantLogEntry extends LitElement {
   @property({ type: Boolean, attribute: true, reflect: true })
   headerVisible = true;
 
-  extractTypeDetails(logEntry: LogEntry, eventType?: EventType) {
+  static extractTypeDetails(logEntry?: LogEntry, eventType?: EventType) {
     switch (eventType) {
       case "Acquisition":
         return { icon: "stars" };
       case "Fertilization":
         return {
           icon: "moisture",
-          details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-            logEntry.ph ? `pH: ${logEntry.ph}` : ""
+          details: `${logEntry?.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+            logEntry?.ph ? `pH: ${logEntry?.ph}` : ""
           }`,
         };
       case "Measurement":
         return {
           icon: "rulers",
-          details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-            logEntry.ph ? `pH: ${logEntry.ph}` : ""
+          details: `${logEntry?.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+            logEntry?.ph ? `pH: ${logEntry.ph}` : ""
           }`,
         };
       case "Observation":
         return { icon: "eye" };
       case "PestControl":
-        return { icon: "radioactive", details: `${logEntry.product ? logEntry.product : ""}` };
+        return { icon: "radioactive", details: `${logEntry?.product ? logEntry.product : ""}` };
       case "PestInfestation":
         return { icon: "bug" };
       case "Pruning":
@@ -96,8 +96,8 @@ export class PlantLogEntry extends LitElement {
       case "Watering":
         return {
           icon: "droplet-half",
-          details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-            logEntry.ph ? `pH: ${logEntry.ph}` : ""
+          details: `${logEntry?.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+            logEntry?.ph ? `pH: ${logEntry.ph}` : ""
           }`,
         };
       default:
@@ -106,7 +106,7 @@ export class PlantLogEntry extends LitElement {
   }
 
   augmentType(logEntry: LogEntry, eventType?: EventType) {
-    const { icon, details } = this.extractTypeDetails(logEntry, eventType);
+    const { icon, details } = PlantLogEntry.extractTypeDetails(logEntry, eventType);
     return html`<sl-icon name="${icon}"></sl-icon>${icon ? " " : ""}${this.logEntry.type}
       ${details ?? ""}`;
   }
