@@ -8,7 +8,7 @@ The Playground runs entirely in your browser and does not send any data anywhere
 
 ## Introduction
 
-When you first visit the playground, you'll like be greated by a message telling you that you have no data yet.
+When you first visit the playground, you'll like be greeted by a message telling you that you have no data yet.
 
 ![Empty Playground](playground.assets/image-20220511221331624.png)
 
@@ -34,7 +34,7 @@ Now we just paste that into the box that's titled **Plant log**.
 
 As I did copy the header row (which is highly recommended), I leave **Has header row?** checked.
 
-The columns in my data here is separated with **tabs**. The most obvious give-away is the absence of commata and semicolons. So I would select **Tab** as the **Column separator** in the configuration.
+The columns in my data here is separated with **tabs**. The most obvious give-away is the absence of commas and semicolons. So I would select **Tab** as the **Column separator** in the configuration.
 
 The timestamp format here is an English date variant for Germany (`en-DE`). The **Timestamp format** I would select is `dd/MM/yyyy HH:mm`.
 
