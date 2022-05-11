@@ -1,6 +1,7 @@
 copyright: Oliver Salzburg
 dev_addr: 0.0.0.0:8000
 docs_dir: docs
+edit_uri: edit/main/packages/documentation/docs/
 extra:
   social:
     - icon: fontawesome/brands/github
