@@ -39,6 +39,16 @@ export class PlantLog extends LitElement {
   @state()
   private _filterEventTypes = new Array<string>();
 
+  private _filterMatchesLogEntry(logEntry: LogEntry, filter: string) {
+    const terms = filter.toLocaleLowerCase().split(" ");
+    for (const term of terms) {
+      if (!logEntry.indexableText.includes(term)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   render() {
     return [
       html`<div class="filters">
@@ -70,10 +80,7 @@ export class PlantLog extends LitElement {
             // Filter event type
             (0 === this._filterEventTypes.length || this._filterEventTypes.includes(entry.type)) &&
             // Filter text content
-            (entry.indexableText.indexOf(this.filter.toLocaleLowerCase()) !== -1 ||
-              this.plantDb.plants
-                .get(entry.plantId)
-                ?.indexableText.indexOf(this.filter.toLocaleLowerCase()) !== -1)
+            this._filterMatchesLogEntry(entry, this.filter)
         )
         .reverse()
         .slice(0, 100)

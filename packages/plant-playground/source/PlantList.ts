@@ -9,6 +9,7 @@ export class PlantList extends LitElement {
     css`
       :host {
         display: block;
+        flex: 1;
       }
     `,
   ];
@@ -25,11 +26,11 @@ export class PlantList extends LitElement {
   private _filterMatchesPlant(plant: Plant, filter: string) {
     const terms = filter.toLocaleLowerCase().split(" ");
     for (const term of terms) {
-      if (plant.indexableText.includes(term)) {
-        return true;
+      if (!plant.indexableText.includes(term)) {
+        return false;
       }
     }
-    return false;
+    return true;
   }
 
   render() {
