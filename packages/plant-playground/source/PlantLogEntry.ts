@@ -36,6 +36,14 @@ export class PlantLogEntry extends LitElement {
         align-items: center;
         height: 2rem;
       }
+
+      .event-type {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.25rem;
+      }
     `,
   ];
 
@@ -54,40 +62,40 @@ export class PlantLogEntry extends LitElement {
   extractTypeDetails(logEntry: LogEntry, eventType?: EventType) {
     switch (eventType) {
       case "Acquisition":
-        return { icon: "🌟" };
+        return { icon: "stars" };
       case "Fertilization":
         return {
-          icon: "🧪",
+          icon: "moisture",
           details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
             logEntry.ph ? `pH: ${logEntry.ph}` : ""
           }`,
         };
       case "Measurement":
         return {
-          icon: "📏",
+          icon: "rulers",
           details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
             logEntry.ph ? `pH: ${logEntry.ph}` : ""
           }`,
         };
       case "Observation":
-        return { icon: "🔍" };
+        return { icon: "eye" };
       case "PestControl":
-        return { icon: "☠", details: `${logEntry.product ? logEntry.product : ""}` };
+        return { icon: "radioactive", details: `${logEntry.product ? logEntry.product : ""}` };
       case "PestInfestation":
-        return { icon: "🐛" };
+        return { icon: "bug" };
       case "Pruning":
-        return { icon: "✂" };
+        return { icon: "scissors" };
       case "Relocation":
-        return { icon: "🏠" };
+        return { icon: "arrows-move" };
       case "Repotting":
-        return { icon: "🌻" };
+        return { icon: "trash2" };
       case "RootPruning":
-        return { icon: "✂" };
+        return { icon: "scissors" };
       case "Shaping":
-        return { icon: "✂" };
+        return { icon: "gem" };
       case "Watering":
         return {
-          icon: "💧",
+          icon: "droplet-half",
           details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
             logEntry.ph ? `pH: ${logEntry.ph}` : ""
           }`,
@@ -99,7 +107,8 @@ export class PlantLogEntry extends LitElement {
 
   augmentType(logEntry: LogEntry, eventType?: EventType) {
     const { icon, details } = this.extractTypeDetails(logEntry, eventType);
-    return `${icon}${icon ? " " : ""}${this.logEntry.type} ${details ?? ""}`;
+    return html`<sl-icon name="${icon}"></sl-icon>${icon ? " " : ""}${this.logEntry.type}
+      ${details ?? ""}`;
   }
 
   render() {
@@ -133,8 +142,8 @@ export class PlantLogEntry extends LitElement {
           </div>
           <sl-divider vertical></sl-divider>
           <div>
-            <strong>${this.augmentType(this.logEntry, identifiedType)}</strong>
-            <br /><cite>${this.linkify(this.logEntry.note)}</cite>
+            <strong class="event-type">${this.augmentType(this.logEntry, identifiedType)}</strong>
+            <cite>${this.linkify(this.logEntry.note)}</cite>
           </div>
         </section>
       </sl-card>`,
