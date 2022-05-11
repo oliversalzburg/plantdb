@@ -93,10 +93,10 @@ export class Plant {
     return this.#log.filter(logEntry => logEntry.plantId === this.id);
   }
 
-  get logEntryOldest() {
+  get logEntryOldest(): LogEntry | undefined {
     return this.log[0];
   }
-  get logEntryLatest() {
+  get logEntryLatest(): LogEntry | undefined {
     return this.log[this.log.length - 1];
   }
 

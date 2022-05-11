@@ -73,6 +73,13 @@ export class PlantDB {
       plantDb.#plants.set(plant.id, plant);
     }
 
+    // Create plants that appear on the log, but are not defined in the plant metadata.
+    for (const log of plantDb.#log) {
+      if (!plantDb.#plants.has(log.plantId)) {
+        plantDb.#plants.set(log.plantId, Plant.fromJSON({ id: log.plantId }));
+      }
+    }
+
     return plantDb;
   }
 

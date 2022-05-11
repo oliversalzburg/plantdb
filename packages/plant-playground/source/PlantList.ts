@@ -31,7 +31,9 @@ export class PlantList extends LitElement {
       ></sl-input>`,
       this.plants
         .filter(plant => plant.indexableText.indexOf(this.filter.toLocaleLowerCase()) !== -1)
-        .sort((a, b) => a.logEntryOldest.timestamp.valueOf() - b.logEntryOldest.timestamp.valueOf())
+        .sort(
+          (a, b) => a.logEntryOldest?.timestamp.valueOf() - b.logEntryOldest?.timestamp.valueOf()
+        )
         .map(plant => html`<plant-card .plant=${plant} .plantDb=${this.plantDb}></plant-card>`),
     ];
   }
