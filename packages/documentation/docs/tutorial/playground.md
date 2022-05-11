@@ -49,3 +49,9 @@ Ignore the **Plant data** box for now.
 Press the **Import** button to import the data and then you can start exploring it.
 
 ![Import button](playground.assets/image-20220511224958913.png)
+
+## Success
+
+You should now see the imported log.
+
+![Successfully imported log](playground.assets/image-20220511231342541.png)
