@@ -76,6 +76,7 @@ export class PlantLog extends LitElement {
                 ?.indexableText.indexOf(this.filter.toLocaleLowerCase()) !== -1)
         )
         .reverse()
+        .slice(0, 100)
         .map(
           entry =>
             html`<plant-log-entry
