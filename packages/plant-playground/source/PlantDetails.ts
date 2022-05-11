@@ -59,13 +59,17 @@ export class PlantDetails extends LitElement {
   plantDb = PlantDB.Empty();
 
   plantDataAsCSV(plant: Plant) {
+    const measurements = plant.log.filter(
+      entry => identifyLogType(entry.type, this.plantDb) === "Measurement" && (entry.ph || entry.ec)
+    );
+
+    if (measurements.length === 0) {
+      return null;
+    }
+
     return (
       "Date,pH,EC\n" +
-      plant.log
-        .filter(
-          entry =>
-            identifyLogType(entry.type, this.plantDb) === "Measurement" && (entry.ph || entry.ec)
-        )
+      measurements
         .map(entry => `${entry.timestamp.toISOString()},${(entry.ph ?? 0) * 100},${entry.ec ?? 0}`)
         .join("\n")
     );
@@ -75,6 +79,8 @@ export class PlantDetails extends LitElement {
     if (!this.plant) {
       return;
     }
+
+    const plantDataCsv = this.plantDataAsCSV(this.plant);
 
     return html`<div class="top">
         <sl-card>
@@ -101,11 +107,13 @@ export class PlantDetails extends LitElement {
             </small>
           </div>
         </sl-card>
-        <plant-dygraph
-          class="graph"
-          .data=${this.plantDataAsCSV(this.plant)}
-          .plant=${this.plant}
-        ></plant-dygraph>
+        ${plantDataCsv
+          ? html`<plant-dygraph
+              class="graph"
+              .data=${plantDataCsv}
+              .plant=${this.plant}
+            ></plant-dygraph>`
+          : undefined}
       </div>
 
       <plant-log
