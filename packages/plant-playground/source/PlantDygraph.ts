@@ -188,8 +188,8 @@ export class PlantDygraph extends LitElement {
     }
 
     const colorSets = [
-      ["#fab601", "#00bcf2", "#8AE234"],
-      ["#be3400", "#0230aa", "#DDDDDD"],
+      ["#00bcf2", "#fab601", "#8AE234"],
+      ["#0230aa", "#be3400", "#DDDDDD"],
     ];
 
     new Dygraph(
