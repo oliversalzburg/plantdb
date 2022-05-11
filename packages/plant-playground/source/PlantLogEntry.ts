@@ -46,7 +46,7 @@ export class PlantLogEntry extends LitElement {
   logEntry = new LogEntry("");
 
   @property({ type: Plant })
-  plant = Plant.Empty();
+  plant: Plant | null = Plant.Empty();
 
   @property({ type: Boolean, attribute: true, reflect: true })
   headerVisible = true;
@@ -92,11 +92,11 @@ export class PlantLogEntry extends LitElement {
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
     return [
       html`<sl-card>
-        ${this.headerVisible
+        ${this.headerVisible && this.plant
           ? html`<div
               slot="header"
               @click=${() => {
-                retrieveStoreUi()?.navigatePath(`/plant/${this.plant.id}`);
+                retrieveStoreUi()?.navigatePath(`/plant/${this.plant?.id ?? "PID-0"}`);
               }}
             >
               <div>
@@ -112,7 +112,7 @@ export class PlantLogEntry extends LitElement {
             ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
             <small
               >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.plant
-                .logEntryOldest === this.logEntry
+                ?.logEntryOldest === this.logEntry
                 ? "🌟"
                 : ""}</small
             >
