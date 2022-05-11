@@ -12,7 +12,8 @@ export class PlantDetails extends LitElement {
   static readonly styles = [
     css`
       :host {
-        display: inline-block;
+        display: block;
+        flex: 1;
       }
 
       :host sl-card {
@@ -85,11 +86,16 @@ export class PlantDetails extends LitElement {
             <small>
               <ul>
                 <li>
-                  Added: ${DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()}
+                  Added:
+                  ${this.plant.logEntryOldest
+                    ? DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()
+                    : "unknown"}
                 </li>
                 <li>
                   Last updated:
-                  ${DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()}
+                  ${this.plant.logEntryLatest
+                    ? DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()
+                    : "unknown"}
                 </li>
               </ul>
             </small>
