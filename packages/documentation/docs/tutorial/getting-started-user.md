@@ -84,7 +84,7 @@ A spreadsheet authoring software. Common solutions are:
 
 1.  That's it! You now have a PlantDB-compliant record log of your plant data. Don't forget to save it! Keep on doing this for a while, try to remember old information, and extend your log.
 
-    When you have a reasonable amount of data recorded, it's time to [import it into the playground](/plantdb/playground).
+    When you have a reasonable amount of data recorded, it's time to [import it into the playground](./playground.md).
 
     !!! example
 
