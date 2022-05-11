@@ -2,6 +2,8 @@
 
 Or "Playground" for short, is an example application of a plant care app that could be built on top of PlantDB data.
 
+The Playground runs entirely in your browser and does not send any data anywhere.
+
 [Visit the PlantDB Playground](/plantdb/playground/){ .md-button }
 
 ## Introduction

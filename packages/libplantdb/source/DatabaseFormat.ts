@@ -61,7 +61,7 @@ export type DatabaseFormatSerialized = {
 
 export class DatabaseFormat {
   #columnSeparator = ",";
-  #dateFormat = "yyyy-MM-dd hh:mm";
+  #dateFormat = "yyyy-MM-dd HH:mm";
   #hasHeaderRow = true;
   #timezone = "utc";
   #typeMap = new Map<string, EventType>();
