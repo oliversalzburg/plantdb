@@ -42,6 +42,10 @@ This is a more in-depth guide to creating your own PlantDB log. If you haven't a
 
         PlantDB does not dictate the format of this value. However, it is important to use some standard format consistently throughout the document. The easiest approach is to just use the convention native to you or what your spreadsheet application inserts when you ask it to insert a date and time.
 
+        !!! note
+
+            If you're recording older events and don't know the _exact_ time, it doesn't matter. Just be as precise as you can or want to be. When estimating the day, use `12:00:00` for the time. When estimating the entire year, use `01/01/1980 12:00:00`.
+
     -   **Type** - How you would categorize this event.
 
         Assigning a specific [event type](../reference/event-types.md) to each recorded event, makes it a lot easier to later use that data. Applications, like the [PlantDB playground](/plantdb/playground), use this type to better understand what you have recorded and offer functionality based on that.

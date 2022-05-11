@@ -56,13 +56,9 @@ A spreadsheet authoring software. Common solutions are:
 
     For the **Date/Time**, that would be _right now_. So enter the current date and time into cell `B2`.
 
-    !!! note
-
-        If you're recording older events and don't know the _excact_ time, it doesn't matter. Just be as precise as you can or want to be. When estimating the day, use `12:00:00` for the time. When estimating the entire year, use `01/01/1980 12:00:00`.
-
     !!! hint
 
-        If you're using Microsoft Excel, you can use ++ctrl+semicolon++ and ++ctrl+shift+period++ as a series of keystrokes to have the current date and time entered into the cell.
+        If you're using Microsoft Excel, you can use ++ctrl+semicolon++ and ++ctrl+shift+semicolon++ as a series of keystrokes to have the current date and time entered into the cell.
 
         <small>Don't forget to add a space in between.</small>
 
