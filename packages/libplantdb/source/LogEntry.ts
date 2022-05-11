@@ -1,6 +1,5 @@
 import { DateTime } from "luxon";
 import { DatabaseFormat } from "./DatabaseFormat.js";
-import { MATCH_PID } from "./Plant.js";
 
 export type LogEntrySerialized = {
   plantId: string;
@@ -61,13 +60,6 @@ export class LogEntry {
     this.#type = type;
   }
 
-  static validate(dataRow: Array<string>) {
-    const hasValidPid = MATCH_PID.test(dataRow[0]);
-    const date = new Date(dataRow[1]);
-    const hasValidDate = !isNaN(date.valueOf());
-    return hasValidPid && hasValidDate;
-  }
-
   static fromLogEntry(other: LogEntry) {
     const logEntry = new LogEntry(other.#plantId, other.#timestamp, other.#type);
     logEntry.#ec = other.#ec;
@@ -83,10 +75,11 @@ export class LogEntry {
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
-    logEntry.#ec = LogEntry.tryParseEC(dataRow[3]);
-    logEntry.#ph = LogEntry.tryParsePh(dataRow[4]);
-    logEntry.#product = dataRow[5];
-    logEntry.#note = dataRow[6];
+    logEntry.#note = dataRow[3];
+    logEntry.#ec = LogEntry.tryParseEC(dataRow[4]);
+    logEntry.#ph = LogEntry.tryParsePh(dataRow[5]);
+    logEntry.#product = dataRow[6];
+
     return logEntry;
   }
 
