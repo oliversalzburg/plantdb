@@ -166,6 +166,7 @@ export class PlantApp extends LitElement {
             class="view"
             ?active=${this._plantStoreUi?.page === "import"}
             .plantStore=${this._plantStore}
+            .plantStoreUi=${this._plantStoreUi}
           ></plant-import-view>
         </div>`,
     ];
