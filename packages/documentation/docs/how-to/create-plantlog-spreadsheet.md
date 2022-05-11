@@ -44,7 +44,7 @@ This is a more in-depth guide to creating your own PlantDB log. If you haven't a
 
         !!! note
 
-            If you're recording older events and don't know the _exact_ time, it doesn't matter. Just be as precise as you can or want to be. When estimating the day, use `12:00:00` for the time. When estimating the entire year, use `01/01/1980 12:00:00`.
+            If you're recording older events and don't know the _exact_ time, it doesn't matter. Just be as precise as you can or want to be. When estimating the day, use `12:00` for the time. When estimating the entire year, use `01/01/1980 12:00`.
 
     -   **Type** - How you would categorize this event.
 
