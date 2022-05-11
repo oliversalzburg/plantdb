@@ -52,7 +52,7 @@ This is a more in-depth guide to creating your own PlantDB log. If you haven't a
 
     -   **Note** - Your personal note.
 
-        If you're just recording a watering, there might not be anything to add, but, when you repot a plant, it might sense to record the state of the roots or if you've noticed anything weird in the soil. Keeping track through notes is one of the most important, and long-lasting, benefits of a PlantDB log.
+        If you're just recording a watering, there might not be anything to add, but, when you repot a plant, it might make sense to record the state of the roots or if you've noticed anything weird in the soil. Keeping track through notes is one of the most important aspects, and long-lasting benefits of a PlantDB log.
 
     -   **EC** - The electric conductivity.
 
@@ -60,11 +60,11 @@ This is a more in-depth guide to creating your own PlantDB log. If you haven't a
 
     -   **pH** - The pH level.
 
-        This is a measurement of how acidic or basic a solution is. Plants usually have a pH range in which they can utilize nutrient most ideally. If the pH strays too far from acceptable levels, some plants even die. _If_ you record pH during watering or mearing levels in soil or watering containers, this would go into this column. If you've never heard of this or don't care about pH, ignore this column.
+        This is a measurement of how acidic or basic a solution is. Plants usually have a pH range in which they can utilize nutrient most ideally. If the pH strays too far from acceptable levels, some plants even die. _If_ you record pH during watering or measuring levels in soil or watering containers, this would go into this column. If you've never heard of this or don't care about pH, ignore this column.
 
     -   **Product used** - The name of a product used on the plant.
 
-        If you are fertilizing or applying a pest control product, it is usually a good idea to note down the name of the product for later reference. This name goes in here.
+        If you are fertilizing or applying a pest control product, it is usually a good idea to note down the name of the product for later reference.
 
     !!! danger
 
