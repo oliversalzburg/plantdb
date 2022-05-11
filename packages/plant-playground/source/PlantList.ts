@@ -22,6 +22,16 @@ export class PlantList extends LitElement {
   @property()
   filter = "";
 
+  private _filterMatchesPlant(plant: Plant, filter: string) {
+    const terms = filter.toLocaleLowerCase().split(" ");
+    for (const term of terms) {
+      if (plant.indexableText.includes(term)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   render() {
     return [
       html`<sl-input
@@ -30,9 +40,11 @@ export class PlantList extends LitElement {
         @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
       ></sl-input>`,
       this.plants
-        .filter(plant => plant.indexableText.indexOf(this.filter.toLocaleLowerCase()) !== -1)
+        .filter(plant => this._filterMatchesPlant(plant, this.filter))
         .sort(
-          (a, b) => a.logEntryOldest?.timestamp.valueOf() - b.logEntryOldest?.timestamp.valueOf()
+          (a, b) =>
+            (a.logEntryOldest?.timestamp?.valueOf() ?? 0) -
+            (b.logEntryOldest?.timestamp?.valueOf() ?? 0)
         )
         .map(plant => html`<plant-card .plant=${plant} .plantDb=${this.plantDb}></plant-card>`),
     ];

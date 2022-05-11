@@ -6,6 +6,7 @@ export abstract class View extends LitElement {
     css`
       :host {
         display: flex;
+        flex: 1;
         padding: 1rem;
       }
     `,

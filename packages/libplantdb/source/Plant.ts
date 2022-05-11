@@ -49,10 +49,6 @@ export class Plant {
     return this.#kind;
   }
 
-  get indexableText() {
-    return `${this.id} ${this.name ?? ""} ${kindFlatten(this.kind)}`.toLocaleLowerCase();
-  }
-
   get substrate() {
     return this.#substrate;
   }
@@ -87,6 +83,10 @@ export class Plant {
 
   get notes() {
     return this.#notes;
+  }
+
+  get indexableText() {
+    return `${this.id} ${this.name ?? ""} ${kindFlatten(this.kind)}`.toLocaleLowerCase();
   }
 
   get log() {

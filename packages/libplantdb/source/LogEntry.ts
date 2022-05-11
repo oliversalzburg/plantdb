@@ -48,6 +48,12 @@ export class LogEntry {
     return this.#note;
   }
 
+  get indexableText() {
+    return `${this.plantId} ${this.type} ${this.product ?? ""} ${
+      this.note ?? ""
+    }`.toLocaleLowerCase();
+  }
+
   render(): string {
     return `${this.#plantId} ${this.#timestamp.toISOString()} ${this.type} ${
       this.#note ?? "<no note provided>"
