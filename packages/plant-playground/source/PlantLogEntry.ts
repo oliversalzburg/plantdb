@@ -54,38 +54,52 @@ export class PlantLogEntry extends LitElement {
   extractTypeDetails(logEntry: LogEntry, eventType?: EventType) {
     switch (eventType) {
       case "Acquisition":
-        return "🌟";
+        return { icon: "🌟" };
       case "Fertilization":
-        return `🧪 ${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-          logEntry.ph ? `pH: ${logEntry.ph}` : ""
-        }`;
+        return {
+          icon: "🧪",
+          details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+            logEntry.ph ? `pH: ${logEntry.ph}` : ""
+          }`,
+        };
       case "Measurement":
-        return `📏 ${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-          logEntry.ph ? `pH: ${logEntry.ph}` : ""
-        }`;
+        return {
+          icon: "📏",
+          details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+            logEntry.ph ? `pH: ${logEntry.ph}` : ""
+          }`,
+        };
       case "Observation":
-        return "🔍";
+        return { icon: "🔍" };
       case "PestControl":
-        return `☠ ${logEntry.product ? logEntry.product : ""}`;
+        return { icon: "☠", details: `${logEntry.product ? logEntry.product : ""}` };
       case "PestInfestation":
-        return "🐛";
+        return { icon: "🐛" };
       case "Pruning":
-        return "✂";
+        return { icon: "✂" };
       case "Relocation":
-        return "🏠";
+        return { icon: "🏠" };
       case "Repotting":
-        return "🌻";
+        return { icon: "🌻" };
       case "RootPruning":
-        return "✂";
+        return { icon: "✂" };
       case "Shaping":
-        return "✂";
+        return { icon: "✂" };
       case "Watering":
-        return `💧 ${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-          logEntry.ph ? `pH: ${logEntry.ph}` : ""
-        }`;
+        return {
+          icon: "💧",
+          details: `${logEntry.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
+            logEntry.ph ? `pH: ${logEntry.ph}` : ""
+          }`,
+        };
       default:
-        return "";
+        return { icon: "" };
     }
+  }
+
+  augmentType(logEntry: LogEntry, eventType?: EventType) {
+    const { icon, details } = this.extractTypeDetails(logEntry, eventType);
+    return `${icon}${icon ? " " : ""}${this.logEntry.type}${details ?? ""}`;
   }
 
   render() {
@@ -119,10 +133,7 @@ export class PlantLogEntry extends LitElement {
           </div>
           <sl-divider vertical></sl-divider>
           <div>
-            <strong
-              >${this.logEntry.type}:
-              ${this.extractTypeDetails(this.logEntry, identifiedType)}</strong
-            >
+            <strong>${this.augmentType(this.logEntry, identifiedType)}</strong>
             <br /><cite>${this.linkify(this.logEntry.note)}</cite>
           </div>
         </section>
