@@ -7,4 +7,4 @@ PlantDB is not primarily a single application. It is a concept of how to record 
 Today, many inexpensive plant care solutions exist, but users usually do not get access to their data in a way that would be useful long-term.
 
 [Get Started](./tutorial/index.md){ .md-button .md-button--primary }
-[Try PlantDB in the playground](/plantdb/playground/){ .md-button }
+[Try PlantDB in the Playground](/plantdb/playground/){ .md-button }

@@ -15,13 +15,13 @@ export class PlantDbConfig extends LitElement {
   ];
 
   @property()
-  columnSeparator = "\t";
+  columnSeparator = ",";
 
   @property()
-  dateFormat = "yyyy-MM-dd hh:mm:ss";
+  dateFormat = "yyyy-MM-dd HH:mm";
 
   @property({ type: Boolean })
-  hasHeaderRow = false;
+  hasHeaderRow = true;
 
   @property()
   timezone = "utc";
@@ -60,6 +60,7 @@ export class PlantDbConfig extends LitElement {
           );
         }}"
       >
+        <sl-menu-item value=",">Comma ,</sl-menu-item>
         <sl-menu-item value=";">Semicolon ;</sl-menu-item>
         <sl-menu-item value="&#9;">Tab</sl-menu-item> </sl-select
       ><br />
@@ -75,7 +76,10 @@ export class PlantDbConfig extends LitElement {
           );
         }}"
       >
-        <sl-menu-item value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</sl-menu-item> </sl-select
+        <sl-menu-item value="yyyy-MM-dd HH:mm">yyyy-MM-dd HH:mm</sl-menu-item>
+        <sl-menu-item value="dd.MM.yyyy HH:mm">dd.MM.yyyy HH:mm</sl-menu-item>
+        <sl-menu-item value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</sl-menu-item>
+        <sl-menu-item value="MM/dd/yyyy hh:mm a">MM/dd/yyyy hh:mm a</sl-menu-item> </sl-select
       ><br />
 
       <sl-select
