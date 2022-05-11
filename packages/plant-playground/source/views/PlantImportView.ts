@@ -120,16 +120,6 @@ export class PlantImportView extends View {
         ></plant-db-config>
 
         <h3>Import Data</h3>
-        <sl-textarea
-          id="plant-data"
-          rows="10"
-          placeholder="paste plants.csv here"
-          label="Plant data"
-          .value=${this.plantData}
-          @sl-blur="${(event: InputEvent) => {
-            this.plantData = (event.target as SlTextarea).value;
-          }}"
-        ></sl-textarea>
 
         <sl-textarea
           id="log-data"
@@ -142,9 +132,20 @@ export class PlantImportView extends View {
           }}"
         ></sl-textarea>
 
+        <sl-textarea
+          id="plant-data"
+          rows="10"
+          placeholder="paste plants.csv here"
+          label="Plant data"
+          .value=${this.plantData}
+          @sl-blur="${(event: InputEvent) => {
+            this.plantData = (event.target as SlTextarea).value;
+          }}"
+        ></sl-textarea>
+
         <sl-button id="process" @click="${(event: MouseEvent) => this.process(event)}"
           >Import</sl-button
-        ><sl-button id="process" @click="${() => this.updateLog()}">Update Log</sl-button>`,
+        ><sl-button id="process" @click="${() => this.updateLog()}">Update Log only</sl-button>`,
     ];
   }
 }

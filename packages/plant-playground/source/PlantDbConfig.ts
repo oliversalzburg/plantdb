@@ -47,7 +47,7 @@ export class PlantDbConfig extends LitElement {
           );
         }}"
         >Has header row?</sl-checkbox
-      >
+      ><br /><br />
 
       <sl-select
         id="column-separator"
@@ -60,8 +60,9 @@ export class PlantDbConfig extends LitElement {
           );
         }}"
       >
-        <sl-menu-item value="&#9;">Tab</sl-menu-item>
-      </sl-select>
+        <sl-menu-item value=";">Semicolon ;</sl-menu-item>
+        <sl-menu-item value="&#9;">Tab</sl-menu-item> </sl-select
+      ><br />
 
       <sl-select
         id="date-format"
@@ -74,8 +75,8 @@ export class PlantDbConfig extends LitElement {
           );
         }}"
       >
-        <sl-menu-item value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</sl-menu-item>
-      </sl-select>
+        <sl-menu-item value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</sl-menu-item> </sl-select
+      ><br />
 
       <sl-select
         id="timezone"
@@ -89,6 +90,7 @@ export class PlantDbConfig extends LitElement {
         }}"
       >
         <sl-menu-item value="Europe/Berlin">Europe/Berlin</sl-menu-item>
+        <sl-menu-item value="utc">UTC</sl-menu-item>
       </sl-select>`;
   }
 }
