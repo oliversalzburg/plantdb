@@ -2,11 +2,11 @@
 
 ## What you will need
 
-1. A spreadsheet authoring software. Common solutions are:
+A spreadsheet authoring software. Common solutions are:
 
-    - Microsoft Excel
-    - LibreOffice Calc
-    - Google Sheets
+-   Microsoft Excel
+-   LibreOffice Calc
+-   Google Sheets
 
 ## Instructions
 
