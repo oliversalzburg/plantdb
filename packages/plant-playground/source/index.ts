@@ -15,6 +15,7 @@ import "./PlantCard";
 import "./PlantDbConfig";
 import "./PlantDetails";
 import "./PlantDygraph";
+import "./PlantEmptyState";
 import "./PlantList";
 import "./PlantLog";
 import "./PlantLogEntry";

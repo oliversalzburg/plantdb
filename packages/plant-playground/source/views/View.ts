@@ -5,7 +5,8 @@ export abstract class View extends LitElement {
   static readonly styles = [
     css`
       :host {
-        display: block;
+        display: flex;
+        padding: 1rem;
       }
     `,
   ];

@@ -1,7 +1,7 @@
 import { DatabaseFormat, DatabaseFormatSerialized, PlantDB } from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { parse } from "csv-parse/browser/esm/sync";
-import { html } from "lit";
+import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { PlantStore } from "../stores/PlantStore";
@@ -9,7 +9,14 @@ import { View } from "./View";
 
 @customElement("plant-import-view")
 export class PlantImportView extends View {
-  static readonly styles = [...View.styles];
+  static readonly styles = [
+    ...View.styles,
+    css`
+      :host {
+        flex-direction: column;
+      }
+    `,
+  ];
 
   @property()
   plantData = "";

@@ -1,11 +1,18 @@
 import { Plant, PlantDB } from "@plantdb/libplantdb";
-import { html } from "lit";
+import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { View } from "./View";
 
 @customElement("plant-list-view")
 export class PlantListView extends View {
-  static readonly styles = [...View.styles];
+  static readonly styles = [
+    ...View.styles,
+    css`
+      .empty {
+        min-width: 100%;
+      }
+    `,
+  ];
 
   @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
@@ -14,6 +21,14 @@ export class PlantListView extends View {
   plants = new Array<Plant>();
 
   render() {
-    return [html`<plant-list .plants=${this.plants} .plantDb=${this.plantDb}></plant-list>`];
+    return [
+      0 < this.plantDb.plants.size
+        ? html`<plant-list .plants=${this.plants} .plantDb=${this.plantDb}></plant-list>`
+        : html`<plant-empty-state class="empty"
+            ><p>It seems like you have no plants 😔</p>
+
+            <sl-button href="import" variant="primary">Import now</sl-button></plant-empty-state
+          >`,
+    ];
   }
 }

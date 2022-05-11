@@ -13,15 +13,23 @@ export class PlantApp extends LitElement {
     Typography,
     css`
       :host {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .view-container {
+        display: flex;
+        flex: 1;
       }
 
       .view {
         display: none;
+        flex: 1;
       }
 
       .view[active] {
-        display: block;
+        display: flex;
       }
     `,
   ];
@@ -64,98 +72,102 @@ export class PlantApp extends LitElement {
         ><plant-store
           id="plant-store"
           @plant-config-changed=${() => this.requestUpdate()}
-        ></plant-store
-        ><sl-drawer
-          label="Plant App"
-          placement="start"
-          class="drawer-placement-start"
-          ?open=${this._plantStoreUi?.drawerIsOpen}
-          @sl-after-hide=${() => mustExist(this._plantStoreUi).drawerClose()}
-        >
-          <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/")}>Log</sl-menu-item>
-          <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/list")}
-            >Plants</sl-menu-item
+        ></plant-store>
+        <div class="view-controls">
+          <sl-drawer
+            label="Plant App"
+            placement="start"
+            class="drawer-placement-start"
+            ?open=${this._plantStoreUi?.drawerIsOpen}
+            @sl-after-hide=${() => mustExist(this._plantStoreUi).drawerClose()}
           >
-          <sl-divider></sl-divider>
-          <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/types")}
-            >Type mappings</sl-menu-item
-          >
-          <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/import")}
-            >Import</sl-menu-item
-          >
-          <sl-button
-            slot="footer"
-            variant="primary"
+            <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/")}>Log</sl-menu-item>
+            <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/list")}
+              >Plants</sl-menu-item
+            >
+            <sl-divider></sl-divider>
+            <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/types")}
+              >Type mappings</sl-menu-item
+            >
+            <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/import")}
+              >Import</sl-menu-item
+            >
+            <sl-button
+              slot="footer"
+              variant="primary"
+              @click=${() => {
+                mustExist(this._plantStoreUi).drawerClose();
+              }}
+              >Close</sl-button
+            >
+          </sl-drawer>
+          <sl-icon-button
+            name="list"
+            label="Drawer"
             @click=${() => {
-              mustExist(this._plantStoreUi).drawerClose();
+              mustExist(this._plantStoreUi).drawerOpen();
             }}
-            >Close</sl-button
-          >
-        </sl-drawer>
-        <sl-icon-button
-          name="list"
-          label="Drawer"
-          @click=${() => {
-            mustExist(this._plantStoreUi).drawerOpen();
-          }}
-        ></sl-icon-button>
-        ${this._plantStoreUi?.darkMode
-          ? html`<sl-icon-button
-              name="sun"
-              @click=${() => this._plantStoreUi?.darkModeLeave()}
-            ></sl-icon-button>`
-          : html`<sl-icon-button
-              name="moon"
-              @click=${() => this._plantStoreUi?.darkModeEnter()}
-            ></sl-icon-button>`}
+          ></sl-icon-button>
+          ${this._plantStoreUi?.darkMode
+            ? html`<sl-icon-button
+                name="sun"
+                @click=${() => this._plantStoreUi?.darkModeLeave()}
+              ></sl-icon-button>`
+            : html`<sl-icon-button
+                name="moon"
+                @click=${() => this._plantStoreUi?.darkModeEnter()}
+              ></sl-icon-button>`}
+        </div>
 
-        <plant-404-view
-          class="view"
-          ?active=${this._plantStoreUi?.page === "view404"}
-        ></plant-404-view>
+        <div class="view-container">
+          <plant-404-view
+            class="view"
+            ?active=${this._plantStoreUi?.page === "view404"}
+          ></plant-404-view>
 
-        <plant-log-view
-          class="view"
-          ?active=${this._plantStoreUi?.page === "log"}
-          .plantDb=${this._plantStore?.plantDb}
-        ></plant-log-view>
-        <plant-list
-          class="view"
-          ?active=${this._plantStoreUi?.page === "list"}
-          .plants=${[...(this._plantStore?.plantDb.plants.values() ?? [])]}
-          .plantDb=${this._plantStore?.plantDb}
-        ></plant-list>
-        <plant-details-view
-          class="view"
-          ?active=${this._plantStoreUi?.page === "plant"}
-          .plant=${this._plantStore?.plantDb.plants.get(this._plantStoreUi?.pageParams[0] ?? "")}
-          .plantDb=${this._plantStore?.plantDb}
-        ></plant-details-view>
+          <plant-log-view
+            class="view"
+            ?active=${this._plantStoreUi?.page === "log"}
+            .plantDb=${this._plantStore?.plantDb}
+          ></plant-log-view>
+          <plant-list-view
+            class="view"
+            ?active=${this._plantStoreUi?.page === "list"}
+            .plants=${[...(this._plantStore?.plantDb.plants.values() ?? [])]}
+            .plantDb=${this._plantStore?.plantDb}
+          ></plant-list-view>
+          <plant-details-view
+            class="view"
+            ?active=${this._plantStoreUi?.page === "plant"}
+            .plant=${this._plantStore?.plantDb.plants.get(this._plantStoreUi?.pageParams[0] ?? "")}
+            .plantDb=${this._plantStore?.plantDb}
+          ></plant-details-view>
 
-        <plant-type-map-view
-          class="view"
-          ?active=${this._plantStoreUi?.page === "types"}
-          .plantDb=${this._plantStore?.plantDb}
-          .proposedMapping=${new Map(
-            [...(this._plantStore?.plantDb?.entryTypes.values() ?? [])]
-              .map(entryType =>
-                this._plantStore?.plantDb.config.typeMap.has(entryType)
-                  ? [entryType, this._plantStore.plantDb.config.typeMap.get(entryType)]
-                  : undefined
-              )
-              .filter(Boolean) as Array<[string, EventType]>
-          )}
-          @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) => {
-            this._plantStore?.updatePlantDb(
-              PlantDB.fromPlantDB(mustExist(this._plantStore).plantDb, { config: event.detail })
-            );
-          }}
-        ></plant-type-map-view>
-        <plant-import-view
-          class="view"
-          ?active=${this._plantStoreUi?.page === "import"}
-          .plantStore=${this._plantStore}
-        ></plant-import-view>`,
+          <plant-type-map-view
+            class="view"
+            ?active=${this._plantStoreUi?.page === "types"}
+            .plantDb=${this._plantStore?.plantDb}
+            .proposedMapping=${new Map(
+              [...(this._plantStore?.plantDb?.entryTypes.values() ?? [])]
+                .map(entryType =>
+                  this._plantStore?.plantDb.config.typeMap.has(entryType)
+                    ? [entryType, this._plantStore.plantDb.config.typeMap.get(entryType)]
+                    : undefined
+                )
+                .filter(Boolean) as Array<[string, EventType]>
+            )}
+            @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) => {
+              this._plantStore?.updatePlantDb(
+                PlantDB.fromPlantDB(mustExist(this._plantStore).plantDb, { config: event.detail })
+              );
+            }}
+          ></plant-type-map-view>
+          <plant-import-view
+            class="view"
+            ?active=${this._plantStoreUi?.page === "import"}
+            .plantStore=${this._plantStore}
+          ></plant-import-view>
+        </div>`,
     ];
   }
 }
