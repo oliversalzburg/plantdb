@@ -15,6 +15,7 @@ export type LogEntrySerialized = {
  * A single entry in a PlantDB log.
  */
 export class LogEntry {
+  #sourceLine: number | undefined;
   #plantId: string;
   #timestamp: Date;
   #type: string;
@@ -22,6 +23,13 @@ export class LogEntry {
   #ph: number | undefined;
   #productUsed: string | undefined;
   #note: string | undefined;
+
+  /**
+   * If this log entry was read from a file, this indicates the line in the file it originates from.
+   */
+  get sourceLine() {
+    return this.#sourceLine;
+  }
 
   /**
    * The ID of the plant. Expected to be in the format `PID-number`.
@@ -106,12 +114,17 @@ export class LogEntry {
     return logEntry;
   }
 
-  static fromCSV(dataRow: Array<string>, format: DatabaseFormat): LogEntry {
+  static fromCSV(
+    dataRow: Array<string>,
+    format: DatabaseFormat,
+    sourceFileLineNumber?: number | undefined
+  ): LogEntry {
     const logEntry = new LogEntry(
       dataRow[0],
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
+    logEntry.#sourceLine = sourceFileLineNumber;
     logEntry.#note = dataRow[3];
     logEntry.#ec = LogEntry.tryParseEC(dataRow[4]);
     logEntry.#ph = LogEntry.tryParsePh(dataRow[5]);
