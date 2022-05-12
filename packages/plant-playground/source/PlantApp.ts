@@ -15,12 +15,12 @@ export class PlantApp extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        align-items: stretch;
       }
 
       .view-container {
         display: flex;
         flex: 1;
+        min-height: 0;
       }
 
       .view {
@@ -73,6 +73,7 @@ export class PlantApp extends LitElement {
           id="plant-store"
           @plant-config-changed=${() => this.requestUpdate()}
         ></plant-store>
+
         <div class="view-controls">
           <sl-drawer
             label="Plant App"

@@ -14,7 +14,7 @@ export class PlantImportView extends View {
     ...View.styles,
     css`
       :host {
-        flex-direction: column;
+        padding: 1rem;
       }
     `,
   ];

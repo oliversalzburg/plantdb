@@ -8,8 +8,14 @@ export class PlantLogView extends View {
   static readonly styles = [
     ...View.styles,
     css`
+      .footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+      }
+
       .empty {
-        min-width: 100%;
+        flex: 1;
       }
     `,
   ];
@@ -20,7 +26,10 @@ export class PlantLogView extends View {
   render() {
     return [
       0 < this.plantDb.log.length
-        ? html`<plant-log .plantDb=${this.plantDb} .log=${this.plantDb.log}></plant-log>`
+        ? html`<plant-log .plantDb=${this.plantDb} .log=${this.plantDb.log}></plant-log>
+            <section class="footer">
+              <sl-button variant="primary" disabled>Add log entry</sl-button>
+            </section>`
         : html`<plant-empty-state class="empty"
             ><p>It seems like you have no log entries 😔</p>
 

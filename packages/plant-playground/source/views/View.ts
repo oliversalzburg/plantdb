@@ -5,9 +5,10 @@ export abstract class View extends LitElement {
   static readonly styles = [
     css`
       :host {
-        display: flex;
         flex: 1;
-        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
       }
     `,
   ];

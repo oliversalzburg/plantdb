@@ -11,6 +11,8 @@ export class PlantLog extends LitElement {
     css`
       :host {
         flex: 1;
+        overflow: auto;
+        min-height: 0;
       }
 
       .filters {

@@ -10,6 +10,12 @@ export class PlantList extends LitElement {
       :host {
         display: block;
         flex: 1;
+        min-height: 0;
+        overflow: auto;
+      }
+
+      #filter-input {
+        padding: 1rem;
       }
     `,
   ];
@@ -39,6 +45,7 @@ export class PlantList extends LitElement {
         placeholder="Type filter here"
         .value="${this.filter}"
         @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
+        id="filter-input"
       ></sl-input>`,
       this.plants
         .filter(plant => this._filterMatchesPlant(plant, this.filter))
