@@ -3213,6 +3213,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typedoc-plugin-markdown@patch:typedoc-plugin-markdown@npm:3.12.1#.yarn/patches/typedoc-plugin-markdown-npm-3.12.1-73b5590d78.patch::locator=plantdb%40workspace%3A.":
+  version: 3.12.1
+  resolution: "typedoc-plugin-markdown@patch:typedoc-plugin-markdown@npm%3A3.12.1#.yarn/patches/typedoc-plugin-markdown-npm-3.12.1-73b5590d78.patch::version=3.12.1&hash=98e7cc&locator=plantdb%40workspace%3A."
+  dependencies:
+    handlebars: ^4.7.7
+  peerDependencies:
+    typedoc: ">=0.22.0"
+  checksum: fd3f4565849fc48dc1ba14f484eac1404c6cb8f154fc2e1015633615459dec31dd6deb6325e018364edff3ab89304bbf4382ea8884bcd6f2fa4e371040d0a790
+  languageName: node
+  linkType: hard
+
 "typedoc@npm:0.22.15":
   version: 0.22.15
   resolution: "typedoc@npm:0.22.15"

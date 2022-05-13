@@ -1,0 +1,85 @@
+diff --git a/dist/resources/partials/member.signature.hbs b/dist/resources/partials/member.signature.hbs
+index 744cef1256b142b96817aaf428dbb882be7d505a..f20bc9d2d6fafa04d00243f093a3e667c792c3d5 100644
+--- a/dist/resources/partials/member.signature.hbs
++++ b/dist/resources/partials/member.signature.hbs
+@@ -6,11 +6,11 @@
+ 
+ {{#if showSources}}
+ 
+-#### Type parameters
++**Type parameters**
+ 
+ {{else}}
+ 
+-##### Type parameters
++**Type parameters**
+ 
+ {{/if}}
+ 
+@@ -26,11 +26,11 @@
+ 
+ {{#if showSources}}
+ 
+-#### Parameters
++**Parameters**
+ 
+ {{else}}
+ 
+-##### Parameters
++**Parameters**
+ 
+ {{/if}}
+ 
+@@ -48,11 +48,11 @@
+ 
+ {{#if showSources}}
+ 
+-#### Returns
++**Returns**
+ 
+ {{else}}
+ 
+-##### Returns
++**Returns**
+ 
+ {{/if}}
+ 
+diff --git a/dist/resources/partials/member.sources.hbs b/dist/resources/partials/member.sources.hbs
+index f642b49ce90617f0cb416e0a6bac8f50afb7bbf9..290f1d7bdc053b214973fdcf7070d6fcaba01b00 100644
+--- a/dist/resources/partials/member.sources.hbs
++++ b/dist/resources/partials/member.sources.hbs
+@@ -1,6 +1,6 @@
+ {{#if implementationOf}}
+ 
+-#### Implementation of
++**Implementation of**
+ 
+ {{#with implementationOf}}
+ 
+@@ -12,7 +12,7 @@
+ 
+ {{#if inheritedFrom}}
+ 
+-#### Inherited from
++**Inherited from**
+ 
+ {{#with inheritedFrom}}
+ 
+@@ -24,7 +24,7 @@
+ 
+ {{#if overwrites}}
+ 
+-#### Overrides
++**Overrides**
+ 
+ {{#with overwrites}}
+ 
+@@ -36,7 +36,7 @@
+ 
+ {{#if sources}}
+ 
+-#### Defined in
++**Defined in**
+ 
+ {{#each sources}}
+ 
