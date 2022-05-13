@@ -159,7 +159,7 @@ export class LogEntry {
     return undefined;
   }
 
-  static fromJSON(dataObject: LogEntrySerialized) {
+  static fromJSObject(dataObject: LogEntrySerialized) {
     const logEntry = new LogEntry(
       dataObject.plantId,
       new Date(dataObject.timestamp),
@@ -172,7 +172,17 @@ export class LogEntry {
     return logEntry;
   }
 
-  toJSON(): LogEntrySerialized {
+  /**
+   * Parse a JSON string and construct a new `LogEntry` from it.
+   * @param dataString The JSON-serialized log entry.
+   * @returns The new `LogEntry`.
+   */
+  static fromJSON(dataString: string) {
+    const data = JSON.parse(dataString) as LogEntrySerialized;
+    return LogEntry.fromJSObject(data);
+  }
+
+  toJSObject(): LogEntrySerialized {
     return {
       plantId: this.plantId,
       timestamp: this.timestamp.toISOString(),
@@ -182,5 +192,13 @@ export class LogEntry {
       product: this.productUsed,
       note: this.note,
     };
+  }
+
+  /**
+   * Serialize the `LogEntry` into a JSON string.
+   * @returns The object as JSON string.
+   */
+  toJSON() {
+    return JSON.stringify(this.toJSObject());
   }
 }

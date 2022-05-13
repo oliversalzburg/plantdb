@@ -1,3 +1,6 @@
+/**
+ * A hash of internally known event types to a human-readable, English version.
+ */
 export const EventTypes = {
   /**
    * Typically, this marks the first event of a plant, if that plant was acquired (purchased) from a vendor.
@@ -49,8 +52,15 @@ export const EventTypes = {
   Watering: "Watering",
 } as const;
 
+/**
+ * All possible values for internally known event types.
+ */
 export type EventType = keyof typeof EventTypes;
 
+/**
+ * Describes a plain JS object, containing all the properties required to initialize
+ * a `DatabaseFormat`.
+ */
 export type DatabaseFormatSerialized = {
   columnSeparator: string;
   dateFormat: string;

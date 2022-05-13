@@ -150,7 +150,7 @@ export class Plant {
     return plant;
   }
 
-  static fromJSON(dataObject: PlantSerialized, log = new Array<LogEntry>()) {
+  static fromJSObject(dataObject: PlantSerialized, log = new Array<LogEntry>()) {
     const plant = new Plant(dataObject.id);
     plant.#name = dataObject.name ?? plant.#name;
     plant.#kind = dataObject.kind ?? plant.#kind;
@@ -168,7 +168,17 @@ export class Plant {
     return plant;
   }
 
-  toJSON(): PlantSerialized {
+  /**
+   * Parse a JSON string and construct a new `Plant` from it.
+   * @param dataString The JSON-serialized plant.
+   * @returns The new `Plant`.
+   */
+  static fromJSON(dataString: string) {
+    const data = JSON.parse(dataString) as PlantSerialized;
+    return Plant.fromJSObject(data);
+  }
+
+  toJSObject(): PlantSerialized {
     return {
       id: this.id,
       name: this.name,
@@ -183,5 +193,13 @@ export class Plant {
       tempIdeal: this.tempIdeal,
       notes: this.notes,
     };
+  }
+
+  /**
+   * Serialize the `Plant` into a JSON string.
+   * @returns The object as JSON string.
+   */
+  toJSON() {
+    return JSON.stringify(this.toJSObject());
   }
 }

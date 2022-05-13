@@ -76,7 +76,7 @@ export class PlantDB {
     // Create plants that appear on the log, but are not defined in the plant metadata.
     for (const log of plantDb.#log) {
       if (!plantDb.#plants.has(log.plantId)) {
-        plantDb.#plants.set(log.plantId, Plant.fromJSON({ id: log.plantId }, plantDb.#log));
+        plantDb.#plants.set(log.plantId, Plant.fromJSObject({ id: log.plantId }, plantDb.#log));
       }
     }
 
@@ -91,14 +91,14 @@ export class PlantDB {
     const plantDb = new PlantDB();
 
     plantDb.#config = databaseFormat;
-    plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSON(logEntry));
+    plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSObject(logEntry));
 
     for (const logEntry of plantDb.#log) {
       plantDb.#entryTypes.add(logEntry.type);
     }
 
     for (const plant of plants) {
-      plantDb.#plants.set(plant.id, Plant.fromJSON(plant, plantDb.#log));
+      plantDb.#plants.set(plant.id, Plant.fromJSObject(plant, plantDb.#log));
     }
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
