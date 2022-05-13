@@ -28,7 +28,7 @@ export class PlantStore extends LitElement {
 
         const plants = JSON.parse(storedPlants) as Array<PlantSerialized>;
         //this.plants = plants.map(plant => Plant.fromJSON(plant, log));
-        this.plantDb = PlantDB.fromJSON(config, plants, logData);
+        this.plantDb = PlantDB.fromJSObjects(config, plants, logData);
       }
 
       this.dispatchEvent(new CustomEvent("plant-config-changed", { detail: this.plantDb }));
