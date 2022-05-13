@@ -30,6 +30,9 @@ jobs:
           yarn workspace @plantdb/libplantdb build
           yarn workspace @plantdb/plant-playground build --base=/plantdb/playground/
           yarn docs:build
+          yarn workspace @plantdb/libplantdb docs
+
+          # Put playground and docs on same deployment behind landing-page
           mkdir /tmp/plant-deploy
           cp packages/landing-page/index.html /tmp/plant-deploy/
           cp --recursive packages/documentation/public \

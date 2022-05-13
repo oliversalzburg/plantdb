@@ -22,4 +22,6 @@ jobs:
         run: yarn install
 
       - name: Build documentation
-        run: yarn docs:build
+        run: |
+          yarn docs:build
+          yarn workspace @plantdb/libplantdb docs

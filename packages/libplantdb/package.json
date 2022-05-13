@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf tsconfig.tsbuildinfo output typings",
+    "docs": "typedoc --plugin typedoc-plugin-markdown --out ../documentation/docs/reference/libplantdb ./source/index.ts",
     "lint": "eslint source && tsc --noEmit"
   },
   "types": "./typings/index.d.ts",
@@ -17,6 +18,8 @@
   "devDependencies": {
     "@types/luxon": "2.3.2",
     "tslib": "2.4.0",
+    "typedoc": "0.22.15",
+    "typedoc-plugin-markdown": "3.12.1",
     "typescript": "4.6.4"
   },
   "exports": {
