@@ -37,7 +37,7 @@ export class PlantImportView extends View {
   firstUpdated() {
     const storedConfig = localStorage.getItem("plantdb.config");
     if (storedConfig) {
-      this.config = DatabaseFormat.fromJSON(JSON.parse(storedConfig) as DatabaseFormatSerialized);
+      this.config = DatabaseFormat.fromJSON(storedConfig);
     }
   }
 
@@ -46,7 +46,7 @@ export class PlantImportView extends View {
     console.info("Processing data...");
     const plantDataRaw = this.plantData;
     const plantLogDataRaw = this.plantLogData;
-    const plantDbConfig = DatabaseFormat.fromJSON({
+    const plantDbConfig = DatabaseFormat.fromJSObject({
       columnSeparator: this.config.columnSeparator,
       dateFormat: this.config.dateFormat,
       hasHeaderRow: this.config.hasHeaderRow,

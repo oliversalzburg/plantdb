@@ -1,10 +1,4 @@
-import {
-  DatabaseFormat,
-  DatabaseFormatSerialized,
-  LogEntrySerialized,
-  PlantDB,
-  PlantSerialized,
-} from "@plantdb/libplantdb";
+import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { PlantDbStorage } from "../PlantDbStorage";
@@ -28,9 +22,7 @@ export class PlantStore extends LitElement {
       const storedPlants = localStorage.getItem("plantdb.plants");
 
       if (storedLog && storedPlants) {
-        const config = DatabaseFormat.fromJSON(
-          JSON.parse(storedConfig) as DatabaseFormatSerialized
-        );
+        const config = DatabaseFormat.fromJSON(storedConfig);
         const logData = JSON.parse(storedLog) as Array<LogEntrySerialized>;
         //const log = logData.map(logEntry => LogEntry.fromJSON(logEntry));
 
