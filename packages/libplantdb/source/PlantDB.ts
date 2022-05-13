@@ -83,7 +83,7 @@ export class PlantDB {
     return plantDb;
   }
 
-  static fromJSON(
+  static fromJSObjects(
     databaseFormat: DatabaseFormat,
     plants: Array<PlantSerialized>,
     plantLogData: Array<LogEntrySerialized>
