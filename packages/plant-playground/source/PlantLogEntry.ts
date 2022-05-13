@@ -80,7 +80,10 @@ export class PlantLogEntry extends LitElement {
       case "Observation":
         return { icon: "eye" };
       case "PestControl":
-        return { icon: "radioactive", details: `${logEntry?.product ? logEntry.product : ""}` };
+        return {
+          icon: "radioactive",
+          details: `${logEntry?.productUsed ? logEntry.productUsed : ""}`,
+        };
       case "PestInfestation":
         return { icon: "bug" };
       case "Pruning":
