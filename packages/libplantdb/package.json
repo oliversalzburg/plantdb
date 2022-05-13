@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf tsconfig.tsbuildinfo output typings",
-    "docs": "typedoc --plugin typedoc-plugin-markdown --out ../documentation/docs/reference/libplantdb ./source/index.ts",
+    "docs": "typedoc --plugin typedoc-plugin-markdown",
     "lint": "eslint source && tsc --noEmit"
   },
   "types": "./typings/index.d.ts",
