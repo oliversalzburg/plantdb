@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { DatabaseFormat } from "./DatabaseFormat.js";
+import { DatabaseFormat, EventTypes } from "./DatabaseFormat.js";
 
 export type LogEntrySerialized = {
   plantId: string;
@@ -11,56 +11,87 @@ export type LogEntrySerialized = {
   note?: string;
 };
 
+/**
+ * A single entry in a PlantDB log.
+ */
 export class LogEntry {
   #plantId: string;
   #timestamp: Date;
   #type: string;
   #ec: number | undefined;
   #ph: number | undefined;
-  #product: string | undefined;
+  #productUsed: string | undefined;
   #note: string | undefined;
 
+  /**
+   * The ID of the plant. Expected to be in the format `PID-number`.
+   */
   get plantId() {
     return this.#plantId;
   }
 
+  /**
+   * The date/time the entry was recorded at.
+   */
   get timestamp() {
     return this.#timestamp;
   }
 
+  /**
+   * The type of the event, as it appears in the original user data.
+   */
   get type() {
     return this.#type;
   }
 
-  get ec() {
-    return this.#ec;
-  }
-
-  get ph() {
-    return this.#ph;
-  }
-
-  get product() {
-    return this.#product;
-  }
-
+  /**
+   * The note that the user recorded with the event.
+   */
   get note() {
     return this.#note;
   }
 
+  /**
+   * The EC value that was recorded with the event.
+   */
+  get ec() {
+    return this.#ec;
+  }
+
+  /**
+   * The pH value that was recorded with the event.
+   */
+  get ph() {
+    return this.#ph;
+  }
+
+  /**
+   * The product that was used on the plant in this event.
+   */
+  get productUsed() {
+    return this.#productUsed;
+  }
+
+  /**
+   * An easily indexable string that represents the most relevant bits of text associated with the record.
+   */
   get indexableText() {
-    return `${this.plantId} ${this.type} ${this.product ?? ""} ${
+    return `${this.plantId} ${this.type} ${this.productUsed ?? ""} ${
       this.note ?? ""
     }`.toLocaleLowerCase();
   }
 
-  render(): string {
-    return `${this.#plantId} ${this.#timestamp.toISOString()} ${this.type} ${
-      this.#note ?? "<no note provided>"
-    }`;
-  }
-
-  constructor(plantId: string, timestamp: Date = new Date(), type = "Other") {
+  /**
+   * Constructs a new `LogEntry`.
+   * @param plantId The ID of the plant.
+   * @param timestamp The date/time the event was recorded.
+   * @param type The type of event.
+   */
+  constructor(
+    plantId: string,
+    timestamp: Date = new Date(),
+    type: string = EventTypes.Observation
+  ) {
     this.#plantId = plantId;
     this.#timestamp = timestamp;
     this.#type = type;
@@ -70,7 +101,7 @@ export class LogEntry {
     const logEntry = new LogEntry(other.#plantId, other.#timestamp, other.#type);
     logEntry.#ec = other.#ec;
     logEntry.#ph = other.#ph;
-    logEntry.#product = other.#product;
+    logEntry.#productUsed = other.#productUsed;
     logEntry.#note = other.#note;
     return logEntry;
   }
@@ -84,7 +115,7 @@ export class LogEntry {
     logEntry.#note = dataRow[3];
     logEntry.#ec = LogEntry.tryParseEC(dataRow[4]);
     logEntry.#ph = LogEntry.tryParsePh(dataRow[5]);
-    logEntry.#product = dataRow[6];
+    logEntry.#productUsed = dataRow[6];
 
     return logEntry;
   }
@@ -123,7 +154,7 @@ export class LogEntry {
     );
     logEntry.#ec = dataObject.ec ?? logEntry.#ec;
     logEntry.#ph = dataObject.ph ?? logEntry.#ph;
-    logEntry.#product = dataObject.product ?? logEntry.#product;
+    logEntry.#productUsed = dataObject.product ?? logEntry.#productUsed;
     logEntry.#note = dataObject.note ?? logEntry.#note;
     return logEntry;
   }
@@ -135,7 +166,7 @@ export class LogEntry {
       type: this.type,
       ec: this.ec,
       ph: this.ph,
-      product: this.product,
+      product: this.productUsed,
       note: this.note,
     };
   }

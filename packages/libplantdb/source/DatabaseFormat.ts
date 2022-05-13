@@ -59,6 +59,9 @@ export type DatabaseFormatSerialized = {
   typeMap: Record<string, EventType>;
 };
 
+/**
+ * Describes the format of records in a PlantDB document.
+ */
 export class DatabaseFormat {
   #columnSeparator = ",";
   #dateFormat = "yyyy-MM-dd HH:mm";
@@ -66,38 +69,60 @@ export class DatabaseFormat {
   #timezone = "utc";
   #typeMap = new Map<string, EventType>();
 
+  /**
+   * The character separating the individual columns of values in the document.
+   */
   get columnSeparator() {
     return this.#columnSeparator;
   }
 
   /**
+   * The format that is used to record date/time values in the document.
    * @see https://moment.github.io/luxon/#/parsing?id=table-of-tokens
    */
   get dateFormat() {
     return this.#dateFormat;
   }
 
+  /**
+   * Whether this document has an initial row that contains the labels for the columns in the document.
+   */
   get hasHeaderRow() {
     return this.#hasHeaderRow;
   }
 
   /**
+   * The time zone in which the date/time values in the document were recorded.
    * @see https://moment.github.io/luxon/#/zones?id=specifying-a-zone
    */
   get timezone() {
     return this.#timezone;
   }
 
+  /**
+   * A map of strings that appear as event identifiers in the document and the Plant-DB event types
+   * they correlate to.
+   */
   get typeMap() {
     return this.#typeMap;
   }
 
+  /**
+   * Creates a new `DatabaseFormat`, based on this one, but with a new type map.
+   * @param typeMap The type map to use in the new `DatabaseFormat`.
+   * @returns The new `DatabaseFormat`.
+   */
   withNewTypeMap(typeMap: Map<string, EventType>) {
     const copy = DatabaseFormat.fromDatabaseFormat(this);
     copy.#typeMap = typeMap;
     return copy;
   }
 
+  /**
+   * Creates a new `DatabaseFormat`, with the values of another `DatabaseFormat`.
+   * @param other The `DatabaseFormat` to copy values from.
+   * @returns The new `DatabaseFormat`.
+   */
   static fromDatabaseFormat(other: DatabaseFormat) {
     const format = new DatabaseFormat();
     format.#columnSeparator = other.#columnSeparator;
@@ -108,7 +133,12 @@ export class DatabaseFormat {
     return format;
   }
 
-  static fromJSON(data: Partial<DatabaseFormatSerialized>) {
+  /**
+   * Parse a JS object and construct a new `DatabaseFormat` from it.
+   * @param data The serialized `DatabaseFormat`.
+   * @returns The new `DatabaseFormat`.
+   */
+  static fromJSObject(data: Partial<DatabaseFormatSerialized>) {
     const format = new DatabaseFormat();
     format.#columnSeparator = data.columnSeparator ?? format.#columnSeparator;
     format.#dateFormat = data.dateFormat ?? format.#dateFormat;
@@ -119,7 +149,21 @@ export class DatabaseFormat {
     return format;
   }
 
-  toJSON(): DatabaseFormatSerialized {
+  /**
+   * Parse a JSON string and construct a new `DatabaseFormat` from it.
+   * @param dataString The JSON-serialized database format.
+   * @returns The new `DatabaseFormat`.
+   */
+  static fromJSON(dataString: string) {
+    const data = JSON.parse(dataString) as Partial<DatabaseFormatSerialized>;
+    return DatabaseFormat.fromJSObject(data);
+  }
+
+  /**
+   * Convert the `DatabaseFormat` into a plain JS object.
+   * @returns The `DatabaseFormat` as a plain JS object.
+   */
+  toJSObject(): DatabaseFormatSerialized {
     return {
       columnSeparator: this.columnSeparator,
       dateFormat: this.dateFormat,
@@ -127,5 +171,13 @@ export class DatabaseFormat {
       timezone: this.timezone,
       typeMap: Object.fromEntries(this.typeMap),
     };
+  }
+
+  /**
+   * Serialize the `DatabaseFormat` into a JSON string.
+   * @returns The object as JSON string.
+   */
+  toJSON() {
+    return JSON.stringify(this.toJSObject());
   }
 }
