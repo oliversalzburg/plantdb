@@ -268,10 +268,10 @@ export class Plant {
   }
 
   /**
-   * Serialize the `Plant` into a JSON string.
-   * @returns The object as JSON string.
+   * Pre-serialize the `Plant` into an object ready to be turned into a JSON string.
+   * @returns The `Plant` as JSON-serializable object.
    */
   toJSON() {
-    return JSON.stringify(this.toJSObject());
+    return this.toJSObject();
   }
 }

@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@plantdb/libplantdb": "workspace:*",
-    "csv-parse": "5.0.4",
     "dygraphs": "2.1.0",
     "lit": "2.2.3",
     "luxon": "2.4.0",

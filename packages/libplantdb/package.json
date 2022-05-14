@@ -9,10 +9,12 @@
     "build": "tsc",
     "clean": "rm -rf tsconfig.tsbuildinfo output typings",
     "docs": "typedoc --plugin typedoc-plugin-markdown",
-    "lint": "eslint source && tsc --noEmit"
+    "lint": "eslint source && tsc --noEmit",
+    "test": "jest"
   },
   "types": "./typings/index.d.ts",
   "dependencies": {
+    "csv-parse": "5.0.4",
     "luxon": "2.4.0"
   },
   "devDependencies": {

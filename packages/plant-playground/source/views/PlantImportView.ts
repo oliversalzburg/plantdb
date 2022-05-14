@@ -1,6 +1,5 @@
 import { DatabaseFormat, DatabaseFormatSerialized, PlantDB } from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
-import { parse } from "csv-parse/browser/esm/sync";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -56,18 +55,7 @@ export class PlantImportView extends View {
   }
 
   processData(plantDataRaw: string, plantLogDataRaw: string, plantDbConfig: DatabaseFormat) {
-    const plantData = parse(plantDataRaw, {
-      columns: false,
-      delimiter: plantDbConfig.columnSeparator,
-      from: plantDbConfig.hasHeaderRow ? 2 : 1,
-    }) as Array<Array<string>>;
-    const plantLogData = parse(plantLogDataRaw, {
-      columns: false,
-      delimiter: plantDbConfig.columnSeparator,
-      from: plantDbConfig.hasHeaderRow ? 2 : 1,
-    }) as Array<Array<string>>;
-
-    const plantDb = PlantDB.fromCSV(plantDbConfig, plantData, plantLogData);
+    const plantDb = PlantDB.fromCSV(plantDbConfig, plantDataRaw, plantLogDataRaw);
 
     for (const logRecord of plantDb.log) {
       const plant = plantDb.plants.get(logRecord.plantId);

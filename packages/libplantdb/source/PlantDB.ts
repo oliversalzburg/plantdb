@@ -1,3 +1,4 @@
+import { parse } from "csv-parse/browser/esm/sync";
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry, LogEntrySerialized } from "./LogEntry.js";
 import { Plant, PlantSerialized } from "./Plant.js";
@@ -51,23 +52,29 @@ export class PlantDB {
     return plantDb;
   }
 
-  static fromCSV(
-    databaseFormat: DatabaseFormat,
-    plantData: Array<Array<string>>,
-    plantLogData: Array<Array<string>>
-  ) {
+  static fromCSV(databaseFormat: DatabaseFormat, plantDataRaw: string, plantLogDataRaw: string) {
     const plantDb = new PlantDB();
 
     plantDb.#config = databaseFormat;
 
+    const plantLogData = parse(plantLogDataRaw, {
+      columns: false,
+      delimiter: databaseFormat.columnSeparator,
+      from: databaseFormat.hasHeaderRow ? 2 : 1,
+    }) as Array<Array<string>>;
     for (const logRecord of plantLogData) {
-      const logEntry = LogEntry.fromCSV(logRecord, databaseFormat);
+      const logEntry = LogEntry.fromCSVData(logRecord, databaseFormat);
       plantDb.#log.push(logEntry);
       plantDb.#entryTypes.add(logEntry.type);
     }
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
+    const plantData = parse(plantDataRaw, {
+      columns: false,
+      delimiter: databaseFormat.columnSeparator,
+      from: databaseFormat.hasHeaderRow ? 2 : 1,
+    }) as Array<Array<string>>;
     for (const plantRecord of plantData) {
       const plant = Plant.fromCSV(plantRecord, plantDb.#log);
       plantDb.#plants.set(plant.id, plant);

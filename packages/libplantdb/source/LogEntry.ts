@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { DatabaseFormat, EventTypes } from "./DatabaseFormat.js";
+import { DatabaseFormat, EventTypes } from "./DatabaseFormat";
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.
@@ -144,7 +144,7 @@ export class LogEntry {
     return logEntry;
   }
 
-  static fromCSV(
+  static fromCSVData(
     dataRow: Array<string>,
     format: DatabaseFormat,
     sourceFileLineNumber?: number | undefined
@@ -225,10 +225,10 @@ export class LogEntry {
   }
 
   /**
-   * Serialize the `LogEntry` into a JSON string.
-   * @returns The object as JSON string.
+   * Pre-serialize the `LogEntry` into an object ready to be turned into a JSON string.
+   * @returns The `LogEntry` as JSON-serializable object.
    */
   toJSON() {
-    return JSON.stringify(this.toJSObject());
+    return this.toJSObject();
   }
 }

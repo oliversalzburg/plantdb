@@ -162,6 +162,7 @@ __metadata:
   resolution: "@plantdb/libplantdb@workspace:packages/libplantdb"
   dependencies:
     "@types/luxon": 2.3.2
+    csv-parse: 5.0.4
     luxon: 2.4.0
     tslib: 2.4.0
     typedoc: 0.22.15
@@ -195,7 +196,6 @@ __metadata:
     "@shoelace-style/shoelace": 2.0.0-beta.73
     "@types/dygraphs": 2.1.4
     "@types/web": 0.0.64
-    csv-parse: 5.0.4
     dygraphs: 2.1.0
     lit: 2.2.3
     luxon: 2.4.0

@@ -6,7 +6,7 @@ export class PlantLog {
     const plantLog = new Array<LogEntry>();
     const entryTypes = new Set<string>();
     for (const logRecord of plantLogData) {
-      const logEntry = LogEntry.fromCSV(logRecord, databaseFormat);
+      const logEntry = LogEntry.fromCSVData(logRecord, databaseFormat);
       plantLog.push(logEntry);
       entryTypes.add(logEntry.type);
     }
