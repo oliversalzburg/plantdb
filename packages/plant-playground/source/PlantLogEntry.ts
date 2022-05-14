@@ -1,4 +1,11 @@
-import { EventType, identifyLogType, LogEntry, Plant, PlantDB } from "@plantdb/libplantdb";
+import {
+  EventType,
+  identifyLogType,
+  LogEntry,
+  MATCH_PID_ALL,
+  Plant,
+  PlantDB,
+} from "@plantdb/libplantdb";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -154,7 +161,7 @@ export class PlantLogEntry extends LitElement {
   }
 
   linkify(text = "") {
-    const matches = text.matchAll(/PID-\d{1,6}/g);
+    const matches = text.matchAll(MATCH_PID_ALL);
     const output = [];
     let lastIndex = 0;
     for (const match of matches) {

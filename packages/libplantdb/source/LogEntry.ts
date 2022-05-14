@@ -1,13 +1,43 @@
 import { DateTime } from "luxon";
 import { DatabaseFormat, EventTypes } from "./DatabaseFormat.js";
 
+/**
+ * Describes an object containing all the fields required to initialize a `LogEntry`.
+ */
 export type LogEntrySerialized = {
+  /**
+   * The ID of the plant.
+   */
   plantId: string;
+
+  /**
+   * A string representation of a `Date`.
+   */
   timestamp: string;
+
+  /**
+   * The user-supplied type of this entry.
+   */
   type: string;
+
+  /**
+   * The EC value recorded with the entry, if any.
+   */
   ec?: number;
+
+  /**
+   * The pH value recorded with the entry, if any.
+   */
   ph?: number;
-  product?: string;
+
+  /**
+   * The product that was used during the event, if any.
+   */
+  productUsed?: string;
+
+  /**
+   * A note that was recorded with the event, if any.
+   */
   note?: string;
 };
 
@@ -167,7 +197,7 @@ export class LogEntry {
     );
     logEntry.#ec = dataObject.ec ?? logEntry.#ec;
     logEntry.#ph = dataObject.ph ?? logEntry.#ph;
-    logEntry.#productUsed = dataObject.product ?? logEntry.#productUsed;
+    logEntry.#productUsed = dataObject.productUsed ?? logEntry.#productUsed;
     logEntry.#note = dataObject.note ?? logEntry.#note;
     return logEntry;
   }
@@ -189,7 +219,7 @@ export class LogEntry {
       type: this.type,
       ec: this.ec,
       ph: this.ph,
-      product: this.productUsed,
+      productUsed: this.productUsed,
       note: this.note,
     };
   }

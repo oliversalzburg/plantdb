@@ -1,23 +1,95 @@
 import { LogEntry } from "./LogEntry.js";
 import { kindFlatten, kindSummarize } from "./Tools.js";
 
+/**
+ * Matches a Plant ID.
+ */
 export const MATCH_PID = /PID-\d{1,6}/;
 
-export type PotShapeTop = "Round" | "Square";
-export type PotColor = "Grey" | "LightGrey" | "White";
+/**
+ * Matches all Plant IDs.
+ */
+export const MATCH_PID_ALL = /PID-\d{1,6}/g;
 
+/**
+ * Internally understood pot shapes.
+ */
+export type PotShapeTop = "Oval" | "Rectangle" | "Round" | "Square";
+
+/**
+ * Internally understood pot colors.
+ */
+export type PotColor =
+  | "Black"
+  | "Brown"
+  | "Grey"
+  | "LightGrey"
+  | "Orange"
+  | "Transparent"
+  | "White";
+
+/**
+ * Describes an object containing all the fields required to initialize a `Plant`.
+ */
 export type PlantSerialized = {
+  /**
+   * The ID of the plant.
+   */
   id: string;
+
+  /**
+   * The name of the plant.
+   */
   name?: string;
+
+  /**
+   * The kind (or kinds) of the plant.
+   */
   kind?: string | Array<string>;
+
+  /**
+   * The current substrate the plant is planted in.
+   */
   substrate?: string;
+
+  /**
+   * The shape of the pot, when viewed from above.
+   */
   potShapeTop?: string;
+
+  /**
+   * The color of the pot.
+   */
   potColor?: string;
+
+  /**
+   * Does the plant current sit on a saucer?
+   */
   onSaucer?: boolean;
+
+  /**
+   * The current location of the plant.
+   */
   location?: string;
+
+  /**
+   * The ideal pH value for this plant.
+   */
   phIdeal?: number;
+
+  /**
+   * The ideal EC value for this plant.
+   */
   ecIdeal?: number;
+
+  /**
+   * The ideal temperature for this plant.
+   */
   tempIdeal?: number;
+
+  /**
+   * Any notes about this plant.
+   */
   notes?: string;
 };
 
