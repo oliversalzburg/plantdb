@@ -1,4 +1,5 @@
 import { PlantDB } from "@plantdb/libplantdb";
+import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { View } from "./View";
@@ -31,7 +32,7 @@ export class PlantLogView extends View {
               <sl-button variant="primary" disabled>Add log entry</sl-button>
             </section>`
         : html`<plant-empty-state class="empty"
-            ><p>It seems like you have no log entries 😔</p>
+            ><p>${t("logEmpty")}</p>
 
             <sl-button href="import" variant="primary">Import now</sl-button></plant-empty-state
           >`,

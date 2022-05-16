@@ -1,3 +1,6 @@
+import i18next from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
@@ -7,6 +10,9 @@ export const retrieveStoreUi = () => globalStore;
 
 @customElement("plant-store-ui")
 export class PlantStoreUi extends LitElement {
+  @property({ type: Boolean })
+  i18nReady = false;
+
   @property({ type: Boolean })
   darkMode = false;
 
@@ -40,6 +46,23 @@ export class PlantStoreUi extends LitElement {
         .matchMedia("(prefers-color-scheme: dark)")
         .addEventListener("change", this._onSchemePreferenceChanged);
     }
+
+    i18next
+      .use(LanguageDetector)
+      .use(HttpApi)
+      .init({
+        debug: true,
+        detection: {
+          order: ["localStorage", "navigator"],
+          caches: ["localStorage"],
+          lookupLocalStorage: "plantdb.i18nextLng",
+        },
+      })
+      .then(() => {
+        this.i18nReady = true;
+        this.dispatchEvent(new CustomEvent("plant-i18n-changed", { detail: i18next.language }));
+      })
+      .catch(console.error);
 
     if (
       !userConfiguredTheme &&
@@ -75,7 +98,7 @@ export class PlantStoreUi extends LitElement {
     this.darkMode = true;
     localStorage.setItem("plantdb.theme", "dark");
 
-    this.dispatchEvent(new CustomEvent("plant-theme-change", { detail: "dark" }));
+    this.dispatchEvent(new CustomEvent("plant-theme-changed", { detail: "dark" }));
   }
 
   darkModeLeave() {
@@ -83,7 +106,7 @@ export class PlantStoreUi extends LitElement {
     this.darkMode = false;
     localStorage.setItem("plantdb.theme", "light");
 
-    this.dispatchEvent(new CustomEvent("plant-theme-change", { detail: "light" }));
+    this.dispatchEvent(new CustomEvent("plant-theme-changed", { detail: "light" }));
   }
 
   drawerOpen() {

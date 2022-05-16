@@ -121,9 +121,17 @@ export class PlantCard extends LitElement {
       <div slot="footer">
         <small>
           <ul>
-            <li>Added: ${DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()}</li>
             <li>
-              Last updated: ${DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()}
+              Added:
+              ${this.plant.logEntryOldest
+                ? DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()
+                : "never"}
+            </li>
+            <li>
+              Last updated:
+              ${this.plant.logEntryLatest
+                ? DateTime.fromJSDate(this.plant.logEntryLatest?.timestamp).toRelative()
+                : "never"}
             </li>
           </ul>
         </small>

@@ -32,6 +32,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.17.2":
+  version: 7.17.9
+  resolution: "@babel/runtime@npm:7.17.9"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 758ce8855a75408555ed9d196c82c86350257765095a5d3e05df35875d1b0cd42223c6f62356f000b1e1efe8e345d6312c60ae98e8727a2a49909a656f0fd805
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^1.2.3":
   version: 1.2.3
   resolution: "@eslint/eslintrc@npm:1.2.3"
@@ -197,7 +206,11 @@ __metadata:
     "@types/dygraphs": 2.1.4
     "@types/web": 0.0.64
     dygraphs: 2.1.0
+    i18next: 21.8.2
+    i18next-browser-languagedetector: 6.1.4
+    i18next-http-backend: 1.4.0
     lit: 2.2.3
+    lit-i18n: 3.0.2
     luxon: 2.4.0
     pwa-helpers: 0.9.1
     sass: 1.51.0
@@ -906,6 +919,15 @@ __metadata:
     path-type: ^4.0.0
     yaml: ^1.10.0
   checksum: 3cd38525ba22e13da0ef9f4be131df226c94f5b96fb50f6297eb17baeedefe15cf5819f8c73cde69f71cc5034e712c86bd20c7756883dd8094087680ecc25932
+  languageName: node
+  linkType: hard
+
+"cross-fetch@npm:3.1.5":
+  version: 3.1.5
+  resolution: "cross-fetch@npm:3.1.5"
+  dependencies:
+    node-fetch: 2.6.7
+  checksum: 29b457f8df11b46b8388a53c947de80bfe04e6466a59c1628c9870b48505b90ec1d28a05b543a0247416a99f1cfe147d1efe373afdeb46a192334ba5fe91b871
   languageName: node
   linkType: hard
 
@@ -1751,6 +1773,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"i18next-browser-languagedetector@npm:6.1.4":
+  version: 6.1.4
+  resolution: "i18next-browser-languagedetector@npm:6.1.4"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+  checksum: 192d54fedc0bb545a208082620d943b7d8af13e4f33acdfab00e5a2983c24c98515cbb37f3d4c01afb9bee97313665b54a0b52c508da4830015262295762d8c2
+  languageName: node
+  linkType: hard
+
+"i18next-http-backend@npm:1.4.0":
+  version: 1.4.0
+  resolution: "i18next-http-backend@npm:1.4.0"
+  dependencies:
+    cross-fetch: 3.1.5
+  checksum: 60af66ff5270649b2b285cdb8020f648103c175f1da3776616333e18e2e61ab71f3eeb3e7695970ef449b42f57290fcc01890cb2ac4cc5d9f91670a46d503293
+  languageName: node
+  linkType: hard
+
+"i18next@npm:21.8.2":
+  version: 21.8.2
+  resolution: "i18next@npm:21.8.2"
+  dependencies:
+    "@babel/runtime": ^7.17.2
+  checksum: 59968ff32e04084fa4b475c653a2f2b688f4fd1b9376904d6391953e220914ba915d73842d0a6e0195f33df658867acab3818611d959eabed40d496422cf47ab
+  languageName: node
+  linkType: hard
+
 "iconv-lite@npm:^0.6.2":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
@@ -2057,12 +2106,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:^2.2.0":
+"lit-html@npm:^2.0.1, lit-html@npm:^2.2.0":
   version: 2.2.3
   resolution: "lit-html@npm:2.2.3"
   dependencies:
     "@types/trusted-types": ^2.0.2
   checksum: 55d9dc8dfa4e1a9db318793b5d147729b485c95574eaf6644fc0962f49a007c1c94a4aac30ad28f6730620647208d42a52196cee7a425e4ece5610a18a77ab73
+  languageName: node
+  linkType: hard
+
+"lit-i18n@npm:3.0.2":
+  version: 3.0.2
+  resolution: "lit-i18n@npm:3.0.2"
+  dependencies:
+    lit-html: ^2.0.1
+  peerDependencies:
+    i18next: ^21.3.3
+  checksum: 76abfb5cff4b241a15ebc1d895317fc92a94d73a09529764f81c366733043a63a8d6db8f276a3eacdbf0020425c8d8e7102c35b55888f3952ab26c22148c04f5
   languageName: node
   linkType: hard
 
@@ -2351,6 +2411,20 @@ __metadata:
   version: 2.6.2
   resolution: "neo-async@npm:2.6.2"
   checksum: c2f5a604a54a8ec5438a342e1f356dff4bc33ccccdb6dc668d94fe8e5eccfc9d2c2eea6064b0967a767ba63b33763f51ccf2cd2441b461a7322656c1f06b3f5d
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:2.6.7":
+  version: 2.6.7
+  resolution: "node-fetch@npm:2.6.7"
+  dependencies:
+    whatwg-url: ^5.0.0
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: fcae80f5ac52fbf5012f5e19df2bd3915e67d3b3ad51cb5942943df2238d32ba15890fecabd0e166876a9f98a581ab50f3f10eb942b09405c49ef8da36b826c7
   languageName: node
   linkType: hard
 
@@ -2706,6 +2780,13 @@ __metadata:
   dependencies:
     picomatch: ^2.2.1
   checksum: 6fa848cf63d1b82ab4e985f4cf72bd55b7dcfd8e0a376905804e48c3634b7e749170940ba77b32804d5fe93b3cc521aa95a8d7e7d725f830da6d93f3669ce66b
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.4":
+  version: 0.13.9
+  resolution: "regenerator-runtime@npm:0.13.9"
+  checksum: b0f26612204f061a84064d2f3361629eae09993939112b9ffc3680bb369ecd125764d6654eace9ef11b36b44282ee52b988dda946ea52d372e7599a30eea73ee
   languageName: node
   linkType: hard
 
@@ -3154,6 +3235,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tr46@npm:~0.0.3":
+  version: 0.0.3
+  resolution: "tr46@npm:0.0.3"
+  checksum: 047cb209a6b60c742f05c9d3ace8fa510bff609995c129a37ace03476a9b12db4dbf975e74600830ef0796e18882b2381fb5fb1f6b4f96b832c374de3ab91a11
+  languageName: node
+  linkType: hard
+
 "tslib@npm:2.4.0, tslib@npm:^2.1.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
@@ -3358,6 +3446,23 @@ __metadata:
   version: 5.2.0
   resolution: "vscode-textmate@npm:5.2.0"
   checksum: 87c4786606cf7a49d78b690b37236f919db594ff81f1a405f9d9a0a9ee66ff3450fe51c0d8731f270268f7be550adffb6711a4bbc6f56d76b71abe41949817c7
+  languageName: node
+  linkType: hard
+
+"webidl-conversions@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "webidl-conversions@npm:3.0.1"
+  checksum: 5612d5f3e54760a797052eb4927f0ddc01383550f542ccd33d5238cfd65aeed392a45ad38364970d0a0f4fea32e1f4d231b3d8dac4a3bdd385e5cf802ae097db
+  languageName: node
+  linkType: hard
+
+"whatwg-url@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "whatwg-url@npm:5.0.0"
+  dependencies:
+    tr46: ~0.0.3
+    webidl-conversions: ^3.0.0
+  checksum: 1588bed84d10b72d5eec1d0faa0722ba1962f1821e7539c535558fb5398d223b0c50d8acab950b8c488b4ba69043fd833cc2697056b167d8ad46fac3995a55d5
   languageName: node
   linkType: hard
 

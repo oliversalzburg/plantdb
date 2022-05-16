@@ -150,12 +150,12 @@ export class PlantDygraph extends LitElement {
       this.darkMode = (event as CustomEvent<"dark" | "light">).detail === "dark";
       this._handleThemeChange();
     };
-    this._plantStoreUi.addEventListener("plant-theme-change", this._onThemeChangeHandler);
+    this._plantStoreUi.addEventListener("plant-theme-changed", this._onThemeChangeHandler);
   }
 
   disconnectedCallback(): void {
     if (this._onThemeChangeHandler) {
-      this._plantStoreUi?.removeEventListener("plant-theme-change", this._onThemeChangeHandler);
+      this._plantStoreUi?.removeEventListener("plant-theme-changed", this._onThemeChangeHandler);
       this._onThemeChangeHandler = undefined;
     }
   }
