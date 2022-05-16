@@ -7,7 +7,7 @@
     "plants": "Plantes",
     "typeMap": "Mappages de type",
     "import": "Importation",
-    "close": "Fermer"
+    "close": "$t(common:close)"
   },
   "empty": {
     "log": "Il semble que vous n'avez aucune entrée de log 😔",
