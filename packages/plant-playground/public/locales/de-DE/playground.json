@@ -24,14 +24,20 @@
     "never": "nie"
   },
   "dbConfig": {
-    "title": "Database Configuration",
-    "hasHeaderRow": "Has header row?",
-    "columnSeparator": "Column separator",
-    "comma": "Comma ,",
-    "semicolon": "Semicolon ;",
-    "tab": "Tab",
-    "dateTimeFormat": "Timestamp format",
-    "timezone": "Timezone"
+    "title": "Datenbankeinstellungen",
+    "hasHeaderRow": "Spaltentitel vorhanden?",
+    "columnSeparator": "Trennzeichen",
+    "comma": "Komma ,",
+    "semicolon": "Semikolon ;",
+    "tab": "Tabulator",
+    "dateTimeFormat": "Zeitstempelformat",
+    "timezone": "Zeitzone"
+  },
+  "typeMap": {
+    "title": "Type mapping",
+    "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
+    "unmapped": "Unmapped event type",
+    "save": "Save mapping"
   },
   "placeholder": {
     "filter": "Filter hier eingeben"
