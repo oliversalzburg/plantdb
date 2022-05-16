@@ -33,12 +33,6 @@
     "dateTimeFormat": "Timestamp format",
     "timezone": "Timezone"
   },
-  "typeMap": {
-    "title": "Type mapping",
-    "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
-    "unmapped": "Unmapped event type",
-    "save": "Save mapping"
-  },
   "placeholder": {
     "filter": "Type filter here"
   }
