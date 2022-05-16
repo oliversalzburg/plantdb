@@ -1,0 +1,55 @@
+{
+  "app": {
+    "title": "PlantDB Playground"
+  },
+  "menu": {
+    "log": "Log",
+    "plants": "Plants",
+    "typeMap": "Type mappings",
+    "import": "Import",
+    "close": "Close"
+  },
+  "empty": {
+    "log": "It seems like you have no log entries 😔",
+    "importNow": "Import now"
+  },
+  "log": {
+    "add": "Add log entry"
+  },
+  "plant": {
+    "whenAdded": "Added: {{when}}",
+    "whenUpdated": "Last updated: {{when}}",
+    "whenInfested": "Infested since: {{when}}",
+    "whenPestControl": "Last pest control: {{when}}",
+    "never": "never"
+  },
+  "dbConfig": {
+    "title": "Database Configuration",
+    "hasHeaderRow": "Has header row?",
+    "columnSeparator": "Column separator",
+    "comma": "Comma ,",
+    "semicolon": "Semicolon ;",
+    "tab": "Tab",
+    "dateTimeFormat": "Timestamp format",
+    "timezone": "Timezone"
+  },
+  "import": {
+    "title": "Import Data",
+    "plantLog": "Plant log",
+    "pastePlantLog": "paste plantlog.csv here",
+    "plantData": "Plant data",
+    "pastePlants": "paste plants.csv here",
+    "import": "Import",
+    "updateLog": "Update log only"
+  },
+  "typeMap": {
+    "title": "Type Mappings",
+    "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
+    "unmapped": "Unmapped event type",
+    "save": "Save mapping"
+  },
+  "placeholder": {
+    "filter": "Type filter here",
+    "eventFilter": "Filter event types"
+  }
+}
