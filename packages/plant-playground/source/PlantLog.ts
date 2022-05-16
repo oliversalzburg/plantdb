@@ -4,6 +4,7 @@ import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { PlantLogEntry } from "./PlantLogEntry";
+import { retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-log")
 export class PlantLog extends LitElement {
@@ -13,6 +14,9 @@ export class PlantLog extends LitElement {
         flex: 1;
         overflow: auto;
         min-height: 0;
+      }
+      :host([headervisible]) {
+        cursor: pointer;
       }
 
       .filters {
@@ -39,7 +43,7 @@ export class PlantLog extends LitElement {
   @property()
   filter = "";
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, attribute: true, reflect: true })
   headerVisible = true;
 
   @state()
@@ -105,6 +109,12 @@ export class PlantLog extends LitElement {
               .plant=${this.plantDb.plants.get(entry.plantId)}
               .logEntry=${entry}
               .headerVisible=${this.headerVisible}
+              @click=${() => {
+                if (!this.headerVisible) {
+                  return;
+                }
+                retrieveStoreUi()?.navigatePath(`/plant/${entry.plantId}`);
+              }}
             ></plant-log-entry>`
         ),
     ];

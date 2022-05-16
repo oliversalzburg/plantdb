@@ -70,7 +70,7 @@ export class PlantStoreUi extends LitElement {
         this.locale = i18next.language;
         document.documentElement.lang = i18next.language;
         Settings.defaultLocale = i18next.language;
-        this.dispatchEvent(new CustomEvent("plant-i18n-changed", { detail: i18next.language }));
+        this.dispatchEvent(new CustomEvent("plant-i18n-ready", { detail: i18next.language }));
       })
       .catch(console.error);
 
@@ -147,7 +147,7 @@ export class PlantStoreUi extends LitElement {
 
   /**
    * Invoked when the user clicked on a link.
-   * @param path The path of the link the user clicked on.
+   * @param href The path of the link the user clicked on.
    */
   handleUserNavigationEvent(href: string) {
     const { path, pathParameters } = this.parsePath(href);

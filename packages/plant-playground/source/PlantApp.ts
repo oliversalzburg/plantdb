@@ -58,15 +58,23 @@ export class PlantApp extends LitElement {
 
   firstUpdated() {
     this._plantStoreUi?.addEventListener("plant-navigate", (event: Event) => {
-      const { page } = (event as CustomEvent<{ page: string; pageParams: Array<string> }>).detail;
-      this.handleUserNavigationEvent(page);
+      const { page, pageParams } = (
+        event as CustomEvent<{ page: string; pageParams: Array<string> }>
+      ).detail;
+      this.handleUserNavigationEvent(page, pageParams);
     });
     this._plantStoreUi?.addEventListener("plant-drawer-open", () => this.requestUpdate());
     this._plantStoreUi?.addEventListener("plant-theme-changed", () => this.requestUpdate());
     this._plantStoreUi?.addEventListener("plant-i18n-changed", () => this.requestUpdate());
 
-    installRouter(location =>
-      this._plantStoreUi?.handleUserNavigationEvent(decodeURIComponent(location.pathname))
+    // We expect the store to load i18n, then signal ready.
+    // Then we install the router and expect it to call back with the inital location.
+    // We pass this info to the store and expect it invoke the `plant-navigate` event.
+    // Then we are ready to handle the starting location like any later naviation event.
+    this._plantStoreUi?.addEventListener("plant-i18n-ready", () =>
+      installRouter(location =>
+        this._plantStoreUi?.handleUserNavigationEvent(decodeURIComponent(location.pathname))
+      )
     );
   }
 
@@ -74,9 +82,29 @@ export class PlantApp extends LitElement {
    * Invoked when the user clicked on a link.
    * @param page The path of the link the user clicked on.
    */
-  handleUserNavigationEvent(page: string) {
-    if (!["view404", "log", "list", "plant", "types", "import"].includes(page)) {
-      this._plantStoreUi?.navigate("view404");
+  handleUserNavigationEvent(page: string, pageParams: Array<string>) {
+    switch (page) {
+      case "log":
+        document.title = `${t("menu.log")} - PlantDB Playground`;
+        break;
+      case "list":
+        document.title = `${t("menu.plants")} - PlantDB Playground`;
+        break;
+      case "plant":
+        document.title = `${pageParams[0]} - PlantDB Playground`;
+        break;
+      case "types":
+        document.title = `${t("menu.typeMap")} - PlantDB Playground`;
+        break;
+      case "import":
+        document.title = `${t("menu.import")} - PlantDB Playground`;
+        break;
+      case "view404":
+        document.title = "404 - PlantDB Playground";
+        break;
+      default:
+        document.title = "PlantDB Playground";
+        return this._plantStoreUi?.navigate("view404");
     }
 
     this.requestUpdate();

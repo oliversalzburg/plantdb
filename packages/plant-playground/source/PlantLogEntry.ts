@@ -10,7 +10,6 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { Typography } from "./PlantComponentStyles";
-import { retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-log-entry")
 export class PlantLogEntry extends LitElement {
@@ -125,12 +124,7 @@ export class PlantLogEntry extends LitElement {
     return [
       html`<sl-card>
         ${this.headerVisible && this.plant
-          ? html`<div
-              slot="header"
-              @click=${() => {
-                retrieveStoreUi()?.navigatePath(`/plant/${this.plant?.id ?? "PID-0"}`);
-              }}
-            >
+          ? html`<div slot="header">
               <div>
                 ${this.plant.name}
                 <br />
