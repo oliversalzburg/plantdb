@@ -7,7 +7,7 @@
     "plants": "Pflanzen",
     "typeMap": "Typ-Zuordnungen",
     "import": "Importieren",
-    "close": "Schließen"
+    "close": "$t(common:close)"
   },
   "empty": {
     "log": "Es scheint, als hättest du keine Einträge 😔",
