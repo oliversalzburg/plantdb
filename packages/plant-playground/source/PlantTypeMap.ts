@@ -1,5 +1,6 @@
 import { EventType, EventTypes, PlantDB } from "@plantdb/libplantdb";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
@@ -37,18 +38,15 @@ export class PlantTypeMap extends LitElement {
 
   render() {
     return [
-      html`<h2>Type mapping</h2>
-        <p>
-          On the left, you see the event types that you have used in your input data. Assign the
-          PlantDB type identifiers on the right to make your events recognizable in the app.
-        </p>
+      html`<h2>${t("typeMap.title")}</h2>
+        <p>${t("typeMap.introduction")}</p>
         <ul class="type-list">
           ${[...this.plantDb.entryTypes.values()].sort().map(
             entryType =>
               html`<li>
                 <span>${entryType}</span><span>→</span>
                 <sl-select
-                  placeholder="Unmapped event type"
+                  placeholder="${t("typeMap.unmapped")}"
                   value=${this.plantDb.config.typeMap.get(entryType)}
                   clearable
                   @sl-change=${(event: Event) => {
@@ -77,7 +75,7 @@ export class PlantTypeMap extends LitElement {
               })
             );
           }}
-          >Save mapping</sl-button
+          >${t("typeMap.save")}</sl-button
         >`,
     ];
   }
