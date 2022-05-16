@@ -8,10 +8,14 @@ let globalStore: PlantStoreUi | undefined;
 
 export const retrieveStoreUi = () => globalStore;
 
+export type SupportedLocales = "de-DE" | "en-US" | "fr-FR";
+
 @customElement("plant-store-ui")
 export class PlantStoreUi extends LitElement {
   @property({ type: Boolean })
   i18nReady = false;
+  @property({})
+  locale = "en-US";
 
   @property({ type: Boolean })
   darkMode = false;
@@ -60,6 +64,7 @@ export class PlantStoreUi extends LitElement {
       })
       .then(() => {
         this.i18nReady = true;
+        this.locale = i18next.language;
         this.dispatchEvent(new CustomEvent("plant-i18n-changed", { detail: i18next.language }));
       })
       .catch(console.error);
@@ -107,6 +112,11 @@ export class PlantStoreUi extends LitElement {
     localStorage.setItem("plantdb.theme", "light");
 
     this.dispatchEvent(new CustomEvent("plant-theme-changed", { detail: "light" }));
+  }
+
+  async changeLocale(locale: SupportedLocales) {
+    await i18next.changeLanguage(locale);
+    this.dispatchEvent(new CustomEvent("plant-i18n-changed", { detail: i18next.language }));
   }
 
   drawerOpen() {

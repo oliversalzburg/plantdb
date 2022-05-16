@@ -21,6 +21,19 @@ export class PlantApp extends LitElement {
         flex-direction: column;
       }
 
+      #view-controls {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+      #quick-config {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
       .view-container {
         display: flex;
         flex: 1;
@@ -83,10 +96,11 @@ export class PlantApp extends LitElement {
           id="plant-store"
           @plant-config-changed=${() => this.requestUpdate()}
         ></plant-store>`,
+
       this._plantStoreUi && this._plantStoreUi.i18nReady
-        ? html`<div class="view-controls">
+        ? html`<div id="view-controls">
               <sl-drawer
-                label="Plant App"
+                label="PlantDB Playground"
                 placement="start"
                 class="drawer-placement-start"
                 ?open=${this._plantStoreUi?.drawerIsOpen}
@@ -121,15 +135,42 @@ export class PlantApp extends LitElement {
                   mustExist(this._plantStoreUi).drawerOpen();
                 }}
               ></sl-icon-button>
-              ${this._plantStoreUi?.darkMode
-                ? html`<sl-icon-button
-                    name="sun"
-                    @click=${() => this._plantStoreUi?.darkModeLeave()}
-                  ></sl-icon-button>`
-                : html`<sl-icon-button
-                    name="moon"
-                    @click=${() => this._plantStoreUi?.darkModeEnter()}
-                  ></sl-icon-button>`}
+
+              <div id="quick-config">
+                ${this._plantStoreUi?.darkMode
+                  ? html`<sl-icon-button
+                      name="sun"
+                      @click=${() => this._plantStoreUi?.darkModeLeave()}
+                    ></sl-icon-button>`
+                  : html`<sl-icon-button
+                      name="moon"
+                      @click=${() => this._plantStoreUi?.darkModeEnter()}
+                    ></sl-icon-button>`}
+
+                <sl-dropdown>
+                  <sl-button slot="trigger" caret><sl-icon name="globe2"></sl-icon></sl-button>
+                  <sl-menu>
+                    <sl-menu-item
+                      value="de-DE"
+                      ?checked=${this._plantStoreUi.locale === "de-DE"}
+                      @click=${() => this._plantStoreUi?.changeLocale("de-DE")}
+                      >DE</sl-menu-item
+                    >
+                    <sl-menu-item
+                      value="en-US"
+                      ?checked=${this._plantStoreUi.locale === "en-US"}
+                      @click=${() => this._plantStoreUi?.changeLocale("en-US")}
+                      >EN</sl-menu-item
+                    >
+                    <sl-menu-item
+                      value="fr-FR"
+                      ?checked=${this._plantStoreUi.locale === "fr-FR"}
+                      @click=${() => this._plantStoreUi?.changeLocale("fr-FR")}
+                      >FR</sl-menu-item
+                    >
+                  </sl-menu>
+                </sl-dropdown>
+              </div>
             </div>
 
             <div class="view-container">
