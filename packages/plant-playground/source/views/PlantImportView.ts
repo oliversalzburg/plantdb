@@ -1,5 +1,6 @@
 import { DatabaseFormat, DatabaseFormatSerialized, PlantDB } from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
+import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -112,13 +113,13 @@ export class PlantImportView extends View {
             (this.config = event.detail)}
         ></plant-db-config>
 
-        <h3>Import Data</h3>
+        <h3>${t("import.title")}</h3>
 
         <sl-textarea
           id="log-data"
           rows="10"
-          placeholder="paste plantlog.csv here"
-          label="Plant log"
+          placeholder=${t("import.pastePlantLog")}
+          label=${t("import.plantLog")}
           .value=${this.plantLogData}
           @sl-blur="${(event: InputEvent) => {
             this.plantLogData = (event.target as SlTextarea).value;
@@ -128,8 +129,8 @@ export class PlantImportView extends View {
         <sl-textarea
           id="plant-data"
           rows="10"
-          placeholder="paste plants.csv here"
-          label="Plant data"
+          placeholder=${t("import.pastePlants")}
+          label=${t("import.plantData")}
           .value=${this.plantData}
           @sl-blur="${(event: InputEvent) => {
             this.plantData = (event.target as SlTextarea).value;
@@ -137,8 +138,10 @@ export class PlantImportView extends View {
         ></sl-textarea>
 
         <sl-button id="process" @click="${(event: MouseEvent) => this.process(event)}"
-          >Import</sl-button
-        ><sl-button id="process" @click="${() => this.updateLog()}">Update Log only</sl-button>`,
+          >${t("import.import")}</sl-button
+        ><sl-button id="process" @click="${() => this.updateLog()}" disabled
+          >${t("import.updateLog")}</sl-button
+        >`,
     ];
   }
 }
