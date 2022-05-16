@@ -79,11 +79,12 @@ export class PlantCard extends LitElement {
         // If there was a prior pest control within 14 days before this one, then this one
         // was already the reapplication and there is no pest control pending.
         if (
-          previousPestControl &&
-          DateTime.fromJSDate(lastPestControl.timestamp).diff(
-            DateTime.fromJSDate(previousPestControl.timestamp),
-            "days"
-          ).days < -14
+          !previousPestControl ||
+          (previousPestControl &&
+            DateTime.fromJSDate(lastPestControl.timestamp).diff(
+              DateTime.fromJSDate(previousPestControl.timestamp),
+              "days"
+            ).days < -14)
         ) {
           hasPendingPestControl = true;
         }
