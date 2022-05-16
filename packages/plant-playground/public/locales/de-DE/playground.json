@@ -17,13 +17,23 @@
     "add": "Eintrag hinzufügen"
   },
   "plant": {
-    "whenAdded": "Added: {{when}}",
-    "whenUpdated": "Last updated: {{when}}",
-    "whenInfested": "Infested since: {{when}}",
-    "whenPestControl": "Last pest control: {{when}}",
-    "never": "never"
+    "whenAdded": "Erstellt: {{when}}",
+    "whenUpdated": "Zuletzt aktualisiert: {{when}}",
+    "whenInfested": "Befallen seit: {{when}}",
+    "whenPestControl": "Letzte Schädlingsbekämpfung: {{when}}",
+    "never": "nie"
+  },
+  "dbConfig": {
+    "title": "Database Configuration",
+    "hasHeaderRow": "Has header row?",
+    "columnSeparator": "Column separator",
+    "comma": "Comma ,",
+    "semicolon": "Semicolon ;",
+    "tab": "Tab",
+    "dateTimeFormat": "Timestamp format",
+    "timezone": "Timezone"
   },
   "placeholder": {
-    "filter": "Type filter here"
+    "filter": "Filter hier eingeben"
   }
 }
