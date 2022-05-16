@@ -1,6 +1,7 @@
 import { DatabaseFormat } from "@plantdb/libplantdb";
 import SlCheckbox from "@shoelace-style/shoelace/dist/components/checkbox/checkbox";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
@@ -36,7 +37,7 @@ export class PlantDbConfig extends LitElement {
   }
 
   render() {
-    return html`<h3>Database Configuration</h3>
+    return html`<h3>${t("dbConfig.title")}</h3>
       <sl-checkbox
         id="has-header-row"
         ?checked=${this.hasHeaderRow}
@@ -46,12 +47,12 @@ export class PlantDbConfig extends LitElement {
             new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
         }}"
-        >Has header row?</sl-checkbox
+        >${t("dbConfig.hasHeaderRow")}</sl-checkbox
       ><br /><br />
 
       <sl-select
         id="column-separator"
-        label="Column separator"
+        label=${t("dbConfig.columnSeparator")}
         value=${this.columnSeparator}
         @sl-change="${(event: MouseEvent) => {
           this.columnSeparator = (event.target as SlSelect).value as string;
@@ -60,14 +61,14 @@ export class PlantDbConfig extends LitElement {
           );
         }}"
       >
-        <sl-menu-item value=",">Comma ,</sl-menu-item>
-        <sl-menu-item value=";">Semicolon ;</sl-menu-item>
-        <sl-menu-item value="&#9;">Tab</sl-menu-item> </sl-select
+        <sl-menu-item value=",">${t("dbConfig.comma")}</sl-menu-item>
+        <sl-menu-item value=";">${t("dbConfig.semicolon")}</sl-menu-item>
+        <sl-menu-item value="&#9;">${t("dbConfig.tab")}</sl-menu-item></sl-select
       ><br />
 
       <sl-select
         id="date-format"
-        label="Timestamp format"
+        label=${t("dbConfig.dateTimeFormat")}
         value="${this.dateFormat}"
         @sl-change="${(event: MouseEvent) => {
           this.dateFormat = (event.target as SlSelect).value as string;
@@ -84,7 +85,7 @@ export class PlantDbConfig extends LitElement {
 
       <sl-select
         id="timezone"
-        label="Timezone"
+        label=${t("dbConfig.timezone")}
         value="${this.timezone}"
         @sl-change="${(event: MouseEvent) => {
           this.timezone = (event.target as SlSelect).value as string;

@@ -23,6 +23,16 @@
     "whenPestControl": "Last pest control: {{when}}",
     "never": "never"
   },
+  "dbConfig": {
+    "title": "Database Configuration",
+    "hasHeaderRow": "Has header row?",
+    "columnSeparator": "Column separator",
+    "comma": "Comma ,",
+    "semicolon": "Semicolon ;",
+    "tab": "Tab",
+    "dateTimeFormat": "Timestamp format",
+    "timezone": "Timezone"
+  },
   "placeholder": {
     "filter": "Type filter here"
   }

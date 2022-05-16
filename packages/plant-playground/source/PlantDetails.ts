@@ -3,6 +3,7 @@ import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -94,16 +95,18 @@ export class PlantDetails extends LitElement {
             <small>
               <ul>
                 <li>
-                  Added:
-                  ${this.plant.logEntryOldest
-                    ? DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()
-                    : "unknown"}
+                  ${t("plant.whenAdded", {
+                    when: this.plant.logEntryOldest
+                      ? DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()
+                      : t("never"),
+                  })}
                 </li>
                 <li>
-                  Last updated:
-                  ${this.plant.logEntryLatest
-                    ? DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()
-                    : "unknown"}
+                  ${t("plant.whenUpdated", {
+                    when: this.plant.logEntryLatest
+                      ? DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()
+                      : t("never"),
+                  })}
                 </li>
               </ul>
             </small>
