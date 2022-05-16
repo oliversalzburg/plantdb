@@ -1,6 +1,7 @@
 import { identifyLogType, LogEntry, PlantDB } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { PlantLogEntry } from "./PlantLogEntry";
@@ -63,12 +64,12 @@ export class PlantLog extends LitElement {
     return [
       html`<div class="filters">
         <sl-input
-          placeholder="Type filter here"
+          placeholder=${t("placeholder.filter")}
           .value="${this.filter}"
           @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
         ></sl-input
         ><sl-select
-          placeholder="Filter event types"
+          placeholder=${t("placeholder.eventFilter")}
           multiple
           clearable
           .value=${this._filterEventTypes}
