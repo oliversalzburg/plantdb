@@ -33,8 +33,17 @@
     "dateTimeFormat": "Zeitstempelformat",
     "timezone": "Zeitzone"
   },
+  "import": {
+    "title": "Import Data",
+    "plantLog": "Plant log",
+    "pastePlantLog": "paste plantlog.csv here",
+    "plantData": "Plant data",
+    "pastePlants": "paste plants.csv here",
+    "import": "Import",
+    "updateLog": "Update log only"
+  },
   "typeMap": {
-    "title": "Typ-Zuordnungen",
+    "title": "Type Mappings",
     "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
     "unmapped": "Nicht zugeordneter Ereignistyp",
     "save": "Zuordnung speichern"
