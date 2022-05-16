@@ -1,5 +1,6 @@
 import { Plant, PlantDB } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { retrieveStoreUi } from "./stores/PlantStoreUi";
@@ -47,7 +48,7 @@ export class PlantList extends LitElement {
   render() {
     return [
       html`<sl-input
-        placeholder="Type filter here"
+        placeholder="${t("placeholder.filter")}"
         .value="${this.filter}"
         @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
         id="filter-input"

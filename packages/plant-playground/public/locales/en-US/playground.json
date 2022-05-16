@@ -15,5 +15,15 @@
   },
   "log": {
     "add": "Add log entry"
+  },
+  "plant": {
+    "whenAdded": "Added: {{when}}",
+    "whenUpdated": "Last updated: {{when}}",
+    "whenInfested": "Infested since: {{when}}",
+    "whenPestControl": "Last pest control: {{when}}",
+    "never": "never"
+  },
+  "placeholder": {
+    "filter": "Type filter here"
   }
 }

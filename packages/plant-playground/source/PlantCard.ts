@@ -2,6 +2,7 @@ import { identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -96,14 +97,19 @@ export class PlantCard extends LitElement {
         ${lastPestInfestation
           ? html`<sl-tooltip
               ><div slot="content">
-                Infested since: ${DateTime.fromJSDate(lastPestInfestation.timestamp).toFormat("f")}
-                (${DateTime.fromJSDate(lastPestInfestation.timestamp).toRelative()})<br />Last pest
-                control:
-                ${lastPestControl
-                  ? `${DateTime.fromJSDate(lastPestControl.timestamp).toFormat("f")} (${
-                      DateTime.fromJSDate(lastPestControl.timestamp).toRelative() ?? ""
-                    })`
-                  : "never"}
+                ${t("plant.whenInfested", {
+                  when: `${DateTime.fromJSDate(lastPestInfestation.timestamp).toFormat("f")} (${
+                    DateTime.fromJSDate(lastPestInfestation.timestamp).toRelative() ?? ""
+                  })`,
+                })}
+                <br />
+                ${t("plant.whenPestControl", {
+                  when: lastPestControl
+                    ? `${DateTime.fromJSDate(lastPestControl.timestamp).toFormat("f")} (${
+                        DateTime.fromJSDate(lastPestControl.timestamp).toRelative() ?? ""
+                      })`
+                    : t("never"),
+                })}
               </div>
               <sl-icon name="bug"></sl-icon
             ></sl-tooltip>`
@@ -123,16 +129,18 @@ export class PlantCard extends LitElement {
         <small>
           <ul>
             <li>
-              Added:
-              ${this.plant.logEntryOldest
-                ? DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()
-                : "never"}
+              ${t("plant.whenAdded", {
+                when: this.plant.logEntryOldest
+                  ? DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()
+                  : t("never"),
+              })}
             </li>
             <li>
-              Last updated:
-              ${this.plant.logEntryLatest
-                ? DateTime.fromJSDate(this.plant.logEntryLatest?.timestamp).toRelative()
-                : "never"}
+              ${t("plant.whenUpdated", {
+                when: this.plant.logEntryLatest
+                  ? DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()
+                  : t("never"),
+              })}
             </li>
           </ul>
         </small>
