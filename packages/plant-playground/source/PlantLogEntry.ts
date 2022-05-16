@@ -18,8 +18,7 @@ export class PlantLogEntry extends LitElement {
     Typography,
     css`
       :host {
-        display: inline-block;
-        width: 100%;
+        flex: 1;
       }
 
       :host sl-card {
