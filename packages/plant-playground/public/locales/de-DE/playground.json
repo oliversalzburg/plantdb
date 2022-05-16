@@ -34,21 +34,22 @@
     "timezone": "Zeitzone"
   },
   "import": {
-    "title": "Import Data",
-    "plantLog": "Plant log",
-    "pastePlantLog": "paste plantlog.csv here",
-    "plantData": "Plant data",
-    "pastePlants": "paste plants.csv here",
-    "import": "Import",
-    "updateLog": "Update log only"
+    "title": "Datenimport",
+    "plantLog": "Protokolldaten",
+    "pastePlantLog": "plantlog.csv hier einfügen",
+    "plantData": "Pflanzendaten",
+    "pastePlants": "plants.csv hier einfügen",
+    "import": "Importieren",
+    "updateLog": "Nur Protokoll aktualisieren"
   },
   "typeMap": {
-    "title": "Type Mappings",
+    "title": "Typ-Zuordnungen",
     "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
     "unmapped": "Nicht zugeordneter Ereignistyp",
     "save": "Zuordnung speichern"
   },
   "placeholder": {
-    "filter": "Filter hier eingeben"
+    "filter": "Filter hier eingeben",
+    "eventFilter": "Ereignis-Typen filtern"
   }
 }
