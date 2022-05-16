@@ -34,10 +34,10 @@
     "timezone": "Zeitzone"
   },
   "typeMap": {
-    "title": "Type mapping",
-    "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
-    "unmapped": "Unmapped event type",
-    "save": "Save mapping"
+    "title": "Typ-Zuordnungen",
+    "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
+    "unmapped": "Nicht zugeordneter Ereignistyp",
+    "save": "Zuordnung speichern"
   },
   "placeholder": {
     "filter": "Filter hier eingeben"
