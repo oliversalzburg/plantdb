@@ -2,6 +2,7 @@ import { Plant, PlantDB } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-list")
 export class PlantList extends LitElement {
@@ -16,6 +17,10 @@ export class PlantList extends LitElement {
 
       #filter-input {
         padding: 1rem;
+      }
+
+      plant-card {
+        cursor: pointer;
       }
     `,
   ];
@@ -54,7 +59,16 @@ export class PlantList extends LitElement {
             (a.logEntryOldest?.timestamp?.valueOf() ?? 0) -
             (b.logEntryOldest?.timestamp?.valueOf() ?? 0)
         )
-        .map(plant => html`<plant-card .plant=${plant} .plantDb=${this.plantDb}></plant-card>`),
+        .map(
+          plant =>
+            html`<plant-card
+              .plant=${plant}
+              .plantDb=${this.plantDb}
+              @click=${() => {
+                retrieveStoreUi()?.navigatePath(`/plant/${plant.id ?? "PID-0"}`);
+              }}
+            ></plant-card>`
+        ),
     ];
   }
 }

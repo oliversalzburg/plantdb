@@ -5,7 +5,6 @@ import "@shoelace-style/shoelace/dist/components/card/card";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-card")
 export class PlantCard extends LitElement {
@@ -93,12 +92,7 @@ export class PlantCard extends LitElement {
     }
 
     return html`<sl-card>
-      <div
-        slot="header"
-        @click=${() => {
-          retrieveStoreUi()?.navigatePath(`/plant/${this.plant?.id ?? "PID-0"}`);
-        }}
-      >
+      <div slot="header">
         ${lastPestInfestation
           ? html`<sl-tooltip
               ><div slot="content">
@@ -142,7 +136,6 @@ export class PlantCard extends LitElement {
             </li>
           </ul>
         </small>
-        <sl-button href="plant/${this.plant.id}" role="button">Details</sl-button>
       </div>
     </sl-card>`;
   }
