@@ -1,0 +1,29 @@
+{
+  "app": {
+    "title": "PlantDB Playground"
+  },
+  "menu": {
+    "log": "Log",
+    "plants": "Plants",
+    "typeMap": "Type mappings",
+    "import": "Import",
+    "close": "Close"
+  },
+  "empty": {
+    "log": "It seems like you have no log entries 😔",
+    "importNow": "Import now"
+  },
+  "log": {
+    "add": "Add log entry"
+  },
+  "plant": {
+    "whenAdded": "Added: {{when}}",
+    "whenUpdated": "Last updated: {{when}}",
+    "whenInfested": "Infested since: {{when}}",
+    "whenPestControl": "Last pest control: {{when}}",
+    "never": "never"
+  },
+  "placeholder": {
+    "filter": "Type filter here"
+  }
+}
