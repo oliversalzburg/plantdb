@@ -57,13 +57,14 @@ export class PlantStoreUi extends LitElement {
       .use(HttpApi)
       .init({
         debug: true,
+        defaultNS: "playground",
         detection: {
           order: ["localStorage", "navigator"],
           caches: ["localStorage"],
           lookupLocalStorage: "plantdb.i18nextLng",
         },
         fallbackLng: ["en-US"],
-        ns: ["playground"],
+        ns: ["common", "playground"],
       })
       .then(() => {
         this.i18nReady = true;
