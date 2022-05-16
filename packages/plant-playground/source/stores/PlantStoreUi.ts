@@ -3,6 +3,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { Settings } from "luxon";
 
 let globalStore: PlantStoreUi | undefined;
 
@@ -67,6 +68,8 @@ export class PlantStoreUi extends LitElement {
       .then(() => {
         this.i18nReady = true;
         this.locale = i18next.language;
+        document.documentElement.lang = i18next.language;
+        Settings.defaultLocale = i18next.language;
         this.dispatchEvent(new CustomEvent("plant-i18n-changed", { detail: i18next.language }));
       })
       .catch(console.error);
@@ -118,6 +121,9 @@ export class PlantStoreUi extends LitElement {
 
   async changeLocale(locale: SupportedLocales) {
     await i18next.changeLanguage(locale);
+    this.locale = i18next.language;
+    document.documentElement.lang = i18next.language;
+    Settings.defaultLocale = i18next.language;
     this.dispatchEvent(new CustomEvent("plant-i18n-changed", { detail: i18next.language }));
   }
 

@@ -5,7 +5,6 @@ import "@shoelace-style/shoelace/dist/translations/fr.js";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, query } from "lit/decorators.js";
-import { Settings } from "luxon";
 import { installRouter } from "pwa-helpers/router.js";
 import { mustExist } from "./Maybe";
 import { Typography } from "./PlantComponentStyles";
@@ -58,20 +57,13 @@ export class PlantApp extends LitElement {
   private _plantStore: PlantStore | null | undefined;
 
   firstUpdated() {
-    this._plantStore?.addEventListener("plant-config-changed", () => this.requestUpdate());
-
     this._plantStoreUi?.addEventListener("plant-navigate", (event: Event) => {
       const { page } = (event as CustomEvent<{ page: string; pageParams: Array<string> }>).detail;
       this.handleUserNavigationEvent(page);
     });
     this._plantStoreUi?.addEventListener("plant-drawer-open", () => this.requestUpdate());
     this._plantStoreUi?.addEventListener("plant-theme-changed", () => this.requestUpdate());
-    this._plantStoreUi?.addEventListener("plant-i18n-changed", (event: Event) => {
-      const activeLocale = (event as CustomEvent<string>).detail;
-      document.documentElement.lang = activeLocale;
-      Settings.defaultLocale = activeLocale;
-      this.requestUpdate();
-    });
+    this._plantStoreUi?.addEventListener("plant-i18n-changed", () => this.requestUpdate());
 
     installRouter(location =>
       this._plantStoreUi?.handleUserNavigationEvent(decodeURIComponent(location.pathname))

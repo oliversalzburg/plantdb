@@ -48,7 +48,7 @@ export class PlantList extends LitElement {
   render() {
     return [
       html`<sl-input
-        placeholder="${t("placeholder.filter")}"
+        placeholder=${t("placeholder.filter")}
         .value="${this.filter}"
         @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
         id="filter-input"
