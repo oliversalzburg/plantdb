@@ -49,6 +49,7 @@
     "save": "Save mapping"
   },
   "placeholder": {
-    "filter": "Tapez le filtre ici"
+    "filter": "Tapez le filtre ici",
+    "eventFilter": "Filter event types"
   }
 }
