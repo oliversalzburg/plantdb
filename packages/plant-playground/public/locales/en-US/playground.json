@@ -7,7 +7,7 @@
     "plants": "Plants",
     "typeMap": "Type mappings",
     "import": "Import",
-    "close": "$t(common:close)"
+    "close": "Close"
   },
   "empty": {
     "log": "It seems like you have no log entries 😔",
