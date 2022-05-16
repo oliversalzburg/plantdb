@@ -1,29 +1,39 @@
 {
   "app": {
-    "title": "PlantDB Playground"
+    "title": "Terrain de jeu PlantDB"
   },
   "menu": {
-    "log": "Log",
-    "plants": "Plants",
-    "typeMap": "Type mappings",
-    "import": "Import",
-    "close": "Close"
+    "log": "Logs",
+    "plants": "Plantes",
+    "typeMap": "Mappages de type",
+    "import": "Importation",
+    "close": "Fermer"
   },
   "empty": {
-    "log": "It seems like you have no log entries 😔",
-    "importNow": "Import now"
+    "log": "Il semble que vous n'avez aucune entrée de log 😔",
+    "importNow": "Importer maintenant"
   },
   "log": {
-    "add": "Add log entry"
+    "add": "Ajouter une entrée de journal"
   },
   "plant": {
-    "whenAdded": "Added: {{when}}",
-    "whenUpdated": "Last updated: {{when}}",
-    "whenInfested": "Infested since: {{when}}",
-    "whenPestControl": "Last pest control: {{when}}",
-    "never": "never"
+    "whenAdded": "Ajouté: {{when}}",
+    "whenUpdated": "Dernière mise à jour : {{when}}",
+    "whenInfested": "Infesté depuis: {{when}}",
+    "whenPestControl": "Dernier contrôle des parasites : {{when}}",
+    "never": "Jamais"
+  },
+  "dbConfig": {
+    "title": "Database Configuration",
+    "hasHeaderRow": "Has header row?",
+    "columnSeparator": "Column separator",
+    "comma": "Comma ,",
+    "semicolon": "Semicolon ;",
+    "tab": "Tab",
+    "dateTimeFormat": "Timestamp format",
+    "timezone": "Timezone"
   },
   "placeholder": {
-    "filter": "Type filter here"
+    "filter": "Tapez le filtre ici"
   }
 }
