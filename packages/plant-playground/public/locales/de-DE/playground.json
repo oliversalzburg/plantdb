@@ -24,14 +24,20 @@
     "never": "nie"
   },
   "dbConfig": {
-    "title": "Database Configuration",
-    "hasHeaderRow": "Has header row?",
-    "columnSeparator": "Column separator",
-    "comma": "Comma ,",
-    "semicolon": "Semicolon ;",
-    "tab": "Tab",
-    "dateTimeFormat": "Timestamp format",
-    "timezone": "Timezone"
+    "title": "Datenbankeinstellungen",
+    "hasHeaderRow": "Spaltentitel vorhanden?",
+    "columnSeparator": "Trennzeichen",
+    "comma": "Komma ,",
+    "semicolon": "Semikolon ;",
+    "tab": "Tabulator",
+    "dateTimeFormat": "Zeitstempelformat",
+    "timezone": "Zeitzone"
+  },
+  "typeMap": {
+    "title": "Typ-Zuordnungen",
+    "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
+    "unmapped": "Nicht zugeordneter Ereignistyp",
+    "save": "Zuordnung speichern"
   },
   "placeholder": {
     "filter": "Filter hier eingeben"
