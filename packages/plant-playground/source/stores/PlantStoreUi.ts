@@ -61,6 +61,8 @@ export class PlantStoreUi extends LitElement {
           caches: ["localStorage"],
           lookupLocalStorage: "plantdb.i18nextLng",
         },
+        fallbackLng: ["en-US"],
+        ns: ["playground"],
       })
       .then(() => {
         this.i18nReady = true;

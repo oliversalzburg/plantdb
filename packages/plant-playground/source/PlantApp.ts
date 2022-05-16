@@ -2,6 +2,7 @@ import { DatabaseFormat, EventType, PlantDB } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/translations/de.js";
 import "@shoelace-style/shoelace/dist/translations/en.js";
 import "@shoelace-style/shoelace/dist/translations/fr.js";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, query } from "lit/decorators.js";
 import { Settings } from "luxon";
@@ -100,24 +101,24 @@ export class PlantApp extends LitElement {
       this._plantStoreUi && this._plantStoreUi.i18nReady
         ? html`<div id="view-controls">
               <sl-drawer
-                label="PlantDB Playground"
+                label="${t("app.title")}"
                 placement="start"
                 class="drawer-placement-start"
                 ?open=${this._plantStoreUi?.drawerIsOpen}
                 @sl-after-hide=${() => mustExist(this._plantStoreUi).drawerClose()}
               >
                 <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/")}
-                  >Log</sl-menu-item
+                  >${t("menu.log")}</sl-menu-item
                 >
                 <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/list")}
-                  >Plants</sl-menu-item
+                  >${t("menu.plants")}</sl-menu-item
                 >
                 <sl-divider></sl-divider>
                 <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/types")}
-                  >Type mappings</sl-menu-item
+                  >${t("menu.typeMap")}</sl-menu-item
                 >
                 <sl-menu-item @click=${() => this._plantStoreUi?.navigatePath("/import")}
-                  >Import</sl-menu-item
+                  >${t("menu.import")}</sl-menu-item
                 >
                 <sl-button
                   slot="footer"
@@ -125,7 +126,7 @@ export class PlantApp extends LitElement {
                   @click=${() => {
                     mustExist(this._plantStoreUi).drawerClose();
                   }}
-                  >Close</sl-button
+                  >${t("menu.close")}</sl-button
                 >
               </sl-drawer>
               <sl-icon-button

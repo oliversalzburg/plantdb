@@ -29,12 +29,14 @@ export class PlantLogView extends View {
       0 < this.plantDb.log.length
         ? html`<plant-log .plantDb=${this.plantDb} .log=${this.plantDb.log}></plant-log>
             <section class="footer">
-              <sl-button variant="primary" disabled>Add log entry</sl-button>
+              <sl-button variant="primary" disabled>${t("log.add")}</sl-button>
             </section>`
         : html`<plant-empty-state class="empty"
-            ><p>${t("logEmpty")}</p>
+            ><p>${t("empty.log")}</p>
 
-            <sl-button href="import" variant="primary">Import now</sl-button></plant-empty-state
+            <sl-button href="import" variant="primary"
+              >${t("empty.importNow")}</sl-button
+            ></plant-empty-state
           >`,
     ];
   }
