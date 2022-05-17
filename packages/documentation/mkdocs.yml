@@ -45,7 +45,7 @@ plugins:
       fallback_to_build_date: true
   - search
 repo_name: oliversalzburg/plantdb
-repo_url: https://github.com/oliversalzburg/plantdb/docs
+repo_url: https://github.com/oliversalzburg/plantdb/
 site_name: PlantDB
 theme:
   favicon: assets/images/favicon.ico
