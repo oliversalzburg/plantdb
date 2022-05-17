@@ -1,12 +1,25 @@
 # Full reference
 
-## build
+## clean
 
--   Project: `yarn3-monorepo`
+-   Project: `plantdb`
 -   Source:
 
     ```shell
-    snowpack build
+    yarn workspaces foreach run clean
+    ```
+
+-   Description:
+
+    _documentation pending_
+
+## cli:run
+
+-   Project: `@plantdb/plant-cli`
+-   Source:
+
+    ```shell
+    yarn build && node output/main.cjs --cwd="$INIT_CWD"
     ```
 
 -   Description:
@@ -28,11 +41,11 @@
 
 ## docs:scripts:build
 
--   Project: `yarn3-monorepo`
+-   Project: `plantdb`
 -   Source:
 
     ```shell
-    nsd --docs-location "packages/documentation/docs/reference/Repository Scripts/"
+    nsd --docs-location "packages/documentation/en-US/docs/reference/Repository Scripts/"
     ```
 
 -   Description:
@@ -41,11 +54,11 @@
 
 ## docs:scripts:check
 
--   Project: `yarn3-monorepo`
+-   Project: `plantdb`
 -   Source:
 
     ```shell
-    nsd --docs-location "packages/documentation/docs/reference/Repository Scripts/" --check-only
+    nsd --docs-location "packages/documentation/en-US/docs/reference/Repository Scripts/" --check-only
     ```
 
 -   Description:
@@ -67,11 +80,11 @@
 
 ## lint:eslint
 
--   Project: `yarn3-monorepo`
+-   Project: `plantdb`
 -   Source:
 
     ```shell
-    eslint source
+    eslint packages/*/source
     ```
 
 -   Description:
@@ -80,24 +93,11 @@
 
 ## lint:tsc
 
--   Project: `yarn3-monorepo`
+-   Project: `plantdb`
 -   Source:
 
     ```shell
     tsc --noEmit
-    ```
-
--   Description:
-
-    _documentation pending_
-
-## serve
-
--   Project: `yarn3-monorepo`
--   Source:
-
-    ```shell
-    snowpack dev
     ```
 
 -   Description:
