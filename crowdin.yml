@@ -1,7 +1,5 @@
 files:
-  # Playground UI
   - source: /packages/plant-playground/public/locales/en-US/*.json
     translation: /packages/plant-playground/public/locales/%locale%/%original_file_name%
-  # Documentation
-  - source: /packages/documentation/en-US/docs/**/*
+  - source: /packages/documentation/en-US/docs/**/*.md
     translation: /packages/documentation/%locale%/docs/**/%original_file_name%
