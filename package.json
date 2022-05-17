@@ -5,8 +5,8 @@
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "scripts": {
     "clean": "yarn workspaces foreach run clean",
-    "docs:scripts:build": "nsd --docs-location \"packages/documentation/docs/reference/Repository Scripts/\"",
-    "docs:scripts:check": "nsd --docs-location \"packages/documentation/docs/reference/Repository Scripts/\" --check-only",
+    "docs:scripts:build": "nsd --docs-location \"packages/documentation/en-US/docs/reference/Repository Scripts/\"",
+    "docs:scripts:check": "nsd --docs-location \"packages/documentation/en-US/docs/reference/Repository Scripts/\" --check-only",
     "lint:eslint": "eslint packages/*/source",
     "lint:tsc": "tsc --noEmit"
   },
