@@ -204,7 +204,7 @@ __metadata:
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.73
     "@types/dygraphs": 2.1.4
-    "@types/lunr": ^2
+    "@types/lunr": 2.3.4
     "@types/web": 0.0.66
     dygraphs: 2.1.0
     i18next: 21.8.2
@@ -298,7 +298,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lunr@npm:^2":
+"@types/lunr@npm:2.3.4":
   version: 2.3.4
   resolution: "@types/lunr@npm:2.3.4"
   checksum: 2017dbf4afabed5fe6d5462070fce060043fb56b90a151a5c92b342f05ab889a83db87ff39898d7e93d53bfffc70adb1855d855c70f8817bf556a71656724073
