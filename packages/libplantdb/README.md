@@ -1,8 +1,14 @@
 # libplantdb
 
-An SDK to build PlantDB applications.
+A JavaScript/TypeScript SDK to build PlantDB applications.
 
-## Design
+## Examples
+
+Its functionality is best explored through one of the consuming applications:
+
+-   libplantdb powers the [PlantDB Playground](https://github.com/oliversalzburg/plantdb/tree/main/packages/plant-playground)
+
+## Philosophy notes
 
 1. "User-supplied" means CSV export from a PlantDB spreadsheet.
 
