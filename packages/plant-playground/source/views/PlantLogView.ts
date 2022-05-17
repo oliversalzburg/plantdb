@@ -32,8 +32,8 @@ export class PlantLogView extends View {
     return [
       0 < this.plantDb.log.length
         ? [
-            html`<sl-dialog id="new-entry-dialog"
-              ><p>I can has new entry?</p>
+            html`<sl-dialog id="new-entry-dialog" label="Currently being prototyped"
+              ><plant-log-entry-form></plant-log-entry-form>
               <sl-button
                 slot="footer"
                 variant="primary"
