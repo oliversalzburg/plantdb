@@ -2210,16 +2210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:4.0.14":
-  version: 4.0.14
-  resolution: "marked@npm:4.0.14"
-  bin:
-    marked: bin/marked.js
-  checksum: 7b53312da1a47763985d842b9715f5184cbff993da2793cf4f0eadcf067243a3b4658df8d847726126f87b004c87f3359c60bbde7c15ca12f5bbc458defb3b7b
-  languageName: node
-  linkType: hard
-
-"marked@npm:^4.0.12":
+"marked@npm:4.0.15, marked@npm:^4.0.12":
   version: 4.0.15
   resolution: "marked@npm:4.0.15"
   bin:
@@ -2448,18 +2439,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-scripts-docs@npm:0.0.13":
-  version: 0.0.13
-  resolution: "node-scripts-docs@npm:0.0.13"
+"node-scripts-docs@npm:0.0.14":
+  version: 0.0.14
+  resolution: "node-scripts-docs@npm:0.0.14"
   dependencies:
     elapsed-time: 0.0.1
     globby: 11.1.0
-    marked: 4.0.14
+    marked: 4.0.15
     minimist: 1.2.6
     tslib: 2.4.0
   bin:
     nsd: output/node-scripts-docs.js
-  checksum: 70cb8bf1539871d7cce1866e7951fc43b70975e77c5d481b95bf3b298845eb8b4790ed312909f67072349c6bae65dee157af364b05f8603f0b3b143d37bd4d6a
+  checksum: f31c226fe79ab99e45294d032adb87e9dca1f4e3ed1799f1c9d64e4d6fa3860242cb37934afa2942c9a61244cc5543f51ee4fa80f8779e0d6ca5e38cfe723c0a
   languageName: node
   linkType: hard
 
@@ -2641,7 +2632,7 @@ __metadata:
     "@typescript-eslint/parser": 5.24.0
     eslint: 8.15.0
     lint-staged: 12.4.1
-    node-scripts-docs: 0.0.13
+    node-scripts-docs: 0.0.14
     prettier: 2.6.2
     prettier-package-json: 2.6.3
     prettier-plugin-organize-imports: 2.3.4
