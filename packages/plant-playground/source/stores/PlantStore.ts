@@ -1,4 +1,10 @@
-import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
+import {
+  DatabaseFormat,
+  LogEntry,
+  LogEntrySerialized,
+  PlantDB,
+  PlantSerialized,
+} from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
@@ -52,18 +58,7 @@ export class PlantStore extends LitElement {
   }
 
   private _updateIndex() {
-    const log = this.plantDb.log;
-    this._indexLog = lunr(function () {
-      this.ref("sourceLine");
-      this.field("plantId");
-      this.field("type");
-      this.field("note");
-      this.field("productUsed");
-
-      log.forEach(logEntry => {
-        this.add(logEntry);
-      });
-    });
+    this._indexLog = this.indexFromLog(this.plantDb.log);
 
     const plants = [...this.plantDb.plants.values()];
     this._indexPlants = lunr(function () {
@@ -81,8 +76,21 @@ export class PlantStore extends LitElement {
     });
   }
 
-  searchLog(term: string) {
-    const results = mustExist(this._indexLog).search(term);
+  indexFromLog(log: ReadonlyArray<LogEntry>) {
+    return lunr(function () {
+      this.ref("sourceLine");
+      this.field("plantId");
+      this.field("type");
+      this.field("note");
+      this.field("productUsed");
+
+      log.forEach(logEntry => {
+        this.add(logEntry);
+      });
+    });
+  }
+  searchLog(term: string, index = this._indexLog) {
+    const results = mustExist(index).search(term);
     const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
     console.debug(logEntries);
     return logEntries;

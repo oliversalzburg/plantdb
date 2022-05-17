@@ -42,7 +42,8 @@ export class PlantLogView extends View {
               ></sl-dialog
             >`,
             html`<plant-log
-                .plantDb=${this.plantStore?.plantDb}
+                .plantStore=${this.plantStore}
+                .plantStoreUi=${this.plantStoreUi}
                 .log=${this.plantStore?.plantDb.log}
               ></plant-log>
               <section class="footer">
