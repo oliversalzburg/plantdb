@@ -41,12 +41,12 @@ export class PlantDbConfig extends LitElement {
       <sl-checkbox
         id="has-header-row"
         ?checked=${this.hasHeaderRow}
-        @sl-change="${(event: MouseEvent) => {
+        @sl-change=${(event: MouseEvent) => {
           this.hasHeaderRow = (event.target as SlCheckbox).checked;
           this.dispatchEvent(
             new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
-        }}"
+        }}
         >${t("dbConfig.hasHeaderRow")}</sl-checkbox
       ><br /><br />
 
@@ -54,12 +54,12 @@ export class PlantDbConfig extends LitElement {
         id="column-separator"
         label=${t("dbConfig.columnSeparator")}
         value=${this.columnSeparator}
-        @sl-change="${(event: MouseEvent) => {
+        @sl-change=${(event: MouseEvent) => {
           this.columnSeparator = (event.target as SlSelect).value as string;
           this.dispatchEvent(
             new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
-        }}"
+        }}
       >
         <sl-menu-item value=",">${t("dbConfig.comma")}</sl-menu-item>
         <sl-menu-item value=";">${t("dbConfig.semicolon")}</sl-menu-item>
@@ -70,12 +70,12 @@ export class PlantDbConfig extends LitElement {
         id="date-format"
         label=${t("dbConfig.dateTimeFormat")}
         value="${this.dateFormat}"
-        @sl-change="${(event: MouseEvent) => {
+        @sl-change=${(event: MouseEvent) => {
           this.dateFormat = (event.target as SlSelect).value as string;
           this.dispatchEvent(
             new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
-        }}"
+        }}
       >
         <sl-menu-item value="yyyy-MM-dd HH:mm">yyyy-MM-dd HH:mm</sl-menu-item>
         <sl-menu-item value="dd.MM.yyyy HH:mm">dd.MM.yyyy HH:mm</sl-menu-item>
@@ -87,12 +87,12 @@ export class PlantDbConfig extends LitElement {
         id="timezone"
         label=${t("dbConfig.timezone")}
         value="${this.timezone}"
-        @sl-change="${(event: MouseEvent) => {
+        @sl-change=${(event: MouseEvent) => {
           this.timezone = (event.target as SlSelect).value as string;
           this.dispatchEvent(
             new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
-        }}"
+        }}
       >
         <sl-menu-item value="Europe/Berlin">Europe/Berlin</sl-menu-item>
         <sl-menu-item value="utc">UTC</sl-menu-item>

@@ -19,6 +19,10 @@ export class PlantLogView extends View {
       .empty {
         flex: 1;
       }
+
+      #new-entry-dialog {
+        --width: 80vw;
+      }
     `,
   ];
 
@@ -33,7 +37,7 @@ export class PlantLogView extends View {
       0 < this.plantDb.log.length
         ? [
             html`<sl-dialog id="new-entry-dialog" label="Currently being prototyped"
-              ><plant-log-entry-form></plant-log-entry-form>
+              ><plant-log-entry-form .plantDb=${this.plantDb}></plant-log-entry-form>
               <sl-button
                 slot="footer"
                 variant="primary"
