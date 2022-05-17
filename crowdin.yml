@@ -5,3 +5,5 @@ files:
   # Documentation
   - source: /packages/documentation/en-US/docs/**/*
     translation: /packages/documentation/%locale%/docs/**/%original_file_name%
+    ignore:
+      - "*:*"
