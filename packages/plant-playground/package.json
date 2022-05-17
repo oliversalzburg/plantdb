@@ -20,11 +20,13 @@
     "i18next-http-backend": "1.4.0",
     "lit": "2.2.3",
     "lit-i18n": "3.0.2",
+    "lunr": "2.3.9",
     "luxon": "2.4.0",
     "pwa-helpers": "0.9.1"
   },
   "devDependencies": {
     "@types/dygraphs": "2.1.4",
+    "@types/lunr": "^2",
     "@types/web": "0.0.66",
     "sass": "1.51.0",
     "tslib": "2.4.0",

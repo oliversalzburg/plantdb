@@ -62,8 +62,8 @@ export class PlantDB {
       delimiter: databaseFormat.columnSeparator,
       from: databaseFormat.hasHeaderRow ? 2 : 1,
     }) as Array<Array<string>>;
-    for (const logRecord of plantLogData) {
-      const logEntry = LogEntry.fromCSVData(logRecord, databaseFormat);
+    for (const [index, logRecord] of plantLogData.entries()) {
+      const logEntry = LogEntry.fromCSVData(logRecord, databaseFormat, index);
       plantDb.#log.push(logEntry);
       plantDb.#entryTypes.add(logEntry.type);
     }

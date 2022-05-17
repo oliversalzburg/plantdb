@@ -204,6 +204,7 @@ __metadata:
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.73
     "@types/dygraphs": 2.1.4
+    "@types/lunr": ^2
     "@types/web": 0.0.66
     dygraphs: 2.1.0
     i18next: 21.8.2
@@ -211,6 +212,7 @@ __metadata:
     i18next-http-backend: 1.4.0
     lit: 2.2.3
     lit-i18n: 3.0.2
+    lunr: 2.3.9
     luxon: 2.4.0
     pwa-helpers: 0.9.1
     sass: 1.51.0
@@ -293,6 +295,13 @@ __metadata:
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
   checksum: bd1f9a7b898ff15c4bb494eb19124f2d688b804c39f07cbf135ac73f35324970e9e8329b72aae1fb543d925ea295a1568b23056c26658cecec4741fa28c3b81a
+  languageName: node
+  linkType: hard
+
+"@types/lunr@npm:^2":
+  version: 2.3.4
+  resolution: "@types/lunr@npm:2.3.4"
+  checksum: 2017dbf4afabed5fe6d5462070fce060043fb56b90a151a5c92b342f05ab889a83db87ff39898d7e93d53bfffc70adb1855d855c70f8817bf556a71656724073
   languageName: node
   linkType: hard
 
@@ -2172,7 +2181,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lunr@npm:^2.3.9":
+"lunr@npm:2.3.9, lunr@npm:^2.3.9":
   version: 2.3.9
   resolution: "lunr@npm:2.3.9"
   checksum: 77d7dbb4fbd602aac161e2b50887d8eda28c0fa3b799159cee380fbb311f1e614219126ecbbd2c3a9c685f1720a8109b3c1ca85cc893c39b6c9cc6a62a1d8a8b

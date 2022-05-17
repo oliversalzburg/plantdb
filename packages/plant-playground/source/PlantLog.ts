@@ -5,6 +5,7 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { PlantLogEntry } from "./PlantLogEntry";
+import { retrieveStore } from "./stores/PlantStore";
 import { retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-log")
@@ -65,8 +66,11 @@ export class PlantLog extends LitElement {
       html`<div class="filters">
         <sl-input
           placeholder=${t("placeholder.filter")}
-          .value="${this.filter}"
-          @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
+          .value=${this.filter}
+          @sl-input=${(event: InputEvent) => {
+            this.filter = (event.target as SlInput).value;
+            retrieveStore()?.searchLog(this.filter);
+          }}
         ></sl-input
         ><sl-select
           placeholder=${t("placeholder.eventFilter")}

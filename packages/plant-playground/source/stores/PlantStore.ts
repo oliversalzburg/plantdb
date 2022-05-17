@@ -1,6 +1,8 @@
 import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import lunr, { Index } from "lunr";
+import { mustExist } from "../Maybe";
 import { PlantDbStorage } from "../PlantDbStorage";
 
 let globalStore: PlantStore | undefined;
@@ -11,6 +13,9 @@ export const retrieveStore = () => globalStore;
 export class PlantStore extends LitElement {
   @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
+
+  private _indexLog: Index | undefined;
+  private _indexPlants: Index | undefined;
 
   connectedCallback(): void {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -29,9 +34,11 @@ export class PlantStore extends LitElement {
         const plants = JSON.parse(storedPlants) as Array<PlantSerialized>;
         //this.plants = plants.map(plant => Plant.fromJSON(plant, log));
         this.plantDb = PlantDB.fromJSObjects(config, plants, logData);
-      }
 
-      this.dispatchEvent(new CustomEvent("plant-config-changed", { detail: this.plantDb }));
+        this._updateIndex();
+
+        this.dispatchEvent(new CustomEvent("plant-config-changed", { detail: this.plantDb }));
+      }
     }
   }
 
@@ -42,5 +49,42 @@ export class PlantStore extends LitElement {
   updatePlantDb(plantDb: PlantDB) {
     this.plantDb = plantDb;
     PlantDbStorage.persistPlantDb(this.plantDb);
+  }
+
+  private _updateIndex() {
+    const log = this.plantDb.log;
+    this._indexLog = lunr(function () {
+      this.ref("sourceLine");
+      this.field("plantId");
+      this.field("type");
+      this.field("note");
+      this.field("productUsed");
+
+      log.forEach(logEntry => {
+        this.add(logEntry);
+      });
+    });
+
+    const plants = [...this.plantDb.plants.values()];
+    this._indexPlants = lunr(function () {
+      this.ref("id");
+      this.field("id");
+      this.field("name");
+      this.field("kind");
+      this.field("substrate");
+      this.field("location");
+      this.field("notes");
+
+      plants.forEach(plant => {
+        this.add(plant);
+      });
+    });
+  }
+
+  searchLog(term: string) {
+    const results = mustExist(this._indexLog).search(term);
+    const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
+    console.debug(logEntries);
+    return logEntries;
   }
 }
