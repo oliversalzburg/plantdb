@@ -4,8 +4,6 @@ import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { PlantStore } from "../stores/PlantStore";
-import { PlantStoreUi } from "../stores/PlantStoreUi";
 import { View } from "./View";
 
 @customElement("plant-import-view")
@@ -27,12 +25,6 @@ export class PlantImportView extends View {
 
   @property()
   config = new DatabaseFormat();
-
-  @property()
-  plantStore: PlantStore | null = null;
-
-  @property()
-  plantStoreUi: PlantStoreUi | null = null;
 
   firstUpdated() {
     const storedConfig = localStorage.getItem("plantdb.config");
