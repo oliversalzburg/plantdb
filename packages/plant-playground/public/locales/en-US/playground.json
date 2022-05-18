@@ -48,6 +48,20 @@
     "unmapped": "Unmapped event type",
     "save": "Save mapping"
   },
+  "eventType": {
+    "Acquisition": "Acquisition",
+    "Fertilization": "Fertilization",
+    "Measurement": "Measurement",
+    "Observation": "Observation",
+    "PestControl": "Pest control",
+    "PestInfestation": "Pest infestation",
+    "Pruning": "Pruning",
+    "Relocation": "Relocation",
+    "Repotting": "Repotting",
+    "RootPruning": "Root pruning",
+    "Shaping": "Shaping",
+    "Watering": "Watering"
+  },
   "placeholder": {
     "filter": "Type filter here",
     "eventFilter": "Filter event types"
