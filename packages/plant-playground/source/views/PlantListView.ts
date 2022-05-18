@@ -21,8 +21,9 @@ export class PlantListView extends View {
     return [
       0 < (this.plantStore?.plantDb.plants.size ?? 0)
         ? html`<plant-list
+            .plantStore=${this.plantStore}
+            .plantStoreUi=${this.plantStoreUi}
             .plants=${this.plants}
-            .plantDb=${this.plantStore?.plantDb}
           ></plant-list>`
         : html`<plant-empty-state class="empty"
             ><p>It seems like you have no plants 😔</p>

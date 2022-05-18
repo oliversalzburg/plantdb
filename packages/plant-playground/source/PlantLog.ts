@@ -56,7 +56,7 @@ export class PlantLog extends LitElement {
   private _filterEventTypes = new Array<string>();
 
   render() {
-    // Initial log is the entire passed log, in reverse order, filtered by event types.
+    // Initial log is the entire passed log, filtered by event types, in reverse order.
     let filteredLog = this.log
       .filter(
         entry =>

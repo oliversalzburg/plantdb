@@ -2,6 +2,7 @@ import {
   DatabaseFormat,
   LogEntry,
   LogEntrySerialized,
+  Plant,
   PlantDB,
   PlantSerialized,
 } from "@plantdb/libplantdb";
@@ -89,10 +90,34 @@ export class PlantStore extends LitElement {
       });
     });
   }
+
+  indexFromPlants(plants: ReadonlyArray<Plant>) {
+    return lunr(function () {
+      this.ref("id");
+      this.field("id");
+      this.field("name");
+      this.field("kind");
+      this.field("substrate");
+      this.field("location");
+      this.field("notes");
+
+      plants.forEach(plant => {
+        this.add(plant);
+      });
+    });
+  }
+
   searchLog(term: string, index = this._indexLog) {
     const results = mustExist(index).search(term);
     console.debug(results);
     const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
+    console.debug(logEntries);
+    return logEntries;
+  }
+  searchPlants(term: string, index = this._indexPlants) {
+    const results = mustExist(index).search(term);
+    console.debug(results);
+    const logEntries = results.map(result => this.plantDb.plants.get(result.ref));
     console.debug(logEntries);
     return logEntries;
   }
