@@ -70,6 +70,7 @@ export class PlantStoreUi extends LitElement {
         this.i18nReady = true;
         this.locale = i18next.language;
         document.documentElement.lang = i18next.language;
+        this._updateTextDirectionality();
         Settings.defaultLocale = i18next.language;
         this.dispatchEvent(new CustomEvent("plant-i18n-ready", { detail: i18next.language }));
       })
@@ -124,8 +125,17 @@ export class PlantStoreUi extends LitElement {
     await i18next.changeLanguage(locale);
     this.locale = i18next.language;
     document.documentElement.lang = i18next.language;
+    this._updateTextDirectionality();
     Settings.defaultLocale = i18next.language;
     this.dispatchEvent(new CustomEvent("plant-i18n-changed", { detail: i18next.language }));
+  }
+
+  private _updateTextDirectionality() {
+    if (this.locale === "he-IL") {
+      document.documentElement.dir = "rtl";
+    } else {
+      document.documentElement.dir = "ltr";
+    }
   }
 
   drawerOpen() {
