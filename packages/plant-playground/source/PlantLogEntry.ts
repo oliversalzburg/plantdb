@@ -1,11 +1,4 @@
-import {
-  EventType,
-  identifyLogType,
-  LogEntry,
-  MATCH_PID_ALL,
-  Plant,
-  PlantDB,
-} from "@plantdb/libplantdb";
+import { EventType, identifyLogType, LogEntry, MATCH_PID_ALL, PlantDB } from "@plantdb/libplantdb";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -20,7 +13,7 @@ export class PlantLogEntry extends LitElement {
         flex: 1;
       }
 
-      :host sl-card {
+      sl-card {
         padding: 1rem;
         width: 100%;
       }
@@ -35,7 +28,14 @@ export class PlantLogEntry extends LitElement {
         align-items: center;
       }
 
-      :host sl-card section {
+      #infos {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      sl-card section {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -57,9 +57,6 @@ export class PlantLogEntry extends LitElement {
 
   @property({ type: [LogEntry] })
   logEntry = new LogEntry(0, "");
-
-  @property({ type: Plant })
-  plant: Plant | null = Plant.Empty();
 
   @property({ type: Boolean, attribute: true, reflect: true })
   headerVisible = true;
@@ -126,22 +123,29 @@ export class PlantLogEntry extends LitElement {
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
     return [
       html`<sl-card>
-        ${this.headerVisible && this.plant
+        ${this.headerVisible && this.logEntry.plant
           ? html`<div slot="header">
               <div>
-                ${this.plant.name}
+                ${this.logEntry.plant.name}
                 <br />
-                <small><em>${this.plant.kind}</em></small>
+                <small><em>${this.logEntry.plant.kind}</em></small>
               </div>
-              <sl-badge variant="neutral">${this.plant.id}</sl-badge>
+              <div id="infos">
+                ${this.logEntry.plant.location
+                  ? html`<sl-tooltip content=${this.logEntry.plant.location}
+                      ><sl-icon name="geo-alt"></sl-icon
+                    ></sl-tooltip>`
+                  : undefined}
+                <sl-badge variant="neutral">${this.logEntry.plant.id}</sl-badge>
+              </div>
             </div>`
           : html``}
         <section>
           <div>
             ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
             <small
-              >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.plant
-                ?.logEntryOldest === this.logEntry
+              >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.logEntry
+                .plant?.logEntryOldest === this.logEntry
                 ? "🌟"
                 : ""}</small
             >

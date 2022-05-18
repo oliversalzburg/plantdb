@@ -27,7 +27,11 @@ export class PlantDetails extends LitElement {
       }
 
       :host sl-card [slot="header"] {
-        text-align: right;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: right;
+        gap: 0.25rem;
       }
 
       :host sl-card [slot="footer"] {
@@ -95,7 +99,13 @@ export class PlantDetails extends LitElement {
 
     return html`<div class="top">
         <sl-card>
-          <div slot="header"><sl-badge variant="neutral">${this.plant.id}</sl-badge></div>
+          <div slot="header">
+            ${this.plant.location
+              ? html`<sl-tooltip content=${this.plant.location}
+                  ><sl-icon name="geo-alt"></sl-icon
+                ></sl-tooltip>`
+              : undefined} <sl-badge variant="neutral">${this.plant.id}</sl-badge>
+          </div>
           ${this.plant.name}
           <br />
           <small><em>${this.plant.kind}</em></small>
