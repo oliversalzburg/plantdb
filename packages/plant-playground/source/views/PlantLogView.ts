@@ -2,6 +2,7 @@ import { SlDialog } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, query } from "lit/decorators.js";
+import { isNil } from "../Maybe";
 import { View } from "./View";
 
 @customElement("plant-log-view")
@@ -29,11 +30,18 @@ export class PlantLogView extends View {
   private _newEntryDialog: SlDialog | null | undefined;
 
   render() {
+    if (isNil(this.plantStore)) {
+      return;
+    }
+
     return [
       0 < (this.plantStore?.plantDb.log.length ?? 0)
         ? [
             html`<sl-dialog id="new-entry-dialog" label="Currently being prototyped"
-              ><plant-log-entry-form .plantDb=${this.plantStore?.plantDb}></plant-log-entry-form>
+              ><plant-log-entry-form
+                .plantStore=${this.plantStore}
+                .plantStoreUi=${this.plantStoreUi}
+              ></plant-log-entry-form>
               <sl-button
                 slot="footer"
                 variant="primary"
@@ -44,7 +52,7 @@ export class PlantLogView extends View {
             html`<plant-log
                 .plantStore=${this.plantStore}
                 .plantStoreUi=${this.plantStoreUi}
-                .log=${this.plantStore?.plantDb.log}
+                .log=${this.plantStore.plantDb.log}
               ></plant-log>
               <section class="footer">
                 <sl-button variant="primary" @click=${() => this._newEntryDialog?.show()}

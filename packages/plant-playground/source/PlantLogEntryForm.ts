@@ -1,8 +1,11 @@
-import { LogEntry, Plant, PlantDB } from "@plantdb/libplantdb";
-import { SlDropdown, SlSelect } from "@shoelace-style/shoelace";
+import { LogEntry, Plant } from "@plantdb/libplantdb";
+import { SlDropdown, SlInput, SlSelect } from "@shoelace-style/shoelace";
 import { css, html, LitElement } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
+import { isNil } from "./Maybe";
 import { Typography } from "./PlantComponentStyles";
+import { PlantStore } from "./stores/PlantStore";
+import { PlantStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-log-entry-form")
 export class PlantLogEntryForm extends LitElement {
@@ -35,8 +38,11 @@ export class PlantLogEntryForm extends LitElement {
     `,
   ];
 
-  @property({ type: PlantDB })
-  plantDb = PlantDB.Empty();
+  @property({ type: PlantStore })
+  plantStore: PlantStore | null = null;
+
+  @property({ type: PlantStoreUi })
+  plantStoreUi: PlantStoreUi | null = null;
 
   @property({ type: LogEntry })
   logEntry = new LogEntry(0, "");
@@ -44,6 +50,8 @@ export class PlantLogEntryForm extends LitElement {
   @property({ type: Plant })
   plant: Plant | null = Plant.Empty();
 
+  @state()
+  private _plantName = "";
   private _date = new Date().toISOString().slice(0, 10);
   private _time = new Date().toLocaleTimeString();
 
@@ -54,16 +62,23 @@ export class PlantLogEntryForm extends LitElement {
   private _typeDrowndown: SlDropdown | null | undefined;
 
   render() {
+    if (isNil(this.plantStore)) {
+      return;
+    }
+
+    console.debug(this._plantName);
+
     return [
       html`<sl-input
           label="Plant *"
           placeholder="Select plant"
           @sl-focus=${() => this._plantDrowndown?.show()}
+          @sl-input=${(event: MouseEvent) => (this._plantName = (event.target as SlInput).value)}
           required
         ></sl-input
         ><sl-dropdown id="plant-dropdown">
           <sl-menu>
-            ${[...this.plantDb.plants.values()]
+            ${[...this.plantStore.searchPlants(this._plantName)]
               .slice(0, 8)
               .map(
                 plant =>
@@ -84,7 +99,7 @@ export class PlantLogEntryForm extends LitElement {
         ></sl-input
         ><sl-dropdown id="type-dropdown">
           <sl-menu>
-            ${[...this.plantDb.entryTypes].map(
+            ${[...this.plantStore.plantDb.entryTypes].map(
               entry => html`<sl-menu-item>${entry}</sl-menu-item>`
             )}
           </sl-menu></sl-dropdown

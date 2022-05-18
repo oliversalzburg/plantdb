@@ -131,7 +131,9 @@ export class PlantStore extends LitElement {
   searchPlants(term: string, index = this._indexPlants) {
     const results = mustExist(index).search(this.formalizeLunrSearch(term));
     console.debug(results);
-    const logEntries = results.map(result => this.plantDb.plants.get(result.ref));
+    const logEntries = results
+      .map(result => this.plantDb.plants.get(result.ref))
+      .filter(Boolean) as Array<Plant>;
     console.debug(logEntries);
     return logEntries;
   }
