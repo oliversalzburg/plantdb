@@ -72,22 +72,24 @@ export class PlantLogEntryForm extends LitElement {
       html`<sl-input
           label="Plant *"
           placeholder="Select plant"
+          value=${this._plantName}
           @sl-focus=${() => this._plantDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._plantName = (event.target as SlInput).value)}
           required
         ></sl-input
         ><sl-dropdown id="plant-dropdown">
           <sl-menu>
-            ${[...this.plantStore.searchPlants(this._plantName)]
-              .slice(0, 8)
-              .map(
-                plant =>
-                  html`<sl-menu-item
-                    >${plant.name}<sl-badge slot="suffix" variant="neutral"
-                      >${plant.id}</sl-badge
-                    ></sl-menu-item
-                  >`
-              )}
+            ${[...this.plantStore.searchPlants(this._plantName)].slice(0, 8).map(
+              plant =>
+                html`<sl-menu-item
+                  @click=${() => {
+                    this._plantName = plant.id;
+                  }}
+                  >${plant.name}<sl-badge slot="suffix" variant="neutral"
+                    >${plant.id}</sl-badge
+                  ></sl-menu-item
+                >`
+            )}
           </sl-menu>
         </sl-dropdown>
 
