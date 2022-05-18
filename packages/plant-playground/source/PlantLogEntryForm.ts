@@ -1,4 +1,4 @@
-import { LogEntry, Plant } from "@plantdb/libplantdb";
+import { LogEntry, MATCH_PID, Plant } from "@plantdb/libplantdb";
 import { SlDropdown, SlInput, SlSelect } from "@shoelace-style/shoelace";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
@@ -52,6 +52,8 @@ export class PlantLogEntryForm extends LitElement {
 
   @state()
   private _plantName = "";
+  @state()
+  private _entryType = "";
   private _date = new Date().toISOString().slice(0, 10);
   private _time = new Date().toLocaleTimeString();
 
@@ -76,6 +78,7 @@ export class PlantLogEntryForm extends LitElement {
           @sl-focus=${() => this._plantDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._plantName = (event.target as SlInput).value)}
           required
+          pattern=${MATCH_PID}
         ></sl-input
         ><sl-dropdown id="plant-dropdown">
           <sl-menu>
@@ -96,14 +99,27 @@ export class PlantLogEntryForm extends LitElement {
         <sl-input
           label="Event type *"
           placeholder="Select event type"
+          value=${this._entryType}
           @sl-focus=${() => this._typeDrowndown?.show()}
+          @sl-input=${(event: MouseEvent) => (this._entryType = (event.target as SlInput).value)}
           required
         ></sl-input
         ><sl-dropdown id="type-dropdown">
           <sl-menu>
-            ${[...this.plantStore.plantDb.entryTypes].map(
-              entry => html`<sl-menu-item>${entry}</sl-menu-item>`
-            )}
+            ${[...this.plantStore.plantDb.entryTypes]
+              .sort()
+              .filter(type =>
+                type.toLocaleLowerCase().includes(this._entryType.toLocaleLowerCase())
+              )
+              .map(
+                entry =>
+                  html`<sl-menu-item
+                    @click=${() => {
+                      this._entryType = entry;
+                    }}
+                    >${entry}</sl-menu-item
+                  >`
+              )}
           </sl-menu></sl-dropdown
         >
 
