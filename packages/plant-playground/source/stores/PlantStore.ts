@@ -107,15 +107,29 @@ export class PlantStore extends LitElement {
     });
   }
 
+  /**
+   * Take a search term, as given by the user, and transform it so that it:
+   *  - performs substring matching
+   *  - requires all provided terms to match
+   * @param term The search term as input by the user.
+   * @returns A formalized lunr search term.
+   */
+  formalizeLunrSearch(term: string) {
+    return term
+      .split(" ")
+      .map(fragment => `+*${fragment}*`)
+      .join(" ");
+  }
+
   searchLog(term: string, index = this._indexLog) {
-    const results = mustExist(index).search(term);
+    const results = mustExist(index).search(this.formalizeLunrSearch(term));
     console.debug(results);
     const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
     console.debug(logEntries);
     return logEntries;
   }
   searchPlants(term: string, index = this._indexPlants) {
-    const results = mustExist(index).search(term);
+    const results = mustExist(index).search(this.formalizeLunrSearch(term));
     console.debug(results);
     const logEntries = results.map(result => this.plantDb.plants.get(result.ref));
     console.debug(logEntries);
