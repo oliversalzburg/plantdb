@@ -1,8 +1,8 @@
 import { LogEntry, Plant } from "@plantdb/libplantdb";
-import { SlDropdown, SlInput, SlSelect } from "@shoelace-style/shoelace";
+import { SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { isNil } from "./Maybe";
+import { isNil, mustExist } from "./Maybe";
 import { Typography } from "./PlantComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
@@ -58,7 +58,7 @@ export class PlantLogEntryForm extends LitElement {
   plantStoreUi: PlantStoreUi | null = null;
 
   @property({ type: LogEntry })
-  logEntry = new LogEntry(0, "");
+  logEntry: LogEntry | undefined;
 
   @property({ type: Plant })
   plant: Plant | null = Plant.Empty();
@@ -72,7 +72,13 @@ export class PlantLogEntryForm extends LitElement {
   @state()
   private _time = new Date().toLocaleTimeString();
   @state()
-  private _productUsed = "";
+  private _note: string | undefined;
+  @state()
+  private _productUsed: string | undefined;
+  @state()
+  private _ec: number | undefined;
+  @state()
+  private _ph: number | undefined;
 
   @query("#entry-form")
   private _entryForm: HTMLFormElement | null | undefined;
@@ -98,11 +104,19 @@ export class PlantLogEntryForm extends LitElement {
   }
 
   asLogEntry() {
-    return this.plantStore?.plantDb.makeNewLogEntry(
+    // Initiate new record into log.
+    const entry = mustExist(this.plantStore).plantDb.makeNewLogEntry(
       this._plantName,
       new Date(`${this._date} ${this._time}`),
       this._entryType
     );
+    // Augment record.
+    return LogEntry.fromLogEntry(entry, {
+      note: this._note,
+      productUsed: this._productUsed,
+      ec: this._ec,
+      ph: this._ph,
+    });
   }
 
   render() {
@@ -186,7 +200,6 @@ export class PlantLogEntryForm extends LitElement {
             value=${this._time}
             @sl-change=${(event: MouseEvent) => {
               this._time = (event.target as SlSelect).value as string;
-              console.log(this._time);
             }}
             required
           ></sl-input>
@@ -198,7 +211,12 @@ export class PlantLogEntryForm extends LitElement {
             ></sl-icon-button
           ></sl-tooltip>
         </div>
-        <sl-textarea label="Note" placeholder="Add your notes here"></sl-textarea>
+        <sl-textarea
+          label="Note"
+          placeholder="Add your notes here"
+          value=${this._note}
+          @sl-change=${(event: MouseEvent) => (this._note = (event.target as SlTextarea).value)}
+        ></sl-textarea>
 
         <h4>Details</h4>
         <sl-input
@@ -212,8 +230,10 @@ export class PlantLogEntryForm extends LitElement {
           <sl-menu>
             ${[...this.plantStore.plantDb.usedProducts]
               .sort()
-              .filter(type =>
-                type.toLocaleLowerCase().includes(this._productUsed.toLocaleLowerCase())
+              .filter(
+                type =>
+                  !this._productUsed ||
+                  type.toLocaleLowerCase().includes(this._productUsed.toLocaleLowerCase())
               )
               .map(
                 product =>
@@ -227,8 +247,22 @@ export class PlantLogEntryForm extends LitElement {
           </sl-menu></sl-dropdown
         >
         <div class="row">
-          <sl-input type="number" label="EC" placeholder="1200"></sl-input
-          ><sl-input type="number" label="pH" placeholder="5.5"></sl-input>
+          <sl-input
+            type="number"
+            label="EC"
+            placeholder="1200"
+            value=${this._ec}
+            @sl-change=${(event: MouseEvent) =>
+              (this._ec = (event.target as SlInput).valueAsNumber)}
+          ></sl-input
+          ><sl-input
+            type="number"
+            label="pH"
+            placeholder="5.5"
+            value=${this._ph}
+            @sl-change=${(event: MouseEvent) =>
+              (this._ph = (event.target as SlInput).valueAsNumber)}
+          ></sl-input>
         </div>
       </form>`,
     ];

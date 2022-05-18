@@ -200,6 +200,7 @@ export class Plant {
     plant.#ecIdeal = other.#ecIdeal;
     plant.#tempIdeal = other.#tempIdeal;
     plant.#notes = other.#notes;
+
     plant.#log = other.#log;
     return plant;
   }

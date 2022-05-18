@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { DatabaseFormat, EventTypes } from "./DatabaseFormat";
+import { DatabaseFormat, EventType } from "./DatabaseFormat";
 import { Plant } from "./Plant";
 
 /**
@@ -143,21 +143,29 @@ export class LogEntry {
   constructor(
     sourceLine: number,
     plantId: string,
-    timestamp: Date = new Date(),
-    type: string = EventTypes.Observation
+    timestamp: Date,
+    type: string | EventType,
+    plants?: ReadonlyMap<string, Plant>
   ) {
     this.#sourceLine = sourceLine;
     this.#plantId = plantId;
     this.#timestamp = timestamp;
     this.#type = type;
+    this.#plants = plants;
   }
 
-  static fromLogEntry(other: LogEntry) {
-    const logEntry = new LogEntry(other.#sourceLine, other.#plantId, other.#timestamp, other.#type);
-    logEntry.#ec = other.#ec;
-    logEntry.#ph = other.#ph;
-    logEntry.#productUsed = other.#productUsed;
-    logEntry.#note = other.#note;
+  static fromLogEntry(other: LogEntry, initializer?: Partial<LogEntry>) {
+    const logEntry = new LogEntry(
+      other.#sourceLine,
+      other.#plantId,
+      other.#timestamp,
+      other.#type,
+      other.#plants
+    );
+    logEntry.#ec = initializer?.ec ? initializer.ec : other.#ec;
+    logEntry.#ph = initializer?.ph ? initializer.ph : other.#ph;
+    logEntry.#productUsed = initializer?.productUsed ? initializer.productUsed : other.#productUsed;
+    logEntry.#note = initializer?.note ? initializer.note : other.#note;
     return logEntry;
   }
 
@@ -171,14 +179,13 @@ export class LogEntry {
       sourceFileLineNumber,
       dataRow[0],
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
-      dataRow[2]
+      dataRow[2],
+      plants
     );
     logEntry.#ec = LogEntry.tryParseEC(dataRow[3]);
     logEntry.#ph = LogEntry.tryParsePh(dataRow[4]);
     logEntry.#productUsed = dataRow[5];
     logEntry.#note = dataRow[6];
-
-    logEntry.#plants = plants;
 
     return logEntry;
   }

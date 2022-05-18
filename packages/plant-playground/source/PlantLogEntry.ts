@@ -55,8 +55,8 @@ export class PlantLogEntry extends LitElement {
   @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
 
-  @property({ type: [LogEntry] })
-  logEntry = new LogEntry(0, "");
+  @property({ type: LogEntry })
+  logEntry: LogEntry | undefined;
 
   @property({ type: Boolean, attribute: true, reflect: true })
   headerVisible = true;
@@ -112,12 +112,12 @@ export class PlantLogEntry extends LitElement {
 
   augmentType(logEntry: LogEntry, eventType?: EventType) {
     const { icon, details } = PlantLogEntry.extractTypeDetails(logEntry, eventType);
-    return html`${icon ? html`<sl-icon name="${icon}"></sl-icon> ` : undefined}${this.logEntry.type}
+    return html`${icon ? html`<sl-icon name="${icon}"></sl-icon> ` : undefined}${logEntry.type}
     ${details ?? ""}`;
   }
 
   render() {
-    if (!this.plantDb) {
+    if (!this.plantDb || !this.logEntry) {
       return;
     }
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);

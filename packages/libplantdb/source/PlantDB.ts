@@ -76,7 +76,14 @@ export class PlantDB {
     timestamp: Date = new Date(),
     type: string = EventTypes.Observation
   ) {
-    return new LogEntry(this.#log[this.#log.length - 1].sourceLine + 1, plantId, timestamp, type);
+    const entry = new LogEntry(
+      this.#log[this.#log.length - 1].sourceLine + 1,
+      plantId,
+      timestamp,
+      type,
+      this.#plants
+    );
+    return entry;
   }
 
   /**

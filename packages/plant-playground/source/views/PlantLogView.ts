@@ -53,7 +53,8 @@ export class PlantLogView extends View {
                 variant="primary"
                 @click=${() => {
                   this._entryForm?.reportValidity();
-                  console.debug(this._entryForm?.asLogEntry());
+                  const newEntry = this._entryForm?.asLogEntry();
+                  console.debug(newEntry);
                   this.dispatchEvent(new CustomEvent("plant-new-entry"));
                 }}
                 >${t("save", { ns: "common" })}</sl-button
