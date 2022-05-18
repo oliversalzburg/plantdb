@@ -1,8 +1,7 @@
-import { PlantDB } from "@plantdb/libplantdb";
 import { SlDialog } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, query } from "lit/decorators.js";
 import { View } from "./View";
 
 @customElement("plant-log-view")
@@ -19,21 +18,22 @@ export class PlantLogView extends View {
       .empty {
         flex: 1;
       }
+
+      #new-entry-dialog {
+        --width: 80vw;
+      }
     `,
   ];
-
-  @property({ type: PlantDB })
-  plantDb = PlantDB.Empty();
 
   @query("#new-entry-dialog")
   private _newEntryDialog: SlDialog | null | undefined;
 
   render() {
     return [
-      0 < this.plantDb.log.length
+      0 < (this.plantStore?.plantDb.log.length ?? 0)
         ? [
-            html`<sl-dialog id="new-entry-dialog"
-              ><p>I can has new entry?</p>
+            html`<sl-dialog id="new-entry-dialog" label="Currently being prototyped"
+              ><plant-log-entry-form .plantDb=${this.plantStore?.plantDb}></plant-log-entry-form>
               <sl-button
                 slot="footer"
                 variant="primary"
@@ -41,7 +41,11 @@ export class PlantLogView extends View {
                 >${t("close", { ns: "common" })}</sl-button
               ></sl-dialog
             >`,
-            html`<plant-log .plantDb=${this.plantDb} .log=${this.plantDb.log}></plant-log>
+            html`<plant-log
+                .plantStore=${this.plantStore}
+                .plantStoreUi=${this.plantStoreUi}
+                .log=${this.plantStore?.plantDb.log}
+              ></plant-log>
               <section class="footer">
                 <sl-button variant="primary" @click=${() => this._newEntryDialog?.show()}
                   >${t("log.add")}</sl-button

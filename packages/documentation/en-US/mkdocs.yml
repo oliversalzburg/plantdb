@@ -3,6 +3,13 @@ dev_addr: 0.0.0.0:8000
 docs_dir: docs
 edit_uri: /oliversalzburg/plantdb/edit/main/packages/documentation/docs/
 extra:
+  alternate:
+    - name: English (US)
+      link: /plantdb/docs/en-US/
+      lang: en
+    - name: Deutsch (DE)
+      link: /plantdb/docs/de-DE/
+      lang: de
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/oliversalzburg/
@@ -40,13 +47,15 @@ markdown_extensions:
   - pymdownx.tilde
   - toc:
       permalink: true
+      slugify: !!python/name:pymdownx.slugs.uslugify
 plugins:
   - git-revision-date-localized:
       fallback_to_build_date: true
   - search
 repo_name: oliversalzburg/plantdb
-repo_url: https://github.com/oliversalzburg/plantdb/docs
+repo_url: https://github.com/oliversalzburg/plantdb/
 site_name: PlantDB
+site_url: https://github.com/oliversalzburg/plantdb/docs/
 theme:
   favicon: assets/images/favicon.ico
   features:
@@ -57,6 +66,7 @@ theme:
   icon:
     logo: material/flower
     repo: fontawesome/brands/github
+  language: en
   name: material
   palette:
     - media: "(prefers-color-scheme: light)"

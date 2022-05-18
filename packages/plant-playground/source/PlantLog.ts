@@ -1,11 +1,13 @@
-import { identifyLogType, LogEntry, PlantDB } from "@plantdb/libplantdb";
+import { identifyLogType, LogEntry } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { mustExist } from "./Maybe";
 import { PlantLogEntry } from "./PlantLogEntry";
-import { retrieveStoreUi } from "./stores/PlantStoreUi";
+import { PlantStore, retrieveStore } from "./stores/PlantStore";
+import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-log")
 export class PlantLog extends LitElement {
@@ -35,11 +37,14 @@ export class PlantLog extends LitElement {
     `,
   ];
 
-  @property({ type: PlantDB })
-  plantDb = PlantDB.Empty();
+  @property()
+  plantStore: PlantStore | null = null;
+
+  @property()
+  plantStoreUi: PlantStoreUi | null = null;
 
   @property({ type: [LogEntry] })
-  log = this.plantDb.log;
+  log = new Array<LogEntry>();
 
   @property()
   filter = "";
@@ -50,23 +55,24 @@ export class PlantLog extends LitElement {
   @state()
   private _filterEventTypes = new Array<string>();
 
-  private _filterMatchesLogEntry(logEntry: LogEntry, filter: string) {
-    const terms = filter.toLocaleLowerCase().split(" ");
-    for (const term of terms) {
-      if (!logEntry.indexableText.includes(term)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   render() {
+    let logEntries;
+    if (this.filter) {
+      const index = mustExist(this.plantStore).indexFromLog(this.log);
+      logEntries = mustExist(this.plantStore).searchLog(this.filter, index);
+    } else {
+      logEntries = this.log.reverse();
+    }
+
     return [
       html`<div class="filters">
         <sl-input
           placeholder=${t("placeholder.filter")}
-          .value="${this.filter}"
-          @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
+          .value=${this.filter}
+          @sl-input=${(event: InputEvent) => {
+            this.filter = (event.target as SlInput).value;
+            retrieveStore()?.searchLog(this.filter);
+          }}
         ></sl-input
         ><sl-select
           placeholder=${t("placeholder.eventFilter")}
@@ -77,7 +83,7 @@ export class PlantLog extends LitElement {
             const value = (event.target as SlSelect).value as string[];
             this._filterEventTypes = value;
           }}
-          >${[...this.plantDb.entryTypes.values()]
+          >${[...(this.plantStore?.plantDb.entryTypes.values() ?? [])]
             .sort()
             .map(
               entryType =>
@@ -86,28 +92,25 @@ export class PlantLog extends LitElement {
                     slot="prefix"
                     name="${PlantLogEntry.extractTypeDetails(
                       undefined,
-                      identifyLogType(entryType, this.plantDb)
+                      identifyLogType(entryType, mustExist(this.plantStore).plantDb)
                     ).icon}"
                   ></sl-icon
                 ></sl-menu-item>`
             )}</sl-select
         >
       </div>`,
-      this.log
+      logEntries
         .filter(
           entry =>
             // Filter event type
-            (0 === this._filterEventTypes.length || this._filterEventTypes.includes(entry.type)) &&
-            // Filter text content
-            this._filterMatchesLogEntry(entry, this.filter)
+            0 === this._filterEventTypes.length || this._filterEventTypes.includes(entry.type)
         )
-        .reverse()
         .slice(0, 100)
         .map(
           entry =>
             html`<plant-log-entry
-              .plantDb=${this.plantDb}
-              .plant=${this.plantDb.plants.get(entry.plantId)}
+              .plantDb=${this.plantStore?.plantDb}
+              .plant=${this.plantStore?.plantDb.plants.get(entry.plantId)}
               .logEntry=${entry}
               .headerVisible=${this.headerVisible}
               @click=${() => {

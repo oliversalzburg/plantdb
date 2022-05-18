@@ -1,4 +1,4 @@
-import { EventType, PlantDB } from "@plantdb/libplantdb";
+import { EventType } from "@plantdb/libplantdb";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { View } from "./View";
@@ -14,16 +14,13 @@ export class PlantTypeMapView extends View {
     `,
   ];
 
-  @property({ type: PlantDB })
-  plantDb = PlantDB.Empty();
-
   @property({ type: Map })
   proposedMapping = new Map<string, EventType>();
 
   render() {
     return [
       html`<plant-type-map
-        .plantDb=${this.plantDb}
+        .plantDb=${this.plantStore?.plantDb}
         .proposedMapping=${this.proposedMapping}
       ></plant-type-map>`,
     ];

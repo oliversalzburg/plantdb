@@ -6,6 +6,11 @@ import { DatabaseFormat, EventTypes } from "./DatabaseFormat";
  */
 export type LogEntrySerialized = {
   /**
+   * The line in the original CSV input this entry originated from.
+   */
+  sourceLine: number;
+
+  /**
    * The ID of the plant.
    */
   plantId: string;
@@ -45,7 +50,7 @@ export type LogEntrySerialized = {
  * A single entry in a PlantDB log.
  */
 export class LogEntry {
-  #sourceLine: number | undefined;
+  #sourceLine: number;
   #plantId: string;
   #timestamp: Date;
   #type: string;
@@ -126,17 +131,19 @@ export class LogEntry {
    * @param type The type of event.
    */
   constructor(
+    sourceLine: number,
     plantId: string,
     timestamp: Date = new Date(),
     type: string = EventTypes.Observation
   ) {
+    this.#sourceLine = sourceLine;
     this.#plantId = plantId;
     this.#timestamp = timestamp;
     this.#type = type;
   }
 
   static fromLogEntry(other: LogEntry) {
-    const logEntry = new LogEntry(other.#plantId, other.#timestamp, other.#type);
+    const logEntry = new LogEntry(other.#sourceLine, other.#plantId, other.#timestamp, other.#type);
     logEntry.#ec = other.#ec;
     logEntry.#ph = other.#ph;
     logEntry.#productUsed = other.#productUsed;
@@ -147,14 +154,14 @@ export class LogEntry {
   static fromCSVData(
     dataRow: Array<string>,
     format: DatabaseFormat,
-    sourceFileLineNumber?: number | undefined
+    sourceFileLineNumber: number
   ): LogEntry {
     const logEntry = new LogEntry(
+      sourceFileLineNumber,
       dataRow[0],
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
-    logEntry.#sourceLine = sourceFileLineNumber;
     logEntry.#note = dataRow[3];
     logEntry.#ec = LogEntry.tryParseEC(dataRow[4]);
     logEntry.#ph = LogEntry.tryParsePh(dataRow[5]);
@@ -191,6 +198,7 @@ export class LogEntry {
 
   static fromJSObject(dataObject: LogEntrySerialized) {
     const logEntry = new LogEntry(
+      dataObject.sourceLine,
       dataObject.plantId,
       new Date(dataObject.timestamp),
       dataObject.type
@@ -214,13 +222,14 @@ export class LogEntry {
 
   toJSObject(): LogEntrySerialized {
     return {
-      plantId: this.plantId,
-      timestamp: this.timestamp.toISOString(),
-      type: this.type,
-      ec: this.ec,
-      ph: this.ph,
-      productUsed: this.productUsed,
-      note: this.note,
+      sourceLine: this.#sourceLine,
+      plantId: this.#plantId,
+      timestamp: this.#timestamp.toISOString(),
+      type: this.#type,
+      ec: this.#ec,
+      ph: this.#ph,
+      productUsed: this.#productUsed,
+      note: this.#note,
     };
   }
 

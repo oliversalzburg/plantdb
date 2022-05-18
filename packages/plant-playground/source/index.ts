@@ -20,6 +20,7 @@ import "./PlantEmptyState";
 import "./PlantList";
 import "./PlantLog";
 import "./PlantLogEntry";
+import "./PlantLogEntryForm";
 import "./PlantTypeMap";
 import "./stores/PlantStore";
 import "./stores/PlantStoreUi";
