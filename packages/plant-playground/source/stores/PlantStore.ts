@@ -63,6 +63,8 @@ export class PlantStore extends LitElement {
 
     const plants = [...this.plantDb.plants.values()];
     this._indexPlants = lunr(function () {
+      this.pipeline.remove(lunr.stemmer);
+
       this.ref("id");
       this.field("id");
       this.field("name");
@@ -79,6 +81,8 @@ export class PlantStore extends LitElement {
 
   indexFromLog(log: ReadonlyArray<LogEntry>) {
     return lunr(function () {
+      this.pipeline.remove(lunr.stemmer);
+
       this.ref("sourceLine");
       this.field("plantId");
       this.field("type");
@@ -107,6 +111,8 @@ export class PlantStore extends LitElement {
 
   indexFromPlants(plants: ReadonlyArray<Plant>) {
     return lunr(function () {
+      this.pipeline.remove(lunr.stemmer);
+
       this.ref("id");
       this.field("id");
       this.field("name");
@@ -132,7 +138,7 @@ export class PlantStore extends LitElement {
     return term
       .split(" ")
       .filter(fragment => fragment.length)
-      .map(fragment => `+${fragment}`)
+      .map(fragment => `+${fragment}*`)
       .join(" ");
   }
 
