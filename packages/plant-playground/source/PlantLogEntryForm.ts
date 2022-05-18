@@ -38,8 +38,8 @@ export class PlantLogEntryForm extends LitElement {
   @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
 
-  @property({ type: [LogEntry] })
-  logEntry = new LogEntry("");
+  @property({ type: LogEntry })
+  logEntry = new LogEntry(0, "");
 
   @property({ type: Plant })
   plant: Plant | null = Plant.Empty();
@@ -56,9 +56,10 @@ export class PlantLogEntryForm extends LitElement {
   render() {
     return [
       html`<sl-input
-          label="Plant"
+          label="Plant *"
           placeholder="Select plant"
           @sl-focus=${() => this._plantDrowndown?.show()}
+          required
         ></sl-input
         ><sl-dropdown id="plant-dropdown">
           <sl-menu>
@@ -76,9 +77,10 @@ export class PlantLogEntryForm extends LitElement {
         </sl-dropdown>
 
         <sl-input
-          label="Event type"
+          label="Event type *"
           placeholder="Select event type"
           @sl-focus=${() => this._typeDrowndown?.show()}
+          required
         ></sl-input
         ><sl-dropdown id="type-dropdown">
           <sl-menu>
@@ -91,20 +93,22 @@ export class PlantLogEntryForm extends LitElement {
         <div class="row">
           <sl-input
             type="date"
-            label="Date"
+            label="Date *"
             value=${this._date}
-            @sl-change="${(event: MouseEvent) => {
+            @sl-change=${(event: MouseEvent) => {
               this._date = (event.target as SlSelect).value as string;
-            }}"
+            }}
+            required
           ></sl-input
           ><sl-input
             type="time"
-            label="Time"
+            label="Time *"
             value=${this._time}
-            @sl-change="${(event: MouseEvent) => {
+            @sl-change=${(event: MouseEvent) => {
               this._time = (event.target as SlSelect).value as string;
               console.log(this._time);
-            }}"
+            }}
+            required
           ></sl-input>
         </div>
         <sl-textarea label="Note" placeholder="Add your notes here"></sl-textarea>

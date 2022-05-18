@@ -91,6 +91,7 @@ export class PlantStore extends LitElement {
   }
   searchLog(term: string, index = this._indexLog) {
     const results = mustExist(index).search(term);
+    console.debug(results);
     const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
     console.debug(logEntries);
     return logEntries;
