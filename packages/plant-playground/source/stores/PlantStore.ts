@@ -86,6 +86,8 @@ export class PlantStore extends LitElement {
       this.field("productUsed");
 
       this.field("plantName");
+      this.field("plantKind");
+      this.field("plantLocation");
 
       log.forEach(logEntry => {
         this.add({
