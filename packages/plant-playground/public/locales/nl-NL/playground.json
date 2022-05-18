@@ -79,6 +79,20 @@
     "Shaping": "",
     "Watering": ""
   },
+  "eventType": {
+    "Acquisition": "",
+    "Fertilization": "",
+    "Measurement": "",
+    "Observation": "",
+    "PestControl": "",
+    "PestInfestation": "",
+    "Pruning": "",
+    "Relocation": "",
+    "Repotting": "",
+    "RootPruning": "",
+    "Shaping": "",
+    "Watering": ""
+  },
   "placeholder": {
     "filter": "Type filter here",
     "eventFilter": "Filter event types"
