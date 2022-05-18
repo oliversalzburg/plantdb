@@ -117,6 +117,7 @@ export class PlantStore extends LitElement {
   formalizeLunrSearch(term: string) {
     return term
       .split(" ")
+      .filter(fragment => fragment.length)
       .map(fragment => `+*${fragment}*`)
       .join(" ");
   }
