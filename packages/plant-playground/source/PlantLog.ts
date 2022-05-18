@@ -37,10 +37,10 @@ export class PlantLog extends LitElement {
     `,
   ];
 
-  @property()
+  @property({ type: PlantStore })
   plantStore: PlantStore | null = null;
 
-  @property()
+  @property({ type: PlantStoreUi })
   plantStoreUi: PlantStoreUi | null = null;
 
   @property({ type: [LogEntry] })

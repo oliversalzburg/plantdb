@@ -13,8 +13,9 @@ export class PlantDetailsView extends View {
   render() {
     return [
       html`<plant-details
+        .plantStore=${this.plantStore}
+        .plantStoreUi=${this.plantStoreUi}
         .plant=${this.plant}
-        .plantDb=${this.plantStore?.plantDb}
       ></plant-details>`,
     ];
   }

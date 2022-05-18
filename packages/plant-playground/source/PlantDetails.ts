@@ -1,4 +1,4 @@
-import { identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb";
+import { identifyLogType, Plant } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
@@ -7,6 +7,9 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
+import { mustExist } from "./Maybe";
+import { PlantStore } from "./stores/PlantStore";
+import { PlantStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-details")
 export class PlantDetails extends LitElement {
@@ -55,15 +58,20 @@ export class PlantDetails extends LitElement {
     `,
   ];
 
+  @property()
+  plantStore: PlantStore | null = null;
+
+  @property()
+  plantStoreUi: PlantStoreUi | null = null;
+
   @property({ type: Plant })
   plant: Plant | undefined;
 
-  @property({ type: PlantDB })
-  plantDb = PlantDB.Empty();
-
   plantDataAsCSV(plant: Plant) {
     const measurements = plant.log.filter(
-      entry => identifyLogType(entry.type, this.plantDb) === "Measurement" && (entry.ph || entry.ec)
+      entry =>
+        identifyLogType(entry.type, mustExist(this.plantStore).plantDb) === "Measurement" &&
+        (entry.ph || entry.ec)
     );
 
     if (measurements.length === 0) {
@@ -122,7 +130,8 @@ export class PlantDetails extends LitElement {
       </div>
 
       <plant-log
-        .plantDb=${this.plantDb}
+        .plantStore=${this.plantStore}
+        .plantStoreUi=${this.plantStoreUi}
         .log=${this.plant.log}
         .headerVisible=${false}
       ></plant-log>`;

@@ -56,7 +56,7 @@ export class PlantLogEntry extends LitElement {
   plantDb = PlantDB.Empty();
 
   @property({ type: [LogEntry] })
-  logEntry = new LogEntry("");
+  logEntry = new LogEntry(0, "");
 
   @property({ type: Plant })
   plant: Plant | null = Plant.Empty();
@@ -120,6 +120,9 @@ export class PlantLogEntry extends LitElement {
   }
 
   render() {
+    if (!this.plantDb) {
+      return;
+    }
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
     return [
       html`<sl-card>
