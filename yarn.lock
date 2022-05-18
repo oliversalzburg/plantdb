@@ -207,7 +207,7 @@ __metadata:
     "@types/lunr": 2.3.4
     "@types/web": 0.0.66
     dygraphs: 2.1.0
-    i18next: 21.8.2
+    i18next: 21.8.3
     i18next-browser-languagedetector: 6.1.4
     i18next-http-backend: 1.4.0
     lit: 2.2.4
@@ -1800,12 +1800,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:21.8.2":
-  version: 21.8.2
-  resolution: "i18next@npm:21.8.2"
+"i18next@npm:21.8.3":
+  version: 21.8.3
+  resolution: "i18next@npm:21.8.3"
   dependencies:
     "@babel/runtime": ^7.17.2
-  checksum: 59968ff32e04084fa4b475c653a2f2b688f4fd1b9376904d6391953e220914ba915d73842d0a6e0195f33df658867acab3818611d959eabed40d496422cf47ab
+  checksum: b2d31afdfcc3d3ba451b4a0eb4c0c970661b7865ed8515218cfe46ca9501fefc11ca6ca405e9f71db7e012184ed80d46cb6f4808562f5d6ac6161c6753816468
   languageName: node
   linkType: hard
 
