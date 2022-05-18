@@ -1,0 +1,55 @@
+{
+  "app": {
+    "title": "PlantDB Playground"
+  },
+  "menu": {
+    "log": "יומן",
+    "plants": "צמחים",
+    "typeMap": "מיפוי סוגים",
+    "import": "יבא",
+    "close": "$t(common:close)"
+  },
+  "empty": {
+    "log": "נראה שאין לך רישומים ביומן 😔",
+    "importNow": "יבא עכשיו"
+  },
+  "log": {
+    "add": "הוסף רשומה ליומן"
+  },
+  "plant": {
+    "whenAdded": "נוסף: {{when}}",
+    "whenUpdated": "עודכן לאחרונה: {{when}}",
+    "whenInfested": "הודבק לאחרונה: {{when}}",
+    "whenPestControl": "הדברה אחרונה: {{when}}",
+    "never": "אף פעם"
+  },
+  "dbConfig": {
+    "title": "קונפיגורציית מסד נתונים",
+    "hasHeaderRow": "קיימת שורת כותרת?",
+    "columnSeparator": "מפריד עמודות",
+    "comma": "פסיק ,",
+    "semicolon": "נקופסיק ;",
+    "tab": "טאב",
+    "dateTimeFormat": "פורמט זמן",
+    "timezone": "אזור זמן"
+  },
+  "import": {
+    "title": "יבא מידע",
+    "plantLog": "יומן צמח",
+    "pastePlantLog": "הדבק plantlog.csv כאן",
+    "plantData": "מידע צמח",
+    "pastePlants": "הדבק plants.csv כאן",
+    "import": "יבא",
+    "updateLog": "עדכן יומן בלבד"
+  },
+  "typeMap": {
+    "title": "מיפוי סוגים",
+    "introduction": "לשמאל, ניתן לראות סוגי אירועים הכלולים במידע שלך. שייך אליהם את סוגי הטיפוסים של PlantDB המופיעים מימין כדי שהאירועים יזוהו באפליקציה.",
+    "unmapped": "סוג אירוע לא ממופה",
+    "save": "שמור מיפוי"
+  },
+  "placeholder": {
+    "filter": "הכנס סנן כאן",
+    "eventFilter": "סנן סוגי אירועים"
+  }
+}
