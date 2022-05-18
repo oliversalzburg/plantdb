@@ -85,8 +85,20 @@ export class PlantStore extends LitElement {
       this.field("note");
       this.field("productUsed");
 
+      this.field("plantName");
+
       log.forEach(logEntry => {
-        this.add(logEntry);
+        this.add({
+          sourceLine: logEntry.sourceLine,
+          plantId: logEntry.plantId,
+          type: logEntry.type,
+          note: logEntry.note,
+          productUsed: logEntry.productUsed,
+
+          plantName: logEntry.plant.name,
+          plantKind: logEntry.plant.kind,
+          plantLocation: logEntry.plant.location,
+        });
       });
     });
   }

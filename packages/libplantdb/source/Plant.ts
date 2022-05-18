@@ -107,7 +107,7 @@ export class Plant {
   #tempIdeal: number | undefined;
   #notes = "";
 
-  #log = new Array<LogEntry>();
+  #log: ReadonlyArray<LogEntry> | undefined = undefined;
 
   get id() {
     return this.#id;
@@ -162,7 +162,7 @@ export class Plant {
   }
 
   get log() {
-    return this.#log.filter(logEntry => logEntry.plantId === this.id);
+    return this.#log?.filter(logEntry => logEntry.plantId === this.id) ?? [];
   }
 
   get logEntryOldest(): LogEntry | undefined {
@@ -204,7 +204,7 @@ export class Plant {
     return plant;
   }
 
-  static fromCSV(dataRow: Array<string>, log = new Array<LogEntry>()): Plant {
+  static fromCSVData(dataRow: Array<string>, log?: ReadonlyArray<LogEntry>): Plant {
     const plant = new Plant(dataRow[0]);
     plant.#name = dataRow[1];
     plant.#kind = dataRow[2].includes("\n") ? dataRow[2].split("\n") : dataRow[2];
@@ -222,7 +222,7 @@ export class Plant {
     return plant;
   }
 
-  static fromJSObject(dataObject: PlantSerialized, log = new Array<LogEntry>()) {
+  static fromJSObject(dataObject: PlantSerialized, log?: Array<LogEntry>) {
     const plant = new Plant(dataObject.id);
     plant.#name = dataObject.name ?? plant.#name;
     plant.#kind = dataObject.kind ?? plant.#kind;

@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import { DatabaseFormat, EventTypes } from "./DatabaseFormat";
+import { Plant } from "./Plant";
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.
@@ -59,6 +60,8 @@ export class LogEntry {
   #productUsed: string | undefined;
   #note: string | undefined;
 
+  #plants: ReadonlyMap<string, Plant> | undefined = undefined;
+
   /**
    * If this log entry was read from a file, this indicates the line in the file it originates from.
    */
@@ -116,12 +119,18 @@ export class LogEntry {
   }
 
   /**
-   * An easily indexable string that represents the most relevant bits of text associated with the record.
+   * The plant this record refers to.
    */
-  get indexableText() {
-    return `${this.plantId} ${this.type} ${this.productUsed ?? ""} ${
-      this.note ?? ""
-    }`.toLocaleLowerCase();
+  get plant() {
+    const plant = this.#plants?.get(this.#plantId);
+    if (!plant) {
+      throw new Error(
+        `Unable to find plant '${
+          this.#plantId
+        }' in plant cache. Ensure PlantDB has been initialized with PlantDB.fromCSV()!`
+      );
+    }
+    return plant;
   }
 
   /**
@@ -154,7 +163,8 @@ export class LogEntry {
   static fromCSVData(
     dataRow: Array<string>,
     format: DatabaseFormat,
-    sourceFileLineNumber: number
+    sourceFileLineNumber: number,
+    plants?: ReadonlyMap<string, Plant>
   ): LogEntry {
     const logEntry = new LogEntry(
       sourceFileLineNumber,
@@ -166,6 +176,8 @@ export class LogEntry {
     logEntry.#ph = LogEntry.tryParsePh(dataRow[4]);
     logEntry.#productUsed = dataRow[5];
     logEntry.#note = dataRow[6];
+
+    logEntry.#plants = plants;
 
     return logEntry;
   }
@@ -196,7 +208,7 @@ export class LogEntry {
     return undefined;
   }
 
-  static fromJSObject(dataObject: LogEntrySerialized) {
+  static fromJSObject(dataObject: LogEntrySerialized, plants?: ReadonlyMap<string, Plant>) {
     const logEntry = new LogEntry(
       dataObject.sourceLine,
       dataObject.plantId,
@@ -207,6 +219,8 @@ export class LogEntry {
     logEntry.#ph = dataObject.ph ?? logEntry.#ph;
     logEntry.#productUsed = dataObject.productUsed ?? logEntry.#productUsed;
     logEntry.#note = dataObject.note ?? logEntry.#note;
+
+    logEntry.#plants = plants;
     return logEntry;
   }
 

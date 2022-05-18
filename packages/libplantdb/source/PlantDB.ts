@@ -111,7 +111,7 @@ export class PlantDB {
       from: databaseFormat.hasHeaderRow ? 2 : 1,
     }) as Array<Array<string>>;
     for (const [index, logRecord] of plantLogData.entries()) {
-      const logEntry = LogEntry.fromCSVData(logRecord, databaseFormat, index);
+      const logEntry = LogEntry.fromCSVData(logRecord, databaseFormat, index, plantDb.plants);
       plantDb.#log.push(logEntry);
       plantDb.#entryTypes.add(logEntry.type);
       if (logEntry.productUsed) {
@@ -127,7 +127,7 @@ export class PlantDB {
       from: databaseFormat.hasHeaderRow ? 2 : 1,
     }) as Array<Array<string>>;
     for (const plantRecord of plantData) {
-      const plant = Plant.fromCSV(plantRecord, plantDb.#log);
+      const plant = Plant.fromCSVData(plantRecord, plantDb.#log);
       plantDb.#plants.set(plant.id, plant);
     }
 
@@ -156,7 +156,7 @@ export class PlantDB {
     const plantDb = new PlantDB();
 
     plantDb.#config = databaseFormat;
-    plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSObject(logEntry));
+    plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSObject(logEntry, plantDb.plants));
 
     for (const logEntry of plantDb.#log) {
       plantDb.#entryTypes.add(logEntry.type);
