@@ -135,6 +135,7 @@ export class LogEntry {
 
   /**
    * Constructs a new `LogEntry`.
+   * @param sourceLine The line in the source CSV document this entry originated from.
    * @param plantId The ID of the plant.
    * @param timestamp The date/time the event was recorded.
    * @param type The type of event.

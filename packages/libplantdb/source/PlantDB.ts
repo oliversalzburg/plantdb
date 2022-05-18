@@ -1,5 +1,5 @@
 import { parse } from "csv-parse/browser/esm/sync";
-import { DatabaseFormat } from "./DatabaseFormat.js";
+import { DatabaseFormat, EventTypes } from "./DatabaseFormat.js";
 import { LogEntry, LogEntrySerialized } from "./LogEntry.js";
 import { Plant, PlantSerialized } from "./Plant.js";
 
@@ -65,6 +65,21 @@ export class PlantDB {
   }
 
   /**
+   * Creates a new log entry that is to be added to the database.
+   * @param plantId The ID of the plant for which this is a new log entry.
+   * @param timestamp THe date and time this event was recorded at.
+   * @param type The type of the event.
+   * @returns The created `LogEntry`.
+   */
+  makeNewLogEntry(
+    plantId: string,
+    timestamp: Date = new Date(),
+    type: string = EventTypes.Observation
+  ) {
+    return new LogEntry(this.#log[this.#log.length - 1].sourceLine + 1, plantId, timestamp, type);
+  }
+
+  /**
    * Construct a new PlantDB, based on the data in another one, and also optionally override
    * some of its properties.
    * @param other The `PlantDB` to initialize the new one from.
@@ -110,8 +125,14 @@ export class PlantDB {
       delimiter: databaseFormat.columnSeparator,
       from: databaseFormat.hasHeaderRow ? 2 : 1,
     }) as Array<Array<string>>;
+    const offset = databaseFormat.hasHeaderRow ? 2 : 1;
     for (const [index, logRecord] of plantLogData.entries()) {
-      const logEntry = LogEntry.fromCSVData(logRecord, databaseFormat, index, plantDb.plants);
+      const logEntry = LogEntry.fromCSVData(
+        logRecord,
+        databaseFormat,
+        index + offset,
+        plantDb.plants
+      );
       plantDb.#log.push(logEntry);
       plantDb.#entryTypes.add(logEntry.type);
       if (logEntry.productUsed) {

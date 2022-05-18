@@ -1,4 +1,4 @@
-import { LogEntry, MATCH_PID, Plant } from "@plantdb/libplantdb";
+import { LogEntry, Plant } from "@plantdb/libplantdb";
 import { SlDropdown, SlInput, SlSelect } from "@shoelace-style/shoelace";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
@@ -74,6 +74,11 @@ export class PlantLogEntryForm extends LitElement {
   @state()
   private _productUsed = "";
 
+  @query("#entry-form")
+  private _entryForm: HTMLFormElement | null | undefined;
+
+  @query("#plant-input")
+  private _plantInput: SlInput | null | undefined;
   @query("#plant-dropdown")
   private _plantDrowndown: SlDropdown | null | undefined;
 
@@ -88,22 +93,39 @@ export class PlantLogEntryForm extends LitElement {
     this._time = new Date().toLocaleTimeString();
   }
 
+  reportValidity() {
+    this._entryForm?.reportValidity();
+  }
+
+  asLogEntry() {
+    return this.plantStore?.plantDb.makeNewLogEntry(
+      this._plantName,
+      new Date(`${this._date} ${this._time}`),
+      this._entryType
+    );
+  }
+
   render() {
     if (isNil(this.plantStore)) {
       return;
     }
 
-    console.debug(this._plantName);
-
     return [
-      html`<sl-input
+      html`<form
+        id="entry-form"
+        @submit=${(event: Event) => {
+          event.preventDefault();
+        }}
+      >
+        <sl-input
+          id="plant-input"
           label="Plant *"
           placeholder="Select plant"
           value=${this._plantName}
           @sl-focus=${() => this._plantDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._plantName = (event.target as SlInput).value)}
           required
-          pattern=${MATCH_PID}
+          pattern="PID-\\d{1,6}"
         ></sl-input
         ><sl-dropdown id="plant-dropdown">
           <sl-menu>
@@ -207,7 +229,8 @@ export class PlantLogEntryForm extends LitElement {
         <div class="row">
           <sl-input type="number" label="EC" placeholder="1200"></sl-input
           ><sl-input type="number" label="pH" placeholder="5.5"></sl-input>
-        </div>`,
+        </div>
+      </form>`,
     ];
   }
 }

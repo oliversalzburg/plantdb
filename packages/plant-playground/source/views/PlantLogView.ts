@@ -3,6 +3,7 @@ import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, query } from "lit/decorators.js";
 import { isNil } from "../Maybe";
+import { PlantLogEntryForm } from "../PlantLogEntryForm";
 import { View } from "./View";
 
 @customElement("plant-log-view")
@@ -29,6 +30,9 @@ export class PlantLogView extends View {
   @query("#new-entry-dialog")
   private _newEntryDialog: SlDialog | null | undefined;
 
+  @query("#entry-form")
+  private _entryForm: PlantLogEntryForm | null | undefined;
+
   render() {
     if (isNil(this.plantStore)) {
       return;
@@ -38,17 +42,25 @@ export class PlantLogView extends View {
       0 < (this.plantStore?.plantDb.log.length ?? 0)
         ? [
             html`<sl-dialog id="new-entry-dialog" label=${t("log.add")}
-              ><plant-log-entry-form
-                .plantStore=${this.plantStore}
-                .plantStoreUi=${this.plantStoreUi}
-              ></plant-log-entry-form>
+              >
+                <plant-log-entry-form id="entry-form"
+                  .plantStore=${this.plantStore}
+                  .plantStoreUi=${this.plantStoreUi}
+                ></plant-log-entry-form>
+              </form>
               <sl-button
                 slot="footer"
                 variant="primary"
-                @click=${() => this._newEntryDialog?.hide()}
+                @click=${() => {
+                  this._entryForm?.reportValidity();
+                  console.debug(this._entryForm?.asLogEntry());
+                  this.dispatchEvent(new CustomEvent("plant-new-entry"));
+                }}
+                >${t("save", { ns: "common" })}</sl-button
+              ><sl-button slot="footer" @click=${() => this._newEntryDialog?.hide()}
                 >${t("close", { ns: "common" })}</sl-button
-              ></sl-dialog
-            >`,
+              >
+            </sl-dialog>`,
             html`<plant-log
                 .plantStore=${this.plantStore}
                 .plantStoreUi=${this.plantStoreUi}
