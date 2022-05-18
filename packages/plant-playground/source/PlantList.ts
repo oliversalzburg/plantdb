@@ -59,7 +59,6 @@ export class PlantList extends LitElement {
     );
 
     if (this.filter) {
-      console.debug(`Filtering log for entries with '${this.filter}'`);
       const index = mustExist(this.plantStore).indexFromPlants(this.plants);
       const filtered = mustExist(this.plantStore).searchPlants(this.filter, index);
       filteredPlants = filteredPlants.filter(entry => filtered.includes(entry));

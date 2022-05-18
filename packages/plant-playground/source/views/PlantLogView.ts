@@ -37,7 +37,7 @@ export class PlantLogView extends View {
     return [
       0 < (this.plantStore?.plantDb.log.length ?? 0)
         ? [
-            html`<sl-dialog id="new-entry-dialog" label="Currently being prototyped"
+            html`<sl-dialog id="new-entry-dialog" label=${t("log.add")}
               ><plant-log-entry-form
                 .plantStore=${this.plantStore}
                 .plantStoreUi=${this.plantStoreUi}

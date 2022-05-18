@@ -132,17 +132,24 @@ export class PlantStore extends LitElement {
     return term
       .split(" ")
       .filter(fragment => fragment.length)
-      .map(fragment => `+*${fragment}*`)
+      .map(fragment => `+${fragment}`)
       .join(" ");
   }
 
   searchLog(term: string, index = this._indexLog) {
-    const results = mustExist(index).search(this.formalizeLunrSearch(term));
+    const formal = this.formalizeLunrSearch(term);
+    console.debug(`Performing formal search for: ${formal}`);
+
+    const results = mustExist(index).search(formal);
     const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
     return logEntries;
   }
+
   searchPlants(term: string, index = this._indexPlants) {
-    const results = mustExist(index).search(this.formalizeLunrSearch(term));
+    const formal = this.formalizeLunrSearch(term);
+    console.debug(`Performing formal search for: ${formal}`);
+
+    const results = mustExist(index).search(formal);
     const logEntries = results
       .map(result => this.plantDb.plants.get(result.ref))
       .filter(Boolean) as Array<Plant>;

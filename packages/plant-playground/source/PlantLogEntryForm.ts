@@ -30,10 +30,23 @@ export class PlantLogEntryForm extends LitElement {
         flex-direction: row;
         gap: 1rem;
       }
-
       .row * {
         flex: 1;
         min-width: 0;
+      }
+
+      .date-time {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+      }
+      .date-time sl-input {
+        flex: 1;
+        min-width: 0;
+      }
+      .date-time sl-icon-button {
+        margin-top: 1.25rem;
       }
     `,
   ];
@@ -54,7 +67,9 @@ export class PlantLogEntryForm extends LitElement {
   private _plantName = "";
   @state()
   private _entryType = "";
+  @state()
   private _date = new Date().toISOString().slice(0, 10);
+  @state()
   private _time = new Date().toLocaleTimeString();
   @state()
   private _productUsed = "";
@@ -67,6 +82,11 @@ export class PlantLogEntryForm extends LitElement {
 
   @query("#product-dropdown")
   private _productDrowndown: SlDropdown | null | undefined;
+
+  private _setCurrentDateTime() {
+    this._date = new Date().toISOString().slice(0, 10);
+    this._time = new Date().toLocaleTimeString();
+  }
 
   render() {
     if (isNil(this.plantStore)) {
@@ -128,7 +148,7 @@ export class PlantLogEntryForm extends LitElement {
           </sl-menu></sl-dropdown
         >
 
-        <div class="row">
+        <div class="date-time">
           <sl-input
             type="date"
             label="Date *"
@@ -148,6 +168,13 @@ export class PlantLogEntryForm extends LitElement {
             }}
             required
           ></sl-input>
+          <sl-tooltip content="Set to current date/time">
+            <sl-icon-button
+              name="clock"
+              label="Set to current date/time"
+              @click=${() => this._setCurrentDateTime()}
+            ></sl-icon-button
+          ></sl-tooltip>
         </div>
         <sl-textarea label="Note" placeholder="Add your notes here"></sl-textarea>
 

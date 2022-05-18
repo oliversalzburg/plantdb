@@ -66,7 +66,6 @@ export class PlantLog extends LitElement {
       .reverse();
 
     if (this.filter) {
-      console.debug(`Filtering log for entries with '${this.filter}'`);
       const index = mustExist(this.plantStore).indexFromLog(this.log);
       const filtered = mustExist(this.plantStore).searchLog(this.filter, index);
       filteredLog = filteredLog.filter(entry => filtered.includes(entry));
