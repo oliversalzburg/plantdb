@@ -48,6 +48,20 @@
     "unmapped": "Nicht zugeordneter Ereignistyp",
     "save": "Zuordnung speichern"
   },
+  "eventType": {
+    "Acquisition": "",
+    "Fertilization": "",
+    "Measurement": "",
+    "Observation": "",
+    "PestControl": "",
+    "PestInfestation": "",
+    "Pruning": "",
+    "Relocation": "",
+    "Repotting": "",
+    "RootPruning": "",
+    "Shaping": "",
+    "Watering": ""
+  },
   "placeholder": {
     "filter": "Filter hier eingeben",
     "eventFilter": "Ereignis-Typen filtern"
