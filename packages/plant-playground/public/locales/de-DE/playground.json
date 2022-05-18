@@ -49,18 +49,18 @@
     "save": "Zuordnung speichern"
   },
   "eventType": {
-    "Acquisition": "",
-    "Fertilization": "",
-    "Measurement": "",
-    "Observation": "",
-    "PestControl": "",
-    "PestInfestation": "",
-    "Pruning": "",
-    "Relocation": "",
-    "Repotting": "",
-    "RootPruning": "",
-    "Shaping": "",
-    "Watering": ""
+    "Acquisition": "Aufnahme",
+    "Fertilization": "Dünger",
+    "Measurement": "Messung",
+    "Observation": "Beobachten",
+    "PestControl": "Schädlingsbekämpfung",
+    "PestInfestation": "Schädlingsbefall",
+    "Pruning": "Bereinigung",
+    "Relocation": "Standortwechsel",
+    "Repotting": "Umtopfen",
+    "RootPruning": "Wurzelschnitt",
+    "Shaping": "Formen",
+    "Watering": "Gießen"
   },
   "placeholder": {
     "filter": "Filter hier eingeben",
