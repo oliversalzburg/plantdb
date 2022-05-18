@@ -182,6 +182,12 @@ export class PlantApp extends LitElement {
                       @click=${() => this._plantStoreUi.changeLocale("en-US")}
                       >EN</sl-menu-item
                     >
+                    <sl-menu-item
+                      value="he-IL"
+                      ?checked=${this._plantStoreUi.locale === "he-IL"}
+                      @click=${() => this._plantStoreUi.changeLocale("he-IL")}
+                      >HE</sl-menu-item
+                    >
                     <!--
                     <sl-menu-item
                       value="fr-FR"

@@ -9,7 +9,7 @@ let globalStore: PlantStoreUi | undefined;
 
 export const retrieveStoreUi = () => globalStore;
 
-export type SupportedLocales = "de-DE" | "en-US" | "fr-FR";
+export type SupportedLocales = "de-DE" | "en-US" | "he-IL";
 
 @customElement("plant-store-ui")
 export class PlantStoreUi extends LitElement {
