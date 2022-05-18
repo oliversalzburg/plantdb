@@ -1,7 +1,4 @@
 import { DatabaseFormat, EventType, PlantDB } from "@plantdb/libplantdb";
-import "@shoelace-style/shoelace/dist/translations/de.js";
-import "@shoelace-style/shoelace/dist/translations/en.js";
-import "@shoelace-style/shoelace/dist/translations/fr.js";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
