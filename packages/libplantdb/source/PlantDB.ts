@@ -8,6 +8,7 @@ export class PlantDB {
   #plants = new Map<string, Plant>();
   #log = new Array<LogEntry>();
   #entryTypes = new Set<string>();
+  #usedProducts = new Set<string>();
 
   get config() {
     return this.#config;
@@ -23,6 +24,10 @@ export class PlantDB {
 
   get entryTypes(): ReadonlySet<string> {
     return this.#entryTypes;
+  }
+
+  get usedProducts(): ReadonlySet<string> {
+    return this.#usedProducts;
   }
 
   static Empty() {
@@ -41,6 +46,9 @@ export class PlantDB {
     plantDb.#entryTypes = initializer?.entryTypes
       ? new Set(initializer.entryTypes)
       : new Set(other.#entryTypes);
+    plantDb.#usedProducts = initializer?.usedProducts
+      ? new Set(initializer.usedProducts)
+      : new Set(other.#usedProducts);
     plantDb.#log = initializer?.log
       ? [...initializer.log]
       : other.#log.map(entry => LogEntry.fromLogEntry(entry));
@@ -66,6 +74,9 @@ export class PlantDB {
       const logEntry = LogEntry.fromCSVData(logRecord, databaseFormat, index);
       plantDb.#log.push(logEntry);
       plantDb.#entryTypes.add(logEntry.type);
+      if (logEntry.productUsed) {
+        plantDb.#usedProducts.add(logEntry.productUsed);
+      }
     }
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
@@ -102,6 +113,9 @@ export class PlantDB {
 
     for (const logEntry of plantDb.#log) {
       plantDb.#entryTypes.add(logEntry.type);
+      if (logEntry.productUsed) {
+        plantDb.#usedProducts.add(logEntry.productUsed);
+      }
     }
 
     for (const plant of plants) {

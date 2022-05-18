@@ -124,18 +124,14 @@ export class PlantStore extends LitElement {
 
   searchLog(term: string, index = this._indexLog) {
     const results = mustExist(index).search(this.formalizeLunrSearch(term));
-    console.debug(results);
     const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
-    console.debug(logEntries);
     return logEntries;
   }
   searchPlants(term: string, index = this._indexPlants) {
     const results = mustExist(index).search(this.formalizeLunrSearch(term));
-    console.debug(results);
     const logEntries = results
       .map(result => this.plantDb.plants.get(result.ref))
       .filter(Boolean) as Array<Plant>;
-    console.debug(logEntries);
     return logEntries;
   }
 }

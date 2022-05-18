@@ -56,12 +56,17 @@ export class PlantLogEntryForm extends LitElement {
   private _entryType = "";
   private _date = new Date().toISOString().slice(0, 10);
   private _time = new Date().toLocaleTimeString();
+  @state()
+  private _productUsed = "";
 
   @query("#plant-dropdown")
   private _plantDrowndown: SlDropdown | null | undefined;
 
   @query("#type-dropdown")
   private _typeDrowndown: SlDropdown | null | undefined;
+
+  @query("#product-dropdown")
+  private _productDrowndown: SlDropdown | null | undefined;
 
   render() {
     if (isNil(this.plantStore)) {
@@ -147,7 +152,31 @@ export class PlantLogEntryForm extends LitElement {
         <sl-textarea label="Note" placeholder="Add your notes here"></sl-textarea>
 
         <h4>Details</h4>
-        <sl-input label="Product used" placeholder="name of a product"></sl-input>
+        <sl-input
+          label="Product used"
+          placeholder="name of a product"
+          value=${this._productUsed}
+          @sl-focus=${() => this._productDrowndown?.show()}
+          @sl-input=${(event: MouseEvent) => (this._productUsed = (event.target as SlInput).value)}
+        ></sl-input
+        ><sl-dropdown id="product-dropdown">
+          <sl-menu>
+            ${[...this.plantStore.plantDb.usedProducts]
+              .sort()
+              .filter(type =>
+                type.toLocaleLowerCase().includes(this._productUsed.toLocaleLowerCase())
+              )
+              .map(
+                product =>
+                  html`<sl-menu-item
+                    @click=${() => {
+                      this._productUsed = product;
+                    }}
+                    >${product}</sl-menu-item
+                  >`
+              )}
+          </sl-menu></sl-dropdown
+        >
         <div class="row">
           <sl-input type="number" label="EC" placeholder="1200"></sl-input
           ><sl-input type="number" label="pH" placeholder="5.5"></sl-input>
