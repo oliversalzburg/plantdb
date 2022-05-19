@@ -80,7 +80,7 @@ export class PlantDB {
     const log = [...this.#log, LogEntry.fromLogEntry(logEntry, { plants })];
 
     if (!plants.has(logEntry.plantId)) {
-      plants.set(logEntry.plantId, Plant.fromJSObject({ id: logEntry.plantId }, log));
+      plants.set(logEntry.plantId, Plant.fromJSObject(this, { id: logEntry.plantId }));
     }
 
     return PlantDB.fromPlantDB(this, { log, plants });
@@ -94,7 +94,10 @@ export class PlantDB {
     ];
 
     if (!plants.has(updatedLogEntry.plantId)) {
-      plants.set(updatedLogEntry.plantId, Plant.fromJSObject({ id: updatedLogEntry.plantId }, log));
+      plants.set(
+        updatedLogEntry.plantId,
+        Plant.fromJSObject(this, { id: updatedLogEntry.plantId })
+      );
     }
 
     return PlantDB.fromPlantDB(this, { log, plants });
@@ -121,6 +124,7 @@ export class PlantDB {
     type: string = EventTypes.Observation
   ) {
     const entry = new LogEntry(
+      this,
       0 < this.#log.length
         ? this.#log[this.#log.length - 1].sourceLine + 1
         : this.#config.hasHeaderRow
@@ -128,8 +132,7 @@ export class PlantDB {
         : 1,
       plantId,
       timestamp,
-      type,
-      this.#plants
+      type
     );
     return entry;
   }
@@ -147,14 +150,15 @@ export class PlantDB {
     plantDb.#config = initializer?.config
       ? DatabaseFormat.fromDatabaseFormat(initializer.config)
       : DatabaseFormat.fromDatabaseFormat(other.#config);
-    plantDb.#log = initializer?.log
-      ? [...initializer.log]
-      : other.#log.map(entry => LogEntry.fromLogEntry(entry));
-    plantDb.#plants = initializer?.plants
-      ? new Map(initializer.plants)
-      : new Map(
-          [...other.#plants.entries()].map(([plantId, plant]) => [plantId, Plant.fromPlant(plant)])
-        );
+    plantDb.#log = (initializer?.log ?? other.#log).map(entry =>
+      LogEntry.fromLogEntry(entry, { plantDb })
+    );
+    plantDb.#plants = new Map(
+      [...(initializer?.plants ?? other.#plants).entries()].map(([plantId, plant]) => [
+        plantId,
+        Plant.fromPlant(plant, { plantDb }),
+      ])
+    );
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
@@ -202,12 +206,7 @@ export class PlantDB {
     }) as Array<Array<string>>;
     const offset = databaseFormat.hasHeaderRow ? 2 : 1;
     for (const [index, logRecord] of plantLogData.entries()) {
-      const logEntry = LogEntry.fromCSVData(
-        logRecord,
-        databaseFormat,
-        index + offset,
-        plantDb.plants
-      );
+      const logEntry = LogEntry.fromCSVData(plantDb, logRecord, databaseFormat, index + offset);
       plantDb.#log.push(logEntry);
     }
 
@@ -220,14 +219,14 @@ export class PlantDB {
     }) as Array<Array<string>>;
 
     for (const plantRecord of plantData) {
-      const plant = Plant.fromCSVData(plantRecord, plantDb.#log);
+      const plant = Plant.fromCSVData(plantDb, plantRecord);
       plantDb.#plants.set(plant.id, plant);
     }
 
     // Create plants that appear on the log, but are not defined in the plant metadata.
     for (const log of plantDb.#log) {
       if (!plantDb.#plants.has(log.plantId)) {
-        plantDb.#plants.set(log.plantId, Plant.fromJSObject({ id: log.plantId }, plantDb.#log));
+        plantDb.#plants.set(log.plantId, Plant.fromJSObject(plantDb, { id: log.plantId }));
       }
     }
 
@@ -253,10 +252,10 @@ export class PlantDB {
     const plantDb = new PlantDB();
 
     plantDb.#config = databaseFormat;
-    plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSObject(logEntry, plantDb.plants));
+    plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSObject(plantDb, logEntry));
 
     for (const plant of plants) {
-      plantDb.#plants.set(plant.id, Plant.fromJSObject(plant, plantDb.#log));
+      plantDb.#plants.set(plant.id, Plant.fromJSObject(plantDb, plant));
     }
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());

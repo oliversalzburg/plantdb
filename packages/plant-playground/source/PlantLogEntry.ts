@@ -54,7 +54,7 @@ export class PlantLogEntry extends LitElement {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 1rem;
+        gap: 0.5rem;
         margin-bottom: 0.25rem;
       }
 

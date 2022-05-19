@@ -60,7 +60,7 @@ export class PlantLogEntryForm extends LitElement {
   logEntry: LogEntry | undefined;
 
   @property({ type: Plant })
-  plant: Plant | null = Plant.Empty();
+  plant: Plant | null = null;
 
   @state()
   private _plantName = "";

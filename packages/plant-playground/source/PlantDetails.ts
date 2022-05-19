@@ -1,4 +1,4 @@
-import { identifyLogType, Plant } from "@plantdb/libplantdb";
+import { identifyLogType, LogEntry, Plant } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
@@ -144,6 +144,8 @@ export class PlantDetails extends LitElement {
         .plantStoreUi=${this.plantStoreUi}
         .log=${this.plant.log}
         .headerVisible=${false}
+        @plant-edit-entry=${(event: CustomEvent<LogEntry>) =>
+          this.plantStoreUi?.editLogEntry(event.detail)}
       ></plant-log>`;
   }
 }

@@ -5,6 +5,7 @@ import { html, LitElement, render } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { LogEntry } from "packages/libplantdb/typings";
+import { assertExists } from "../Maybe";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";
 import { PlantStore } from "./PlantStore";
 
@@ -239,7 +240,7 @@ export class PlantStoreUi extends LitElement {
     return alert.toast();
   }
 
-  editLogEntry(plantStore: PlantStore, logEntry?: LogEntry) {
+  showEntryEditor(plantStore: PlantStore, logEntry?: LogEntry) {
     return new Promise<LogEntry | null>((resolve, reject) => {
       const dialog = Object.assign(document.createElement("sl-dialog"), {
         label: logEntry ? t("log.edit") : t("log.add"),
@@ -288,5 +289,29 @@ export class PlantStoreUi extends LitElement {
 
       dialog.show().catch(reject);
     });
+  }
+
+  async editLogEntry(logEntry: LogEntry) {
+    assertExists(this.plantStore);
+
+    console.debug(`Show entry dialog for entry #${logEntry.sourceLine}`);
+    const updatedEntry = await this.showEntryEditor(this.plantStore, logEntry);
+    if (!updatedEntry) {
+      return;
+    }
+
+    const shouldDelete = updatedEntry.plantId === "" || updatedEntry.type === "";
+
+    const newDb = shouldDelete
+      ? this.plantStore.plantDb.withoutLogEntry(logEntry)
+      : this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, logEntry);
+
+    if (shouldDelete) {
+      void this.alert("Entry deleted", "danger", "x-circle");
+    } else {
+      void this.alert("Entry updated");
+    }
+
+    this.plantStore.updatePlantDb(newDb);
   }
 }

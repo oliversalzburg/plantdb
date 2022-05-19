@@ -52,6 +52,11 @@ export class PlantLog extends LitElement {
   @state()
   private _filterEventTypes = new Array<string>();
 
+  connectedCallback(): void {
+    super.connectedCallback();
+    mustExist(this.plantStore).addEventListener("plant-config-changed", () => this.requestUpdate());
+  }
+
   render() {
     // Initial log is the entire passed log, filtered by event types, in reverse order.
     let filteredLog = this.log

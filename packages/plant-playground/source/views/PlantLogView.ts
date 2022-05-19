@@ -39,38 +39,13 @@ export class PlantLogView extends View {
     assertExists(this.plantStore);
     assertExists(this.plantStoreUi);
 
-    const logEntry = await this.plantStoreUi.editLogEntry(mustExist(this.plantStore));
+    const logEntry = await this.plantStoreUi.showEntryEditor(mustExist(this.plantStore));
     if (!logEntry) {
       return;
     }
 
     console.debug(logEntry);
     const newDb = this.plantStore.plantDb.withNewLogEntry(logEntry);
-    this.plantStore.updatePlantDb(newDb);
-  }
-
-  async editLogEntry(logEntry: LogEntry) {
-    assertExists(this.plantStore);
-    assertExists(this.plantStoreUi);
-
-    console.debug(`Show entry dialog for entry #${logEntry.sourceLine}`);
-    const updatedEntry = await this.plantStoreUi.editLogEntry(this.plantStore, logEntry);
-    if (!updatedEntry) {
-      return;
-    }
-
-    const shouldDelete = updatedEntry.plantId === "" || updatedEntry.type === "";
-
-    const newDb = shouldDelete
-      ? this.plantStore.plantDb.withoutLogEntry(logEntry)
-      : this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, logEntry);
-
-    if (shouldDelete) {
-      void this.plantStoreUi.alert("Entry deleted", "danger", "x-circle");
-    } else {
-      void this.plantStoreUi.alert("Entry updated");
-    }
-
     this.plantStore.updatePlantDb(newDb);
   }
 
@@ -87,7 +62,7 @@ export class PlantLogView extends View {
                 .plantStoreUi=${this.plantStoreUi}
                 .log=${this.plantStore.plantDb.log}
                 @plant-edit-entry=${(event: CustomEvent<LogEntry>) =>
-                  this.editLogEntry(event.detail)}
+                  this.plantStoreUi?.editLogEntry(event.detail)}
               ></plant-log>
               <section class="footer">
                 <sl-button variant="primary" @click=${() => this.createNewLogEntry()}
