@@ -58,6 +58,16 @@ export class PlantLogEntry extends LitElement {
         margin-bottom: 0.25rem;
       }
 
+      .unmapped-guide a {
+        text-decoration: none;
+      }
+      .unmapped-guide {
+        visibility: hidden;
+      }
+      sl-card section:hover .unmapped-guide {
+        visibility: visible;
+      }
+
       .note-container {
         flex: 1;
       }
@@ -179,7 +189,7 @@ export class PlantLogEntry extends LitElement {
               </div>
             </div>`
           : undefined}
-        <section @click=${() => this.dispatchEvent(new CustomEvent("plant-body-click"))}>
+        <section>
           <div>
             ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
             <small
@@ -193,11 +203,24 @@ export class PlantLogEntry extends LitElement {
           <sl-divider vertical></sl-divider>
 
           <div class="note-container">
-            <strong class="event-type">${this.augmentType(this.logEntry, identifiedType)}</strong>
+            <strong class="event-type"
+              >${this.augmentType(this.logEntry, identifiedType)}${!identifiedType
+                ? html`<sl-tooltip class="unmapped-guide" content="Unmapped event 😱"
+                    ><a href="/types">?</a></sl-tooltip
+                  >`
+                : undefined}</strong
+            >
+
             <cite>${this.linkify(this.logEntry.note)}</cite>
           </div>
 
-          <sl-icon-button class="edit-button" name="pencil"></sl-icon-button>
+          <sl-tooltip content="Open log entry" placement="left">
+            <sl-icon-button
+              class="edit-button"
+              name="pencil"
+              @click=${() => this.dispatchEvent(new CustomEvent("plant-body-click"))}
+            ></sl-icon-button
+          ></sl-tooltip>
         </section>
       </sl-card>`,
     ];
