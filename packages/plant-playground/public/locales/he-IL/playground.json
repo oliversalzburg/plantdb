@@ -48,6 +48,20 @@
     "unmapped": "סוג אירוע לא ממופה",
     "save": "שמור מיפוי"
   },
+  "eventType": {
+    "Acquisition": "",
+    "Fertilization": "",
+    "Measurement": "",
+    "Observation": "",
+    "PestControl": "",
+    "PestInfestation": "",
+    "Pruning": "",
+    "Relocation": "",
+    "Repotting": "",
+    "RootPruning": "",
+    "Shaping": "",
+    "Watering": ""
+  },
   "placeholder": {
     "filter": "הכנס סנן כאן",
     "eventFilter": "סנן סוגי אירועים"
