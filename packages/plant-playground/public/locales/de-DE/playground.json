@@ -16,6 +16,7 @@
   },
   "log": {
     "add": "Eintrag hinzufügen",
+    "edit": "Edit log entry",
     "goToDetails": "Go to plant details"
   },
   "plant": {
