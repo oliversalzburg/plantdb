@@ -15,7 +15,8 @@
     "or": "or"
   },
   "log": {
-    "add": "Ajouter une entrée de journal"
+    "add": "Ajouter une entrée de journal",
+    "goToDetails": "Go to plant details"
   },
   "plant": {
     "whenAdded": "Ajouté: {{when}}",
