@@ -17,12 +17,8 @@
   "log": {
     "add": "Add log entry",
     "edit": "Edit log entry",
-    "goToDetails": "Go to plant details",
-    "entryUpdated": "Entry updated",
-    "entryDeleted": "Entry deleted",
-    "unmappedEvent": "Unmapped event. Click to map.",
-    "openEntry": "Open log entry"
- },
+    "goToDetails": "Go to plant details"
+  },
   "plant": {
     "whenAdded": "Added: {{when}}",
     "whenUpdated": "Last updated: {{when}}",
@@ -72,27 +68,5 @@
   "placeholder": {
     "filter": "Type filter here",
     "eventFilter": "Filter event types"
-  },
-  "entryEditor": {
-    "plantLabel": "Plant *",
-    "plantPlaceholer": "Search for a Plant ID here",
-    "plantHelp": "If you enter a PID that doesn't exist yet, this plant will be created for you.",
-    "plantHelpDeleteWarn": "If you save this entry, IT WILL BE DELETED!",
-    "plantHelpDelete": "To delete this entry, remove the Plant ID and save it.",
-    "typeLabel": "Event type *",
-    "typePlaceholder": "Select event type",
-    "typeHelp": "If your event type is not listed, just enter a new term to create that event type.",
-    "typeHelpDeleteWarn": "If you save this entry, IT WILL BE DELETED!",
-    "dateLabel": "Date *",
-    "timeLabel": "Time *",
-    "setCurrentDateTime": "Set to current date/time",
-    "noteLabel": "Note",
-    "notePlaceholder": "Add your notes here",
-    "productLabel": "Product used",
-    "productPlaceholder": "Name of a product",
-    "ecLabel": "EC",
-    "ecPlaceholder": "1200",
-    "phLabel": "pH",
-    "phPlaceholder": "5.5"
   }
 }
