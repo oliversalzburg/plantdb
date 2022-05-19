@@ -120,9 +120,13 @@ export class PlantLogEntry extends LitElement {
     if (!this.plantDb || !this.logEntry) {
       return;
     }
+
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
     return [
-      html`<sl-card>
+      html`<sl-card
+        @click=${() =>
+          console.debug(`Show entry dialog for entry #${this.logEntry?.sourceLine ?? ""}`)}
+      >
         ${this.headerVisible && this.logEntry.plant
           ? html`<div slot="header">
               <div>
@@ -139,7 +143,7 @@ export class PlantLogEntry extends LitElement {
                 <sl-badge variant="neutral">${this.logEntry.plant.id}</sl-badge>
               </div>
             </div>`
-          : html``}
+          : undefined}
         <section>
           <div>
             ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />

@@ -22,6 +22,7 @@ export class PlantTypeMapView extends View {
       html`<plant-type-map
         .plantDb=${this.plantStore?.plantDb}
         .proposedMapping=${this.proposedMapping}
+        @plant-config-changed=${() => this.plantStoreUi?.alert("Updated!")}
       ></plant-type-map>`,
     ];
   }

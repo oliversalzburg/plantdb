@@ -158,6 +158,7 @@ export class PlantStoreUi extends LitElement {
 
   /**
    * Invoked when the user clicked on a link.
+   *
    * @param href The path of the link the user clicked on.
    */
   handleUserNavigationEvent(href: string) {
@@ -207,5 +208,26 @@ export class PlantStoreUi extends LitElement {
     }
 
     return { path: pathString, pathParameters: [] };
+  }
+
+  alert(message: string, variant = "primary", icon = "info-circle", duration = 3000) {
+    const escapeHtml = (html: string) => {
+      const div = document.createElement("div");
+      div.textContent = html;
+      return div.innerHTML;
+    };
+
+    const alert = Object.assign(document.createElement("sl-alert"), {
+      variant,
+      closable: true,
+      duration: duration,
+      innerHTML: `
+        <sl-icon name="${icon}" slot="icon"></sl-icon>
+        ${escapeHtml(message)}
+      `,
+    });
+
+    document.body.append(alert);
+    return alert.toast();
   }
 }
