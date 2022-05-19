@@ -193,6 +193,10 @@ export class PlantLogEntryForm extends LitElement {
                 >If your event type is not listed, just enter a new term to create that event
                 type.</small
               >`
+            : this._entryType === ""
+            ? html`<small slot="help-text" class="warning"
+                >If you save this entry, IT WILL BE DELETED!</small
+              >`
             : undefined}</sl-input
         ><sl-dropdown id="type-dropdown">
           <sl-menu>
