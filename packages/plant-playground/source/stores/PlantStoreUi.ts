@@ -1,3 +1,4 @@
+import { getBasePath } from "@shoelace-style/shoelace";
 import i18next, { t } from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
@@ -65,6 +66,9 @@ export class PlantStoreUi extends LitElement {
       .use(LanguageDetector)
       .use(HttpApi)
       .init({
+        backend: {
+          loadPath: `${getBasePath()}locales/{{lng}}/{{ns}}.json`,
+        },
         debug: true,
         defaultNS: "playground",
         detection: {
