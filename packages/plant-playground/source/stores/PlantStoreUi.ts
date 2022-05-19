@@ -1,9 +1,11 @@
-import i18next from "i18next";
+import i18next, { t } from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
-import { LitElement } from "lit";
+import { html, LitElement, render } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
+import { LogEntry } from "packages/libplantdb/typings";
+import { PlantStore } from "./PlantStore";
 
 let globalStore: PlantStoreUi | undefined;
 
@@ -229,5 +231,38 @@ export class PlantStoreUi extends LitElement {
 
     document.body.append(alert);
     return alert.toast();
+  }
+
+  editLogEntry(plantStore: PlantStore, logEntry?: LogEntry) {
+    return new Promise((resolve, reject) => {
+      const dialog = Object.assign(document.createElement("sl-dialog"), {
+        label: t("log.add"),
+      });
+
+      render(
+        html`<plant-log-entry-form
+            id="entry-form"
+            .plantStore=${plantStore}
+            .plantStoreUi=${this}
+            .logEntry=${logEntry}
+          ></plant-log-entry-form>
+
+          <sl-button slot="footer" variant="primary" @click=${() => resolve("dialog result")}
+            >${t("save", { ns: "common" })}</sl-button
+          ><sl-button
+            slot="footer"
+            @click=${() => {
+              dialog.hide().catch(reject);
+              resolve(null);
+            }}
+            >${t("close", { ns: "common" })}</sl-button
+          >`,
+        dialog
+      );
+
+      document.body.appendChild(dialog);
+
+      dialog.show().catch(reject);
+    });
   }
 }

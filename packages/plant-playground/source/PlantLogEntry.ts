@@ -123,10 +123,7 @@ export class PlantLogEntry extends LitElement {
 
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
     return [
-      html`<sl-card
-        @click=${() =>
-          console.debug(`Show entry dialog for entry #${this.logEntry?.sourceLine ?? ""}`)}
-      >
+      html`<sl-card>
         ${this.headerVisible && this.logEntry.plant
           ? html`<div slot="header">
               <div>

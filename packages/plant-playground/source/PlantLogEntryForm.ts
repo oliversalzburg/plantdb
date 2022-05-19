@@ -94,6 +94,18 @@ export class PlantLogEntryForm extends LitElement {
   @query("#product-dropdown")
   private _productDrowndown: SlDropdown | null | undefined;
 
+  connectedCallback(): void {
+    super.connectedCallback();
+    this._plantName = this.logEntry?.plantId ?? this._plantName;
+    this._entryType = this.logEntry?.type ?? this._entryType;
+    this._date = this.logEntry?.timestamp.toISOString().slice(0, 10) ?? this._date;
+    this._time = this.logEntry?.timestamp.toLocaleTimeString() ?? this._time;
+    this._note = this.logEntry?.note ?? this._note;
+    this._productUsed = this.logEntry?.productUsed ?? this._productUsed;
+    this._ec = this.logEntry?.ec ?? this._ec;
+    this._ph = this.logEntry?.ph ?? this._ph;
+  }
+
   private _setCurrentDateTime() {
     this._date = new Date().toISOString().slice(0, 10);
     this._time = new Date().toLocaleTimeString();

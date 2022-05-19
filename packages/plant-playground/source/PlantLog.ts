@@ -110,9 +110,10 @@ export class PlantLog extends LitElement {
             .plant=${this.plantStore?.plantDb.plants.get(entry.plantId)}
             .logEntry=${entry}
             .headerVisible=${this.headerVisible}
-            @click=${() => {
+            @click=${async () => {
               if (!this.headerVisible) {
-                return;
+                console.debug(`Show entry dialog for entry #${entry.sourceLine ?? ""}`);
+                await retrieveStoreUi()?.editLogEntry(mustExist(this.plantStore), entry);
               }
               retrieveStoreUi()?.navigatePath(`/plant/${entry.plantId}`);
             }}
