@@ -11,7 +11,8 @@
   },
   "empty": {
     "log": "Es scheint, als hättest du keine Einträge 😔",
-    "importNow": "Jetzt importieren"
+    "importNow": "Jetzt importieren",
+    "or": "or"
   },
   "log": {
     "add": "Eintrag hinzufügen"
