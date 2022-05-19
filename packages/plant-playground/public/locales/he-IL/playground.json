@@ -11,7 +11,8 @@
   },
   "empty": {
     "log": "נראה שאין לך רישומים ביומן 😔",
-    "importNow": "יבא עכשיו"
+    "importNow": "יבא עכשיו",
+    "or": "or"
   },
   "log": {
     "add": "הוסף רשומה ליומן"
