@@ -1,7 +1,8 @@
-import { SlDialog } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html } from "lit";
-import { customElement, query } from "lit/decorators.js";
+import { customElement } from "lit/decorators.js";
+import { LogEntry } from "packages/libplantdb/typings";
+import { assertExists, isNil, mustExist } from "../Maybe";
 import { View } from "./View";
 
 @customElement("plant-log-view")
@@ -19,35 +20,52 @@ export class PlantLogView extends View {
         flex: 1;
       }
 
+      .or {
+        margin: 1rem;
+      }
+
       #new-entry-dialog {
         --width: 80vw;
       }
     `,
   ];
 
-  @query("#new-entry-dialog")
-  private _newEntryDialog: SlDialog | null | undefined;
+  connectedCallback(): void {
+    super.connectedCallback();
+    mustExist(this.plantStore).addEventListener("plant-config-changed", () => this.requestUpdate());
+  }
+
+  async createNewLogEntry() {
+    assertExists(this.plantStore);
+    assertExists(this.plantStoreUi);
+
+    const logEntry = await this.plantStoreUi.showEntryEditor(mustExist(this.plantStore));
+    if (!logEntry) {
+      return;
+    }
+
+    console.debug(logEntry);
+    const newDb = this.plantStore.plantDb.withNewLogEntry(logEntry);
+    this.plantStore.updatePlantDb(newDb);
+  }
 
   render() {
+    if (isNil(this.plantStore)) {
+      return;
+    }
+
     return [
       0 < (this.plantStore?.plantDb.log.length ?? 0)
         ? [
-            html`<sl-dialog id="new-entry-dialog" label="Currently being prototyped"
-              ><plant-log-entry-form .plantDb=${this.plantStore?.plantDb}></plant-log-entry-form>
-              <sl-button
-                slot="footer"
-                variant="primary"
-                @click=${() => this._newEntryDialog?.hide()}
-                >${t("close", { ns: "common" })}</sl-button
-              ></sl-dialog
-            >`,
             html`<plant-log
                 .plantStore=${this.plantStore}
                 .plantStoreUi=${this.plantStoreUi}
-                .log=${this.plantStore?.plantDb.log}
+                .log=${this.plantStore.plantDb.log}
+                @plant-edit-entry=${(event: CustomEvent<LogEntry>) =>
+                  this.plantStoreUi?.editLogEntry(event.detail)}
               ></plant-log>
               <section class="footer">
-                <sl-button variant="primary" @click=${() => this._newEntryDialog?.show()}
+                <sl-button variant="primary" @click=${() => this.createNewLogEntry()}
                   >${t("log.add")}</sl-button
                 >
               </section>`,
@@ -55,8 +73,10 @@ export class PlantLogView extends View {
         : html`<plant-empty-state class="empty"
             ><p>${t("empty.log")}</p>
 
-            <sl-button href="import" variant="primary"
-              >${t("empty.importNow")}</sl-button
+            <sl-button href="import" variant="primary">${t("empty.importNow")}</sl-button>
+            <span class="or">${t("empty.or")}</span>
+            <sl-button @click=${() => this.createNewLogEntry()}
+              >${t("log.add")}</sl-button
             ></plant-empty-state
           >`,
     ];

@@ -6,6 +6,7 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
+import { isNil } from "./Maybe";
 
 @customElement("plant-card")
 export class PlantCard extends LitElement {
@@ -49,12 +50,16 @@ export class PlantCard extends LitElement {
   ];
 
   @property({ type: Plant })
-  plant = Plant.Empty();
+  plant: Plant | null | undefined;
 
   @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
 
   render() {
+    if (isNil(this.plant)) {
+      return;
+    }
+
     let hasPendingPestInfestation = false;
     let hasPendingPestControl = false;
     let lastPestInfestation;

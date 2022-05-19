@@ -2,13 +2,14 @@ import {
   DatabaseFormat,
   LogEntry,
   LogEntrySerialized,
+  Plant,
   PlantDB,
   PlantSerialized,
 } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
-import { mustExist } from "../Maybe";
+import { isNil, mustExist } from "../Maybe";
 import { PlantDbStorage } from "../PlantDbStorage";
 
 let globalStore: PlantStore | undefined;
@@ -55,6 +56,7 @@ export class PlantStore extends LitElement {
   updatePlantDb(plantDb: PlantDB) {
     this.plantDb = plantDb;
     PlantDbStorage.persistPlantDb(this.plantDb);
+    this.dispatchEvent(new CustomEvent("plant-config-changed", { detail: this.plantDb }));
   }
 
   private _updateIndex() {
@@ -62,6 +64,8 @@ export class PlantStore extends LitElement {
 
     const plants = [...this.plantDb.plants.values()];
     this._indexPlants = lunr(function () {
+      this.pipeline.remove(lunr.stemmer);
+
       this.ref("id");
       this.field("id");
       this.field("name");
@@ -78,21 +82,89 @@ export class PlantStore extends LitElement {
 
   indexFromLog(log: ReadonlyArray<LogEntry>) {
     return lunr(function () {
+      this.pipeline.remove(lunr.stemmer);
+
       this.ref("sourceLine");
       this.field("plantId");
       this.field("type");
       this.field("note");
       this.field("productUsed");
 
+      this.field("plantName");
+      this.field("plantKind");
+      this.field("plantLocation");
+
       log.forEach(logEntry => {
-        this.add(logEntry);
+        this.add({
+          sourceLine: logEntry.sourceLine,
+          plantId: logEntry.plantId,
+          type: logEntry.type,
+          note: logEntry.note,
+          productUsed: logEntry.productUsed,
+
+          plantName: logEntry.plant.name,
+          plantKind: logEntry.plant.kind,
+          plantLocation: logEntry.plant.location,
+        });
       });
     });
   }
+
+  indexFromPlants(plants: ReadonlyArray<Plant>) {
+    return lunr(function () {
+      this.pipeline.remove(lunr.stemmer);
+
+      this.ref("id");
+      this.field("id");
+      this.field("name");
+      this.field("kind");
+      this.field("substrate");
+      this.field("location");
+      this.field("notes");
+
+      plants.forEach(plant => {
+        this.add(plant);
+      });
+    });
+  }
+
+  /**
+   * Take a search term, as given by the user, and transform it so that it:
+   *  - performs substring matching
+   *  - requires all provided terms to match
+   *
+   * @param term The search term as input by the user.
+   * @returns A formalized lunr search term.
+   */
+  formalizeLunrSearch(term: string) {
+    return term
+      .split(" ")
+      .filter(fragment => fragment.length)
+      .map(fragment => `+${fragment}*`)
+      .join(" ");
+  }
+
   searchLog(term: string, index = this._indexLog) {
-    const results = mustExist(index).search(term);
+    const formal = this.formalizeLunrSearch(term);
+    console.debug(`Performing formal search for: ${formal}`);
+
+    const results = mustExist(index).search(formal);
     const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
-    console.debug(logEntries);
+    return logEntries;
+  }
+
+  searchPlants(term: string, index = this._indexPlants) {
+    if (isNil(index)) {
+      return [];
+    }
+
+    const formal = this.formalizeLunrSearch(term);
+    console.debug(`Performing formal search for: ${formal}`);
+
+    const results = index.search(formal);
+    const logEntries = results
+      .map(result => this.plantDb.plants.get(result.ref))
+      .filter(Boolean) as Array<Plant>;
     return logEntries;
   }
 }

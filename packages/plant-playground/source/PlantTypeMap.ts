@@ -46,7 +46,7 @@ export class PlantTypeMap extends LitElement {
               html`<li>
                 <span>${entryType}</span><span>→</span>
                 <sl-select
-                  placeholder="${t("typeMap.unmapped")}"
+                  placeholder=${t("typeMap.unmapped")}
                   value=${this.plantDb.config.typeMap.get(entryType)}
                   clearable
                   @sl-change=${(event: Event) => {
@@ -58,7 +58,8 @@ export class PlantTypeMap extends LitElement {
                     this.proposedMapping.set(entryType, value as EventType);
                   }}
                   >${Object.entries(EventTypes).map(
-                    ([type, label]) => html`<sl-menu-item .value="${type}">${label}</sl-menu-item>`
+                    ([type]) =>
+                      html`<sl-menu-item .value="${type}">${t(`eventType.${type}`)}</sl-menu-item>`
                   )}</sl-select
                 >
               </li>`

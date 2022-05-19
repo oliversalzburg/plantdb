@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
-import { DatabaseFormat, EventTypes } from "./DatabaseFormat";
+import { DatabaseFormat, EventType } from "./DatabaseFormat";
+import { PlantDB } from "./PlantDB";
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.
@@ -50,6 +51,7 @@ export type LogEntrySerialized = {
  * A single entry in a PlantDB log.
  */
 export class LogEntry {
+  #plantDb: PlantDB;
   #sourceLine: number;
   #plantId: string;
   #timestamp: Date;
@@ -58,6 +60,10 @@ export class LogEntry {
   #ph: number | undefined;
   #productUsed: string | undefined;
   #note: string | undefined;
+
+  get plantDb() {
+    return this.#plantDb;
+  }
 
   /**
    * If this log entry was read from a file, this indicates the line in the file it originates from.
@@ -116,88 +122,110 @@ export class LogEntry {
   }
 
   /**
-   * An easily indexable string that represents the most relevant bits of text associated with the record.
+   * The plant this record refers to.
    */
-  get indexableText() {
-    return `${this.plantId} ${this.type} ${this.productUsed ?? ""} ${
-      this.note ?? ""
-    }`.toLocaleLowerCase();
+  get plant() {
+    const plant = this.#plantDb?.plants.get(this.#plantId);
+    if (!plant) {
+      throw new Error(
+        `Unable to find plant '${
+          this.#plantId
+        }' in plant cache. Ensure PlantDB has been initialized with PlantDB.fromCSV()!`
+      );
+    }
+    return plant;
+  }
+
+  get plants() {
+    return this.#plantDb.plants;
   }
 
   /**
    * Constructs a new `LogEntry`.
+   *
+   * @param plantDb The `PlantDB` this `LogEntry` belongs to.
+   * @param sourceLine The line in the source CSV document this entry originated from.
    * @param plantId The ID of the plant.
    * @param timestamp The date/time the event was recorded.
    * @param type The type of event.
    */
   constructor(
+    plantDb: PlantDB,
     sourceLine: number,
     plantId: string,
-    timestamp: Date = new Date(),
-    type: string = EventTypes.Observation
+    timestamp: Date,
+    type: string | EventType
   ) {
+    this.#plantDb = plantDb;
     this.#sourceLine = sourceLine;
     this.#plantId = plantId;
     this.#timestamp = timestamp;
     this.#type = type;
   }
 
-  static fromLogEntry(other: LogEntry) {
-    const logEntry = new LogEntry(other.#sourceLine, other.#plantId, other.#timestamp, other.#type);
-    logEntry.#ec = other.#ec;
-    logEntry.#ph = other.#ph;
-    logEntry.#productUsed = other.#productUsed;
-    logEntry.#note = other.#note;
+  static fromLogEntry(other: LogEntry, initializer?: Partial<LogEntry>) {
+    const logEntry = new LogEntry(
+      initializer?.plantDb ?? other.#plantDb,
+      initializer?.sourceLine ?? other.#sourceLine,
+      initializer?.plantId ?? other.#plantId,
+      initializer?.timestamp ?? other.#timestamp,
+      initializer?.type ?? other.#type
+    );
+    logEntry.#ec = initializer?.ec ? initializer.ec : other.#ec;
+    logEntry.#ph = initializer?.ph ? initializer.ph : other.#ph;
+    logEntry.#productUsed = initializer?.productUsed ? initializer.productUsed : other.#productUsed;
+    logEntry.#note = initializer?.note ? initializer.note : other.#note;
     return logEntry;
   }
 
   static fromCSVData(
+    plantDb: PlantDB,
     dataRow: Array<string>,
     format: DatabaseFormat,
     sourceFileLineNumber: number
   ): LogEntry {
     const logEntry = new LogEntry(
+      plantDb,
       sourceFileLineNumber,
       dataRow[0],
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
-    logEntry.#note = dataRow[3];
-    logEntry.#ec = LogEntry.tryParseEC(dataRow[4]);
-    logEntry.#ph = LogEntry.tryParsePh(dataRow[5]);
-    logEntry.#productUsed = dataRow[6];
+    logEntry.#ec = LogEntry.tryParseEC(dataRow[3]);
+    logEntry.#ph = LogEntry.tryParsePh(dataRow[4]);
+    logEntry.#productUsed = dataRow[5];
+    logEntry.#note = dataRow[6];
 
     return logEntry;
   }
 
   static tryParseEC(dataValue: string) {
-    const number = Number(dataValue);
-    if (number === Number(dataValue)) {
-      return number;
-    }
-
     if (dataValue.endsWith("µS/cm")) {
-      return Number(dataValue.slice(0, dataValue.length - 5));
+      return Number.parseInt(dataValue.slice(0, dataValue.length - 5));
     }
 
-    return undefined;
+    if (Number.isNaN(+dataValue) || Number.isNaN(Number.parseFloat(dataValue))) {
+      return undefined;
+    }
+
+    return Number.parseFloat(dataValue);
   }
 
   static tryParsePh(dataValue: string) {
-    const number = Number(dataValue);
-    if (number === Number(dataValue)) {
-      return number;
-    }
-
     if (dataValue.includes(",") && !dataValue.includes(".")) {
       return Number(dataValue.replace(/,/, "."));
     }
 
-    return undefined;
+    if (Number.isNaN(+dataValue) || Number.isNaN(parseFloat(dataValue))) {
+      return undefined;
+    }
+
+    return Number.parseFloat(dataValue);
   }
 
-  static fromJSObject(dataObject: LogEntrySerialized) {
+  static fromJSObject(plantDb: PlantDB, dataObject: LogEntrySerialized) {
     const logEntry = new LogEntry(
+      plantDb,
       dataObject.sourceLine,
       dataObject.plantId,
       new Date(dataObject.timestamp),
@@ -207,17 +235,20 @@ export class LogEntry {
     logEntry.#ph = dataObject.ph ?? logEntry.#ph;
     logEntry.#productUsed = dataObject.productUsed ?? logEntry.#productUsed;
     logEntry.#note = dataObject.note ?? logEntry.#note;
+
     return logEntry;
   }
 
   /**
    * Parse a JSON string and construct a new `LogEntry` from it.
+   *
+   * @param plantDb The `PlantDB` this `LogEntry` belongs to.
    * @param dataString The JSON-serialized log entry.
    * @returns The new `LogEntry`.
    */
-  static fromJSON(dataString: string) {
+  static fromJSON(plantDb: PlantDB, dataString: string) {
     const data = JSON.parse(dataString) as LogEntrySerialized;
-    return LogEntry.fromJSObject(data);
+    return LogEntry.fromJSObject(plantDb, data);
   }
 
   toJSObject(): LogEntrySerialized {
@@ -235,6 +266,7 @@ export class LogEntry {
 
   /**
    * Pre-serialize the `LogEntry` into an object ready to be turned into a JSON string.
+   *
    * @returns The `LogEntry` as JSON-serializable object.
    */
   toJSON() {

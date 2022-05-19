@@ -1,4 +1,5 @@
 import { LogEntry } from "./LogEntry.js";
+import { PlantDB } from "./PlantDB.js";
 import { kindFlatten, kindSummarize } from "./Tools.js";
 
 /**
@@ -94,6 +95,7 @@ export type PlantSerialized = {
 };
 
 export class Plant {
+  #plantDb: PlantDB;
   #id: string;
   #name: string | undefined;
   #kind: string | Array<string> | undefined;
@@ -107,7 +109,9 @@ export class Plant {
   #tempIdeal: number | undefined;
   #notes = "";
 
-  #log = new Array<LogEntry>();
+  get plantDb() {
+    return this.#plantDb;
+  }
 
   get id() {
     return this.#id;
@@ -162,7 +166,7 @@ export class Plant {
   }
 
   get log() {
-    return this.#log.filter(logEntry => logEntry.plantId === this.id);
+    return this.#plantDb.log.filter(logEntry => logEntry.plantId === this.id) ?? [];
   }
 
   get logEntryOldest(): LogEntry | undefined {
@@ -172,7 +176,8 @@ export class Plant {
     return this.log[this.log.length - 1];
   }
 
-  private constructor(plantId: string) {
+  private constructor(plantDb: PlantDB, plantId: string) {
+    this.#plantDb = plantDb;
     this.#id = plantId;
   }
 
@@ -184,28 +189,23 @@ export class Plant {
     return this.identify();
   }
 
-  static Empty() {
-    return new Plant("PID-0");
-  }
-
-  static fromPlant(other: Plant) {
-    const plant = new Plant(other.id);
-    plant.#name = other.#name;
-    plant.#kind = other.#kind;
-    plant.#substrate = other.#substrate;
-    plant.#potShapeTop = other.#potShapeTop;
-    plant.#potColor = other.#potColor;
-    plant.#location = other.#location;
-    plant.#phIdeal = other.#phIdeal;
-    plant.#ecIdeal = other.#ecIdeal;
-    plant.#tempIdeal = other.#tempIdeal;
-    plant.#notes = other.#notes;
-    plant.#log = other.#log;
+  static fromPlant(other: Plant, initializer?: Partial<Plant>) {
+    const plant = new Plant(initializer?.plantDb ?? other.#plantDb, initializer?.id ?? other.id);
+    plant.#name = initializer?.name ?? other.#name;
+    plant.#kind = initializer?.kind ?? other.#kind;
+    plant.#substrate = initializer?.substrate ?? other.#substrate;
+    plant.#potShapeTop = initializer?.potShapeTop ?? other.#potShapeTop;
+    plant.#potColor = initializer?.potColor ?? other.#potColor;
+    plant.#location = initializer?.location ?? other.#location;
+    plant.#phIdeal = initializer?.phIdeal ?? other.#phIdeal;
+    plant.#ecIdeal = initializer?.ecIdeal ?? other.#ecIdeal;
+    plant.#tempIdeal = initializer?.tempIdeal ?? other.#tempIdeal;
+    plant.#notes = initializer?.notes ?? other.#notes;
     return plant;
   }
 
-  static fromCSV(dataRow: Array<string>, log = new Array<LogEntry>()): Plant {
-    const plant = new Plant(dataRow[0]);
+  static fromCSVData(plantDb: PlantDB, dataRow: Array<string>): Plant {
+    const plant = new Plant(plantDb, dataRow[0]);
     plant.#name = dataRow[1];
     plant.#kind = dataRow[2].includes("\n") ? dataRow[2].split("\n") : dataRow[2];
     plant.#substrate = dataRow[3];
@@ -217,13 +217,11 @@ export class Plant {
     plant.#ecIdeal = Number(dataRow[9]);
     plant.#tempIdeal = Number(dataRow[10]);
     plant.#notes = dataRow[11];
-
-    plant.#log = log;
     return plant;
   }
 
-  static fromJSObject(dataObject: PlantSerialized, log = new Array<LogEntry>()) {
-    const plant = new Plant(dataObject.id);
+  static fromJSObject(plantDb: PlantDB, dataObject: PlantSerialized) {
+    const plant = new Plant(plantDb, dataObject.id);
     plant.#name = dataObject.name ?? plant.#name;
     plant.#kind = dataObject.kind ?? plant.#kind;
     plant.#substrate = dataObject.substrate ?? plant.#substrate;
@@ -235,19 +233,19 @@ export class Plant {
     plant.#ecIdeal = dataObject.ecIdeal ?? plant.#ecIdeal;
     plant.#tempIdeal = dataObject.tempIdeal ?? plant.#tempIdeal;
     plant.#notes = dataObject.notes ?? plant.#notes;
-
-    plant.#log = log;
     return plant;
   }
 
   /**
    * Parse a JSON string and construct a new `Plant` from it.
+   *
+   * @param plantDb The `PlantDB` this `Plant` belongs to
    * @param dataString The JSON-serialized plant.
    * @returns The new `Plant`.
    */
-  static fromJSON(dataString: string) {
+  static fromJSON(plantDb: PlantDB, dataString: string) {
     const data = JSON.parse(dataString) as PlantSerialized;
-    return Plant.fromJSObject(data);
+    return Plant.fromJSObject(plantDb, data);
   }
 
   toJSObject(): PlantSerialized {
@@ -269,6 +267,7 @@ export class Plant {
 
   /**
    * Pre-serialize the `Plant` into an object ready to be turned into a JSON string.
+   *
    * @returns The `Plant` as JSON-serializable object.
    */
   toJSON() {

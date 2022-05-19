@@ -6,46 +6,57 @@ export const EventTypes = {
    * Typically, this marks the first event of a plant, if that plant was acquired (purchased) from a vendor.
    */
   Acquisition: "Acquisition",
+
   /**
    * A plant was fertilized.
    */
   Fertilization: "Fertilization",
+
   /**
    * A measurement has been taken from the plant.
    */
   Measurement: "Measurement",
+
   /**
    * Something not further categorizable has been observed about the plant.
    */
   Observation: "Observation",
+
   /**
    * A pest situation has been acted on.
    */
-  PestControl: "Pest Control",
+  PestControl: "Pest control",
+
   /**
    * A pest situation has been identified.
    */
-  PestInfestation: "Pest Infestation",
+  PestInfestation: "Pest infestation",
+
   /**
    * Branches have been pruned.
    */
   Pruning: "Pruning",
+
   /**
    * Plant was moved from one location to another one.
    */
   Relocation: "Relocation",
+
   /**
    * Plant was put into a (new) pot. Usually also marks the first event of a plant that was created from a cutting.
    */
   Repotting: "Repotting",
+
   /**
    * Roots have been pruned.
    */
   RootPruning: "Root pruning",
+
   /**
    * The plant was shaped. For example, through wiring branches. Not to be confused with Pruning.
    */
   Shaping: "Shaping",
+
   /**
    * Any form of irrigation
    */

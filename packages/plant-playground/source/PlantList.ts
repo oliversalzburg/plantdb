@@ -1,9 +1,11 @@
-import { Plant, PlantDB } from "@plantdb/libplantdb";
+import { Plant } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { retrieveStoreUi } from "./stores/PlantStoreUi";
+import { mustExist } from "./Maybe";
+import { PlantStore } from "./stores/PlantStore";
+import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-list")
 export class PlantList extends LitElement {
@@ -26,8 +28,11 @@ export class PlantList extends LitElement {
     `,
   ];
 
-  @property({ type: PlantDB })
-  plantDb = PlantDB.Empty();
+  @property({ type: PlantStore })
+  plantStore: PlantStore | null = null;
+
+  @property({ type: PlantStoreUi })
+  plantStoreUi: PlantStoreUi | null = null;
 
   @property({ type: [Plant] })
   plants = new Array<Plant>();
@@ -46,6 +51,19 @@ export class PlantList extends LitElement {
   }
 
   render() {
+    // Initial state is plants sorted according to their oldest log entry (their "birth").
+    let filteredPlants = this.plants.sort(
+      (a, b) =>
+        (a.logEntryOldest?.timestamp?.valueOf() ?? 0) -
+        (b.logEntryOldest?.timestamp?.valueOf() ?? 0)
+    );
+
+    if (this.filter) {
+      const index = mustExist(this.plantStore).indexFromPlants(this.plants);
+      const filtered = mustExist(this.plantStore).searchPlants(this.filter, index);
+      filteredPlants = filteredPlants.filter(entry => filtered.includes(entry));
+    }
+
     return [
       html`<sl-input
         placeholder=${t("placeholder.filter")}
@@ -53,23 +71,16 @@ export class PlantList extends LitElement {
         @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
         id="filter-input"
       ></sl-input>`,
-      this.plants
-        .filter(plant => this._filterMatchesPlant(plant, this.filter))
-        .sort(
-          (a, b) =>
-            (a.logEntryOldest?.timestamp?.valueOf() ?? 0) -
-            (b.logEntryOldest?.timestamp?.valueOf() ?? 0)
-        )
-        .map(
-          plant =>
-            html`<plant-card
-              .plant=${plant}
-              .plantDb=${this.plantDb}
-              @click=${() => {
-                retrieveStoreUi()?.navigatePath(`/plant/${plant.id ?? "PID-0"}`);
-              }}
-            ></plant-card>`
-        ),
+      filteredPlants.map(
+        plant =>
+          html`<plant-card
+            .plant=${plant}
+            .plantDb=${this.plantStore?.plantDb}
+            @click=${() => {
+              retrieveStoreUi()?.navigatePath(`/plant/${plant.id ?? "PID-0"}`);
+            }}
+          ></plant-card>`
+      ),
     ];
   }
 }

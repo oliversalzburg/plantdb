@@ -18,10 +18,11 @@
   },
   "devDependencies": {
     "@types/eslint": "8.4.2",
-    "@types/web": "0.0.66",
+    "@types/web": "0.0.67",
     "@typescript-eslint/eslint-plugin": "5.25.0",
     "@typescript-eslint/parser": "5.25.0",
     "eslint": "8.15.0",
+    "eslint-plugin-jsdoc": "39.3.0",
     "lint-staged": "12.4.1",
     "node-scripts-docs": "0.0.14",
     "prettier": "2.6.2",

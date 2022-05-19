@@ -1,9 +1,13 @@
-import i18next from "i18next";
+import i18next, { t } from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
-import { LitElement } from "lit";
+import { html, LitElement, render } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
+import { LogEntry } from "packages/libplantdb/typings";
+import { assertExists } from "../Maybe";
+import { PlantLogEntryForm } from "../PlantLogEntryForm";
+import { PlantStore } from "./PlantStore";
 
 let globalStore: PlantStoreUi | undefined;
 
@@ -29,9 +33,14 @@ export class PlantStoreUi extends LitElement {
   @property({ type: [String] })
   pageParams = new Array<string>();
 
+  @property({ type: PlantStore })
+  plantStore: PlantStore | null | undefined;
+
   private _onSchemePreferenceChanged: ((event: MediaQueryListEvent) => void) | undefined;
 
   connectedCallback(): void {
+    super.connectedCallback();
+
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     globalStore = this;
 
@@ -158,6 +167,7 @@ export class PlantStoreUi extends LitElement {
 
   /**
    * Invoked when the user clicked on a link.
+   *
    * @param href The path of the link the user clicked on.
    */
   handleUserNavigationEvent(href: string) {
@@ -207,5 +217,101 @@ export class PlantStoreUi extends LitElement {
     }
 
     return { path: pathString, pathParameters: [] };
+  }
+
+  alert(message: string, variant = "primary", icon = "info-circle", duration = 3000) {
+    const escapeHtml = (html: string) => {
+      const div = document.createElement("div");
+      div.textContent = html;
+      return div.innerHTML;
+    };
+
+    const alert = Object.assign(document.createElement("sl-alert"), {
+      variant,
+      closable: true,
+      duration: duration,
+      innerHTML: `
+        <sl-icon name="${icon}" slot="icon"></sl-icon>
+        ${escapeHtml(message)}
+      `,
+    });
+
+    document.body.append(alert);
+    return alert.toast();
+  }
+
+  showEntryEditor(plantStore: PlantStore, logEntry?: LogEntry) {
+    return new Promise<LogEntry | null>((resolve, reject) => {
+      const dialog = Object.assign(document.createElement("sl-dialog"), {
+        label: logEntry ? t("log.edit") : t("log.add"),
+      });
+
+      render(
+        html`<plant-log-entry-form
+            id="entry-form"
+            .plantStore=${plantStore}
+            .plantStoreUi=${this}
+            .logEntry=${logEntry}
+          ></plant-log-entry-form>
+
+          <sl-button
+            slot="footer"
+            variant="primary"
+            @click=${() => {
+              const entryForm = dialog.querySelector("#entry-form") as PlantLogEntryForm;
+              entryForm.reportValidity();
+              const logEntry = entryForm.asLogEntry();
+
+              dialog
+                .hide()
+                .catch(console.error)
+                .finally(() => document.body.removeChild(dialog));
+
+              resolve(logEntry);
+            }}
+            >${t("save", { ns: "common" })}</sl-button
+          ><sl-button
+            slot="footer"
+            @click=${() => {
+              dialog
+                .hide()
+                .catch(console.error)
+                .finally(() => document.body.removeChild(dialog));
+
+              resolve(null);
+            }}
+            >${t("close", { ns: "common" })}</sl-button
+          >`,
+        dialog
+      );
+
+      document.body.appendChild(dialog);
+
+      dialog.show().catch(reject);
+    });
+  }
+
+  async editLogEntry(logEntry: LogEntry) {
+    assertExists(this.plantStore);
+
+    console.debug(`Show entry dialog for entry #${logEntry.sourceLine}`);
+    const updatedEntry = await this.showEntryEditor(this.plantStore, logEntry);
+    if (!updatedEntry) {
+      return;
+    }
+
+    const shouldDelete = updatedEntry.plantId === "" || updatedEntry.type === "";
+
+    const newDb = shouldDelete
+      ? this.plantStore.plantDb.withoutLogEntry(logEntry)
+      : this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, logEntry);
+
+    if (shouldDelete) {
+      void this.alert(t("log.entryDeleted"), "danger", "x-circle");
+    } else {
+      void this.alert(t("log.entryUpdate"));
+    }
+
+    this.plantStore.updatePlantDb(newDb);
   }
 }

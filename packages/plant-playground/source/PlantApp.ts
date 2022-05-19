@@ -1,7 +1,4 @@
 import { DatabaseFormat, EventType, PlantDB } from "@plantdb/libplantdb";
-import "@shoelace-style/shoelace/dist/translations/de.js";
-import "@shoelace-style/shoelace/dist/translations/en.js";
-import "@shoelace-style/shoelace/dist/translations/fr.js";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -57,6 +54,8 @@ export class PlantApp extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
+    this._plantStoreUi.plantStore = this._plantStore;
+
     this._plantStoreUi.addEventListener("plant-navigate", (event: Event) => {
       const { page, pageParams } = (
         event as CustomEvent<{ page: string; pageParams: Array<string> }>
@@ -85,7 +84,9 @@ export class PlantApp extends LitElement {
 
   /**
    * Invoked when the user clicked on a link.
+   *
    * @param page The path of the link the user clicked on.
+   * @param pageParams The parameters for the page.
    */
   handleUserNavigationEvent(page: string, pageParams: Array<string>) {
     switch (page) {
@@ -188,14 +189,6 @@ export class PlantApp extends LitElement {
                       @click=${() => this._plantStoreUi.changeLocale("he-IL")}
                       >HE</sl-menu-item
                     >
-                    <!--
-                    <sl-menu-item
-                      value="fr-FR"
-                      ?checked=${this._plantStoreUi.locale === "fr-FR"}
-                      @click=${() => this._plantStoreUi.changeLocale("fr-FR")}
-                      >FR</sl-menu-item
-                    >
-                    -->
                   </sl-menu>
                 </sl-dropdown>
               </div>

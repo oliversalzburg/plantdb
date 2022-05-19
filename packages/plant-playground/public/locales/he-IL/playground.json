@@ -52,7 +52,7 @@
     "save": "שמור מיפוי"
   },
   "eventType": {
-    "Acquisition": "Acquisition",
+   "Acquisition": "Acquisition",
     "Fertilization": "Fertilization",
     "Measurement": "Measurement",
     "Observation": "Observation",

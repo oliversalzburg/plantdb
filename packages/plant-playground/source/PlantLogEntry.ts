@@ -1,11 +1,5 @@
-import {
-  EventType,
-  identifyLogType,
-  LogEntry,
-  MATCH_PID_ALL,
-  Plant,
-  PlantDB,
-} from "@plantdb/libplantdb";
+import { EventType, identifyLogType, LogEntry, MATCH_PID_ALL, PlantDB } from "@plantdb/libplantdb";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -20,7 +14,7 @@ export class PlantLogEntry extends LitElement {
         flex: 1;
       }
 
-      :host sl-card {
+      sl-card {
         padding: 1rem;
         width: 100%;
       }
@@ -34,8 +28,22 @@ export class PlantLogEntry extends LitElement {
         justify-content: space-between;
         align-items: center;
       }
+      :host([headervisible]) sl-card::part(header):hover {
+        background-color: var(--sl-color-primary-400);
+      }
 
-      :host sl-card section {
+      #infos {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .navigation-guide {
+        color: var(--sl-panel-background-color);
+      }
+
+      sl-card section {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -46,8 +54,30 @@ export class PlantLogEntry extends LitElement {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 1rem;
+        gap: 0.5rem;
         margin-bottom: 0.25rem;
+      }
+
+      .unmapped-guide a {
+        text-decoration: none;
+      }
+      .unmapped-guide {
+        visibility: hidden;
+      }
+      sl-card section:hover .unmapped-guide {
+        visibility: visible;
+      }
+
+      .note-container {
+        flex: 1;
+      }
+
+      .edit-button {
+        flex: 0;
+        visibility: hidden;
+      }
+      sl-card section:hover .edit-button {
+        visibility: visible;
       }
     `,
   ];
@@ -55,11 +85,8 @@ export class PlantLogEntry extends LitElement {
   @property({ type: PlantDB })
   plantDb = PlantDB.Empty();
 
-  @property({ type: [LogEntry] })
-  logEntry = new LogEntry(0, "");
-
-  @property({ type: Plant })
-  plant: Plant | null = Plant.Empty();
+  @property({ type: LogEntry })
+  logEntry: LogEntry | undefined;
 
   @property({ type: Boolean, attribute: true, reflect: true })
   headerVisible = true;
@@ -68,6 +95,7 @@ export class PlantLogEntry extends LitElement {
     switch (eventType) {
       case "Acquisition":
         return { icon: "stars" };
+
       case "Fertilization":
         return {
           icon: "moisture",
@@ -75,6 +103,7 @@ export class PlantLogEntry extends LitElement {
             logEntry?.ph ? `pH: ${logEntry?.ph}` : ""
           }`,
         };
+
       case "Measurement":
         return {
           icon: "rulers",
@@ -82,25 +111,34 @@ export class PlantLogEntry extends LitElement {
             logEntry?.ph ? `pH: ${logEntry.ph}` : ""
           }`,
         };
+
       case "Observation":
         return { icon: "eye" };
+
       case "PestControl":
         return {
           icon: "radioactive",
           details: `${logEntry?.productUsed ? logEntry.productUsed : ""}`,
         };
+
       case "PestInfestation":
         return { icon: "bug" };
+
       case "Pruning":
         return { icon: "scissors" };
+
       case "Relocation":
         return { icon: "arrows-move" };
+
       case "Repotting":
         return { icon: "trash2" };
+
       case "RootPruning":
         return { icon: "scissors" };
+
       case "Shaping":
         return { icon: "gem" };
+
       case "Watering":
         return {
           icon: "droplet-half",
@@ -115,42 +153,74 @@ export class PlantLogEntry extends LitElement {
 
   augmentType(logEntry: LogEntry, eventType?: EventType) {
     const { icon, details } = PlantLogEntry.extractTypeDetails(logEntry, eventType);
-    return html`${icon ? html`<sl-icon name="${icon}"></sl-icon> ` : undefined}${this.logEntry.type}
+    return html`${icon ? html`<sl-icon name="${icon}"></sl-icon> ` : undefined}${logEntry.type}
     ${details ?? ""}`;
   }
 
   render() {
-    if (!this.plantDb) {
+    if (!this.plantDb || !this.logEntry) {
       return;
     }
+
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
     return [
       html`<sl-card>
-        ${this.headerVisible && this.plant
+        ${this.headerVisible && this.logEntry.plant
           ? html`<div slot="header">
               <div>
-                ${this.plant.name}
+                ${this.logEntry.plant.name}
                 <br />
-                <small><em>${this.plant.kind}</em></small>
+                <small><em>${this.logEntry.plant.kind}</em></small>
               </div>
-              <sl-badge variant="neutral">${this.plant.id}</sl-badge>
+              <div id="infos">
+                <a class="navigation-guide" href="/plant/${this.logEntry.plant.id}"
+                  >${t("log.goToDetails")}</a
+                ><span class="navigation-guide"> →</span>
+                ${this.logEntry.plant.location
+                  ? html`<sl-tooltip content=${this.logEntry.plant.location}
+                      ><sl-icon name="geo-alt"></sl-icon
+                    ></sl-tooltip>`
+                  : undefined}
+                <sl-badge
+                  variant="neutral"
+                  @click=${() => this.dispatchEvent(new CustomEvent("plant-badge-click"))}
+                  >${this.logEntry.plant.id}</sl-badge
+                >
+              </div>
             </div>`
-          : html``}
+          : undefined}
         <section>
           <div>
             ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
             <small
-              >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.plant
-                ?.logEntryOldest === this.logEntry
+              >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.logEntry
+                .plant?.logEntryOldest === this.logEntry
                 ? "🌟"
                 : ""}</small
             >
           </div>
+
           <sl-divider vertical></sl-divider>
-          <div>
-            <strong class="event-type">${this.augmentType(this.logEntry, identifiedType)}</strong>
+
+          <div class="note-container">
+            <strong class="event-type"
+              >${this.augmentType(this.logEntry, identifiedType)}${!identifiedType
+                ? html`<sl-tooltip class="unmapped-guide" content=${t("log.unmappedEvent")}
+                    ><a href="/types">?</a></sl-tooltip
+                  >`
+                : undefined}</strong
+            >
+
             <cite>${this.linkify(this.logEntry.note)}</cite>
           </div>
+
+          <sl-tooltip content=${t("log.openEntry")} placement="left">
+            <sl-icon-button
+              class="edit-button"
+              name="pencil"
+              @click=${() => this.dispatchEvent(new CustomEvent("plant-body-click"))}
+            ></sl-icon-button
+          ></sl-tooltip>
         </section>
       </sl-card>`,
     ];
