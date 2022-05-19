@@ -5,6 +5,7 @@ import { html, LitElement, render } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { LogEntry } from "packages/libplantdb/typings";
+import { PlantLogEntryForm } from "../PlantLogEntryForm";
 import { PlantStore } from "./PlantStore";
 
 let globalStore: PlantStoreUi | undefined;
@@ -234,7 +235,7 @@ export class PlantStoreUi extends LitElement {
   }
 
   editLogEntry(plantStore: PlantStore, logEntry?: LogEntry) {
-    return new Promise((resolve, reject) => {
+    return new Promise<LogEntry | null>((resolve, reject) => {
       const dialog = Object.assign(document.createElement("sl-dialog"), {
         label: t("log.add"),
       });
@@ -247,12 +248,21 @@ export class PlantStoreUi extends LitElement {
             .logEntry=${logEntry}
           ></plant-log-entry-form>
 
-          <sl-button slot="footer" variant="primary" @click=${() => resolve("dialog result")}
+          <sl-button
+            slot="footer"
+            variant="primary"
+            @click=${() => {
+              dialog.hide().catch(console.error);
+              const entryForm = dialog.querySelector("#entry-form") as PlantLogEntryForm;
+              entryForm.reportValidity();
+              const logEntry = entryForm.asLogEntry();
+              resolve(logEntry);
+            }}
             >${t("save", { ns: "common" })}</sl-button
           ><sl-button
             slot="footer"
             @click=${() => {
-              dialog.hide().catch(reject);
+              dialog.hide().catch(console.error);
               resolve(null);
             }}
             >${t("close", { ns: "common" })}</sl-button

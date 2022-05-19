@@ -70,11 +70,20 @@ export class PlantDB {
   /**
    * Returns a copy of this `PlantDB`, but with a new entry added to its log.
    *
+   * If the referenced plant does not exist, it will be created in the new database.
+   *
    * @param logEntry The log entry to add to the database.
    * @returns The new `PlantDB`.
    */
   withNewLogEntry(logEntry: LogEntry) {
-    return PlantDB.fromPlantDB(this, { log: [...this.#log, logEntry] });
+    const plants = new Map(this.#plants);
+    const log = [...this.#log, LogEntry.fromLogEntry(logEntry, { plants })];
+
+    if (!plants.has(logEntry.plantId)) {
+      plants.set(logEntry.plantId, Plant.fromJSObject({ id: logEntry.plantId }, log));
+    }
+
+    return PlantDB.fromPlantDB(this, { log, plants });
   }
 
   /**
@@ -91,7 +100,11 @@ export class PlantDB {
     type: string = EventTypes.Observation
   ) {
     const entry = new LogEntry(
-      this.#log[this.#log.length - 1].sourceLine + 1,
+      0 < this.#log.length
+        ? this.#log[this.#log.length - 1].sourceLine + 1
+        : this.#config.hasHeaderRow
+        ? 2
+        : 1,
       plantId,
       timestamp,
       type,

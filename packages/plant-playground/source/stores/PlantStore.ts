@@ -9,7 +9,7 @@ import {
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
-import { mustExist } from "../Maybe";
+import { isNil, mustExist } from "../Maybe";
 import { PlantDbStorage } from "../PlantDbStorage";
 
 let globalStore: PlantStore | undefined;
@@ -154,10 +154,14 @@ export class PlantStore extends LitElement {
   }
 
   searchPlants(term: string, index = this._indexPlants) {
+    if (isNil(index)) {
+      return [];
+    }
+
     const formal = this.formalizeLunrSearch(term);
     console.debug(`Performing formal search for: ${formal}`);
 
-    const results = mustExist(index).search(formal);
+    const results = index.search(formal);
     const logEntries = results
       .map(result => this.plantDb.plants.get(result.ref))
       .filter(Boolean) as Array<Plant>;

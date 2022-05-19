@@ -133,6 +133,10 @@ export class LogEntry {
     return plant;
   }
 
+  get plants() {
+    return this.#plants;
+  }
+
   /**
    * Constructs a new `LogEntry`.
    *
@@ -158,11 +162,11 @@ export class LogEntry {
 
   static fromLogEntry(other: LogEntry, initializer?: Partial<LogEntry>) {
     const logEntry = new LogEntry(
-      other.#sourceLine,
-      other.#plantId,
-      other.#timestamp,
-      other.#type,
-      other.#plants
+      initializer?.sourceLine ?? other.#sourceLine,
+      initializer?.plantId ?? other.#plantId,
+      initializer?.timestamp ?? other.#timestamp,
+      initializer?.type ?? other.#type,
+      initializer?.plants ?? other.#plants
     );
     logEntry.#ec = initializer?.ec ? initializer.ec : other.#ec;
     logEntry.#ph = initializer?.ph ? initializer.ph : other.#ph;

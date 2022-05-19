@@ -82,7 +82,9 @@ export class PlantApp extends LitElement {
 
   /**
    * Invoked when the user clicked on a link.
+   *
    * @param page The path of the link the user clicked on.
+   * @param pageParams The parameters for the page.
    */
   handleUserNavigationEvent(page: string, pageParams: Array<string>) {
     switch (page) {
