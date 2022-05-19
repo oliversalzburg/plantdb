@@ -243,6 +243,7 @@ export class Plant {
 
   /**
    * Parse a JSON string and construct a new `Plant` from it.
+   *
    * @param dataString The JSON-serialized plant.
    * @returns The new `Plant`.
    */
@@ -270,6 +271,7 @@ export class Plant {
 
   /**
    * Pre-serialize the `Plant` into an object ready to be turned into a JSON string.
+   *
    * @returns The `Plant` as JSON-serializable object.
    */
   toJSON() {

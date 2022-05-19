@@ -135,10 +135,12 @@ export class LogEntry {
 
   /**
    * Constructs a new `LogEntry`.
+   *
    * @param sourceLine The line in the source CSV document this entry originated from.
    * @param plantId The ID of the plant.
    * @param timestamp The date/time the event was recorded.
    * @param type The type of event.
+   * @param plants The plants to use to look up additional information for the log entry.
    */
   constructor(
     sourceLine: number,
@@ -234,6 +236,7 @@ export class LogEntry {
 
   /**
    * Parse a JSON string and construct a new `LogEntry` from it.
+   *
    * @param dataString The JSON-serialized log entry.
    * @returns The new `LogEntry`.
    */
@@ -257,6 +260,7 @@ export class LogEntry {
 
   /**
    * Pre-serialize the `LogEntry` into an object ready to be turned into a JSON string.
+   *
    * @returns The `LogEntry` as JSON-serializable object.
    */
   toJSON() {

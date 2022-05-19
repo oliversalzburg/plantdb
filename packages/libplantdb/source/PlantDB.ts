@@ -59,13 +59,27 @@ export class PlantDB {
 
   /**
    * Returns a copy of this `PlantDB`, but with an entirely new log.
+   *
+   * @param log The new log for the database.
+   * @returns The new `PlantDB`.
    */
   withNewLog(log: ReadonlyArray<LogEntry>) {
     return PlantDB.fromPlantDB(this, { log });
   }
 
   /**
+   * Returns a copy of this `PlantDB`, but with a new entry added to its log.
+   *
+   * @param logEntry The log entry to add to the database.
+   * @returns The new `PlantDB`.
+   */
+  withNewLogEntry(logEntry: LogEntry) {
+    return PlantDB.fromPlantDB(this, { log: [...this.#log, logEntry] });
+  }
+
+  /**
    * Creates a new log entry that is to be added to the database.
+   *
    * @param plantId The ID of the plant for which this is a new log entry.
    * @param timestamp THe date and time this event was recorded at.
    * @param type The type of the event.
@@ -89,6 +103,7 @@ export class PlantDB {
   /**
    * Construct a new PlantDB, based on the data in another one, and also optionally override
    * some of its properties.
+   *
    * @param other The `PlantDB` to initialize the new one from.
    * @param initializer A hash that contains additional fields to copy into the new instance.
    * @returns A new `PlantDB` with the provided arguments merged into it.
@@ -117,6 +132,7 @@ export class PlantDB {
 
   /**
    * Constructs a new `PlantDB` based on information found in CSV data.
+   *
    * @param databaseFormat The `DatabaseFormat` that explains how to interpret the data.
    * @param plantDataRaw The raw plant CSV data.
    * @param plantLogDataRaw The raw plant log CSV data.
@@ -171,6 +187,7 @@ export class PlantDB {
 
   /**
    * Constructs a new `PlantDB` based on some plain JavaScript initialization hashes.
+   *
    * @param databaseFormat The `DatabaseFormat` to use for the new database.
    * @param plants The plants to put into the database.
    * @param plantLogData The log data to put into the database.

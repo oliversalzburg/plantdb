@@ -134,13 +134,15 @@ export class PlantLogEntryForm extends LitElement {
         <sl-input
           id="plant-input"
           label="Plant *"
-          placeholder="Select plant"
+          placeholder="Search for a Plant ID here"
           value=${this._plantName}
           @sl-focus=${() => this._plantDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._plantName = (event.target as SlInput).value)}
           required
           pattern="PID-\\d{1,6}"
-        ></sl-input
+          ><small slot="help-text"
+            >If you enter a PID that doesn't exist yet, this plant will be created for you.</small
+          ></sl-input
         ><sl-dropdown id="plant-dropdown">
           <sl-menu>
             ${[...this.plantStore.searchPlants(this._plantName)].slice(0, 8).map(
@@ -164,7 +166,10 @@ export class PlantLogEntryForm extends LitElement {
           @sl-focus=${() => this._typeDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._entryType = (event.target as SlInput).value)}
           required
-        ></sl-input
+          ><small slot="help-text"
+            >If your event type is not listed, just enter a new term to create that event
+            type.</small
+          ></sl-input
         ><sl-dropdown id="type-dropdown">
           <sl-menu>
             ${[...this.plantStore.plantDb.entryTypes]
@@ -211,6 +216,8 @@ export class PlantLogEntryForm extends LitElement {
             ></sl-icon-button
           ></sl-tooltip>
         </div>
+
+        <br />
         <sl-textarea
           label="Note"
           placeholder="Add your notes here"
@@ -221,7 +228,7 @@ export class PlantLogEntryForm extends LitElement {
         <h4>Details</h4>
         <sl-input
           label="Product used"
-          placeholder="name of a product"
+          placeholder="Name of a product"
           value=${this._productUsed}
           @sl-focus=${() => this._productDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._productUsed = (event.target as SlInput).value)}
@@ -254,6 +261,8 @@ export class PlantLogEntryForm extends LitElement {
             value=${this._ec}
             @sl-change=${(event: MouseEvent) =>
               (this._ec = (event.target as SlInput).valueAsNumber)}
+            min="0"
+            step="10"
           ></sl-input
           ><sl-input
             type="number"
@@ -262,6 +271,9 @@ export class PlantLogEntryForm extends LitElement {
             value=${this._ph}
             @sl-change=${(event: MouseEvent) =>
               (this._ph = (event.target as SlInput).valueAsNumber)}
+            min="0"
+            max="14"
+            step="0.1"
           ></sl-input>
         </div>
       </form>`,

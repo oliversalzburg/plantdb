@@ -56,6 +56,7 @@ export class PlantStore extends LitElement {
   updatePlantDb(plantDb: PlantDB) {
     this.plantDb = plantDb;
     PlantDbStorage.persistPlantDb(this.plantDb);
+    this.dispatchEvent(new CustomEvent("plant-config-changed", { detail: this.plantDb }));
   }
 
   private _updateIndex() {
@@ -131,6 +132,7 @@ export class PlantStore extends LitElement {
    * Take a search term, as given by the user, and transform it so that it:
    *  - performs substring matching
    *  - requires all provided terms to match
+   *
    * @param term The search term as input by the user.
    * @returns A formalized lunr search term.
    */

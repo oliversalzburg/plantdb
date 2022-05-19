@@ -2,7 +2,7 @@ import { SlDialog } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, query } from "lit/decorators.js";
-import { isNil } from "../Maybe";
+import { assertExists, isNil } from "../Maybe";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";
 import { View } from "./View";
 
@@ -33,6 +33,20 @@ export class PlantLogView extends View {
   @query("#entry-form")
   private _entryForm: PlantLogEntryForm | null | undefined;
 
+  private async _onCreateNewLogEntry() {
+    assertExists(this._entryForm);
+    assertExists(this.plantStore);
+
+    this._entryForm.reportValidity();
+    const newEntry = this._entryForm.asLogEntry();
+    console.debug(newEntry);
+    this.dispatchEvent(new CustomEvent("plant-new-entry"));
+    const newDb = this.plantStore.plantDb.withNewLogEntry(newEntry);
+    this.plantStore.updatePlantDb(newDb);
+
+    return this._newEntryDialog?.hide();
+  }
+
   render() {
     if (isNil(this.plantStore)) {
       return;
@@ -51,12 +65,7 @@ export class PlantLogView extends View {
               <sl-button
                 slot="footer"
                 variant="primary"
-                @click=${() => {
-                  this._entryForm?.reportValidity();
-                  const newEntry = this._entryForm?.asLogEntry();
-                  console.debug(newEntry);
-                  this.dispatchEvent(new CustomEvent("plant-new-entry"));
-                }}
+                @click=${() => this._onCreateNewLogEntry()}
                 >${t("save", { ns: "common" })}</sl-button
               ><sl-button slot="footer" @click=${() => this._newEntryDialog?.hide()}
                 >${t("close", { ns: "common" })}</sl-button
