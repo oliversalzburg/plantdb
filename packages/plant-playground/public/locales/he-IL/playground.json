@@ -16,6 +16,7 @@
   },
   "log": {
     "add": "הוסף רשומה ליומן",
+    "edit": "Edit log entry",
     "goToDetails": "Go to plant details"
   },
   "plant": {
