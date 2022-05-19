@@ -307,9 +307,9 @@ export class PlantStoreUi extends LitElement {
       : this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, logEntry);
 
     if (shouldDelete) {
-      void this.alert("Entry deleted", "danger", "x-circle");
+      void this.alert(t("log.entryDeleted"), "danger", "x-circle");
     } else {
-      void this.alert("Entry updated");
+      void this.alert(t("log.entryUpdate"));
     }
 
     this.plantStore.updatePlantDb(newDb);

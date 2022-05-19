@@ -205,7 +205,7 @@ export class PlantLogEntry extends LitElement {
           <div class="note-container">
             <strong class="event-type"
               >${this.augmentType(this.logEntry, identifiedType)}${!identifiedType
-                ? html`<sl-tooltip class="unmapped-guide" content="Unmapped event 😱"
+                ? html`<sl-tooltip class="unmapped-guide" content=${t("log.unmappedEvent")}
                     ><a href="/types">?</a></sl-tooltip
                   >`
                 : undefined}</strong
@@ -214,7 +214,7 @@ export class PlantLogEntry extends LitElement {
             <cite>${this.linkify(this.logEntry.note)}</cite>
           </div>
 
-          <sl-tooltip content="Open log entry" placement="left">
+          <sl-tooltip content=${t("log.openEntry")} placement="left">
             <sl-icon-button
               class="edit-button"
               name="pencil"

@@ -1,5 +1,6 @@
 import { LogEntry, Plant } from "@plantdb/libplantdb";
 import { SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { isNil, mustExist } from "./Maybe";
@@ -144,8 +145,8 @@ export class PlantLogEntryForm extends LitElement {
       >
         <sl-input
           id="plant-input"
-          label="Plant *"
-          placeholder="Search for a Plant ID here"
+          label=${t("entryEditor.plantLabel")}
+          placeholder=${t("entryEditor.plantPlaceholder")}
           clearable
           value=${this._plantName}
           @sl-focus=${() => this._plantDrowndown?.show()}
@@ -153,17 +154,12 @@ export class PlantLogEntryForm extends LitElement {
           required
           pattern="PID-\\d{1,6}"
           >${!this.logEntry
-            ? html`<small slot="help-text"
-                >If you enter a PID that doesn't exist yet, this plant will be created for
-                you.</small
-              >`
+            ? html`<small slot="help-text">${t("entryEditor.plantHelp")}</small>`
             : this._plantName === ""
             ? html`<small slot="help-text" class="warning"
-                >If you save this entry, IT WILL BE DELETED!</small
+                >${t("entryEditor.plantHelpDeleteWarn")}</small
               >`
-            : html`<small slot="help-text"
-                >To delete this entry, remove the Plant ID and save it.</small
-              >`}</sl-input
+            : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
         ><sl-dropdown id="plant-dropdown">
           <sl-menu>
             ${[...this.plantStore.searchPlants(this._plantName)].slice(0, 8).map(
@@ -181,21 +177,18 @@ export class PlantLogEntryForm extends LitElement {
         </sl-dropdown>
 
         <sl-input
-          label="Event type *"
-          placeholder="Select event type"
+          label=${t("entryEditor.typeLabel")}
+          placeholder=${t("entryEditor.typePlaceholder")}
           clearable
           value=${this._entryType}
           @sl-focus=${() => this._typeDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._entryType = (event.target as SlInput).value)}
           required
           >${!this.logEntry
-            ? html`<small slot="help-text"
-                >If your event type is not listed, just enter a new term to create that event
-                type.</small
-              >`
+            ? html`<small slot="help-text">${t("entryEditor.typeHelp")}</small>`
             : this._entryType === ""
             ? html`<small slot="help-text" class="warning"
-                >If you save this entry, IT WILL BE DELETED!</small
+                >${t("entryEditor.typeHelpDeleteWarn")}</small
               >`
             : undefined}</sl-input
         ><sl-dropdown id="type-dropdown">
@@ -220,7 +213,7 @@ export class PlantLogEntryForm extends LitElement {
         <div class="date-time">
           <sl-input
             type="date"
-            label="Date *"
+            label=${t("entryEditor.dateLabel")}
             value=${this._date}
             @sl-change=${(event: MouseEvent) => {
               this._date = (event.target as SlSelect).value as string;
@@ -229,17 +222,17 @@ export class PlantLogEntryForm extends LitElement {
           ></sl-input
           ><sl-input
             type="time"
-            label="Time *"
+            label=${t("entryEditor.timeLabel")}
             value=${this._time}
             @sl-change=${(event: MouseEvent) => {
               this._time = (event.target as SlSelect).value as string;
             }}
             required
           ></sl-input>
-          <sl-tooltip content="Set to current date/time">
+          <sl-tooltip content=${t("entryEditor.setCurrentDateTime")}>
             <sl-icon-button
               name="clock"
-              label="Set to current date/time"
+              label=${t("entryEditor.setCurrentDateTime")}
               @click=${() => this._setCurrentDateTime()}
             ></sl-icon-button
           ></sl-tooltip>
@@ -247,16 +240,16 @@ export class PlantLogEntryForm extends LitElement {
 
         <br />
         <sl-textarea
-          label="Note"
-          placeholder="Add your notes here"
+          label=${t("entryEditor.noteLabel")}
+          placeholder=${t("entryEditor.notePlaceholder")}
           value=${this._note}
           @sl-change=${(event: MouseEvent) => (this._note = (event.target as SlTextarea).value)}
         ></sl-textarea>
 
         <h4>Details</h4>
         <sl-input
-          label="Product used"
-          placeholder="Name of a product"
+          label=${t("entryEditor.productLabel")}
+          placeholder=${t("entryEditor.productPlaceholder")}
           clearable
           value=${this._productUsed}
           @sl-focus=${() => this._productDrowndown?.show()}
@@ -285,8 +278,8 @@ export class PlantLogEntryForm extends LitElement {
         <div class="row">
           <sl-input
             type="number"
-            label="EC"
-            placeholder="1200"
+            label=${t("entryEditor.ecLabel")}
+            placeholder=${t("entryEditor.ecPlaceholder")}
             clearable
             value=${this._ec}
             @sl-change=${(event: MouseEvent) =>
@@ -296,8 +289,8 @@ export class PlantLogEntryForm extends LitElement {
           ></sl-input
           ><sl-input
             type="number"
-            label="pH"
-            placeholder="5.5"
+            label=${t("entryEditor.phLabel")}
+            placeholder=${t("entryEditor.phPlaceholder")}
             clearable
             value=${this._ph}
             @sl-change=${(event: MouseEvent) =>
