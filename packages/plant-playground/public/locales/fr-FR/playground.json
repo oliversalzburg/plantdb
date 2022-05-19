@@ -11,7 +11,8 @@
   },
   "empty": {
     "log": "Il semble que vous n'avez aucune entrée de log 😔",
-    "importNow": "Importer maintenant"
+    "importNow": "Importer maintenant",
+    "or": "or"
   },
   "log": {
     "add": "Ajouter une entrée de journal"
