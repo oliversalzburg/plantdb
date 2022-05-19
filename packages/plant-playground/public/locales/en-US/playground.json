@@ -22,7 +22,7 @@
     "entryDeleted": "Entry deleted",
     "unmappedEvent": "Unmapped event. Click to map.",
     "openEntry": "Open log entry"
- },
+  },
   "plant": {
     "whenAdded": "Added: {{when}}",
     "whenUpdated": "Last updated: {{when}}",
@@ -75,7 +75,7 @@
   },
   "entryEditor": {
     "plantLabel": "Plant *",
-    "plantPlaceholer": "Search for a Plant ID here",
+    "plantPlaceholder": "Search for a Plant ID here",
     "plantHelp": "If you enter a PID that doesn't exist yet, this plant will be created for you.",
     "plantHelpDeleteWarn": "If you save this entry, IT WILL BE DELETED!",
     "plantHelpDelete": "To delete this entry, remove the Plant ID and save it.",
