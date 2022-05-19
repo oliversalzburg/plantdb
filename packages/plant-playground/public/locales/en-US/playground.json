@@ -22,7 +22,7 @@
     "entryDeleted": "Entry deleted",
     "unmappedEvent": "Unmapped event. Click to map.",
     "openEntry": "Open log entry"
-  },
+ },
   "plant": {
     "whenAdded": "Added: {{when}}",
     "whenUpdated": "Last updated: {{when}}",

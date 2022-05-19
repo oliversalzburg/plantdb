@@ -7,14 +7,17 @@
     "plants": "Plantes",
     "typeMap": "Mappages de type",
     "import": "Importation",
-    "close": ""
+    "close": "$t(common:close)"
   },
   "empty": {
     "log": "Il semble que vous n'avez aucune entrée de log 😔",
-    "importNow": "Importer maintenant"
+    "importNow": "Importer maintenant",
+    "or": "or"
   },
   "log": {
-    "add": "Ajouter une entrée de journal"
+    "add": "Ajouter une entrée de journal",
+    "edit": "Edit log entry",
+    "goToDetails": "Go to plant details"
   },
   "plant": {
     "whenAdded": "Ajouté: {{when}}",
@@ -24,29 +27,43 @@
     "never": "Jamais"
   },
   "dbConfig": {
-    "title": "",
-    "hasHeaderRow": "",
-    "columnSeparator": "",
-    "comma": "",
-    "semicolon": "",
-    "tab": "",
-    "dateTimeFormat": "",
-    "timezone": ""
+    "title": "Database Configuration",
+    "hasHeaderRow": "Has header row?",
+    "columnSeparator": "Column separator",
+    "comma": "Comma ,",
+    "semicolon": "Semicolon ;",
+    "tab": "Tab",
+    "dateTimeFormat": "Timestamp format",
+    "timezone": "Timezone"
   },
   "import": {
-    "title": "",
-    "plantLog": "",
-    "pastePlantLog": "",
-    "plantData": "",
-    "pastePlants": "",
-    "import": "",
-    "updateLog": ""
+    "title": "Import Data",
+    "plantLog": "Plant log",
+    "pastePlantLog": "paste plantlog.csv here",
+    "plantData": "Plant data",
+    "pastePlants": "paste plants.csv here",
+    "import": "Importation",
+    "updateLog": "Update log only"
   },
   "typeMap": {
-    "title": "",
-    "introduction": "",
-    "unmapped": "",
-    "save": ""
+    "title": "Type Mappings",
+    "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
+    "unmapped": "Unmapped event type",
+    "save": "Save mapping"
+  },
+  "eventType": {
+    "Acquisition": "Acquisition",
+    "Fertilization": "Fertilization",
+    "Measurement": "Measurement",
+    "Observation": "Observation",
+    "PestControl": "Pest control",
+    "PestInfestation": "Pest infestation",
+    "Pruning": "Pruning",
+    "Relocation": "Relocation",
+    "Repotting": "Repotting",
+    "RootPruning": "Root pruning",
+    "Shaping": "Shaping",
+    "Watering": "Watering"
   },
   "eventType": {
     "Acquisition": "",
@@ -64,6 +81,6 @@
   },
   "placeholder": {
     "filter": "Tapez le filtre ici",
-    "eventFilter": ""
+    "eventFilter": "Filter event types"
   }
 }

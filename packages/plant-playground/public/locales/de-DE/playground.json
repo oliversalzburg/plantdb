@@ -11,10 +11,13 @@
   },
   "empty": {
     "log": "Es scheint, als hättest du keine Einträge 😔",
-    "importNow": "Jetzt importieren"
+    "importNow": "Jetzt importieren",
+    "or": "or"
   },
   "log": {
-    "add": "Eintrag hinzufügen"
+    "add": "Eintrag hinzufügen",
+    "edit": "Edit log entry",
+    "goToDetails": "Go to plant details"
   },
   "plant": {
     "whenAdded": "Erstellt: {{when}}",

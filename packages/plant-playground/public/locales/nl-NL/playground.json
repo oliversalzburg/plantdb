@@ -1,52 +1,69 @@
 {
   "app": {
-    "title": ""
+    "title": "PlantDB Playground"
   },
   "menu": {
-    "log": "",
-    "plants": "",
-    "typeMap": "",
-    "import": "",
-    "close": ""
+    "log": "Log",
+    "plants": "Plants",
+    "typeMap": "Type mappings",
+    "import": "Import",
+    "close": "$t(common:close)"
   },
   "empty": {
-    "log": "",
-    "importNow": ""
+    "log": "It seems like you have no log entries 😔",
+    "importNow": "Import now",
+    "or": "or"
   },
   "log": {
-    "add": ""
+    "add": "Add log entry",
+    "edit": "Edit log entry",
+    "goToDetails": "Go to plant details"
   },
   "plant": {
-    "whenAdded": "",
-    "whenUpdated": "",
-    "whenInfested": "",
-    "whenPestControl": "",
-    "never": ""
+    "whenAdded": "Added: {{when}}",
+    "whenUpdated": "Last updated: {{when}}",
+    "whenInfested": "Infested since: {{when}}",
+    "whenPestControl": "Last pest control: {{when}}",
+    "never": "never"
   },
   "dbConfig": {
-    "title": "",
-    "hasHeaderRow": "",
-    "columnSeparator": "",
-    "comma": "",
-    "semicolon": "",
-    "tab": "",
-    "dateTimeFormat": "",
-    "timezone": ""
+    "title": "Database Configuration",
+    "hasHeaderRow": "Has header row?",
+    "columnSeparator": "Column separator",
+    "comma": "Comma ,",
+    "semicolon": "Semicolon ;",
+    "tab": "Tab",
+    "dateTimeFormat": "Timestamp format",
+    "timezone": "Timezone"
   },
   "import": {
-    "title": "",
-    "plantLog": "",
-    "pastePlantLog": "",
-    "plantData": "",
-    "pastePlants": "",
-    "import": "",
-    "updateLog": ""
+    "title": "Import Data",
+    "plantLog": "Plant log",
+    "pastePlantLog": "paste plantlog.csv here",
+    "plantData": "Plant data",
+    "pastePlants": "paste plants.csv here",
+    "import": "Import",
+    "updateLog": "Update log only"
   },
   "typeMap": {
-    "title": "",
-    "introduction": "",
-    "unmapped": "",
-    "save": ""
+    "title": "Type Mappings",
+    "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
+    "unmapped": "Unmapped event type",
+    "save": "Save mapping"
+  },
+  "eventType": {
+    "Acquisition": "Acquisition",
+    "Fertilization": "Fertilization",
+    "Measurement": "Measurement",
+    "Observation": "Observation",
+    "PestControl": "Pest control",
+    "PestInfestation": "Pest infestation",
+    "Pruning": "Pruning",
+    "Relocation": "Relocation",
+    "Repotting": "Repotting",
+    "RootPruning": "Root pruning",
+    "Shaping": "Shaping",
+    "Watering": "Watering"
   },
   "eventType": {
     "Acquisition": "",
@@ -63,7 +80,7 @@
     "Watering": ""
   },
   "placeholder": {
-    "filter": "",
-    "eventFilter": ""
+    "filter": "Type filter here",
+    "eventFilter": "Filter event types"
   }
 }
