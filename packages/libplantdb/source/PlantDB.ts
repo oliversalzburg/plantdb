@@ -149,6 +149,8 @@ export class PlantDB {
           [...other.#plants.entries()].map(([plantId, plant]) => [plantId, Plant.fromPlant(plant)])
         );
 
+    plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
+
     plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
     plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
 
