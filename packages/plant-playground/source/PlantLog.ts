@@ -4,7 +4,7 @@ import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { assertExists, mustExist } from "./Maybe";
+import { mustExist } from "./Maybe";
 import { PlantLogEntry } from "./PlantLogEntry";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
@@ -110,18 +110,8 @@ export class PlantLog extends LitElement {
             @plant-badge-click=${() => {
               this.plantStoreUi?.navigatePath(`/plant/${entry.plantId}`);
             }}
-            @plant-body-click=${async () => {
-              assertExists(this.plantStore);
-              assertExists(this.plantStoreUi);
-
-              console.debug(`Show entry dialog for entry #${entry.sourceLine ?? ""}`);
-              const updatedEntry = await this.plantStoreUi.editLogEntry(this.plantStore, entry);
-              if (!updatedEntry) {
-                return;
-              }
-
-              const newDb = this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, entry);
-              this.plantStore.updatePlantDb(newDb);
+            @plant-body-click=${() => {
+              this.dispatchEvent(new CustomEvent<LogEntry>("plant-edit-entry", { detail: entry }));
             }}
           ></plant-log-entry>`
       ),

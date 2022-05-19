@@ -100,6 +100,13 @@ export class PlantDB {
     return PlantDB.fromPlantDB(this, { log, plants });
   }
 
+  withoutLogEntry(logEntry: LogEntry) {
+    const plants = new Map(this.#plants);
+    const log = [...this.#log.filter(entry => entry !== logEntry)];
+
+    return PlantDB.fromPlantDB(this, { log, plants });
+  }
+
   /**
    * Creates a new log entry that is to be added to the database.
    *

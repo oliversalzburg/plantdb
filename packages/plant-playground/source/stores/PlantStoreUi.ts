@@ -32,9 +32,14 @@ export class PlantStoreUi extends LitElement {
   @property({ type: [String] })
   pageParams = new Array<string>();
 
+  @property({ type: PlantStore })
+  plantStore: PlantStore | null | undefined;
+
   private _onSchemePreferenceChanged: ((event: MediaQueryListEvent) => void) | undefined;
 
   connectedCallback(): void {
+    super.connectedCallback();
+
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     globalStore = this;
 
@@ -237,7 +242,7 @@ export class PlantStoreUi extends LitElement {
   editLogEntry(plantStore: PlantStore, logEntry?: LogEntry) {
     return new Promise<LogEntry | null>((resolve, reject) => {
       const dialog = Object.assign(document.createElement("sl-dialog"), {
-        label: t("log.add"),
+        label: logEntry ? t("log.edit") : t("log.add"),
       });
 
       render(
@@ -252,14 +257,15 @@ export class PlantStoreUi extends LitElement {
             slot="footer"
             variant="primary"
             @click=${() => {
+              const entryForm = dialog.querySelector("#entry-form") as PlantLogEntryForm;
+              entryForm.reportValidity();
+              const logEntry = entryForm.asLogEntry();
+
               dialog
                 .hide()
                 .catch(console.error)
                 .finally(() => document.body.removeChild(dialog));
 
-              const entryForm = dialog.querySelector("#entry-form") as PlantLogEntryForm;
-              entryForm.reportValidity();
-              const logEntry = entryForm.asLogEntry();
               resolve(logEntry);
             }}
             >${t("save", { ns: "common" })}</sl-button

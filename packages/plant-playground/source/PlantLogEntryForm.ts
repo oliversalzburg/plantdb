@@ -20,11 +20,6 @@ export class PlantLogEntryForm extends LitElement {
         min-height: 50vh;
       }
 
-      details {
-        display: flex;
-        gap: 1rem;
-      }
-
       .row {
         display: flex;
         flex-direction: row;
@@ -33,6 +28,10 @@ export class PlantLogEntryForm extends LitElement {
       .row * {
         flex: 1;
         min-width: 0;
+      }
+
+      .warning {
+        color: var(--sl-color-warning-500);
       }
 
       .date-time {
@@ -153,9 +152,18 @@ export class PlantLogEntryForm extends LitElement {
           @sl-input=${(event: MouseEvent) => (this._plantName = (event.target as SlInput).value)}
           required
           pattern="PID-\\d{1,6}"
-          ><small slot="help-text"
-            >If you enter a PID that doesn't exist yet, this plant will be created for you.</small
-          ></sl-input
+          >${!this.logEntry
+            ? html`<small slot="help-text"
+                >If you enter a PID that doesn't exist yet, this plant will be created for
+                you.</small
+              >`
+            : this._plantName === ""
+            ? html`<small slot="help-text" class="warning"
+                >If you save this entry, IT WILL BE DELETED!</small
+              >`
+            : html`<small slot="help-text"
+                >To delete this entry, remove the Plant ID and save it.</small
+              >`}</sl-input
         ><sl-dropdown id="plant-dropdown">
           <sl-menu>
             ${[...this.plantStore.searchPlants(this._plantName)].slice(0, 8).map(
@@ -180,10 +188,12 @@ export class PlantLogEntryForm extends LitElement {
           @sl-focus=${() => this._typeDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._entryType = (event.target as SlInput).value)}
           required
-          ><small slot="help-text"
-            >If your event type is not listed, just enter a new term to create that event
-            type.</small
-          ></sl-input
+          >${!this.logEntry
+            ? html`<small slot="help-text"
+                >If your event type is not listed, just enter a new term to create that event
+                type.</small
+              >`
+            : undefined}</sl-input
         ><sl-dropdown id="type-dropdown">
           <sl-menu>
             ${[...this.plantStore.plantDb.entryTypes]

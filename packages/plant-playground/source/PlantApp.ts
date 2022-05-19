@@ -54,6 +54,8 @@ export class PlantApp extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
+    this._plantStoreUi.plantStore = this._plantStore;
+
     this._plantStoreUi.addEventListener("plant-navigate", (event: Event) => {
       const { page, pageParams } = (
         event as CustomEvent<{ page: string; pageParams: Array<string> }>
