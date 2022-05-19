@@ -4,10 +4,10 @@ import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { mustExist } from "./Maybe";
+import { assertExists, mustExist } from "./Maybe";
 import { PlantLogEntry } from "./PlantLogEntry";
 import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
+import { PlantStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-log")
 export class PlantLog extends LitElement {
@@ -17,9 +17,6 @@ export class PlantLog extends LitElement {
         flex: 1;
         overflow: auto;
         min-height: 0;
-      }
-      :host([headervisible]) {
-        cursor: pointer;
       }
 
       .filters {
@@ -110,12 +107,21 @@ export class PlantLog extends LitElement {
             .plant=${this.plantStore?.plantDb.plants.get(entry.plantId)}
             .logEntry=${entry}
             .headerVisible=${this.headerVisible}
-            @click=${async () => {
-              if (!this.headerVisible) {
-                console.debug(`Show entry dialog for entry #${entry.sourceLine ?? ""}`);
-                await retrieveStoreUi()?.editLogEntry(mustExist(this.plantStore), entry);
+            @plant-badge-click=${() => {
+              this.plantStoreUi?.navigatePath(`/plant/${entry.plantId}`);
+            }}
+            @plant-body-click=${async () => {
+              assertExists(this.plantStore);
+              assertExists(this.plantStoreUi);
+
+              console.debug(`Show entry dialog for entry #${entry.sourceLine ?? ""}`);
+              const updatedEntry = await this.plantStoreUi.editLogEntry(this.plantStore, entry);
+              if (!updatedEntry) {
+                return;
               }
-              retrieveStoreUi()?.navigatePath(`/plant/${entry.plantId}`);
+
+              const newDb = this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, entry);
+              this.plantStore.updatePlantDb(newDb);
             }}
           ></plant-log-entry>`
       ),

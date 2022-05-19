@@ -252,7 +252,11 @@ export class PlantStoreUi extends LitElement {
             slot="footer"
             variant="primary"
             @click=${() => {
-              dialog.hide().catch(console.error);
+              dialog
+                .hide()
+                .catch(console.error)
+                .finally(() => document.body.removeChild(dialog));
+
               const entryForm = dialog.querySelector("#entry-form") as PlantLogEntryForm;
               entryForm.reportValidity();
               const logEntry = entryForm.asLogEntry();
@@ -262,7 +266,11 @@ export class PlantStoreUi extends LitElement {
           ><sl-button
             slot="footer"
             @click=${() => {
-              dialog.hide().catch(console.error);
+              dialog
+                .hide()
+                .catch(console.error)
+                .finally(() => document.body.removeChild(dialog));
+
               resolve(null);
             }}
             >${t("close", { ns: "common" })}</sl-button

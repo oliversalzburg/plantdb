@@ -147,6 +147,7 @@ export class PlantLogEntryForm extends LitElement {
           id="plant-input"
           label="Plant *"
           placeholder="Search for a Plant ID here"
+          clearable
           value=${this._plantName}
           @sl-focus=${() => this._plantDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._plantName = (event.target as SlInput).value)}
@@ -174,6 +175,7 @@ export class PlantLogEntryForm extends LitElement {
         <sl-input
           label="Event type *"
           placeholder="Select event type"
+          clearable
           value=${this._entryType}
           @sl-focus=${() => this._typeDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._entryType = (event.target as SlInput).value)}
@@ -241,6 +243,7 @@ export class PlantLogEntryForm extends LitElement {
         <sl-input
           label="Product used"
           placeholder="Name of a product"
+          clearable
           value=${this._productUsed}
           @sl-focus=${() => this._productDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._productUsed = (event.target as SlInput).value)}
@@ -270,6 +273,7 @@ export class PlantLogEntryForm extends LitElement {
             type="number"
             label="EC"
             placeholder="1200"
+            clearable
             value=${this._ec}
             @sl-change=${(event: MouseEvent) =>
               (this._ec = (event.target as SlInput).valueAsNumber)}
@@ -280,6 +284,7 @@ export class PlantLogEntryForm extends LitElement {
             type="number"
             label="pH"
             placeholder="5.5"
+            clearable
             value=${this._ph}
             @sl-change=${(event: MouseEvent) =>
               (this._ph = (event.target as SlInput).valueAsNumber)}

@@ -1,4 +1,5 @@
 import { EventType, identifyLogType, LogEntry, MATCH_PID_ALL, PlantDB } from "@plantdb/libplantdb";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
@@ -27,12 +28,19 @@ export class PlantLogEntry extends LitElement {
         justify-content: space-between;
         align-items: center;
       }
+      :host([headervisible]) sl-card::part(header):hover {
+        background-color: var(--sl-color-primary-400);
+      }
 
       #infos {
         display: flex;
         flex-direction: row;
         align-items: center;
         gap: 0.25rem;
+      }
+
+      .navigation-guide {
+        color: var(--sl-panel-background-color);
       }
 
       sl-card section {
@@ -48,6 +56,18 @@ export class PlantLogEntry extends LitElement {
         align-items: center;
         gap: 1rem;
         margin-bottom: 0.25rem;
+      }
+
+      .note-container {
+        flex: 1;
+      }
+
+      .edit-button {
+        flex: 0;
+        visibility: hidden;
+      }
+      sl-card section:hover .edit-button {
+        visibility: visible;
       }
     `,
   ];
@@ -65,6 +85,7 @@ export class PlantLogEntry extends LitElement {
     switch (eventType) {
       case "Acquisition":
         return { icon: "stars" };
+
       case "Fertilization":
         return {
           icon: "moisture",
@@ -72,6 +93,7 @@ export class PlantLogEntry extends LitElement {
             logEntry?.ph ? `pH: ${logEntry?.ph}` : ""
           }`,
         };
+
       case "Measurement":
         return {
           icon: "rulers",
@@ -79,25 +101,34 @@ export class PlantLogEntry extends LitElement {
             logEntry?.ph ? `pH: ${logEntry.ph}` : ""
           }`,
         };
+
       case "Observation":
         return { icon: "eye" };
+
       case "PestControl":
         return {
           icon: "radioactive",
           details: `${logEntry?.productUsed ? logEntry.productUsed : ""}`,
         };
+
       case "PestInfestation":
         return { icon: "bug" };
+
       case "Pruning":
         return { icon: "scissors" };
+
       case "Relocation":
         return { icon: "arrows-move" };
+
       case "Repotting":
         return { icon: "trash2" };
+
       case "RootPruning":
         return { icon: "scissors" };
+
       case "Shaping":
         return { icon: "gem" };
+
       case "Watering":
         return {
           icon: "droplet-half",
@@ -132,16 +163,23 @@ export class PlantLogEntry extends LitElement {
                 <small><em>${this.logEntry.plant.kind}</em></small>
               </div>
               <div id="infos">
+                <a class="navigation-guide" href="/plant/${this.logEntry.plant.id}"
+                  >${t("log.goToDetails")}</a
+                ><span class="navigation-guide"> →</span>
                 ${this.logEntry.plant.location
                   ? html`<sl-tooltip content=${this.logEntry.plant.location}
                       ><sl-icon name="geo-alt"></sl-icon
                     ></sl-tooltip>`
                   : undefined}
-                <sl-badge variant="neutral">${this.logEntry.plant.id}</sl-badge>
+                <sl-badge
+                  variant="neutral"
+                  @click=${() => this.dispatchEvent(new CustomEvent("plant-badge-click"))}
+                  >${this.logEntry.plant.id}</sl-badge
+                >
               </div>
             </div>`
           : undefined}
-        <section>
+        <section @click=${() => this.dispatchEvent(new CustomEvent("plant-body-click"))}>
           <div>
             ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
             <small
@@ -151,11 +189,15 @@ export class PlantLogEntry extends LitElement {
                 : ""}</small
             >
           </div>
+
           <sl-divider vertical></sl-divider>
-          <div>
+
+          <div class="note-container">
             <strong class="event-type">${this.augmentType(this.logEntry, identifiedType)}</strong>
             <cite>${this.linkify(this.logEntry.note)}</cite>
           </div>
+
+          <sl-icon-button class="edit-button" name="pencil"></sl-icon-button>
         </section>
       </sl-card>`,
     ];

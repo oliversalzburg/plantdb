@@ -198,10 +198,10 @@ export class LogEntry {
 
   static tryParseEC(dataValue: string) {
     if (dataValue.endsWith("µS/cm")) {
-      return Number(dataValue.slice(0, dataValue.length - 5));
+      return Number.parseInt(dataValue.slice(0, dataValue.length - 5));
     }
 
-    if (Number.isNaN(+dataValue) || Number.isNaN(parseFloat(dataValue))) {
+    if (Number.isNaN(+dataValue) || Number.isNaN(Number.parseFloat(dataValue))) {
       return undefined;
     }
 

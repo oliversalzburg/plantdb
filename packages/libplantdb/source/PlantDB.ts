@@ -86,6 +86,20 @@ export class PlantDB {
     return PlantDB.fromPlantDB(this, { log, plants });
   }
 
+  withUpdatedLogEntry(updatedLogEntry: LogEntry, oldLogEntry: LogEntry) {
+    const plants = new Map(this.#plants);
+    const log = [
+      ...this.#log.filter(entry => entry !== oldLogEntry),
+      LogEntry.fromLogEntry(updatedLogEntry, { plants }),
+    ];
+
+    if (!plants.has(updatedLogEntry.plantId)) {
+      plants.set(updatedLogEntry.plantId, Plant.fromJSObject({ id: updatedLogEntry.plantId }, log));
+    }
+
+    return PlantDB.fromPlantDB(this, { log, plants });
+  }
+
   /**
    * Creates a new log entry that is to be added to the database.
    *
@@ -126,12 +140,6 @@ export class PlantDB {
     plantDb.#config = initializer?.config
       ? DatabaseFormat.fromDatabaseFormat(initializer.config)
       : DatabaseFormat.fromDatabaseFormat(other.#config);
-    plantDb.#entryTypes = initializer?.entryTypes
-      ? new Set(initializer.entryTypes)
-      : new Set(other.#entryTypes);
-    plantDb.#usedProducts = initializer?.usedProducts
-      ? new Set(initializer.usedProducts)
-      : new Set(other.#usedProducts);
     plantDb.#log = initializer?.log
       ? [...initializer.log]
       : other.#log.map(entry => LogEntry.fromLogEntry(entry));
@@ -140,7 +148,29 @@ export class PlantDB {
       : new Map(
           [...other.#plants.entries()].map(([plantId, plant]) => [plantId, Plant.fromPlant(plant)])
         );
+
+    plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
+    plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
+
     return plantDb;
+  }
+
+  private static aggregateEventTypes(plantDb: PlantDB) {
+    const eventTypes = new Set<string>();
+    for (const logEntry of plantDb.#log) {
+      eventTypes.add(logEntry.type);
+    }
+    return eventTypes;
+  }
+  private static aggregateProductsUsed(plantDb: PlantDB) {
+    const productsUsed = new Set<string>();
+    for (const logEntry of plantDb.#log) {
+      if (!logEntry.productUsed) {
+        continue;
+      }
+      productsUsed.add(logEntry.productUsed);
+    }
+    return productsUsed;
   }
 
   /**
@@ -170,10 +200,6 @@ export class PlantDB {
         plantDb.plants
       );
       plantDb.#log.push(logEntry);
-      plantDb.#entryTypes.add(logEntry.type);
-      if (logEntry.productUsed) {
-        plantDb.#usedProducts.add(logEntry.productUsed);
-      }
     }
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
@@ -183,6 +209,7 @@ export class PlantDB {
       delimiter: databaseFormat.columnSeparator,
       from: databaseFormat.hasHeaderRow ? 2 : 1,
     }) as Array<Array<string>>;
+
     for (const plantRecord of plantData) {
       const plant = Plant.fromCSVData(plantRecord, plantDb.#log);
       plantDb.#plants.set(plant.id, plant);
@@ -194,6 +221,9 @@ export class PlantDB {
         plantDb.#plants.set(log.plantId, Plant.fromJSObject({ id: log.plantId }, plantDb.#log));
       }
     }
+
+    plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
+    plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
 
     return plantDb;
   }
@@ -216,18 +246,14 @@ export class PlantDB {
     plantDb.#config = databaseFormat;
     plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSObject(logEntry, plantDb.plants));
 
-    for (const logEntry of plantDb.#log) {
-      plantDb.#entryTypes.add(logEntry.type);
-      if (logEntry.productUsed) {
-        plantDb.#usedProducts.add(logEntry.productUsed);
-      }
-    }
-
     for (const plant of plants) {
       plantDb.#plants.set(plant.id, Plant.fromJSObject(plant, plantDb.#log));
     }
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
+
+    plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
+    plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
 
     return plantDb;
   }
