@@ -49,18 +49,18 @@
     "save": "שמור מיפוי"
   },
   "eventType": {
-    "Acquisition": "",
-    "Fertilization": "",
-    "Measurement": "",
-    "Observation": "",
-    "PestControl": "",
-    "PestInfestation": "",
-    "Pruning": "",
-    "Relocation": "",
-    "Repotting": "",
-    "RootPruning": "",
-    "Shaping": "",
-    "Watering": ""
+    "Acquisition": "Acquisition",
+    "Fertilization": "Fertilization",
+    "Measurement": "Measurement",
+    "Observation": "Observation",
+    "PestControl": "Pest control",
+    "PestInfestation": "Pest infestation",
+    "Pruning": "Pruning",
+    "Relocation": "Relocation",
+    "Repotting": "Repotting",
+    "RootPruning": "Root pruning",
+    "Shaping": "Shaping",
+    "Watering": "Watering"
   },
   "placeholder": {
     "filter": "הכנס סנן כאן",
