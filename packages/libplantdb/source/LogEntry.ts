@@ -193,29 +193,27 @@ export class LogEntry {
   }
 
   static tryParseEC(dataValue: string) {
-    const number = Number(dataValue);
-    if (number === Number(dataValue)) {
-      return number;
-    }
-
     if (dataValue.endsWith("µS/cm")) {
       return Number(dataValue.slice(0, dataValue.length - 5));
     }
 
-    return undefined;
+    if (Number.isNaN(+dataValue) || Number.isNaN(parseFloat(dataValue))) {
+      return undefined;
+    }
+
+    return Number.parseFloat(dataValue);
   }
 
   static tryParsePh(dataValue: string) {
-    const number = Number(dataValue);
-    if (number === Number(dataValue)) {
-      return number;
-    }
-
     if (dataValue.includes(",") && !dataValue.includes(".")) {
       return Number(dataValue.replace(/,/, "."));
     }
 
-    return undefined;
+    if (Number.isNaN(+dataValue) || Number.isNaN(parseFloat(dataValue))) {
+      return undefined;
+    }
+
+    return Number.parseFloat(dataValue);
   }
 
   static fromJSObject(dataObject: LogEntrySerialized, plants?: ReadonlyMap<string, Plant>) {
