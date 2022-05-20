@@ -1,4 +1,5 @@
 import { DatabaseFormat, EventType, PlantDB } from "@plantdb/libplantdb";
+import { getBasePath } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -64,7 +65,11 @@ export class PlantApp extends LitElement {
     });
     this._plantStoreUi.addEventListener("plant-drawer-open", () => this.requestUpdate());
     this._plantStoreUi.addEventListener("plant-theme-changed", () => this.requestUpdate());
-    this._plantStoreUi.addEventListener("plant-i18n-changed", () => location.reload());
+    this._plantStoreUi.addEventListener(
+      "plant-i18n-changed",
+      // @ts-expect-error wtf?
+      () => (window.location = getBasePath())
+    );
 
     // We expect the store to load i18n, then signal ready.
     // Then we install the router and expect it to call back with the inital location.
