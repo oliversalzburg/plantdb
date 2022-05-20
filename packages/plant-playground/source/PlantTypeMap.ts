@@ -38,52 +38,50 @@ export class PlantTypeMap extends LitElement {
 
   render() {
     return [
-      html`<h2>${t("typeMap.title")}</h2>`,
-      0 < this.plantDb.entryTypes.size
-        ? html`<p>${t("typeMap.introduction")}</p>
-            <ul class="type-list">
-              ${[...this.plantDb.entryTypes.values()].sort().map(
-                entryType =>
-                  html`<li>
-                    <span>${entryType}</span><span>→</span>
-                    <sl-select
-                      placeholder=${t("typeMap.unmapped")}
-                      value=${this.plantDb.config.typeMap.get(entryType)}
-                      clearable
-                      @sl-change=${(event: Event) => {
-                        const value = (event.target as SlSelect).value;
-                        if (value === "") {
-                          this.proposedMapping.delete(entryType);
-                          return;
-                        }
-                        this.proposedMapping.set(entryType, value as EventType);
-                      }}
-                      >${Object.keys(EventTypes)
-                        .sort()
-                        .map(
-                          type =>
-                            html`<sl-menu-item .value="${type}"
-                              >${t(`eventType.${type}`)}</sl-menu-item
-                            >`
-                        )}</sl-select
-                    >
-                  </li>`
-              )}
-            </ul>
-            <sl-button
-              variant="primary"
-              @click=${() => {
-                this.dispatchEvent(
-                  new CustomEvent("plant-config-changed", {
-                    bubbles: true,
-                    composed: true,
-                    detail: this.plantDb.config.withNewTypeMap(this.proposedMapping),
-                  })
-                );
-              }}
-              >${t("typeMap.save")}</sl-button
-            >`
-        : html`<p>${t("typeMap.empty")}</p>`,
+      html`<h2>${t("typeMap.title")}</h2>
+        <p>${t("typeMap.introduction")}</p>
+        <ul class="type-list">
+          ${[...this.plantDb.entryTypes.values()].sort().map(
+            entryType =>
+              html`<li>
+                <span>${entryType}</span><span>→</span>
+                <sl-select
+                  placeholder=${t("typeMap.unmapped")}
+                  value=${this.plantDb.config.typeMap.get(entryType)}
+                  clearable
+                  @sl-change=${(event: Event) => {
+                    const value = (event.target as SlSelect).value;
+                    if (value === "") {
+                      this.proposedMapping.delete(entryType);
+                      return;
+                    }
+                    this.proposedMapping.set(entryType, value as EventType);
+                  }}
+                  >${Object.keys(EventTypes)
+                    .sort()
+                    .map(
+                      type =>
+                        html`<sl-menu-item .value="${type}"
+                          >${t(`eventType.${type}`)}</sl-menu-item
+                        >`
+                    )}</sl-select
+                >
+              </li>`
+          )}
+        </ul>
+        <sl-button
+          variant="primary"
+          @click=${() => {
+            this.dispatchEvent(
+              new CustomEvent("plant-config-changed", {
+                bubbles: true,
+                composed: true,
+                detail: this.plantDb.config.withNewTypeMap(this.proposedMapping),
+              })
+            );
+          }}
+          >${t("typeMap.save")}</sl-button
+        >`,
     ];
   }
 }
