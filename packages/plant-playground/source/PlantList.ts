@@ -40,16 +40,6 @@ export class PlantList extends LitElement {
   @property()
   filter = "";
 
-  private _filterMatchesPlant(plant: Plant, filter: string) {
-    const terms = filter.toLocaleLowerCase().split(" ");
-    for (const term of terms) {
-      if (!plant.indexableText.includes(term)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   render() {
     // Initial state is plants sorted according to their oldest log entry (their "birth").
     let filteredPlants = this.plants.sort(
