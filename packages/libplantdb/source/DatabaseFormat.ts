@@ -99,6 +99,7 @@ export class DatabaseFormat {
 
   /**
    * The format that is used to record date/time values in the document.
+   *
    * @see https://moment.github.io/luxon/#/parsing?id=table-of-tokens
    */
   get dateFormat() {
@@ -114,6 +115,7 @@ export class DatabaseFormat {
 
   /**
    * The time zone in which the date/time values in the document were recorded.
+   *
    * @see https://moment.github.io/luxon/#/zones?id=specifying-a-zone
    */
   get timezone() {
@@ -130,6 +132,7 @@ export class DatabaseFormat {
 
   /**
    * Creates a new `DatabaseFormat`, based on this one, but with a new type map.
+   *
    * @param typeMap The type map to use in the new `DatabaseFormat`.
    * @returns The new `DatabaseFormat`.
    */
@@ -141,6 +144,7 @@ export class DatabaseFormat {
 
   /**
    * Creates a new `DatabaseFormat`, with the values of another `DatabaseFormat`.
+   *
    * @param other The `DatabaseFormat` to copy values from.
    * @returns The new `DatabaseFormat`.
    */
@@ -156,6 +160,7 @@ export class DatabaseFormat {
 
   /**
    * Parse a JS object and construct a new `DatabaseFormat` from it.
+   *
    * @param data The serialized `DatabaseFormat`.
    * @returns The new `DatabaseFormat`.
    */
@@ -172,6 +177,7 @@ export class DatabaseFormat {
 
   /**
    * Parse a JSON string and construct a new `DatabaseFormat` from it.
+   *
    * @param dataString The JSON-serialized database format.
    * @returns The new `DatabaseFormat`.
    */
@@ -182,6 +188,7 @@ export class DatabaseFormat {
 
   /**
    * Convert the `DatabaseFormat` into a plain JS object.
+   *
    * @returns The `DatabaseFormat` as a plain JS object.
    */
   toJSObject(): DatabaseFormatSerialized {
@@ -196,6 +203,7 @@ export class DatabaseFormat {
 
   /**
    * Pre-serialize the `DatabaseFormat` into an object ready to be turned into a JSON string.
+   *
    * @returns The `DatabaseFormat` as a JSON-serializable object.
    */
   toJSON() {
