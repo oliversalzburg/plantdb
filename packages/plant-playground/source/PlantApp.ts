@@ -64,7 +64,7 @@ export class PlantApp extends LitElement {
     });
     this._plantStoreUi.addEventListener("plant-drawer-open", () => this.requestUpdate());
     this._plantStoreUi.addEventListener("plant-theme-changed", () => this.requestUpdate());
-    this._plantStoreUi.addEventListener("plant-i18n-changed", () => this.requestUpdate());
+    this._plantStoreUi.addEventListener("plant-i18n-changed", () => location.reload());
 
     // We expect the store to load i18n, then signal ready.
     // Then we install the router and expect it to call back with the inital location.
