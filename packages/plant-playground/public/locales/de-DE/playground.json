@@ -18,10 +18,10 @@
     "add": "Eintrag hinzufügen",
     "edit": "Eintrag bearbeiten",
     "goToDetails": "Pflanzendetails anzeigen",
-    "entryUpdated": "Entry updated",
-    "entryDeleted": "Entry deleted",
-    "unmappedEvent": "Unmapped event. Click to map.",
-    "openEntry": "Open log entry"
+    "entryUpdated": "Eintrag aktualisiert",
+    "entryDeleted": "Eintrag gelöscht",
+    "unmappedEvent": "Nicht zugeordneter Typ. Zum Zuweisen klicken.",
+    "openEntry": "Eintrag öffnen"
   },
   "plant": {
     "whenAdded": "Erstellt: {{when}}",
@@ -74,8 +74,8 @@
     "eventFilter": "Ereignis-Typen filtern"
   },
   "entryEditor": {
-    "plantLabel": "Plant *",
-    "plantPlaceholder": "Search for a Plant ID here",
+    "plantLabel": "Pflanze *",
+    "plantPlaceholder": "Suche hier nach einer Pflanzen-ID",
     "plantHelp": "If you enter a PID that doesn't exist yet, this plant will be created for you.",
     "plantHelpDeleteWarn": "If you save this entry, IT WILL BE DELETED!",
     "plantHelpDelete": "To delete this entry, remove the Plant ID and save it.",
