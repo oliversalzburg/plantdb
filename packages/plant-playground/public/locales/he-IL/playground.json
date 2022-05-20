@@ -11,6 +11,7 @@
   },
   "empty": {
     "log": "נראה שאין לך רישומים ביומן 😔",
+    "plants": "It seems like you have no plants 😔",
     "importNow": "יבא עכשיו",
     "or": "or"
   },
@@ -51,6 +52,7 @@
   },
   "typeMap": {
     "title": "מיפוי סוגים",
+    "empty": "You don't have any log entries yet. Return here later, once you have created log entries and you will be able to help the Playground understand what they mean.",
     "introduction": "לשמאל, ניתן לראות סוגי אירועים הכלולים במידע שלך. שייך אליהם את סוגי הטיפוסים של PlantDB המופיעים מימין כדי שהאירועים יזוהו באפליקציה.",
     "unmapped": "סוג אירוע לא ממופה",
     "save": "שמור מיפוי"

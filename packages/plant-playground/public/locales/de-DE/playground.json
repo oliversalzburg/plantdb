@@ -11,6 +11,7 @@
   },
   "empty": {
     "log": "Es scheint, als hättest du keine Einträge 😔",
+    "plants": "Es scheint, als hättest du keine Pflanzen 😔",
     "importNow": "Jetzt importieren",
     "or": "oder"
   },
@@ -51,6 +52,7 @@
   },
   "typeMap": {
     "title": "Typ-Zuordnungen",
+    "empty": "Es sind noch keine Einträge angelegt. Kehre später hierher zurück, sobald Einträge erstellt wurden. Dann kann hier dem Playground geholfen werden zu verstehen, was sie bedeuten.",
     "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
     "unmapped": "Nicht zugeordneter Ereignistyp",
     "save": "Zuordnung speichern"

@@ -11,6 +11,7 @@
   },
   "empty": {
     "log": "It seems like you have no log entries 😔",
+    "plants": "It seems like you have no plants 😔",
     "importNow": "Import now",
     "or": "or"
   },
@@ -51,6 +52,7 @@
   },
   "typeMap": {
     "title": "Type Mappings",
+    "empty": "You don't have any log entries yet. Return here later, once you have created log entries and you will be able to help the Playground understand what they mean.",
     "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
     "unmapped": "Unmapped event type",
     "save": "Save mapping"
