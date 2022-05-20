@@ -28,7 +28,7 @@ jobs:
       - name: Build documentation
         run: |
           # Copy stupid shoelace dependencies
-          mkdir --parents packages/plant-playground/public/assets/icons
+          mkdir --parents packages/plant-playground/public/assets
           cp --recursive node_modules/@shoelace-style/shoelace/dist/assets/icons \
             packages/plant-playground/public/assets/icons
 
