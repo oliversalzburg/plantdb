@@ -11,6 +11,7 @@
   },
   "empty": {
     "log": "It seems like you have no log entries 😔",
+    "plants": "It seems like you have no plants 😔",
     "importNow": "Import now",
     "or": "or"
   },

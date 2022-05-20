@@ -1,4 +1,5 @@
 import { Plant } from "@plantdb/libplantdb";
+import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { View } from "./View";
@@ -26,9 +27,11 @@ export class PlantListView extends View {
             .plants=${this.plants}
           ></plant-list>`
         : html`<plant-empty-state class="empty"
-            ><p>It seems like you have no plants 😔</p>
+            ><p>${t("empty.plants")}</p>
 
-            <sl-button href="import" variant="primary">Import now</sl-button></plant-empty-state
+            <sl-button href="import" variant="primary"
+              >${t("empty.importNow")}</sl-button
+            ></plant-empty-state
           >`,
     ];
   }
