@@ -226,7 +226,7 @@ __metadata:
     lunr: 2.3.9
     luxon: 2.4.0
     pwa-helpers: 0.9.1
-    sass: 1.52.0
+    sass: 1.52.1
     tslib: 2.4.0
     typescript: 4.6.4
     vite: 2.9.9
@@ -1581,18 +1581,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.0.0":
-  version: 10.0.1
-  resolution: "fs-extra@npm:10.0.1"
-  dependencies:
-    graceful-fs: ^4.2.0
-    jsonfile: ^6.0.1
-    universalify: ^2.0.0
-  checksum: d8e0d70a7bfdb669619a5e91231fb91034f3ad6033910844571a39190b29708f652640db86d83ca5add8b013e5886a2fa81aba9754962ae2f5d730275ce426af
-  languageName: node
-  linkType: hard
-
-"fs-extra@npm:^10.0.1":
+"fs-extra@npm:^10.0.0, fs-extra@npm:^10.0.1":
   version: 10.1.0
   resolution: "fs-extra@npm:10.1.0"
   dependencies:
@@ -2973,16 +2962,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.52.0":
-  version: 1.52.0
-  resolution: "sass@npm:1.52.0"
+"sass@npm:1.52.1":
+  version: 1.52.1
+  resolution: "sass@npm:1.52.1"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 7f22f03bd265124df96210d9705f4f0dd4d6c0eb8348fd217438e9f6229a1afac306e68d4d859faf4ee65eb88ab9c4aa7659d0796ae1c613394360b87a466532
+  checksum: 684bd84d7d7349eeb4ea9f1b0a406a720c64bef238c0175307406ac2924b1da27c77173ab2ac5cd9c71005cda32f075e21cef3e7ca72e6654cf4debf42694167
   languageName: node
   linkType: hard
 
