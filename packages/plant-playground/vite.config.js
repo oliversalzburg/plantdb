@@ -1,3 +1,5 @@
+import { viteStaticCopy } from "vite-plugin-static-copy";
+
 let base = "/";
 
 /**
@@ -8,7 +10,17 @@ export default {
   build: {
     outDir: "output",
   },
-  plugins: [configureBasePlugin()],
+  plugins: [
+    configureBasePlugin(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "../../node_modules/@shoelace-style/shoelace/dist/assets/**/*",
+          dest: "assets",
+        },
+      ],
+    }),
+  ],
 };
 
 function configureBasePlugin() {
