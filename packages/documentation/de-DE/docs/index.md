@@ -8,4 +8,5 @@ Es gibt bereits viele kostengünstige Software-Lösungen für die Pflanzenpflege
 
 PlantDB ist ein Versuch, all das zu lösen. Halten Sie sich an der Macht über Ihre Daten und haben Sie Spaß dabei.
 
-[Los geht's](./tutorial/index.md ""){.md-button.md-button--primary} [PlantDB im Playground ausprobieren](/plantdb/playground/ ""){.md-button}
+[Los geht's](./tutorial/index.md){ .md-button .md-button--primary }
+[PlantDB im Playground ausprobieren](/plantdb/playground/){ .md-button }
