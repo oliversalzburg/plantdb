@@ -50,6 +50,10 @@ export class PlantLogEntry extends LitElement {
         height: 2rem;
       }
 
+      .first-entry {
+        cursor: default;
+      }
+
       .event-type {
         display: flex;
         flex-direction: row;
@@ -192,11 +196,11 @@ export class PlantLogEntry extends LitElement {
         <section>
           <div>
             ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
-            <small
+            <span class="first-entry"
               >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.logEntry
                 .plant?.logEntryOldest === this.logEntry
-                ? "🌟"
-                : ""}</small
+                ? html`<sl-tooltip content=${t("log.firstEntry")}>🌟</sl-tooltip>`
+                : undefined}</span
             >
           </div>
 
