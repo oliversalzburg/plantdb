@@ -226,7 +226,7 @@ __metadata:
     lunr: 2.3.9
     luxon: 2.4.0
     pwa-helpers: 0.9.1
-    sass: 1.51.0
+    sass: 1.52.0
     tslib: 2.4.0
     typescript: 4.6.4
     vite: 2.9.9
@@ -2961,16 +2961,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.51.0":
-  version: 1.51.0
-  resolution: "sass@npm:1.51.0"
+"sass@npm:1.52.0":
+  version: 1.52.0
+  resolution: "sass@npm:1.52.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: abbd30f51bfaf70afb67bacf9a29bc79c2788c243572514a3f71bb24f0e6493a820bb5dd55d4cfabf7a927a1ece8189330da8475a1b4a329e8d741cffe13b6b6
+  checksum: 7f22f03bd265124df96210d9705f4f0dd4d6c0eb8348fd217438e9f6229a1afac306e68d4d859faf4ee65eb88ab9c4aa7659d0796ae1c613394360b87a466532
   languageName: node
   linkType: hard
 
