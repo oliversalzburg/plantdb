@@ -14,6 +14,12 @@ export class PlantImportView extends View {
       :host {
         padding: 1rem;
       }
+
+      #import-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
     `,
   ];
 
@@ -107,33 +113,38 @@ export class PlantImportView extends View {
 
         <h3>${t("import.title")}</h3>
 
-        <sl-textarea
-          id="log-data"
-          rows="10"
-          placeholder=${t("import.pastePlantLog")}
-          label=${t("import.plantLog")}
-          .value=${this.plantLogData}
-          @sl-blur="${(event: InputEvent) => {
-            this.plantLogData = (event.target as SlTextarea).value;
-          }}"
-        ></sl-textarea>
+        <div id="import-section">
+          <sl-textarea
+            id="log-data"
+            rows="10"
+            placeholder=${t("import.pastePlantLog")}
+            label=${t("import.plantLog")}
+            .value=${this.plantLogData}
+            @sl-blur="${(event: InputEvent) => {
+              this.plantLogData = (event.target as SlTextarea).value;
+            }}"
+          ></sl-textarea>
 
-        <sl-textarea
-          id="plant-data"
-          rows="10"
-          placeholder=${t("import.pastePlants")}
-          label=${t("import.plantData")}
-          .value=${this.plantData}
-          @sl-blur="${(event: InputEvent) => {
-            this.plantData = (event.target as SlTextarea).value;
-          }}"
-        ></sl-textarea>
+          <sl-textarea
+            id="plant-data"
+            rows="10"
+            placeholder=${t("import.pastePlants")}
+            label=${t("import.plantData")}
+            .value=${this.plantData}
+            @sl-blur="${(event: InputEvent) => {
+              this.plantData = (event.target as SlTextarea).value;
+            }}"
+          ></sl-textarea>
 
-        <sl-button id="process" @click="${(event: MouseEvent) => this.process(event)}"
-          >${t("import.import")}</sl-button
-        ><sl-button id="process" @click="${() => this.updateLog()}" disabled
-          >${t("import.updateLog")}</sl-button
-        >`,
+          <sl-button
+            id="process"
+            variant="primary"
+            @click="${(event: MouseEvent) => this.process(event)}"
+            >${t("import.import")}</sl-button
+          ><sl-button id="process" @click="${() => this.updateLog()}" disabled
+            >${t("import.updateLog")}</sl-button
+          >
+        </div>`,
     ];
   }
 }
