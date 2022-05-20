@@ -20,6 +20,12 @@
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "label": "lint:eslint",
+      "type": "shell",
+      "command": ["yarn", "lint:eslint"],
+      "problemMatcher": ["$eslint-stylish"]
     }
   ]
 }
