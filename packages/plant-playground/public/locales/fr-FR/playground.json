@@ -22,7 +22,8 @@
     "entryUpdated": "Entry updated",
     "entryDeleted": "Entry deleted",
     "unmappedEvent": "Unmapped event. Click to map.",
-    "openEntry": "Open log entry"
+    "openEntry": "Open log entry",
+    "firstEntry": "This is the first entry for this plant."
   },
   "plant": {
     "whenAdded": "Ajouté: {{when}}",

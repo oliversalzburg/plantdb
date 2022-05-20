@@ -22,7 +22,8 @@
     "entryUpdated": "Eintrag aktualisiert",
     "entryDeleted": "Eintrag gelöscht",
     "unmappedEvent": "Nicht zugeordneter Typ. Zum Zuweisen klicken.",
-    "openEntry": "Eintrag öffnen"
+    "openEntry": "Eintrag öffnen",
+    "firstEntry": "This is the first entry for this plant."
   },
   "plant": {
     "whenAdded": "Erstellt: {{when}}",
