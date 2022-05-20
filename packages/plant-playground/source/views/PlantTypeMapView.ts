@@ -30,7 +30,7 @@ export class PlantTypeMapView extends View {
         ? html`<plant-type-map
             .plantDb=${this.plantStore?.plantDb}
             .proposedMapping=${this.proposedMapping}
-            @plant-config-changed=${() => this.plantStoreUi?.alert("Updated!")}
+            @plant-config-changed=${() => this.plantStoreUi?.alert(t("log.entryUpdated"))}
           ></plant-type-map>`
         : html`<plant-empty-state class="empty">${t("typeMap.empty")}</plant-empty-state>`,
     ];
