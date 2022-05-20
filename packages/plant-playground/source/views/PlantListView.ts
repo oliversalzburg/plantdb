@@ -9,7 +9,7 @@ export class PlantListView extends View {
     ...View.styles,
     css`
       .empty {
-        min-width: 100%;
+        flex: 1;
       }
     `,
   ];
