@@ -196,11 +196,11 @@ export class PlantLogEntry extends LitElement {
         <section>
           <div>
             ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
-            <span class="first-entry"
+            <small class="first-entry"
               >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.logEntry
                 .plant?.logEntryOldest === this.logEntry
-                ? html`<sl-tooltip content=${t("log.firstEntry")}>🌟</sl-tooltip>`
-                : undefined}</span
+                ? html`<sl-tooltip content=${t("log.firstEntry")}><span>🌟</span></sl-tooltip>`
+                : undefined}</small
             >
           </div>
 
