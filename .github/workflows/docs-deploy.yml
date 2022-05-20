@@ -27,6 +27,11 @@ jobs:
 
       - name: Build documentation
         run: |
+          # Copy stupid shoelace dependencies
+          cp --recursive node_modules/@shoelace-style/shoelace/dist/assets/icons \
+            packages/plant-playground/public/assets/icons
+
+          # Build projects & documentation
           yarn workspace @plantdb/libplantdb build
           yarn workspace @plantdb/plant-playground build --base=/plantdb/playground/
           yarn workspace @plantdb/libplantdb docs
@@ -39,7 +44,6 @@ jobs:
             /tmp/plant-deploy/docs
           cp --recursive packages/plant-playground/output \
             /tmp/plant-deploy/playground
-          ls -lha /tmp/plant-deploy/
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4.3.3
