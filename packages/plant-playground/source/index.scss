@@ -1,9 +1,12 @@
 @import '@shoelace-style/shoelace/dist/themes/light.css';
 @import '@shoelace-style/shoelace/dist/themes/dark.css';
 
+html {
+  width: 100vw;
+}
+
 html,
 body {
-  width: 100vw;
   height: 100vh;
 
   padding: 0;
