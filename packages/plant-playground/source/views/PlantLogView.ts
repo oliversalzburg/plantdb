@@ -10,6 +10,17 @@ export class PlantLogView extends View {
   static readonly styles = [
     ...View.styles,
     css`
+      @media (min-width: 1000px) {
+        #log {
+          padding: 0 15vw;
+        }
+      }
+      @media (min-width: 2000px) {
+        #log {
+          padding: 0 25vw;
+        }
+      }
+
       .footer {
         display: flex;
         justify-content: flex-end;
@@ -58,6 +69,7 @@ export class PlantLogView extends View {
       0 < (this.plantStore?.plantDb.log.length ?? 0)
         ? [
             html`<plant-log
+                id="log"
                 .plantStore=${this.plantStore}
                 .plantStoreUi=${this.plantStoreUi}
                 .log=${this.plantStore.plantDb.log}
