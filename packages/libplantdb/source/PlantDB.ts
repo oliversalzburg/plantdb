@@ -2,6 +2,7 @@ import { parse } from "csv-parse/browser/esm/sync";
 import { DatabaseFormat, EventTypes } from "./DatabaseFormat.js";
 import { LogEntry, LogEntrySerialized } from "./LogEntry.js";
 import { Plant, PlantSerialized } from "./Plant.js";
+import { logToCSV, plantsToCSV } from "./Tools.js";
 
 /**
  * The main entrypoint of a PlantDB data collection.
@@ -234,6 +235,13 @@ export class PlantDB {
     plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
 
     return plantDb;
+  }
+
+  toCSV(databaseFormat = this.#config) {
+    return {
+      log: logToCSV(this.#log, databaseFormat),
+      plants: plantsToCSV([...this.plants.values()], databaseFormat),
+    };
   }
 
   /**

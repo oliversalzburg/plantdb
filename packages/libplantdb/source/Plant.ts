@@ -1,3 +1,4 @@
+import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry } from "./LogEntry.js";
 import { PlantDB } from "./PlantDB.js";
 import { kindFlatten, kindSummarize } from "./Tools.js";
@@ -218,6 +219,25 @@ export class Plant {
     plant.#tempIdeal = Number(dataRow[10]);
     plant.#notes = dataRow[11];
     return plant;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  toCSVData(databaseFormat: DatabaseFormat) {
+    const serialized = this.toJSObject();
+    return [
+      serialized.id,
+      serialized.name,
+      serialized.kind,
+      serialized.substrate,
+      serialized.potShapeTop,
+      serialized.potColor,
+      serialized.onSaucer,
+      serialized.location,
+      serialized.phIdeal,
+      serialized.ecIdeal,
+      serialized.tempIdeal,
+      serialized.notes,
+    ];
   }
 
   static fromJSObject(plantDb: PlantDB, dataObject: PlantSerialized) {

@@ -1,9 +1,17 @@
-import { DatabaseFormat, DatabaseFormatSerialized, PlantDB } from "@plantdb/libplantdb";
+import {
+  DatabaseFormat,
+  DatabaseFormatSerialized,
+  logFromCSV,
+  makePlantMap,
+  PlantDB,
+  plantsFromCSV,
+} from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
+import { assertExists, mustExist } from "../Maybe";
 import { View } from "./View";
 
 @customElement("plant-import-view")
@@ -39,9 +47,12 @@ export class PlantImportView extends View {
     }
   }
 
-  process(event?: MouseEvent) {
+  processImportRequest(event?: MouseEvent) {
     event?.preventDefault();
     console.info("Processing data...");
+
+    assertExists(this.plantStore);
+
     const plantDataRaw = this.plantData;
     const plantLogDataRaw = this.plantLogData;
     const plantDbConfig = DatabaseFormat.fromJSObject({
@@ -50,11 +61,19 @@ export class PlantImportView extends View {
       hasHeaderRow: this.config.hasHeaderRow,
       timezone: this.config.timezone,
     } as DatabaseFormatSerialized);
-    this.processData(plantDataRaw, plantLogDataRaw, plantDbConfig);
-  }
 
-  processData(plantDataRaw: string, plantLogDataRaw: string, plantDbConfig: DatabaseFormat) {
-    const plantDb = PlantDB.fromCSV(plantDbConfig, plantDataRaw, plantLogDataRaw);
+    // Temporary DB to hold constructed data.
+    let plantDb = new PlantDB();
+
+    const plants = plantDataRaw
+      ? plantsFromCSV(plantDb, plantDataRaw, plantDbConfig)
+      : [...this.plantStore.plantDb.plants.values()];
+
+    const log = plantLogDataRaw
+      ? logFromCSV(plantDb, plantDataRaw, plantDbConfig)
+      : [...this.plantStore.plantDb.log];
+
+    plantDb = PlantDB.fromPlantDB(plantDb, { plants: makePlantMap(plants), log });
 
     for (const logRecord of plantDb.log) {
       const plant = plantDb.plants.get(logRecord.plantId);
@@ -76,23 +95,10 @@ export class PlantImportView extends View {
     this.plantStoreUi?.navigatePath("/log");
   }
 
-  updateLog() {
-    throw new Error("not implemented");
-    /*
-    const plantLogDataRaw = this.plantLogData;
-    const plantDbConfig = DatabaseFormat.fromJSON({
-      columnSeparator: this.config.columnSeparator,
-      dateFormat: this.config.dateFormat,
-      hasHeaderRow: this.config.hasHeaderRow,
-      timezone: this.config.timezone,
-    } as DatabaseFormatSerialized);
-    const plantLogData = parse(plantLogDataRaw, {
-      columns: false,
-      delimiter: plantDbConfig.columnSeparator,
-      from: plantDbConfig.hasHeaderRow ? 2 : 1,
-    }) as Array<Array<string>>;
-    const plantLog = PlantLog.fromCSV(plantDbConfig, plantLogData);
-    */
+  export() {
+    const { log, plants } = mustExist(this.plantStore).plantDb.toCSV(this.config);
+    this.plantLogData = log;
+    this.plantData = plants;
   }
 
   render() {
@@ -139,11 +145,9 @@ export class PlantImportView extends View {
           <sl-button
             id="process"
             variant="primary"
-            @click="${(event: MouseEvent) => this.process(event)}"
+            @click="${(event: MouseEvent) => this.processImportRequest(event)}"
             >${t("import.import")}</sl-button
-          ><sl-button id="process" @click="${() => this.updateLog()}" disabled
-            >${t("import.updateLog")}</sl-button
-          >
+          ><sl-button id="export" @click="${() => this.export()}">${t("import.export")}</sl-button>
         </div>`,
     ];
   }

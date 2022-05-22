@@ -1,4 +1,8 @@
-import { EventType } from "./DatabaseFormat";
+import { parse } from "csv-parse/browser/esm/sync";
+import { stringify } from "csv-stringify/browser/esm/sync";
+import { DatabaseFormat, EventType } from "./DatabaseFormat";
+import { LogEntry } from "./LogEntry";
+import { Plant } from "./Plant";
 import { PlantDB } from "./PlantDB";
 
 /**
@@ -62,4 +66,46 @@ export const identifyLogType = (entryType: string, plantDb: PlantDB): EventType 
 export const roundTo = (input: number, digits = 2) => {
   const power = Math.pow(10, digits);
   return Math.round(input * power) / power;
+};
+
+export const logToCSV = (log: Array<LogEntry>, databaseFormat: DatabaseFormat) => {
+  return stringify(
+    log.map(logEntry => logEntry.toCSVData(databaseFormat)),
+    { delimiter: databaseFormat.columnSeparator }
+  );
+};
+
+export const logFromCSV = (plantDb: PlantDB, logCSV: string, databaseFormat: DatabaseFormat) => {
+  const plantLogData = parse(logCSV, {
+    columns: false,
+    delimiter: databaseFormat.columnSeparator,
+    from: databaseFormat.hasHeaderRow ? 2 : 1,
+  }) as Array<Array<string>>;
+  return plantLogData.map((logEntry, index) =>
+    LogEntry.fromCSVData(plantDb, logEntry, databaseFormat, index)
+  );
+};
+
+export const plantsToCSV = (plants: Array<Plant>, databaseFormat: DatabaseFormat) => {
+  return stringify(
+    plants.map(plant => plant.toCSVData(databaseFormat)),
+    { delimiter: databaseFormat.columnSeparator }
+  );
+};
+
+export const plantsFromCSV = (
+  plantDb: PlantDB,
+  plantCSV: string,
+  databaseFormat: DatabaseFormat
+) => {
+  const plantData = parse(plantCSV, {
+    columns: false,
+    delimiter: databaseFormat.columnSeparator,
+    from: databaseFormat.hasHeaderRow ? 2 : 1,
+  }) as Array<Array<string>>;
+  return plantData.map(plantRecord => Plant.fromCSVData(plantDb, plantRecord));
+};
+
+export const makePlantMap = (plants: ReadonlyArray<Plant>) => {
+  return new Map(plants.map(plant => [plant.id, plant]));
 };

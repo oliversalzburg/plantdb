@@ -39,7 +39,6 @@ export class PlantApp extends LitElement {
       }
 
       .view {
-        padding: 0 15vw;
         display: none;
         flex: 1;
       }

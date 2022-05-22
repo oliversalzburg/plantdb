@@ -191,12 +191,25 @@ export class LogEntry {
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
-    logEntry.#ec = LogEntry.tryParseEC(dataRow[3]);
-    logEntry.#ph = LogEntry.tryParsePh(dataRow[4]);
-    logEntry.#productUsed = dataRow[5];
-    logEntry.#note = dataRow[6];
+    logEntry.#note = dataRow[3];
+    logEntry.#ec = LogEntry.tryParseEC(dataRow[4]);
+    logEntry.#ph = LogEntry.tryParsePh(dataRow[5]);
+    logEntry.#productUsed = dataRow[6];
 
     return logEntry;
+  }
+
+  toCSVData(databaseFormat: DatabaseFormat) {
+    const serialized = this.toJSObject();
+    return [
+      serialized.plantId,
+      DateTime.fromISO(serialized.timestamp).toFormat(databaseFormat.dateFormat),
+      serialized.type,
+      serialized.note,
+      serialized.ec,
+      serialized.ph,
+      serialized.productUsed,
+    ];
   }
 
   static tryParseEC(dataValue: string) {
