@@ -58,7 +58,7 @@ export class PlantTypeMap extends LitElement {
                     this.proposedMapping.set(entryType, value as EventType);
                   }}
                   >${Object.keys(EventTypes)
-                    .sort()
+                    .sort((a, b) => t(`eventType.${a}`).localeCompare(t(`eventType.${b}`)))
                     .map(
                       type =>
                         html`<sl-menu-item .value="${type}"
