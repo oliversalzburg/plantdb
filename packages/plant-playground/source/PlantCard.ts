@@ -77,7 +77,7 @@ export class PlantCard extends LitElement {
       logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestControl"
     );
     if (0 < logsPestControl.length) {
-      lastPestControl = logsPestControl[0];
+      lastPestControl = logsPestControl[logsPestControl.length - 1];
       const previousPestControl = 1 < logsPestControl.length ? logsPestControl[1] : undefined;
 
       // Is the last pest control more than 14 days ago?
