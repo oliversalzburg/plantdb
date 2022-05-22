@@ -70,7 +70,7 @@ export class PlantImportView extends View {
       : [...this.plantStore.plantDb.plants.values()];
 
     const log = plantLogDataRaw
-      ? logFromCSV(plantDb, plantDataRaw, plantDbConfig)
+      ? logFromCSV(plantDb, plantLogDataRaw, plantDbConfig)
       : [...this.plantStore.plantDb.log];
 
     plantDb = PlantDB.fromPlantDB(plantDb, { plants: makePlantMap(plants), log });
