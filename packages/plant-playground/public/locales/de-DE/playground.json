@@ -23,7 +23,7 @@
     "entryDeleted": "Eintrag gelöscht",
     "unmappedEvent": "Nicht zugeordneter Typ. Zum Zuweisen klicken.",
     "openEntry": "Eintrag öffnen",
-    "firstEntry": "This is the first entry for this plant."
+    "firstEntry": "Das ist der erste Eintrag für diese Pflanze."
   },
   "plant": {
     "whenAdded": "Erstellt: {{when}}",
@@ -49,7 +49,7 @@
     "plantData": "Pflanzendaten",
     "pastePlants": "plants.csv hier einfügen",
     "import": "Importieren",
-    "export": "Insert current data"
+    "export": "Aktuelle Daten einfügen"
   },
   "typeMap": {
     "title": "Typ-Zuordnungen",
