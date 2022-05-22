@@ -60,6 +60,7 @@ export class PlantImportView extends View {
       dateFormat: this.config.dateFormat,
       hasHeaderRow: this.config.hasHeaderRow,
       timezone: this.config.timezone,
+      typeMap: Object.fromEntries(this.plantStore.plantDb.config.typeMap),
     } as DatabaseFormatSerialized);
 
     // Temporary DB to hold constructed data.
@@ -73,7 +74,11 @@ export class PlantImportView extends View {
       ? logFromCSV(plantDb, plantLogDataRaw, plantDbConfig)
       : [...this.plantStore.plantDb.log];
 
-    plantDb = PlantDB.fromPlantDB(plantDb, { plants: makePlantMap(plants), log });
+    plantDb = PlantDB.fromPlantDB(plantDb, {
+      plants: makePlantMap(plants),
+      log,
+      config: plantDbConfig,
+    });
 
     for (const logRecord of plantDb.log) {
       const plant = plantDb.plants.get(logRecord.plantId);
