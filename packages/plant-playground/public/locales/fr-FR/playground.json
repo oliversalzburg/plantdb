@@ -49,7 +49,7 @@
     "plantData": "Plant data",
     "pastePlants": "paste plants.csv here",
     "import": "Importation",
-    "updateLog": "Update log only"
+    "export": "Insert current data"
   },
   "typeMap": {
     "title": "Type Mappings",

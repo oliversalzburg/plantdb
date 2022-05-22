@@ -49,7 +49,7 @@
     "plantData": "Pflanzendaten",
     "pastePlants": "plants.csv hier einfügen",
     "import": "Importieren",
-    "updateLog": "Nur Protokoll aktualisieren"
+    "export": "Insert current data"
   },
   "typeMap": {
     "title": "Typ-Zuordnungen",
