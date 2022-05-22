@@ -49,7 +49,7 @@
     "plantData": "מידע צמח",
     "pastePlants": "הדבק plants.csv כאן",
     "import": "יבא",
-    "updateLog": "עדכן יומן בלבד"
+    "export": "Insert current data"
   },
   "typeMap": {
     "title": "מיפוי סוגים",
