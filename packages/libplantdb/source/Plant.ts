@@ -1,7 +1,7 @@
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry } from "./LogEntry.js";
 import { PlantDB } from "./PlantDB.js";
-import { kindFlatten, kindSummarize } from "./Tools.js";
+import { kindSummarize } from "./Tools.js";
 
 /**
  * Matches a Plant ID.
@@ -160,10 +160,6 @@ export class Plant {
 
   get notes() {
     return this.#notes;
-  }
-
-  get indexableText() {
-    return `${this.id} ${this.name ?? ""} ${kindFlatten(this.kind)}`.toLocaleLowerCase();
   }
 
   get log() {

@@ -191,10 +191,10 @@ export class LogEntry {
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
-    logEntry.#note = dataRow[3];
+    logEntry.#note = dataRow[3] !== "" ? dataRow[3] : undefined;
     logEntry.#ec = LogEntry.tryParseEC(dataRow[4]);
     logEntry.#ph = LogEntry.tryParsePh(dataRow[5]);
-    logEntry.#productUsed = dataRow[6];
+    logEntry.#productUsed = dataRow[6] !== "" ? dataRow[6] : undefined;
 
     return logEntry;
   }
