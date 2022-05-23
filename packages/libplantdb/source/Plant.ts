@@ -232,11 +232,11 @@ export class Plant {
     return [
       serialized.id,
       serialized.name,
-      serialized.kind,
+      Array.isArray(serialized.kind) ? serialized.kind.join("\n") : serialized.kind,
       serialized.substrate,
       serialized.potShapeTop,
       serialized.potColor,
-      serialized.onSaucer,
+      serialized.onSaucer === true ? "TRUE" : serialized.onSaucer === false ? "FALSE" : undefined,
       serialized.location,
       serialized.phIdeal,
       serialized.ecIdeal,

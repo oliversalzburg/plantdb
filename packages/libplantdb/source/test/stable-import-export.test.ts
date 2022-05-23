@@ -3,19 +3,17 @@ import { it } from "mocha";
 import { DatabaseFormat } from "../DatabaseFormat.js";
 import { PlantDB } from "../PlantDB.js";
 
-it("imports as expected", () => {
-  const plantDb = PlantDB.fromCSV(
-    DatabaseFormat.fromJSObject({
-      columnSeparator: "\t",
-      hasHeaderRow: false,
-    }),
-    `PID-34	Grünes Dschungel-Arrangement	"Chlorophytum comosum
+it("handles multi-value kind as expected", () => {
+  const databaseFormat = DatabaseFormat.fromJSObject({
+    columnSeparator: "\t",
+    hasHeaderRow: false,
+  });
+  const plantDataRaw = `PID-34	Grünes Dschungel-Arrangement	"Chlorophytum comosum
 Epipremnum
 Monstera adansonii
 Aloe"	Mischsubstrat	Oval	Grey	FALSE	Wohnzimmer				
-`,
-    ""
-  );
+`;
+  const plantDb = PlantDB.fromCSV(databaseFormat, plantDataRaw, "");
 
   expect(plantDb.plants.size).equals(1);
   const plant = [...plantDb.plants.values()][0];
@@ -32,4 +30,7 @@ Aloe"	Mischsubstrat	Oval	Grey	FALSE	Wohnzimmer
   expect(plant.ecIdeal).equals(undefined);
   expect(plant.tempIdeal).equals(undefined);
   expect(plant.notes).equals(undefined);
+
+  const exported = plantDb.toCSV(databaseFormat);
+  expect(exported.plants).equals(plantDataRaw);
 });
