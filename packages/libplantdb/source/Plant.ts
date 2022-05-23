@@ -108,7 +108,7 @@ export class Plant {
   #phIdeal: number | undefined;
   #ecIdeal: number | undefined;
   #tempIdeal: number | undefined;
-  #notes = "";
+  #notes: string | undefined;
 
   get plantDb() {
     return this.#plantDb;
@@ -207,17 +207,22 @@ export class Plant {
 
   static fromCSVData(plantDb: PlantDB, dataRow: Array<string>): Plant {
     const plant = new Plant(plantDb, dataRow[0]);
-    plant.#name = dataRow[1];
-    plant.#kind = dataRow[2].includes("\n") ? dataRow[2].split("\n") : dataRow[2];
-    plant.#substrate = dataRow[3];
-    plant.#potShapeTop = dataRow[4];
-    plant.#potColor = dataRow[5];
-    plant.#onSaucer = dataRow[6] === "TRUE";
-    plant.#location = dataRow[7];
-    plant.#phIdeal = Number(dataRow[8]);
-    plant.#ecIdeal = Number(dataRow[9]);
-    plant.#tempIdeal = Number(dataRow[10]);
-    plant.#notes = dataRow[11];
+    plant.#name = dataRow[1] !== "" ? dataRow[1] : undefined;
+    plant.#kind =
+      dataRow[2] !== ""
+        ? dataRow[2].includes("\n")
+          ? dataRow[2].split("\n")
+          : dataRow[2]
+        : undefined;
+    plant.#substrate = dataRow[3] !== "" ? dataRow[3] : undefined;
+    plant.#potShapeTop = dataRow[4] !== "" ? dataRow[4] : undefined;
+    plant.#potColor = dataRow[5] !== "" ? dataRow[5] : undefined;
+    plant.#onSaucer = dataRow[6] === "TRUE" ? true : dataRow[6] === "FALSE" ? false : undefined;
+    plant.#location = dataRow[7] !== "" ? dataRow[7] : undefined;
+    plant.#phIdeal = dataRow[8] !== "" ? Number(dataRow[8]) : undefined;
+    plant.#ecIdeal = dataRow[9] !== "" ? Number(dataRow[9]) : undefined;
+    plant.#tempIdeal = dataRow[10] !== "" ? Number(dataRow[10]) : undefined;
+    plant.#notes = dataRow[11] !== "" ? dataRow[11] : undefined;
     return plant;
   }
 

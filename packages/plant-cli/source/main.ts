@@ -1,5 +1,4 @@
-import { DatabaseFormat, DatabaseFormatSerialized, PlantDB } from "@plantdb/libplantdb";
-import { parse } from "csv-parse/sync";
+import { DatabaseFormat, PlantDB } from "@plantdb/libplantdb";
 import { DateTime } from "luxon";
 import minimist from "minimist";
 import fs from "node:fs/promises";
@@ -14,21 +13,9 @@ const main = async () => {
   const plantDataRaw = await fs.readFile(path.resolve(cwd, "plants.csv"), "utf-8");
   const plantLogDataRaw = await fs.readFile(path.resolve(cwd, "plantlog.csv"), "utf-8");
 
-  const plantDbConfigParsed = JSON.parse(plantDbConfigRaw) as DatabaseFormatSerialized;
-  const plantDbConfig = DatabaseFormat.fromJSON(plantDbConfigParsed);
+  const plantDbConfig = DatabaseFormat.fromJSON(plantDbConfigRaw);
 
-  const plantData = parse(plantDataRaw, {
-    columns: false,
-    delimiter: plantDbConfig.columnSeparator,
-    from: plantDbConfig.hasHeaderRow ? 2 : 1,
-  }) as Array<Array<string>>;
-  const plantLogData = parse(plantLogDataRaw, {
-    columns: false,
-    delimiter: plantDbConfig.columnSeparator,
-    from: plantDbConfig.hasHeaderRow ? 2 : 1,
-  }) as Array<Array<string>>;
-
-  const plantDb = PlantDB.fromCSV(plantDbConfig, plantData, plantLogData);
+  const plantDb = PlantDB.fromCSV(plantDbConfig, plantDataRaw, plantLogDataRaw);
 
   for (const logRecord of plantDb.log) {
     const plant = plantDb.plants.get(logRecord.plantId);

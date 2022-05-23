@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@plantdb/libplantdb": "workspace:*",
-    "csv-parse": "5.0.4",
     "luxon": "2.4.0",
     "minimist": "1.2.6"
   },

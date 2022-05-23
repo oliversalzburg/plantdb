@@ -1,9 +1,9 @@
 import { parse } from "csv-parse/browser/esm/sync";
 import { stringify } from "csv-stringify/browser/esm/sync";
-import { DatabaseFormat, EventType } from "./DatabaseFormat";
-import { LogEntry } from "./LogEntry";
-import { Plant } from "./Plant";
-import { PlantDB } from "./PlantDB";
+import { DatabaseFormat, EventType } from "./DatabaseFormat.js";
+import { LogEntry } from "./LogEntry.js";
+import { Plant } from "./Plant.js";
+import { PlantDB } from "./PlantDB.js";
 
 /**
  * Summarize the kinds in a plant.

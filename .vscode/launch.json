@@ -10,6 +10,21 @@
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
+    },
+    {
+      "name": "Run Tests",
+      "preLaunchTask": "predebug",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "args": [
+        "--require",
+        "source-map-support/register",
+        "packages/libplantdb/output/test/stable-import-export.test.js"
+      ],
+      "outFiles": ["${workspaceFolder}/packages/*/output/**/*.js", "!**/node_modules/**"],
+      "cwd": "${workspaceFolder}",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
     }
   ]
 }

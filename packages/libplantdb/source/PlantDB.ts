@@ -254,8 +254,8 @@ export class PlantDB {
    */
   static fromJSObjects(
     databaseFormat: DatabaseFormat,
-    plants: Array<PlantSerialized>,
-    plantLogData: Array<LogEntrySerialized>
+    plants: Array<PlantSerialized> = [],
+    plantLogData: Array<LogEntrySerialized> = []
   ) {
     const plantDb = new PlantDB();
 
