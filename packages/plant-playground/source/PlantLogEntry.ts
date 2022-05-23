@@ -103,17 +103,23 @@ export class PlantLogEntry extends LitElement {
       case "Fertilization":
         return {
           icon: "moisture",
-          details: `${logEntry?.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-            logEntry?.ph ? `pH: ${logEntry?.ph}` : ""
-          }`,
+          details: html`${logEntry?.ec
+            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number> µS/cm`
+            : undefined}
+          ${logEntry?.ph
+            ? html`pH: <sl-format-number value=${logEntry.ph}></sl-format-number>`
+            : undefined}`,
         };
 
       case "Measurement":
         return {
           icon: "rulers",
-          details: `${logEntry?.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-            logEntry?.ph ? `pH: ${logEntry.ph}` : ""
-          }`,
+          details: html`${logEntry?.ec
+            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number> µS/cm`
+            : undefined}
+          ${logEntry?.ph
+            ? html`pH: <sl-format-number value=${logEntry.ph}></sl-format-number>`
+            : undefined}`,
         };
 
       case "Observation":
@@ -146,9 +152,12 @@ export class PlantLogEntry extends LitElement {
       case "Watering":
         return {
           icon: "droplet-half",
-          details: `${logEntry?.ec ? `EC: ${logEntry.ec}µS/cm` : ""} ${
-            logEntry?.ph ? `pH: ${logEntry.ph}` : ""
-          }`,
+          details: html`${logEntry?.ec
+            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number> µS/cm`
+            : undefined}
+          ${logEntry?.ph
+            ? html`pH: <sl-format-number value=${logEntry.ph}></sl-format-number>`
+            : undefined}`,
         };
       default:
         return { icon: "" };
