@@ -14,8 +14,9 @@ export class PlantLog extends LitElement {
   static readonly styles = [
     css`
       :host {
+        display: flex;
+        flex-direction: column;
         flex: 1;
-        overflow: auto;
         min-height: 0;
       }
 
@@ -30,6 +31,12 @@ export class PlantLog extends LitElement {
       }
       .filters sl-select {
         flex: 0.3;
+      }
+
+      #entries {
+        flex: 1;
+        overflow: auto;
+        min-height: 0;
       }
     `,
   ];
@@ -105,21 +112,25 @@ export class PlantLog extends LitElement {
             )}</sl-select
         >
       </div>`,
-      filteredLog.slice(0, 100).map(
-        entry =>
-          html`<plant-log-entry
-            .plantDb=${this.plantStore?.plantDb}
-            .plant=${this.plantStore?.plantDb.plants.get(entry.plantId)}
-            .logEntry=${entry}
-            .headerVisible=${this.headerVisible}
-            @plant-badge-click=${() => {
-              this.plantStoreUi?.navigatePath(`/plant/${entry.plantId}`);
-            }}
-            @plant-body-click=${() => {
-              this.dispatchEvent(new CustomEvent<LogEntry>("plant-edit-entry", { detail: entry }));
-            }}
-          ></plant-log-entry>`
-      ),
+      html`<div id="entries">
+        ${filteredLog.slice(0, 100).map(
+          entry =>
+            html`<plant-log-entry
+              .plantDb=${this.plantStore?.plantDb}
+              .plant=${this.plantStore?.plantDb.plants.get(entry.plantId)}
+              .logEntry=${entry}
+              .headerVisible=${this.headerVisible}
+              @plant-badge-click=${() => {
+                this.plantStoreUi?.navigatePath(`/plant/${entry.plantId}`);
+              }}
+              @plant-body-click=${() => {
+                this.dispatchEvent(
+                  new CustomEvent<LogEntry>("plant-edit-entry", { detail: entry })
+                );
+              }}
+            ></plant-log-entry>`
+        )}
+      </div>`,
     ];
   }
 }
