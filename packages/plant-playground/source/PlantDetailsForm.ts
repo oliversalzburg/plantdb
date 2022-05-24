@@ -255,7 +255,8 @@ export class PlantDetailsForm extends LitElement {
             <sl-checkbox
               id="on-saucer-input"
               clearable
-              value=${this._plantOnSaucer}
+              ?checked=${this._plantOnSaucer}
+              ?indeterminate=${this._plantOnSaucer === undefined}
               @sl-input=${(event: InputEvent) =>
                 (this._plantOnSaucer = (event.target as SlCheckbox).checked)}
               >${t("plantEditor.onSaucerLabel")}</sl-checkbox
