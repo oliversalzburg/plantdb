@@ -15,7 +15,7 @@
   "types": "./typings/index.d.ts",
   "dependencies": {
     "csv-parse": "5.1.0",
-    "csv-stringify": "6.0.5",
+    "csv-stringify": "6.1.0",
     "luxon": "2.4.0"
   },
   "devDependencies": {
