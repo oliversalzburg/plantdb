@@ -26,6 +26,8 @@
     "firstEntry": "This is the first entry for this plant."
   },
   "plant": {
+    "add": "Add plant",
+    "edit": "Edit plant",
     "whenAdded": "Ajouté: {{when}}",
     "whenUpdated": "Dernière mise à jour : {{when}}",
     "whenInfested": "Infesté depuis: {{when}}",
@@ -97,5 +99,30 @@
     "ecPlaceholder": "1200",
     "phLabel": "pH",
     "phPlaceholder": "5.5"
+  },
+  "plantEditor": {
+    "idLabel": "Plant ID",
+    "idPlaceholder": "PID-12",
+    "nameLabel": "Name",
+    "namePlaceholder": "My favorite Plant",
+    "kindLabel": "Kind",
+    "kindPlaceholder": "Monstera deliciosa",
+    "substrateLabel": "Substrate",
+    "substratePlaceholder": "Soil",
+    "potShapeTopLabel": "Pot shape (top)",
+    "potShapeTopPlaceholder": "Round",
+    "potColorLabel": "Pot color",
+    "potColorPlaceholder": "Black",
+    "onSaucerLabel": "On saucer?",
+    "locationLabel": "Location",
+    "locationPlaceholder": "Living room",
+    "phIdealLabel": "pH ideal",
+    "phIdealPlaceholder": "5.5",
+    "ecIdealLabel": "EC ideal",
+    "ecIdealPlaceholder": "1200",
+    "tempIdealLabel": "Temp. ideal",
+    "tempIdealPlaceholder": "59",
+    "notesLabel": "Notes",
+    "notesPlaceholder": "Collected in the park"
   }
 }
