@@ -187,7 +187,7 @@ __metadata:
     "@types/source-map-support": ^0
     chai: 4.3.6
     csv-parse: 5.1.0
-    csv-stringify: 6.0.5
+    csv-stringify: 6.1.0
     luxon: 2.4.0
     mocha: 10.0.0
     source-map-support: 0.5.21
@@ -1080,10 +1080,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csv-stringify@npm:6.0.5":
-  version: 6.0.5
-  resolution: "csv-stringify@npm:6.0.5"
-  checksum: 2c4e5e60b9a8822b111df3ee29e1e936f1e462732aaa63d7474558810614bb39637083f21218ada4d613033a20242d20c625cce19829f1ca180559202ab9ccb8
+"csv-stringify@npm:6.1.0":
+  version: 6.1.0
+  resolution: "csv-stringify@npm:6.1.0"
+  checksum: 111ae51c5ecf9aab17f36775d18b1b2db64fb5593c195a69538a95459fee1a53ca67f0d0b37a1f763d76fdeb7e10991e1b6509b0511d9159d7dad4ff9d60718c
   languageName: node
   linkType: hard
 
