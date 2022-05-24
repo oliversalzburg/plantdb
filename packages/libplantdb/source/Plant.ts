@@ -75,19 +75,34 @@ export type PlantSerialized = {
   location?: string | Array<string>;
 
   /**
-   * The ideal pH value for this plant.
+   * The minimum pH value for this plant.
    */
-  phIdeal?: number;
+  phMin?: number;
 
   /**
-   * The ideal EC value for this plant.
+   * The maximum pH value for this plant.
    */
-  ecIdeal?: number;
+  phMax?: number;
 
   /**
-   * The ideal temperature for this plant.
+   * The minium EC value for this plant.
    */
-  tempIdeal?: number;
+  ecMin?: number;
+
+  /**
+   * The maximum EC value for this plant.
+   */
+  ecMax?: number;
+
+  /**
+   * The minimum temperature for this plant.
+   */
+  tempMin?: number;
+
+  /**
+   * The maximum temperature for this plant.
+   */
+  tempMax?: number;
 
   /**
    * Any notes about this plant.
@@ -100,15 +115,22 @@ export class Plant {
   #id: string;
   #name: string | undefined;
   #kind: string | Array<string> | undefined;
+  #location: string | Array<string> | undefined;
+  #notes: string | undefined;
+
+  // Pot
   #substrate: string | Array<string> | undefined;
   #potShapeTop: PotShapeTop | string | undefined;
   #potColor: PotColor | string | undefined;
   #onSaucer: boolean | undefined;
-  #location: string | Array<string> | undefined;
-  #phIdeal: number | undefined;
-  #ecIdeal: number | undefined;
-  #tempIdeal: number | undefined;
-  #notes: string | undefined;
+
+  // Diagnostics
+  #phMin: number | undefined;
+  #phMax: number | undefined;
+  #ecMin: number | undefined;
+  #ecMax: number | undefined;
+  #tempMin: number | undefined;
+  #tempMax: number | undefined;
 
   get plantDb() {
     return this.#plantDb;
@@ -146,16 +168,25 @@ export class Plant {
     return this.#location;
   }
 
-  get phIdeal() {
-    return this.#phIdeal;
+  get phMin() {
+    return this.#phMin;
+  }
+  get phMax() {
+    return this.#phMax;
   }
 
-  get ecIdeal() {
-    return this.#ecIdeal;
+  get ecMin() {
+    return this.#ecMin;
+  }
+  get ecMax() {
+    return this.#ecMax;
   }
 
-  get tempIdeal() {
-    return this.#tempIdeal;
+  get tempMin() {
+    return this.#tempMin;
+  }
+  get tempMax() {
+    return this.#tempMin;
   }
 
   get notes() {
@@ -195,9 +226,12 @@ export class Plant {
     plant.#potColor = initializer?.potColor ?? other.#potColor;
     plant.#onSaucer = initializer?.onSaucer ?? other.#onSaucer;
     plant.#location = initializer?.location ?? other.#location;
-    plant.#phIdeal = initializer?.phIdeal ?? other.#phIdeal;
-    plant.#ecIdeal = initializer?.ecIdeal ?? other.#ecIdeal;
-    plant.#tempIdeal = initializer?.tempIdeal ?? other.#tempIdeal;
+    plant.#phMin = initializer?.phMin ?? other.phMin;
+    plant.#phMax = initializer?.phMax ?? other.phMax;
+    plant.#ecMin = initializer?.ecMin ?? other.#ecMin;
+    plant.#ecMax = initializer?.ecMax ?? other.#ecMax;
+    plant.#tempMin = initializer?.tempMin ?? other.#tempMin;
+    plant.#tempMax = initializer?.tempMax ?? other.#tempMax;
     plant.#notes = initializer?.notes ?? other.#notes;
     return plant;
   }
@@ -226,10 +260,13 @@ export class Plant {
           ? dataRow[7].split("\n")
           : dataRow[7]
         : undefined;
-    plant.#phIdeal = dataRow[8] !== "" ? Number(dataRow[8]) : undefined;
-    plant.#ecIdeal = dataRow[9] !== "" ? Number(dataRow[9]) : undefined;
-    plant.#tempIdeal = dataRow[10] !== "" ? Number(dataRow[10]) : undefined;
-    plant.#notes = dataRow[11] !== "" ? dataRow[11] : undefined;
+    plant.#phMin = dataRow[8] !== "" ? Number(dataRow[8]) : undefined;
+    plant.#phMax = dataRow[9] !== "" ? Number(dataRow[9]) : undefined;
+    plant.#ecMin = dataRow[10] !== "" ? Number(dataRow[10]) : undefined;
+    plant.#ecMax = dataRow[11] !== "" ? Number(dataRow[11]) : undefined;
+    plant.#tempMin = dataRow[12] !== "" ? Number(dataRow[12]) : undefined;
+    plant.#tempMax = dataRow[13] !== "" ? Number(dataRow[13]) : undefined;
+    plant.#notes = dataRow[14] !== "" ? dataRow[14] : undefined;
     return plant;
   }
 
@@ -245,9 +282,12 @@ export class Plant {
       serialized.potColor,
       serialized.onSaucer === true ? "TRUE" : serialized.onSaucer === false ? "FALSE" : undefined,
       serialized.location,
-      serialized.phIdeal,
-      serialized.ecIdeal,
-      serialized.tempIdeal,
+      serialized.phMin,
+      serialized.phMax,
+      serialized.ecMin,
+      serialized.ecMax,
+      serialized.tempMin,
+      serialized.tempMax,
       serialized.notes,
     ];
   }
@@ -261,9 +301,12 @@ export class Plant {
     plant.#potColor = dataObject.potColor ?? plant.#potColor;
     plant.#onSaucer = dataObject.onSaucer ?? plant.#onSaucer;
     plant.#location = dataObject.location ?? plant.#location;
-    plant.#phIdeal = dataObject.phIdeal ?? plant.#phIdeal;
-    plant.#ecIdeal = dataObject.ecIdeal ?? plant.#ecIdeal;
-    plant.#tempIdeal = dataObject.tempIdeal ?? plant.#tempIdeal;
+    plant.#phMin = dataObject.phMin ?? plant.phMin;
+    plant.#phMax = dataObject.phMax ?? plant.phMax;
+    plant.#ecMin = dataObject.ecMin ?? plant.#ecMin;
+    plant.#ecMax = dataObject.ecMax ?? plant.#ecMax;
+    plant.#tempMin = dataObject.tempMin ?? plant.#tempMin;
+    plant.#tempMax = dataObject.tempMax ?? plant.#tempMax;
     plant.#notes = dataObject.notes ?? plant.#notes;
     return plant;
   }
@@ -282,18 +325,21 @@ export class Plant {
 
   toJSObject(): PlantSerialized {
     return {
-      id: this.id,
-      name: this.name,
-      kind: this.kind,
-      substrate: this.substrate,
-      potShapeTop: this.potShapeTop,
-      potColor: this.potColor,
-      onSaucer: this.onSaucer,
-      location: this.location,
-      phIdeal: this.phIdeal,
-      ecIdeal: this.ecIdeal,
-      tempIdeal: this.tempIdeal,
-      notes: this.notes,
+      id: this.#id,
+      name: this.#name,
+      kind: this.#kind,
+      substrate: this.#substrate,
+      potShapeTop: this.#potShapeTop,
+      potColor: this.#potColor,
+      onSaucer: this.#onSaucer,
+      location: this.#location,
+      phMin: this.#phMin,
+      phMax: this.#phMax,
+      ecMin: this.#ecMin,
+      ecMax: this.#ecMax,
+      tempMin: this.#tempMin,
+      tempMax: this.#tempMax,
+      notes: this.#notes,
     };
   }
 

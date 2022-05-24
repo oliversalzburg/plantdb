@@ -27,9 +27,12 @@ Aloe"	Mischsubstrat	Oval	Grey	FALSE	Wohnzimmer
     expect(plant.potColor).equals("Grey");
     expect(plant.onSaucer).equals(false);
     expect(plant.location).equals("Wohnzimmer");
-    expect(plant.phIdeal).equals(undefined);
-    expect(plant.ecIdeal).equals(undefined);
-    expect(plant.tempIdeal).equals(undefined);
+    expect(plant.phMin).equals(undefined);
+    expect(plant.phMax).equals(undefined);
+    expect(plant.ecMax).equals(undefined);
+    expect(plant.ecMin).equals(undefined);
+    expect(plant.tempMin).equals(undefined);
+    expect(plant.tempMax).equals(undefined);
     expect(plant.notes).equals(undefined);
 
     const exported = plantDb.toCSV(databaseFormat);

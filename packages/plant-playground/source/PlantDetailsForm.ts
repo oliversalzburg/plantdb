@@ -86,11 +86,17 @@ export class PlantDetailsForm extends LitElement {
   @state()
   private _plantLocation: Array<string> | string | undefined;
   @state()
-  private _plantPhIdeal: number | undefined;
+  private _plantPhMin: number | undefined;
   @state()
-  private _plantEcIdeal: number | undefined;
+  private _plantPhMax: number | undefined;
   @state()
-  private _plantTempIdeal: number | undefined;
+  private _plantEcMin: number | undefined;
+  @state()
+  private _plantEcMax: number | undefined;
+  @state()
+  private _plantTempMin: number | undefined;
+  @state()
+  private _plantTempMax: number | undefined;
   @state()
   private _plantNotes: string | undefined;
 
@@ -114,9 +120,12 @@ export class PlantDetailsForm extends LitElement {
     this._plantPotColor = this.plant?.potColor ?? this._plantPotColor;
     this._plantOnSaucer = this.plant?.onSaucer ?? this._plantOnSaucer;
     this._plantLocation = this.plant?.location ?? this._plantLocation;
-    this._plantPhIdeal = this.plant?.phIdeal ?? this._plantPhIdeal;
-    this._plantEcIdeal = this.plant?.ecIdeal ?? this._plantEcIdeal;
-    this._plantTempIdeal = this.plant?.tempIdeal ?? this._plantTempIdeal;
+    this._plantPhMin = this.plant?.phMin ?? this._plantPhMin;
+    this._plantPhMax = this.plant?.phMax ?? this._plantPhMax;
+    this._plantEcMin = this.plant?.ecMin ?? this._plantEcMin;
+    this._plantEcMax = this.plant?.ecMax ?? this._plantEcMax;
+    this._plantTempMin = this.plant?.tempMin ?? this._plantTempMin;
+    this._plantTempMax = this.plant?.tempMax ?? this._plantTempMax;
     this._plantNotes = this.plant?.notes ?? this._plantNotes;
   }
 
@@ -290,35 +299,68 @@ export class PlantDetailsForm extends LitElement {
           <div class="row">
             <sl-input
               type="number"
-              id="ph-ideal-input"
-              label=${t("plantEditor.phIdealLabel")}
-              placeholder=${t("plantEditor.phIdealPlaceholder")}
+              id="ph-min-input"
+              label=${t("plantEditor.phMinLabel")}
+              placeholder=${t("plantEditor.phMinPlaceholder")}
               clearable
-              value=${this._plantPhIdeal}
+              value=${this._plantPhMin}
               @sl-input=${(event: InputEvent) =>
-                (this._plantPhIdeal = (event.target as SlInput).valueAsNumber)}
+                (this._plantPhMin = (event.target as SlInput).valueAsNumber)}
+            ></sl-input>
+            <sl-input
+              type="number"
+              id="ph-max-input"
+              label=${t("plantEditor.phMaxLabel")}
+              placeholder=${t("plantEditor.phMaxPlaceholder")}
+              clearable
+              value=${this._plantPhMax}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantPhMax = (event.target as SlInput).valueAsNumber)}
             ></sl-input>
 
             <sl-input
               type="number"
-              id="ec-ideal-input"
-              label=${t("plantEditor.ecIdealLabel")}
-              placeholder=${t("plantEditor.ecIdealPlaceholder")}
+              id="ec-min-input"
+              label=${t("plantEditor.ecMinLabel")}
+              placeholder=${t("plantEditor.ecMinPlaceholder")}
               clearable
-              value=${this._plantEcIdeal}
+              value=${this._plantEcMin}
               @sl-input=${(event: InputEvent) =>
-                (this._plantEcIdeal = (event.target as SlInput).valueAsNumber)}
+                (this._plantEcMin = (event.target as SlInput).valueAsNumber)}
             ></sl-input>
-
             <sl-input
               type="number"
-              id="temp-ideal-input"
-              label=${t("plantEditor.tempIdealLabel")}
-              placeholder=${t("plantEditor.tempIdealPlaceholder")}
+              id="ec-max-input"
+              label=${t("plantEditor.ecMaxLabel")}
+              placeholder=${t("plantEditor.ecMaxPlaceholder")}
               clearable
-              value=${this._plantTempIdeal}
+              value=${this._plantEcMax}
               @sl-input=${(event: InputEvent) =>
-                (this._plantTempIdeal = (event.target as SlInput).valueAsNumber)}
+                (this._plantEcMax = (event.target as SlInput).valueAsNumber)}
+            ></sl-input>
+          </div>
+          <div class="spacer"></div>
+
+          <div class="row">
+            <sl-input
+              type="number"
+              id="temp-min-input"
+              label=${t("plantEditor.tempMinLabel")}
+              placeholder=${t("plantEditor.tempMinPlaceholder")}
+              clearable
+              value=${this._plantTempMin}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantTempMin = (event.target as SlInput).valueAsNumber)}
+            ></sl-input
+            ><sl-input
+              type="number"
+              id="temp-max-input"
+              label=${t("plantEditor.tempMaxLabel")}
+              placeholder=${t("plantEditor.tempMaxPlaceholder")}
+              clearable
+              value=${this._plantTempMax}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantTempMax = (event.target as SlInput).valueAsNumber)}
             ></sl-input></div
         ></sl-details>
         <div class="spacer"></div>
