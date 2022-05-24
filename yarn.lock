@@ -186,7 +186,7 @@ __metadata:
     "@types/mocha": 9.1.1
     "@types/source-map-support": ^0
     chai: 4.3.6
-    csv-parse: 5.0.4
+    csv-parse: 5.1.0
     csv-stringify: 6.0.5
     luxon: 2.4.0
     mocha: 10.0.0
@@ -1073,10 +1073,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csv-parse@npm:5.0.4":
-  version: 5.0.4
-  resolution: "csv-parse@npm:5.0.4"
-  checksum: 6f5519f5ad82169da31b25cf8fceaa1e68fb58baa7b12f4b587f1572aad7ef340e46b8f5a12718bed1a2b1693ef92c051c433b9a0259db3967efe2a112cfa609
+"csv-parse@npm:5.1.0":
+  version: 5.1.0
+  resolution: "csv-parse@npm:5.1.0"
+  checksum: 63a85f8a7b0df613e0c2039e3a62d3c3877f670952dc0c0dfc2ba642f5d8b5d33b1bfb6943c65bec5ea56bba39c3ae6d3b93cf649f436c3d6cc558aa98905653
   languageName: node
   linkType: hard
 
