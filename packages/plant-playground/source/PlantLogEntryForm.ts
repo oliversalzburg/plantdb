@@ -34,7 +34,7 @@ export class PlantLogEntryForm extends LitElement {
       .row {
         display: flex;
         flex-direction: row;
-        gap: 1rem;
+        column-gap: 1rem;
         align-items: center;
       }
       .row * {
@@ -83,8 +83,6 @@ export class PlantLogEntryForm extends LitElement {
   @query("#entry-form")
   private _entryForm: HTMLFormElement | null | undefined;
 
-  @query("#plant-input")
-  private _plantInput: SlInput | null | undefined;
   @query("#plant-dropdown")
   private _plantDrowndown: SlDropdown | null | undefined;
 

@@ -1,12 +1,13 @@
 import { Plant } from "@plantdb/libplantdb";
-import { SlCheckbox, SlInput, SlTextarea } from "@shoelace-style/shoelace";
+import { SlCheckbox, SlDropdown, SlInput, SlTextarea } from "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
+import { isNil } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
@@ -35,14 +36,22 @@ export class PlantDetailsForm extends LitElement {
       .row {
         display: flex;
         flex-direction: row;
-        gap: 1rem;
+        column-gap: 1rem;
+        align-items: center;
       }
       .row * {
         flex: 1;
         min-width: 0;
       }
-      .row sl-checkbox {
-        margin-top: 1.75rem;
+      .row .control {
+        display: flex;
+        flex-direction: column;
+      }
+      .row .control sl-checkbox {
+        margin-top: 1rem;
+      }
+      .row .control sl-dropdown {
+        flex: 0;
       }
 
       .warning {
@@ -65,7 +74,7 @@ export class PlantDetailsForm extends LitElement {
   @state()
   private _plantName: string | undefined;
   @state()
-  private _plantKind: string | undefined;
+  private _plantKind: Array<string> | string | undefined;
   @state()
   private _plantSubstrate: string | undefined;
   @state()
@@ -85,6 +94,15 @@ export class PlantDetailsForm extends LitElement {
   @state()
   private _plantNotes: string | undefined;
 
+  @query("#substrate-dropdown")
+  private _substrateDropdown: SlDropdown | null | undefined;
+  @query("#pot-shape-top-dropdown")
+  private _potShapeTopDropdown: SlDropdown | null | undefined;
+  @query("#pot-color-dropdown")
+  private _potColorDropdown: SlDropdown | null | undefined;
+  @query("#location-dropdown")
+  private _locationDropdown: SlDropdown | null | undefined;
+
   connectedCallback(): void {
     super.connectedCallback();
 
@@ -102,10 +120,12 @@ export class PlantDetailsForm extends LitElement {
     this._plantNotes = this.plant?.notes ?? this._plantNotes;
   }
 
-  asPlant() {}
+  asPlant() {
+    return null as Plant;
+  }
 
   render() {
-    if (!this.plant) {
+    if (isNil(this.plantStore)) {
       return;
     }
 
@@ -117,7 +137,7 @@ export class PlantDetailsForm extends LitElement {
         }}
       >
         <sl-input
-          id="input-id"
+          id="id-input"
           label=${t("plantEditor.idLabel")}
           placeholder=${t("plantEditor.idPlaceholder")}
           clearable
@@ -133,110 +153,205 @@ export class PlantDetailsForm extends LitElement {
               >`
             : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
         >
+        <div class="spacer"></div>
 
         <sl-input
-          id="input-name"
+          id="name-input"
           label=${t("plantEditor.nameLabel")}
           placeholder=${t("plantEditor.namePlaceholder")}
           clearable
           value=${this._plantName}
           @sl-input=${(event: InputEvent) => (this._plantName = (event.target as SlInput).value)}
         ></sl-input>
+        <div class="spacer"></div>
 
-        <sl-input
-          id="input-kind"
+        <plant-multi-value-editor
+          id="kind-input"
           label=${t("plantEditor.kindLabel")}
           placeholder=${t("plantEditor.kindPlaceholder")}
-          clearable
-          value=${this._plantKind}
-          @sl-input=${(event: InputEvent) => (this._plantKind = (event.target as SlInput).value)}
-        ></sl-input>
+          .suggestions=${[...this.plantStore.plantDb.kinds]}
+          .value=${this._plantKind}
+        ></plant-multi-value-editor>
+        <div class="spacer"></div>
 
         <sl-input
-          id="input-substrate"
+          id="substrate-input"
           label=${t("plantEditor.substrateLabel")}
           placeholder=${t("plantEditor.substratePlaceholder")}
           clearable
           value=${this._plantSubstrate}
+          @sl-focus=${() => this._substrateDropdown?.show()}
           @sl-input=${(event: InputEvent) =>
             (this._plantSubstrate = (event.target as SlInput).value)}
-        ></sl-input>
+        ></sl-input
+        ><sl-dropdown id="substrate-dropdown">
+          <sl-menu>
+            ${[...this.plantStore.plantDb.substrates]
+              .sort()
+              .filter(type =>
+                type.toLocaleLowerCase().includes(this._plantSubstrate?.toLocaleLowerCase() ?? "")
+              )
+              .map(
+                entry =>
+                  html`<sl-menu-item
+                    @click=${() => {
+                      this._plantSubstrate = entry;
+                    }}
+                    >${entry}</sl-menu-item
+                  >`
+              )}
+          </sl-menu>
+        </sl-dropdown>
+        <div class="spacer"></div>
 
         <div class="row">
-          <sl-input
-            id="input-pot-shape-top"
-            label=${t("plantEditor.potShapeTopLabel")}
-            placeholder=${t("plantEditor.potShapeTopPlaceholder")}
-            clearable
-            value=${this._plantPotShapeTop}
-            @sl-input=${(event: InputEvent) =>
-              (this._plantPotShapeTop = (event.target as SlInput).value)}
-          ></sl-input>
+          <div class="control">
+            <sl-input
+              id="pot-shape-top-input"
+              label=${t("plantEditor.potShapeTopLabel")}
+              placeholder=${t("plantEditor.potShapeTopPlaceholder")}
+              clearable
+              value=${this._plantPotShapeTop}
+              @sl-focus=${() => this._potShapeTopDropdown?.show()}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantPotShapeTop = (event.target as SlInput).value)}
+            ></sl-input
+            ><sl-dropdown id="pot-shape-top-dropdown">
+              <sl-menu>
+                ${[...this.plantStore.plantDb.potShapesTop]
+                  .sort()
+                  .filter(type =>
+                    type
+                      .toLocaleLowerCase()
+                      .includes(this._plantPotShapeTop?.toLocaleLowerCase() ?? "")
+                  )
+                  .map(
+                    entry =>
+                      html`<sl-menu-item
+                        @click=${() => {
+                          this._plantPotShapeTop = entry;
+                        }}
+                        >${entry}</sl-menu-item
+                      >`
+                  )}
+              </sl-menu>
+            </sl-dropdown>
+          </div>
 
-          <sl-input
-            id="input-pot-color"
-            label=${t("plantEditor.potColorLabel")}
-            placeholder=${t("plantEditor.potColorPlaceholder")}
-            clearable
-            value=${this._plantPotColor}
-            @sl-input=${(event: InputEvent) =>
-              (this._plantPotColor = (event.target as SlInput).value)}
-          ></sl-input>
+          <div class="control">
+            <sl-input
+              id="pot-color-input"
+              label=${t("plantEditor.potColorLabel")}
+              placeholder=${t("plantEditor.potColorPlaceholder")}
+              clearable
+              value=${this._plantPotColor}
+              @sl-focus=${() => this._potColorDropdown?.show()}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantPotColor = (event.target as SlInput).value)}
+            ></sl-input
+            ><sl-dropdown id="pot-color-dropdown">
+              <sl-menu>
+                ${[...this.plantStore.plantDb.potColors]
+                  .sort()
+                  .filter(type =>
+                    type
+                      .toLocaleLowerCase()
+                      .includes(this._plantPotColor?.toLocaleLowerCase() ?? "")
+                  )
+                  .map(
+                    entry =>
+                      html`<sl-menu-item
+                        @click=${() => {
+                          this._plantPotColor = entry;
+                        }}
+                        >${entry}</sl-menu-item
+                      >`
+                  )}
+              </sl-menu>
+            </sl-dropdown>
+          </div>
 
-          <sl-checkbox
-            id="input-on-saucer"
-            clearable
-            value=${this._plantOnSaucer}
-            @sl-input=${(event: InputEvent) =>
-              (this._plantOnSaucer = (event.target as SlCheckbox).checked)}
-            >${t("plantEditor.onSaucerLabel")}</sl-checkbox
-          >
+          <div class="control">
+            <sl-checkbox
+              id="on-saucer-input"
+              clearable
+              value=${this._plantOnSaucer}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantOnSaucer = (event.target as SlCheckbox).checked)}
+              >${t("plantEditor.onSaucerLabel")}</sl-checkbox
+            >
+          </div>
         </div>
+        <div class="spacer"></div>
 
         <sl-input
-          id="input-location"
+          id="location-input"
           label=${t("plantEditor.locationLabel")}
           placeholder=${t("plantEditor.locationPlaceholder")}
           clearable
           value=${this._plantLocation}
+          @sl-focus=${() => this._locationDropdown?.show()}
           @sl-input=${(event: InputEvent) =>
             (this._plantLocation = (event.target as SlInput).value)}
-        ></sl-input>
+        ></sl-input
+        ><sl-dropdown id="location-dropdown">
+          <sl-menu>
+            ${[...this.plantStore.plantDb.locations]
+              .sort()
+              .filter(type =>
+                type.toLocaleLowerCase().includes(this._plantLocation?.toLocaleLowerCase() ?? "")
+              )
+              .map(
+                entry =>
+                  html`<sl-menu-item
+                    @click=${() => {
+                      this._plantLocation = entry;
+                    }}
+                    >${entry}</sl-menu-item
+                  >`
+              )}
+          </sl-menu>
+        </sl-dropdown>
+        <div class="spacer"></div>
 
         <div class="row">
           <sl-input
-            id="input-ph-ideal"
+            type="number"
+            id="ph-ideal-input"
             label=${t("plantEditor.phIdealLabel")}
             placeholder=${t("plantEditor.phIdealPlaceholder")}
             clearable
             value=${this._plantPhIdeal}
             @sl-input=${(event: InputEvent) =>
-              (this._plantPhIdeal = (event.target as SlInput).value)}
+              (this._plantPhIdeal = (event.target as SlInput).valueAsNumber)}
           ></sl-input>
 
           <sl-input
-            id="input-ec-ideal"
+            type="number"
+            id="ec-ideal-input"
             label=${t("plantEditor.ecIdealLabel")}
             placeholder=${t("plantEditor.ecIdealPlaceholder")}
             clearable
             value=${this._plantEcIdeal}
             @sl-input=${(event: InputEvent) =>
-              (this._plantEcIdeal = (event.target as SlInput).value)}
+              (this._plantEcIdeal = (event.target as SlInput).valueAsNumber)}
           ></sl-input>
 
           <sl-input
-            id="input-temp-ideal"
+            type="number"
+            id="temp-ideal-input"
             label=${t("plantEditor.tempIdealLabel")}
             placeholder=${t("plantEditor.tempIdealPlaceholder")}
             clearable
             value=${this._plantTempIdeal}
             @sl-input=${(event: InputEvent) =>
-              (this._plantTempIdeal = (event.target as SlInput).value)}
+              (this._plantTempIdeal = (event.target as SlInput).valueAsNumber)}
           ></sl-input>
         </div>
+        <div class="spacer"></div>
 
         <sl-textarea
-          id="input-notes"
+          id="notes-input"
           label=${t("plantEditor.notesLabel")}
           placeholder=${t("plantEditor.notesPlaceholder")}
           value=${this._plantNotes}

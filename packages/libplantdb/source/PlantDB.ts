@@ -8,10 +8,27 @@ import { logToCSV, plantsToCSV } from "./Tools.js";
  * The main entrypoint of a PlantDB data collection.
  */
 export class PlantDB {
+  /**
+   * The configuration of this database.
+   */
   #config = new DatabaseFormat();
-  #plants = new Map<string, Plant>();
+
+  /**
+   * The core data structure, our log of entries with plant information.
+   */
   #log = new Array<LogEntry>();
+  /**
+   * Metadata to extend the log. This contains information about the plants themselves.
+   */
+  #plants = new Map<string, Plant>();
+
+  // Data caches to help construct UI workflows.
   #entryTypes = new Set<string>();
+  #kinds = new Set<string>();
+  #locations = new Set<string>();
+  #potColors = new Set<string>();
+  #potShapes = new Set<string>();
+  #substrates = new Set<string>();
   #usedProducts = new Set<string>();
 
   /**
@@ -42,6 +59,41 @@ export class PlantDB {
    */
   get entryTypes(): ReadonlySet<string> {
     return this.#entryTypes;
+  }
+
+  /**
+   * A cache of all the user-supplied plant kinds in the database.
+   */
+  get kinds(): ReadonlySet<string> {
+    return this.#kinds;
+  }
+
+  /**
+   * A cache of all the user-supplied locations in the database.
+   */
+  get locations(): ReadonlySet<string> {
+    return this.#locations;
+  }
+
+  /**
+   * A cache of all the user-supplied pot colors in the database.
+   */
+  get potColors(): ReadonlySet<string> {
+    return this.#potColors;
+  }
+
+  /**
+   * A cache of all the user-supplied pot shapes in the database.
+   */
+  get potShapesTop(): ReadonlySet<string> {
+    return this.#potShapes;
+  }
+
+  /**
+   * A cache of all the user-supplied substrates in the database.
+   */
+  get substrates(): ReadonlySet<string> {
+    return this.#substrates;
   }
 
   /**
@@ -164,27 +216,14 @@ export class PlantDB {
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
     plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
+    plantDb.#kinds = PlantDB.aggregateKinds(plantDb);
+    plantDb.#locations = PlantDB.aggregateLocations(plantDb);
+    plantDb.#potColors = PlantDB.aggregatePotColors(plantDb);
+    plantDb.#potShapes = PlantDB.aggregatePotShapes(plantDb);
+    plantDb.#substrates = PlantDB.aggregateSubstrates(plantDb);
     plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
 
     return plantDb;
-  }
-
-  private static aggregateEventTypes(plantDb: PlantDB) {
-    const eventTypes = new Set<string>();
-    for (const logEntry of plantDb.#log) {
-      eventTypes.add(logEntry.type);
-    }
-    return eventTypes;
-  }
-  private static aggregateProductsUsed(plantDb: PlantDB) {
-    const productsUsed = new Set<string>();
-    for (const logEntry of plantDb.#log) {
-      if (!logEntry.productUsed) {
-        continue;
-      }
-      productsUsed.add(logEntry.productUsed);
-    }
-    return productsUsed;
   }
 
   /**
@@ -232,6 +271,11 @@ export class PlantDB {
     }
 
     plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
+    plantDb.#kinds = PlantDB.aggregateKinds(plantDb);
+    plantDb.#locations = PlantDB.aggregateLocations(plantDb);
+    plantDb.#potColors = PlantDB.aggregatePotColors(plantDb);
+    plantDb.#potShapes = PlantDB.aggregatePotShapes(plantDb);
+    plantDb.#substrates = PlantDB.aggregateSubstrates(plantDb);
     plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
 
     return plantDb;
@@ -269,8 +313,85 @@ export class PlantDB {
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
     plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
+    plantDb.#kinds = PlantDB.aggregateKinds(plantDb);
+    plantDb.#locations = PlantDB.aggregateLocations(plantDb);
+    plantDb.#potColors = PlantDB.aggregatePotColors(plantDb);
+    plantDb.#potShapes = PlantDB.aggregatePotShapes(plantDb);
+    plantDb.#substrates = PlantDB.aggregateSubstrates(plantDb);
     plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
 
     return plantDb;
+  }
+
+  private static aggregateEventTypes(plantDb: PlantDB) {
+    const eventTypes = new Set<string>();
+    for (const logEntry of plantDb.#log) {
+      eventTypes.add(logEntry.type);
+    }
+    return eventTypes;
+  }
+  private static aggregateKinds(plantDb: PlantDB) {
+    const kinds = new Set<string>();
+    for (const plant of plantDb.#plants.values()) {
+      if (!plant.kind) {
+        continue;
+      }
+      if (Array.isArray(plant.kind)) {
+        plant.kind.forEach(kind => kinds.add(kind));
+      } else {
+        kinds.add(plant.kind);
+      }
+    }
+    return kinds;
+  }
+  private static aggregateLocations(plantDb: PlantDB) {
+    const locations = new Set<string>();
+    for (const plant of plantDb.#plants.values()) {
+      if (!plant.location) {
+        continue;
+      }
+      locations.add(plant.location);
+    }
+    return locations;
+  }
+  private static aggregatePotColors(plantDb: PlantDB) {
+    const potColors = new Set<string>();
+    for (const plant of plantDb.#plants.values()) {
+      if (!plant.potColor) {
+        continue;
+      }
+      potColors.add(plant.potColor);
+    }
+    return potColors;
+  }
+  private static aggregatePotShapes(plantDb: PlantDB) {
+    const potShapes = new Set<string>();
+    for (const plant of plantDb.#plants.values()) {
+      if (!plant.potShapeTop) {
+        continue;
+      }
+      potShapes.add(plant.potShapeTop);
+    }
+    return potShapes;
+  }
+  private static aggregateProductsUsed(plantDb: PlantDB) {
+    const productsUsed = new Set<string>();
+    for (const logEntry of plantDb.#log) {
+      if (!logEntry.productUsed) {
+        continue;
+      }
+      productsUsed.add(logEntry.productUsed);
+    }
+    return productsUsed;
+  }
+  private static aggregateSubstrates(plantDb: PlantDB) {
+    const substrates = new Set<string>();
+    for (const plant of plantDb.#plants.values()) {
+      if (!plant.substrate) {
+        continue;
+      }
+      substrates.add(plant.substrate);
+    }
+    return substrates;
   }
 }
