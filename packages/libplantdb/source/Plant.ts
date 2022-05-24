@@ -186,7 +186,7 @@ export class Plant {
     return this.#tempMin;
   }
   get tempMax() {
-    return this.#tempMin;
+    return this.#tempMax;
   }
 
   get notes() {
