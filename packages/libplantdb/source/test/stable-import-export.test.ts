@@ -45,7 +45,7 @@ describe("log", () => {
       hasHeaderRow: false,
       timezone: "Europe/Berlin",
     });
-    const plantLogDataRaw = "PID-5	22/05/2022 10:48	Messung		950µS/cm	5,4	";
+    const plantLogDataRaw = "PID-5	22/05/2022 10:48	Messung		950	5,4	";
     const plantDb = PlantDB.fromCSV(databaseFormat, "", plantLogDataRaw);
 
     expect(plantDb.plants.size).equals(1);

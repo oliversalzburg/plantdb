@@ -5,8 +5,9 @@ import HttpApi from "i18next-http-backend";
 import { html, LitElement, render } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
-import { LogEntry } from "packages/libplantdb/typings";
+import { LogEntry, Plant } from "packages/libplantdb/typings";
 import { assertExists } from "../Maybe";
+import { PlantDetailsForm } from "../PlantDetailsForm";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";
 import { PlantStore } from "./PlantStore";
 
@@ -248,6 +249,7 @@ export class PlantStoreUi extends LitElement {
     return new Promise<LogEntry | null>((resolve, reject) => {
       const dialog = Object.assign(document.createElement("sl-dialog"), {
         label: logEntry ? t("log.edit") : t("log.add"),
+        style: "--width: 80vw;",
       });
 
       render(
@@ -295,6 +297,57 @@ export class PlantStoreUi extends LitElement {
     });
   }
 
+  showPlantEditor(plantStore: PlantStore, plant?: Plant) {
+    return new Promise<Plant | null>((resolve, reject) => {
+      const dialog = Object.assign(document.createElement("sl-dialog"), {
+        label: plant ? t("plant.edit") : t("plant.add"),
+        style: "--width: 80vw;",
+      });
+
+      render(
+        html`<plant-details-form
+            id="details-form"
+            .plantStore=${plantStore}
+            .plantStoreUi=${this}
+            .plant=${plant}
+          ></plant-details-form>
+
+          <sl-button
+            slot="footer"
+            variant="primary"
+            @click=${() => {
+              const detailsForm = dialog.querySelector("#details-form") as PlantDetailsForm;
+              const plant = detailsForm.asPlant();
+
+              dialog
+                .hide()
+                .catch(console.error)
+                .finally(() => document.body.removeChild(dialog));
+
+              resolve(plant);
+            }}
+            >${t("save", { ns: "common" })}</sl-button
+          ><sl-button
+            slot="footer"
+            @click=${() => {
+              dialog
+                .hide()
+                .catch(console.error)
+                .finally(() => document.body.removeChild(dialog));
+
+              resolve(null);
+            }}
+            >${t("close", { ns: "common" })}</sl-button
+          >`,
+        dialog
+      );
+
+      document.body.appendChild(dialog);
+
+      dialog.show().catch(reject);
+    });
+  }
+
   async editLogEntry(logEntry: LogEntry) {
     assertExists(this.plantStore);
 
@@ -309,6 +362,30 @@ export class PlantStoreUi extends LitElement {
     const newDb = shouldDelete
       ? this.plantStore.plantDb.withoutLogEntry(logEntry)
       : this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, logEntry);
+
+    if (shouldDelete) {
+      void this.alert(t("log.entryDeleted"), "danger", "x-circle");
+    } else {
+      void this.alert(t("log.entryUpdate"));
+    }
+
+    this.plantStore.updatePlantDb(newDb);
+  }
+
+  async editPlant(plant: Plant) {
+    assertExists(this.plantStore);
+
+    console.debug(`Show details dialog for plant #${plant.id}`);
+    const updatedPlant = await this.showPlantEditor(this.plantStore, plant);
+    if (!updatedPlant) {
+      return;
+    }
+
+    const shouldDelete = updatedPlant.id === "";
+
+    const newDb = shouldDelete
+      ? this.plantStore.plantDb.withoutPlant(plant)
+      : this.plantStore.plantDb.withUpdatedPlant(updatedPlant, plant);
 
     if (shouldDelete) {
       void this.alert(t("log.entryDeleted"), "danger", "x-circle");

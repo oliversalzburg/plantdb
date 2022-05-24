@@ -11,6 +11,12 @@ import { mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
+export type PlantDetailsConnected = {
+  plantStore: PlantStore;
+  plantStoreUi: PlantStoreUi;
+  plant: Plant;
+} & PlantDetails;
+
 @customElement("plant-details")
 export class PlantDetails extends LitElement {
   static readonly styles = [
@@ -71,7 +77,11 @@ export class PlantDetails extends LitElement {
   @property({ type: Plant })
   plant: Plant | undefined;
 
-  plantDataAsCSV(plant: Plant) {
+  get cx(): PlantDetailsConnected {
+    return this as PlantDetailsConnected;
+  }
+
+  plantDataAsGraphCSV(plant: Plant) {
     const measurements = plant.log.filter(
       entry =>
         identifyLogType(entry.type, mustExist(this.plantStore).plantDb) === "Measurement" &&
@@ -95,7 +105,7 @@ export class PlantDetails extends LitElement {
       return;
     }
 
-    const plantDataCsv = this.plantDataAsCSV(this.plant);
+    const plantDataCsv = this.plantDataAsGraphCSV(this.plant);
 
     return html`<div class="top">
         <sl-card>
@@ -104,7 +114,13 @@ export class PlantDetails extends LitElement {
               ? html`<sl-tooltip content=${this.plant.location}
                   ><sl-icon name="geo-alt"></sl-icon
                 ></sl-tooltip>`
-              : undefined} <sl-badge variant="neutral">${this.plant.id}</sl-badge>
+              : undefined}
+            <sl-badge
+              variant="neutral"
+              @click=${() =>
+                this.cx.plantStoreUi.showPlantEditor(this.cx.plantStore, this.cx.plant)}
+              >${this.plant.id}</sl-badge
+            >
           </div>
           ${this.plant.name}
           <br />

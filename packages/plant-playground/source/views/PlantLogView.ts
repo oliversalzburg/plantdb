@@ -34,10 +34,6 @@ export class PlantLogView extends View {
       .or {
         margin: 1rem;
       }
-
-      #new-entry-dialog {
-        --width: 80vw;
-      }
     `,
   ];
 

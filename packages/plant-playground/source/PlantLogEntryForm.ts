@@ -17,36 +17,36 @@ export class PlantLogEntryForm extends LitElement {
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+      }
+
+      :host form {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         min-height: 50vh;
+      }
+
+      .spacer {
+        display: block;
+        margin-bottom: 1rem;
       }
 
       .row {
         display: flex;
         flex-direction: row;
         gap: 1rem;
+        align-items: center;
       }
       .row * {
         flex: 1;
         min-width: 0;
       }
+      .row sl-icon-button {
+        margin-top: 1.25rem;
+      }
 
       .warning {
         color: var(--sl-color-warning-500);
-      }
-
-      .date-time {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-        align-items: center;
-      }
-      .date-time sl-input {
-        flex: 1;
-        min-width: 0;
-      }
-      .date-time sl-icon-button {
-        margin-top: 1.25rem;
       }
     `,
   ];
@@ -96,6 +96,7 @@ export class PlantLogEntryForm extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
+
     this._plantName = this.logEntry?.plantId ?? this._plantName;
     this._entryType = this.logEntry?.type ?? this._entryType;
     this._date = this.logEntry?.timestamp.toISOString().slice(0, 10) ?? this._date;
@@ -175,6 +176,7 @@ export class PlantLogEntryForm extends LitElement {
             )}
           </sl-menu>
         </sl-dropdown>
+        <div class="spacer"></div>
 
         <sl-input
           label=${t("entryEditor.typeLabel")}
@@ -209,8 +211,9 @@ export class PlantLogEntryForm extends LitElement {
               )}
           </sl-menu></sl-dropdown
         >
+        <div class="spacer"></div>
 
-        <div class="date-time">
+        <div class="date-time row">
           <sl-input
             type="date"
             label=${t("entryEditor.dateLabel")}
@@ -237,14 +240,15 @@ export class PlantLogEntryForm extends LitElement {
             ></sl-icon-button
           ></sl-tooltip>
         </div>
+        <div class="spacer"></div>
 
-        <br />
         <sl-textarea
           label=${t("entryEditor.noteLabel")}
           placeholder=${t("entryEditor.notePlaceholder")}
           value=${this._note}
           @sl-change=${(event: MouseEvent) => (this._note = (event.target as SlTextarea).value)}
         ></sl-textarea>
+        <div class="spacer"></div>
 
         <h4>Details</h4>
         <sl-input
@@ -275,6 +279,8 @@ export class PlantLogEntryForm extends LitElement {
               )}
           </sl-menu></sl-dropdown
         >
+        <div class="spacer"></div>
+
         <div class="row">
           <sl-input
             type="number"
