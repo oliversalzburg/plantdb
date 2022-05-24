@@ -109,3 +109,39 @@ export const plantsFromCSV = (
 export const makePlantMap = (plants: ReadonlyArray<Plant>) => {
   return new Map(plants.map(plant => [plant.id, plant]));
 };
+
+export const tryParseFloat = (numberValue: string, databaseFormat = new DatabaseFormat()) => {
+  if (numberValue.includes(databaseFormat.decimalSeparator)) {
+    const parts = numberValue.split(databaseFormat.decimalSeparator);
+    if (parts.length !== 2) {
+      return undefined;
+    }
+    const partInteger = parts[0].replace(/[^0-9]/, "");
+    const partDecimal = parts[1].replace(/[^0-9]/, "");
+    return Number.parseFloat(`${partInteger}.${partDecimal}`);
+  }
+
+  if (Number.isNaN(+numberValue) || Number.isNaN(parseFloat(numberValue))) {
+    return undefined;
+  }
+
+  return Number.parseFloat(numberValue);
+};
+
+export const tryParseInt = (numberValue: string, databaseFormat = new DatabaseFormat()) => {
+  if (numberValue.includes(databaseFormat.decimalSeparator)) {
+    const parts = numberValue.split(databaseFormat.decimalSeparator);
+    if (parts.length !== 2) {
+      return undefined;
+    }
+    const partInteger = parts[0].replace(/[^0-9]/, "");
+    const partDecimal = parts[1].replace(/[^0-9]/, "");
+    return Number.parseInt(`${partInteger}.${partDecimal}`);
+  }
+
+  if (Number.isNaN(+numberValue) || Number.isNaN(parseFloat(numberValue))) {
+    return undefined;
+  }
+
+  return Number.parseInt(numberValue);
+};

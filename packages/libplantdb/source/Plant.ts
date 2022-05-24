@@ -1,7 +1,7 @@
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry } from "./LogEntry.js";
 import { PlantDB } from "./PlantDB.js";
-import { kindSummarize } from "./Tools.js";
+import { kindSummarize, tryParseFloat, tryParseInt } from "./Tools.js";
 
 /**
  * Matches a Plant ID.
@@ -260,12 +260,12 @@ export class Plant {
           ? dataRow[7].split("\n")
           : dataRow[7]
         : undefined;
-    plant.#phMin = dataRow[8] !== "" ? Number(dataRow[8]) : undefined;
-    plant.#phMax = dataRow[9] !== "" ? Number(dataRow[9]) : undefined;
-    plant.#ecMin = dataRow[10] !== "" ? Number(dataRow[10]) : undefined;
-    plant.#ecMax = dataRow[11] !== "" ? Number(dataRow[11]) : undefined;
-    plant.#tempMin = dataRow[12] !== "" ? Number(dataRow[12]) : undefined;
-    plant.#tempMax = dataRow[13] !== "" ? Number(dataRow[13]) : undefined;
+    plant.#phMin = dataRow[8] !== "" ? tryParseFloat(dataRow[8]) : undefined;
+    plant.#phMax = dataRow[9] !== "" ? tryParseFloat(dataRow[9]) : undefined;
+    plant.#ecMin = dataRow[10] !== "" ? tryParseInt(dataRow[10]) : undefined;
+    plant.#ecMax = dataRow[11] !== "" ? tryParseInt(dataRow[11]) : undefined;
+    plant.#tempMin = dataRow[12] !== "" ? tryParseFloat(dataRow[12]) : undefined;
+    plant.#tempMax = dataRow[13] !== "" ? tryParseFloat(dataRow[13]) : undefined;
     plant.#notes = dataRow[14] !== "" ? dataRow[14] : undefined;
     return plant;
   }

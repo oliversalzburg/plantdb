@@ -75,6 +75,7 @@ export type EventType = keyof typeof EventTypes;
 export type DatabaseFormatSerialized = {
   columnSeparator: string;
   dateFormat: string;
+  decimalSeparator: string;
   hasHeaderRow: boolean;
   timezone: string;
   typeMap: Record<string, EventType>;
@@ -86,6 +87,7 @@ export type DatabaseFormatSerialized = {
 export class DatabaseFormat {
   #columnSeparator = ",";
   #dateFormat = "yyyy-MM-dd HH:mm";
+  #decimalSeparator = ".";
   #hasHeaderRow = true;
   #timezone = "utc";
   #typeMap = new Map<string, EventType>();
@@ -104,6 +106,13 @@ export class DatabaseFormat {
    */
   get dateFormat() {
     return this.#dateFormat;
+  }
+
+  /**
+   * The character separating the integer from the decimal part in a number.
+   */
+  get decimalSeparator() {
+    return this.#decimalSeparator;
   }
 
   /**
@@ -152,6 +161,7 @@ export class DatabaseFormat {
     const format = new DatabaseFormat();
     format.#columnSeparator = other.#columnSeparator;
     format.#dateFormat = other.#dateFormat;
+    format.#decimalSeparator = other.#decimalSeparator;
     format.#hasHeaderRow = other.#hasHeaderRow;
     format.#timezone = other.#timezone;
     format.#typeMap = new Map(other.#typeMap);
@@ -168,6 +178,7 @@ export class DatabaseFormat {
     const format = new DatabaseFormat();
     format.#columnSeparator = data.columnSeparator ?? format.#columnSeparator;
     format.#dateFormat = data.dateFormat ?? format.#dateFormat;
+    format.#decimalSeparator = data.decimalSeparator ?? format.#decimalSeparator;
     format.#hasHeaderRow = data.hasHeaderRow ?? format.#hasHeaderRow;
     format.#timezone = data.timezone ?? format.#timezone;
 
@@ -195,6 +206,7 @@ export class DatabaseFormat {
     return {
       columnSeparator: this.columnSeparator,
       dateFormat: this.dateFormat,
+      decimalSeparator: this.decimalSeparator,
       hasHeaderRow: this.hasHeaderRow,
       timezone: this.timezone,
       typeMap: Object.fromEntries(this.typeMap),

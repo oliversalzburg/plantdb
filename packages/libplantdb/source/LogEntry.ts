@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { DatabaseFormat, EventType } from "./DatabaseFormat";
 import { PlantDB } from "./PlantDB";
+import { tryParseFloat, tryParseInt } from "./Tools";
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.
@@ -192,8 +193,8 @@ export class LogEntry {
       dataRow[2]
     );
     logEntry.#note = dataRow[3] !== "" ? dataRow[3] : undefined;
-    logEntry.#ec = LogEntry.tryParseEC(dataRow[4]);
-    logEntry.#ph = LogEntry.tryParsePh(dataRow[5]);
+    logEntry.#ec = tryParseInt(dataRow[4], plantDb.config);
+    logEntry.#ph = tryParseFloat(dataRow[5], plantDb.config);
     logEntry.#productUsed = dataRow[6] !== "" ? dataRow[6] : undefined;
 
     return logEntry;
@@ -210,30 +211,6 @@ export class LogEntry {
       serialized.ph,
       serialized.productUsed,
     ];
-  }
-
-  static tryParseEC(dataValue: string) {
-    if (dataValue.endsWith("µS/cm")) {
-      return Number.parseInt(dataValue.slice(0, dataValue.length - 5));
-    }
-
-    if (Number.isNaN(+dataValue) || Number.isNaN(Number.parseFloat(dataValue))) {
-      return undefined;
-    }
-
-    return Number.parseFloat(dataValue);
-  }
-
-  static tryParsePh(dataValue: string) {
-    if (dataValue.includes(",") && !dataValue.includes(".")) {
-      return Number(dataValue.replace(/,/, "."));
-    }
-
-    if (Number.isNaN(+dataValue) || Number.isNaN(parseFloat(dataValue))) {
-      return undefined;
-    }
-
-    return Number.parseFloat(dataValue);
   }
 
   static fromJSObject(plantDb: PlantDB, dataObject: LogEntrySerialized) {
