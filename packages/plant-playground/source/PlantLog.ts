@@ -86,6 +86,7 @@ export class PlantLog extends LitElement {
           placeholder=${t("placeholder.filter")}
           .value=${this.filter}
           @sl-input=${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}
+          clearable
         ></sl-input
         ><sl-select
           placeholder=${t("placeholder.eventFilter")}
