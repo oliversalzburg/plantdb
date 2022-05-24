@@ -193,6 +193,7 @@ export class Plant {
     plant.#substrate = initializer?.substrate ?? other.#substrate;
     plant.#potShapeTop = initializer?.potShapeTop ?? other.#potShapeTop;
     plant.#potColor = initializer?.potColor ?? other.#potColor;
+    plant.#onSaucer = initializer?.onSaucer ?? other.#onSaucer;
     plant.#location = initializer?.location ?? other.#location;
     plant.#phIdeal = initializer?.phIdeal ?? other.#phIdeal;
     plant.#ecIdeal = initializer?.ecIdeal ?? other.#ecIdeal;
