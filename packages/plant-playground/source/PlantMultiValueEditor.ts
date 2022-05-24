@@ -10,6 +10,12 @@ export class PlantMultiValueEditor extends LitElement {
         display: flex;
         flex-direction: column;
       }
+
+      .tags {
+        display: flex;
+        margin-top: 0.1rem;
+        gap: 0.1rem;
+      }
     `,
   ];
 
