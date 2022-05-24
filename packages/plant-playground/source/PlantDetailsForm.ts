@@ -84,7 +84,7 @@ export class PlantDetailsForm extends LitElement {
   @state()
   private _plantOnSaucer: boolean | undefined;
   @state()
-  private _plantLocation: string | undefined;
+  private _plantLocation: Array<string> | string | undefined;
   @state()
   private _plantPhIdeal: number | undefined;
   @state()
@@ -265,34 +265,13 @@ export class PlantDetailsForm extends LitElement {
         </div>
         <div class="spacer"></div>
 
-        <sl-input
+        <plant-multi-value-editor
           id="location-input"
           label=${t("plantEditor.locationLabel")}
           placeholder=${t("plantEditor.locationPlaceholder")}
-          clearable
-          value=${this._plantLocation}
-          @sl-focus=${() => this._locationDropdown?.show()}
-          @sl-input=${(event: InputEvent) =>
-            (this._plantLocation = (event.target as SlInput).value)}
-        ></sl-input
-        ><sl-dropdown id="location-dropdown">
-          <sl-menu>
-            ${[...this.plantStore.plantDb.locations]
-              .sort()
-              .filter(type =>
-                type.toLocaleLowerCase().includes(this._plantLocation?.toLocaleLowerCase() ?? "")
-              )
-              .map(
-                entry =>
-                  html`<sl-menu-item
-                    @click=${() => {
-                      this._plantLocation = entry;
-                    }}
-                    >${entry}</sl-menu-item
-                  >`
-              )}
-          </sl-menu>
-        </sl-dropdown>
+          .suggestions=${[...this.plantStore.plantDb.locations]}
+          .value=${this._plantLocation}
+        ></plant-multi-value-editor>
         <div class="spacer"></div>
 
         <div class="row">

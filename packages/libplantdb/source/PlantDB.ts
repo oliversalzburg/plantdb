@@ -377,7 +377,11 @@ export class PlantDB {
       if (!plant.location) {
         continue;
       }
-      locations.add(plant.location);
+      if (Array.isArray(plant.location)) {
+        plant.location.forEach(location => locations.add(location));
+      } else {
+        locations.add(plant.location);
+      }
     }
     return locations;
   }

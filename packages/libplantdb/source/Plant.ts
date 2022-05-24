@@ -72,7 +72,7 @@ export type PlantSerialized = {
   /**
    * The current location of the plant.
    */
-  location?: string;
+  location?: string | Array<string>;
 
   /**
    * The ideal pH value for this plant.
@@ -104,7 +104,7 @@ export class Plant {
   #potShapeTop: PotShapeTop | string | undefined;
   #potColor: PotColor | string | undefined;
   #onSaucer: boolean | undefined;
-  #location: string | undefined;
+  #location: string | Array<string> | undefined;
   #phIdeal: number | undefined;
   #ecIdeal: number | undefined;
   #tempIdeal: number | undefined;
@@ -211,11 +211,21 @@ export class Plant {
           ? dataRow[2].split("\n")
           : dataRow[2]
         : undefined;
-    plant.#substrate = dataRow[3] !== "" ? dataRow[3] : undefined;
+    plant.#substrate =
+      dataRow[3] !== ""
+        ? dataRow[3].includes("\n")
+          ? dataRow[3].split("\n")
+          : dataRow[3]
+        : undefined;
     plant.#potShapeTop = dataRow[4] !== "" ? dataRow[4] : undefined;
     plant.#potColor = dataRow[5] !== "" ? dataRow[5] : undefined;
     plant.#onSaucer = dataRow[6] === "TRUE" ? true : dataRow[6] === "FALSE" ? false : undefined;
-    plant.#location = dataRow[7] !== "" ? dataRow[7] : undefined;
+    plant.#location =
+      dataRow[7] !== ""
+        ? dataRow[7].includes("\n")
+          ? dataRow[7].split("\n")
+          : dataRow[7]
+        : undefined;
     plant.#phIdeal = dataRow[8] !== "" ? Number(dataRow[8]) : undefined;
     plant.#ecIdeal = dataRow[9] !== "" ? Number(dataRow[9]) : undefined;
     plant.#tempIdeal = dataRow[10] !== "" ? Number(dataRow[10]) : undefined;
@@ -230,7 +240,7 @@ export class Plant {
       serialized.id,
       serialized.name,
       Array.isArray(serialized.kind) ? serialized.kind.join("\n") : serialized.kind,
-      serialized.substrate,
+      Array.isArray(serialized.substrate) ? serialized.substrate.join("\n") : serialized.substrate,
       serialized.potShapeTop,
       serialized.potColor,
       serialized.onSaucer === true ? "TRUE" : serialized.onSaucer === false ? "FALSE" : undefined,
