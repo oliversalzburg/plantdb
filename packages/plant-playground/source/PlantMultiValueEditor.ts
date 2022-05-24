@@ -51,7 +51,7 @@ export class PlantMultiValueEditor extends LitElement {
       html`<sl-input
           id="input"
           label=${this.label}
-          placeholder=${this.placeholder}
+          placeholder=${Array.isArray(this.value) ? this.value.sort().join(", ") : this.placeholder}
           clearable
           value=${Array.isArray(this.value) ? this._nextValue : this.value}
           @sl-focus=${() => this._dropdown?.show()}

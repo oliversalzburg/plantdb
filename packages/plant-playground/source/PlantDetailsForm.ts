@@ -7,7 +7,7 @@ import "dygraphs/dist/dygraph.css";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { isNil } from "./Maybe";
+import { isNil, mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
@@ -76,7 +76,7 @@ export class PlantDetailsForm extends LitElement {
   @state()
   private _plantKind: Array<string> | string | undefined;
   @state()
-  private _plantSubstrate: string | undefined;
+  private _plantSubstrate: Array<string> | string | undefined;
   @state()
   private _plantPotShapeTop: string | undefined;
   @state()
@@ -121,7 +121,8 @@ export class PlantDetailsForm extends LitElement {
   }
 
   asPlant() {
-    return null as Plant;
+    const plant = mustExist(this.plantStore).plantDb.makeNewPlant(this._plantId);
+    return plant;
   }
 
   render() {
@@ -174,34 +175,13 @@ export class PlantDetailsForm extends LitElement {
         ></plant-multi-value-editor>
         <div class="spacer"></div>
 
-        <sl-input
+        <plant-multi-value-editor
           id="substrate-input"
           label=${t("plantEditor.substrateLabel")}
           placeholder=${t("plantEditor.substratePlaceholder")}
-          clearable
-          value=${this._plantSubstrate}
-          @sl-focus=${() => this._substrateDropdown?.show()}
-          @sl-input=${(event: InputEvent) =>
-            (this._plantSubstrate = (event.target as SlInput).value)}
-        ></sl-input
-        ><sl-dropdown id="substrate-dropdown">
-          <sl-menu>
-            ${[...this.plantStore.plantDb.substrates]
-              .sort()
-              .filter(type =>
-                type.toLocaleLowerCase().includes(this._plantSubstrate?.toLocaleLowerCase() ?? "")
-              )
-              .map(
-                entry =>
-                  html`<sl-menu-item
-                    @click=${() => {
-                      this._plantSubstrate = entry;
-                    }}
-                    >${entry}</sl-menu-item
-                  >`
-              )}
-          </sl-menu>
-        </sl-dropdown>
+          .suggestions=${[...this.plantStore.plantDb.substrates]}
+          .value=${this._plantSubstrate}
+        ></plant-multi-value-editor>
         <div class="spacer"></div>
 
         <div class="row">

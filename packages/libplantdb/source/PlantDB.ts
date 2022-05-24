@@ -2,7 +2,7 @@ import { parse } from "csv-parse/browser/esm/sync";
 import { DatabaseFormat, EventTypes } from "./DatabaseFormat.js";
 import { LogEntry, LogEntrySerialized } from "./LogEntry.js";
 import { Plant, PlantSerialized } from "./Plant.js";
-import { logToCSV, plantsToCSV } from "./Tools.js";
+import { logToCSV, makePlantMap, plantsToCSV } from "./Tools.js";
 
 /**
  * The main entrypoint of a PlantDB data collection.
@@ -157,8 +157,24 @@ export class PlantDB {
   }
 
   withoutLogEntry(logEntry: LogEntry) {
-    const plants = new Map(this.#plants);
     const log = [...this.#log.filter(entry => entry !== logEntry)];
+    const plants = new Map(this.#plants);
+
+    return PlantDB.fromPlantDB(this, { log, plants });
+  }
+
+  withUpdatedPlant(updatedPlant: Plant, oldPlant: Plant) {
+    const log = [...this.#log];
+    const plants = makePlantMap(
+      [...this.#plants.values(), updatedPlant].filter(subject => subject !== oldPlant)
+    );
+
+    return PlantDB.fromPlantDB(this, { log, plants });
+  }
+
+  withoutPlant(plant: Plant) {
+    const log = [...this.#log];
+    const plants = makePlantMap([...this.#plants.values()].filter(subject => subject !== plant));
 
     return PlantDB.fromPlantDB(this, { log, plants });
   }
@@ -176,18 +192,29 @@ export class PlantDB {
     timestamp: Date = new Date(),
     type: string = EventTypes.Observation
   ) {
-    const entry = new LogEntry(
-      this,
-      0 < this.#log.length
-        ? this.#log[this.#log.length - 1].sourceLine + 1
-        : this.#config.hasHeaderRow
-        ? 2
-        : 1,
+    const entry = LogEntry.fromJSObject(this, {
+      sourceLine:
+        0 < this.#log.length
+          ? this.#log[this.#log.length - 1].sourceLine + 1
+          : this.#config.hasHeaderRow
+          ? 2
+          : 1,
       plantId,
-      timestamp,
-      type
-    );
+      timestamp: timestamp.toISOString(),
+      type,
+    });
     return entry;
+  }
+
+  /**
+   * Creates a new plant that is to be added to the database.
+   *
+   * @param plantId The ID of the plant to create.
+   * @returns The created `Plant`.
+   */
+  makeNewPlant(plantId: string) {
+    const plant = Plant.fromJSObject(this, { id: plantId });
+    return plant;
   }
 
   /**
@@ -390,7 +417,11 @@ export class PlantDB {
       if (!plant.substrate) {
         continue;
       }
-      substrates.add(plant.substrate);
+      if (Array.isArray(plant.substrate)) {
+        plant.substrate.forEach(substrate => substrates.add(substrate));
+      } else {
+        substrates.add(plant.substrate);
+      }
     }
     return substrates;
   }

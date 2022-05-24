@@ -149,7 +149,7 @@ export class LogEntry {
    * @param timestamp The date/time the event was recorded.
    * @param type The type of event.
    */
-  constructor(
+  private constructor(
     plantDb: PlantDB,
     sourceLine: number,
     plantId: string,

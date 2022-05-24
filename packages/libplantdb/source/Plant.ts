@@ -52,7 +52,7 @@ export type PlantSerialized = {
   /**
    * The current substrate the plant is planted in.
    */
-  substrate?: string;
+  substrate?: string | Array<string>;
 
   /**
    * The shape of the pot, when viewed from above.
@@ -100,7 +100,7 @@ export class Plant {
   #id: string;
   #name: string | undefined;
   #kind: string | Array<string> | undefined;
-  #substrate: string | undefined;
+  #substrate: string | Array<string> | undefined;
   #potShapeTop: PotShapeTop | string | undefined;
   #potColor: PotColor | string | undefined;
   #onSaucer: boolean | undefined;
