@@ -176,138 +176,12 @@ export class PlantDetailsForm extends LitElement {
         <div class="spacer"></div>
 
         <plant-multi-value-editor
-          id="substrate-input"
-          label=${t("plantEditor.substrateLabel")}
-          placeholder=${t("plantEditor.substratePlaceholder")}
-          .suggestions=${[...this.plantStore.plantDb.substrates]}
-          .value=${this._plantSubstrate}
-        ></plant-multi-value-editor>
-        <div class="spacer"></div>
-
-        <div class="row">
-          <div class="control">
-            <sl-input
-              id="pot-shape-top-input"
-              label=${t("plantEditor.potShapeTopLabel")}
-              placeholder=${t("plantEditor.potShapeTopPlaceholder")}
-              clearable
-              value=${this._plantPotShapeTop}
-              @sl-focus=${() => this._potShapeTopDropdown?.show()}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantPotShapeTop = (event.target as SlInput).value)}
-            ></sl-input
-            ><sl-dropdown id="pot-shape-top-dropdown">
-              <sl-menu>
-                ${[...this.plantStore.plantDb.potShapesTop]
-                  .sort()
-                  .filter(type =>
-                    type
-                      .toLocaleLowerCase()
-                      .includes(this._plantPotShapeTop?.toLocaleLowerCase() ?? "")
-                  )
-                  .map(
-                    entry =>
-                      html`<sl-menu-item
-                        @click=${() => {
-                          this._plantPotShapeTop = entry;
-                        }}
-                        >${entry}</sl-menu-item
-                      >`
-                  )}
-              </sl-menu>
-            </sl-dropdown>
-          </div>
-
-          <div class="control">
-            <sl-input
-              id="pot-color-input"
-              label=${t("plantEditor.potColorLabel")}
-              placeholder=${t("plantEditor.potColorPlaceholder")}
-              clearable
-              value=${this._plantPotColor}
-              @sl-focus=${() => this._potColorDropdown?.show()}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantPotColor = (event.target as SlInput).value)}
-            ></sl-input
-            ><sl-dropdown id="pot-color-dropdown">
-              <sl-menu>
-                ${[...this.plantStore.plantDb.potColors]
-                  .sort()
-                  .filter(type =>
-                    type
-                      .toLocaleLowerCase()
-                      .includes(this._plantPotColor?.toLocaleLowerCase() ?? "")
-                  )
-                  .map(
-                    entry =>
-                      html`<sl-menu-item
-                        @click=${() => {
-                          this._plantPotColor = entry;
-                        }}
-                        >${entry}</sl-menu-item
-                      >`
-                  )}
-              </sl-menu>
-            </sl-dropdown>
-          </div>
-
-          <div class="control">
-            <sl-checkbox
-              id="on-saucer-input"
-              clearable
-              ?checked=${this._plantOnSaucer}
-              ?indeterminate=${this._plantOnSaucer === undefined}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantOnSaucer = (event.target as SlCheckbox).checked)}
-              >${t("plantEditor.onSaucerLabel")}</sl-checkbox
-            >
-          </div>
-        </div>
-        <div class="spacer"></div>
-
-        <plant-multi-value-editor
           id="location-input"
           label=${t("plantEditor.locationLabel")}
           placeholder=${t("plantEditor.locationPlaceholder")}
           .suggestions=${[...this.plantStore.plantDb.locations]}
           .value=${this._plantLocation}
         ></plant-multi-value-editor>
-        <div class="spacer"></div>
-
-        <div class="row">
-          <sl-input
-            type="number"
-            id="ph-ideal-input"
-            label=${t("plantEditor.phIdealLabel")}
-            placeholder=${t("plantEditor.phIdealPlaceholder")}
-            clearable
-            value=${this._plantPhIdeal}
-            @sl-input=${(event: InputEvent) =>
-              (this._plantPhIdeal = (event.target as SlInput).valueAsNumber)}
-          ></sl-input>
-
-          <sl-input
-            type="number"
-            id="ec-ideal-input"
-            label=${t("plantEditor.ecIdealLabel")}
-            placeholder=${t("plantEditor.ecIdealPlaceholder")}
-            clearable
-            value=${this._plantEcIdeal}
-            @sl-input=${(event: InputEvent) =>
-              (this._plantEcIdeal = (event.target as SlInput).valueAsNumber)}
-          ></sl-input>
-
-          <sl-input
-            type="number"
-            id="temp-ideal-input"
-            label=${t("plantEditor.tempIdealLabel")}
-            placeholder=${t("plantEditor.tempIdealPlaceholder")}
-            clearable
-            value=${this._plantTempIdeal}
-            @sl-input=${(event: InputEvent) =>
-              (this._plantTempIdeal = (event.target as SlInput).valueAsNumber)}
-          ></sl-input>
-        </div>
         <div class="spacer"></div>
 
         <sl-textarea
@@ -318,6 +192,136 @@ export class PlantDetailsForm extends LitElement {
           @sl-change=${(event: InputEvent) =>
             (this._plantNotes = (event.target as SlTextarea).value)}
         ></sl-textarea>
+        <div class="spacer"></div>
+
+        <sl-details summary="Pot details">
+          <plant-multi-value-editor
+            id="substrate-input"
+            label=${t("plantEditor.substrateLabel")}
+            placeholder=${t("plantEditor.substratePlaceholder")}
+            .suggestions=${[...this.plantStore.plantDb.substrates]}
+            .value=${this._plantSubstrate}
+          ></plant-multi-value-editor>
+          <div class="spacer"></div>
+
+          <div class="row">
+            <div class="control">
+              <sl-input
+                id="pot-shape-top-input"
+                label=${t("plantEditor.potShapeTopLabel")}
+                placeholder=${t("plantEditor.potShapeTopPlaceholder")}
+                clearable
+                value=${this._plantPotShapeTop}
+                @sl-focus=${() => this._potShapeTopDropdown?.show()}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantPotShapeTop = (event.target as SlInput).value)}
+              ></sl-input
+              ><sl-dropdown id="pot-shape-top-dropdown" hoist>
+                <sl-menu>
+                  ${[...this.plantStore.plantDb.potShapesTop]
+                    .sort()
+                    .filter(type =>
+                      type
+                        .toLocaleLowerCase()
+                        .includes(this._plantPotShapeTop?.toLocaleLowerCase() ?? "")
+                    )
+                    .map(
+                      entry =>
+                        html`<sl-menu-item
+                          @click=${() => {
+                            this._plantPotShapeTop = entry;
+                          }}
+                          >${entry}</sl-menu-item
+                        >`
+                    )}
+                </sl-menu>
+              </sl-dropdown>
+            </div>
+
+            <div class="control">
+              <sl-input
+                id="pot-color-input"
+                label=${t("plantEditor.potColorLabel")}
+                placeholder=${t("plantEditor.potColorPlaceholder")}
+                clearable
+                value=${this._plantPotColor}
+                @sl-focus=${() => this._potColorDropdown?.show()}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantPotColor = (event.target as SlInput).value)}
+              ></sl-input
+              ><sl-dropdown id="pot-color-dropdown" hoist>
+                <sl-menu>
+                  ${[...this.plantStore.plantDb.potColors]
+                    .sort()
+                    .filter(type =>
+                      type
+                        .toLocaleLowerCase()
+                        .includes(this._plantPotColor?.toLocaleLowerCase() ?? "")
+                    )
+                    .map(
+                      entry =>
+                        html`<sl-menu-item
+                          @click=${() => {
+                            this._plantPotColor = entry;
+                          }}
+                          >${entry}</sl-menu-item
+                        >`
+                    )}
+                </sl-menu>
+              </sl-dropdown>
+            </div>
+
+            <div class="control">
+              <sl-checkbox
+                id="on-saucer-input"
+                clearable
+                ?checked=${this._plantOnSaucer}
+                ?indeterminate=${this._plantOnSaucer === undefined}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantOnSaucer = (event.target as SlCheckbox).checked)}
+                >${t("plantEditor.onSaucerLabel")}</sl-checkbox
+              >
+            </div>
+          </div>
+        </sl-details>
+        <div class="spacer"></div>
+
+        <sl-details summary="Diagnostics">
+          <div class="row">
+            <sl-input
+              type="number"
+              id="ph-ideal-input"
+              label=${t("plantEditor.phIdealLabel")}
+              placeholder=${t("plantEditor.phIdealPlaceholder")}
+              clearable
+              value=${this._plantPhIdeal}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantPhIdeal = (event.target as SlInput).valueAsNumber)}
+            ></sl-input>
+
+            <sl-input
+              type="number"
+              id="ec-ideal-input"
+              label=${t("plantEditor.ecIdealLabel")}
+              placeholder=${t("plantEditor.ecIdealPlaceholder")}
+              clearable
+              value=${this._plantEcIdeal}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantEcIdeal = (event.target as SlInput).valueAsNumber)}
+            ></sl-input>
+
+            <sl-input
+              type="number"
+              id="temp-ideal-input"
+              label=${t("plantEditor.tempIdealLabel")}
+              placeholder=${t("plantEditor.tempIdealPlaceholder")}
+              clearable
+              value=${this._plantTempIdeal}
+              @sl-input=${(event: InputEvent) =>
+                (this._plantTempIdeal = (event.target as SlInput).valueAsNumber)}
+            ></sl-input></div
+        ></sl-details>
+        <div class="spacer"></div>
       </form>`,
     ];
   }

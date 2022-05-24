@@ -42,6 +42,7 @@ export class PlantLogEntryForm extends LitElement {
         min-width: 0;
       }
       .row sl-icon-button {
+        flex: 0.1;
         margin-top: 1.25rem;
       }
 
@@ -159,7 +160,7 @@ export class PlantLogEntryForm extends LitElement {
                 >${t("entryEditor.plantHelpDeleteWarn")}</small
               >`
             : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
-        ><sl-dropdown id="plant-dropdown">
+        ><sl-dropdown id="plant-dropdown" hoist>
           <sl-menu>
             ${[...this.plantStore.searchPlants(this._plantName)].slice(0, 8).map(
               plant =>
@@ -191,7 +192,7 @@ export class PlantLogEntryForm extends LitElement {
                 >${t("entryEditor.typeHelpDeleteWarn")}</small
               >`
             : undefined}</sl-input
-        ><sl-dropdown id="type-dropdown">
+        ><sl-dropdown id="type-dropdown" hoist>
           <sl-menu>
             ${[...this.plantStore.plantDb.entryTypes]
               .sort()
@@ -257,7 +258,7 @@ export class PlantLogEntryForm extends LitElement {
           @sl-focus=${() => this._productDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._productUsed = (event.target as SlInput).value)}
         ></sl-input
-        ><sl-dropdown id="product-dropdown">
+        ><sl-dropdown id="product-dropdown" hoist>
           <sl-menu>
             ${[...this.plantStore.plantDb.usedProducts]
               .sort()

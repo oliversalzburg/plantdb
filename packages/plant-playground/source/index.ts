@@ -1,6 +1,7 @@
 import "@shoelace-style/shoelace/dist/components/alert/alert";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/checkbox/checkbox";
+import "@shoelace-style/shoelace/dist/components/details/details";
 import "@shoelace-style/shoelace/dist/components/dialog/dialog";
 import "@shoelace-style/shoelace/dist/components/divider/divider";
 import "@shoelace-style/shoelace/dist/components/drawer/drawer";
