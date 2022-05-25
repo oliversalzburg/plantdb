@@ -93,47 +93,52 @@ export class PlantMultiValueEditor extends LitElement {
                   this._nextValue = undefined;
                 }}
               ></sl-icon-button>`}</sl-input
-        ><sl-dropdown id="dropdown" hoist>
-          <sl-menu>
-            ${this._nextValue
-              ? html`<sl-button size="small" variant="primary" @click=${() => this._addNextValue()}
-                  ><sl-icon slot="prefix" name="plus"></sl-icon>${this._nextValue}</sl-button
-                >`
-              : undefined}
-            ${(this.suggestions ?? [])
-              .filter(suggestion => {
-                // Don't show existing values
-                if (Array.isArray(this.value) && this.value.includes(suggestion)) {
-                  return false;
-                }
+        >${Array.isArray(this.suggestions) && this.suggestions.length
+          ? html`<sl-dropdown id="dropdown" hoist>
+              <sl-menu>
+                ${this._nextValue
+                  ? html`<sl-button
+                      size="small"
+                      variant="primary"
+                      @click=${() => this._addNextValue()}
+                      ><sl-icon slot="prefix" name="plus"></sl-icon>${this._nextValue}</sl-button
+                    >`
+                  : undefined}
+                ${(this.suggestions ?? [])
+                  .filter(suggestion => {
+                    // Don't show existing values
+                    if (Array.isArray(this.value) && this.value.includes(suggestion)) {
+                      return false;
+                    }
 
-                return suggestion
-                  .toLocaleLowerCase()
-                  .includes(
-                    (
-                      this._nextValue ??
-                      (Array.isArray(this.value) ? "" : this.value) ??
-                      ""
-                    ).toLocaleLowerCase()
-                  );
-              })
-              .sort()
-              .slice(0, 10)
-              .map(
-                entry =>
-                  html`<sl-menu-item
-                    @click=${() => {
-                      if (Array.isArray(this.value)) {
-                        this._nextValue = entry;
-                      } else {
-                        this.value = entry;
-                      }
-                    }}
-                    >${entry}</sl-menu-item
-                  >`
-              )}
-          </sl-menu>
-        </sl-dropdown>
+                    return suggestion
+                      .toLocaleLowerCase()
+                      .includes(
+                        (
+                          this._nextValue ??
+                          (Array.isArray(this.value) ? "" : this.value) ??
+                          ""
+                        ).toLocaleLowerCase()
+                      );
+                  })
+                  .sort()
+                  .slice(0, 10)
+                  .map(
+                    entry =>
+                      html`<sl-menu-item
+                        @click=${() => {
+                          if (Array.isArray(this.value)) {
+                            this._nextValue = entry;
+                          } else {
+                            this.value = entry;
+                          }
+                        }}
+                        >${entry}</sl-menu-item
+                      >`
+                  )}
+              </sl-menu>
+            </sl-dropdown>`
+          : undefined}
         ${Array.isArray(this.value)
           ? html`<div class="tags">
               ${this._nextValue
