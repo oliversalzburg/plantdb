@@ -129,6 +129,10 @@
     "tempMaxLabel": "Temp. max. (°F)",
     "tempMaxPlaceholder": "89",
     "notesLabel": "Notes",
-    "notesPlaceholder": "Collected in the park"
+    "notesPlaceholder": "Collected in the park",
+    "plantgeekLabel": "plantgeek ID",
+    "detailsPot": "Pot details",
+    "detailsDiagnostics": "Diagnostics",
+    "detailsExternals": "Externals"
   }
 }
