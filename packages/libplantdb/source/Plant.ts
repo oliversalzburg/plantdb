@@ -45,12 +45,12 @@ export type PlantSerialized = {
   name?: string;
 
   /**
-   * The kind (or kinds) of the plant.
+   * The kind(s) of the plant.
    */
   kind?: string | Array<string>;
 
   /**
-   * The current substrate the plant is planted in.
+   * The current substrate(s) the plant is planted in.
    */
   substrate?: string | Array<string>;
 
@@ -108,6 +108,11 @@ export type PlantSerialized = {
    * Any notes about this plant.
    */
   notes?: string;
+
+  /**
+   * ID(s) of plant(s) on plantgeek.co that provide more information about this plant.
+   */
+  plantGeekId?: string | Array<string>;
 };
 
 export class Plant {
@@ -131,6 +136,9 @@ export class Plant {
   #ecMax: number | undefined;
   #tempMin: number | undefined;
   #tempMax: number | undefined;
+
+  // Externals
+  #plantGeekId: string | Array<string> | undefined;
 
   get plantDb() {
     return this.#plantDb;
@@ -193,6 +201,10 @@ export class Plant {
     return this.#notes;
   }
 
+  get plantGeekId() {
+    return this.#plantGeekId;
+  }
+
   get log() {
     return this.#plantDb.log.filter(logEntry => logEntry.plantId === this.id) ?? [];
   }
@@ -233,6 +245,7 @@ export class Plant {
     plant.#tempMin = initializer?.tempMin ?? other.#tempMin;
     plant.#tempMax = initializer?.tempMax ?? other.#tempMax;
     plant.#notes = initializer?.notes ?? other.#notes;
+    plant.#plantGeekId = initializer?.plantGeekId ?? other.#plantGeekId;
     return plant;
   }
 
@@ -267,6 +280,12 @@ export class Plant {
     plant.#tempMin = dataRow[12] !== "" ? tryParseFloat(dataRow[12]) : undefined;
     plant.#tempMax = dataRow[13] !== "" ? tryParseFloat(dataRow[13]) : undefined;
     plant.#notes = dataRow[14] !== "" ? dataRow[14] : undefined;
+    plant.#plantGeekId =
+      dataRow[15] !== ""
+        ? dataRow[15].includes("\n")
+          ? dataRow[15].split("\n")
+          : dataRow[15]
+        : undefined;
     return plant;
   }
 
@@ -289,6 +308,7 @@ export class Plant {
       serialized.tempMin,
       serialized.tempMax,
       serialized.notes,
+      serialized.plantGeekId,
     ];
   }
 
@@ -308,6 +328,7 @@ export class Plant {
     plant.#tempMin = dataObject.tempMin ?? plant.#tempMin;
     plant.#tempMax = dataObject.tempMax ?? plant.#tempMax;
     plant.#notes = dataObject.notes ?? plant.#notes;
+    plant.#plantGeekId = dataObject.plantGeekId ?? plant.#plantGeekId;
     return plant;
   }
 
@@ -340,6 +361,7 @@ export class Plant {
       tempMin: this.#tempMin,
       tempMax: this.#tempMax,
       notes: this.#notes,
+      plantGeekId: this.#plantGeekId,
     };
   }
 
