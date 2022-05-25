@@ -99,6 +99,8 @@ export class PlantDetailsForm extends LitElement {
   private _plantTempMax: number | undefined;
   @state()
   private _plantNotes: string | undefined;
+  @state()
+  private _plantPlantgeekId: Array<string> | string | undefined;
 
   @query("#substrate-dropdown")
   private _substrateDropdown: SlDropdown | null | undefined;
@@ -127,6 +129,7 @@ export class PlantDetailsForm extends LitElement {
     this._plantTempMin = this.plant?.tempMin ?? this._plantTempMin;
     this._plantTempMax = this.plant?.tempMax ?? this._plantTempMax;
     this._plantNotes = this.plant?.notes ?? this._plantNotes;
+    this._plantPlantgeekId = this.plant?.plantGeekId ?? this._plantPlantgeekId;
   }
 
   asPlant() {
@@ -203,7 +206,7 @@ export class PlantDetailsForm extends LitElement {
         ></sl-textarea>
         <div class="spacer"></div>
 
-        <sl-details summary="Pot details">
+        <sl-details summary=${t("plantEditor.detailsPot")}>
           <plant-multi-value-editor
             id="substrate-input"
             label=${t("plantEditor.substrateLabel")}
@@ -295,7 +298,7 @@ export class PlantDetailsForm extends LitElement {
         </sl-details>
         <div class="spacer"></div>
 
-        <sl-details summary="Diagnostics">
+        <sl-details summary=${t("plantEditor.detailsDiagnostics")}>
           <div class="row">
             <sl-input
               type="number"
@@ -364,6 +367,15 @@ export class PlantDetailsForm extends LitElement {
             ></sl-input></div
         ></sl-details>
         <div class="spacer"></div>
+
+        <sl-details summary=${t("plantEditor.detailsExternals")}>
+          <plant-multi-value-editor
+            id="plantgeek-input"
+            label=${t("plantEditor.plantgeekLabel")}
+            placeholder="62060b1d6b98d32724f806ed"
+            .value=${this._plantPlantgeekId}
+          ></plant-multi-value-editor>
+        </sl-details>
       </form>`,
     ];
   }
