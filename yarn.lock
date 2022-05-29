@@ -69,19 +69,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/core@npm:^0.5.0":
-  version: 0.5.1
-  resolution: "@floating-ui/core@npm:0.5.1"
-  checksum: 96f639c4b6b46557e7301430ec16f1c4c1a41537ecd2551f2e724b5fdd4a519387831ba96b64cc98535ec3c732c56739a0f59b8baff6524c5fde44848271a51f
+"@floating-ui/core@npm:^0.7.2":
+  version: 0.7.2
+  resolution: "@floating-ui/core@npm:0.7.2"
+  checksum: c40b486f6d26f9784a4187a250e871c2864770467651814b4317a61c357fefef2d80b70f7dfc73bf154a3ac51a001fd091e031dedf7b6dfae5d6770cb6a4003f
   languageName: node
   linkType: hard
 
-"@floating-ui/dom@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@floating-ui/dom@npm:0.3.1"
+"@floating-ui/dom@npm:^0.5.1":
+  version: 0.5.2
+  resolution: "@floating-ui/dom@npm:0.5.2"
   dependencies:
-    "@floating-ui/core": ^0.5.0
-  checksum: a2d8c5ad7b72d2ab8cb844529a621b38a112217f480ae89e14bf8c28b2b96ff221abffda187a382cbb48dd36a5ba69e41c060f64c412094ffabd50b93beee143
+    "@floating-ui/core": ^0.7.2
+  checksum: db1925125db4ff274298a5ff51a321fcacdced1fcab4c6ae38026b53d8a03579e24b9b6dc84a442b15ef6c74a580f404557eed59a92c2f217eb1a08ea63459a3
   languageName: node
   linkType: hard
 
@@ -110,7 +110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/react@npm:^1.0.2":
+"@lit-labs/react@npm:^1.0.4":
   version: 1.0.4
   resolution: "@lit-labs/react@npm:1.0.4"
   checksum: dda75ec62640661b3c28fbf7f4d5d0f7ab54f0e9efd119f6abd4f1fd0c646bcdaa8c763d2806c170fd62469f838e2da82517a5922e4447e0955a01f42d4e993b
@@ -219,7 +219,7 @@ __metadata:
   resolution: "@plantdb/plant-playground@workspace:packages/plant-playground"
   dependencies:
     "@plantdb/libplantdb": "workspace:*"
-    "@shoelace-style/shoelace": 2.0.0-beta.73
+    "@shoelace-style/shoelace": 2.0.0-beta.74
     "@types/dygraphs": 2.1.4
     "@types/lunr": 2.3.4
     "@types/web": 0.0.67
@@ -253,18 +253,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shoelace-style/shoelace@npm:2.0.0-beta.73":
-  version: 2.0.0-beta.73
-  resolution: "@shoelace-style/shoelace@npm:2.0.0-beta.73"
+"@shoelace-style/shoelace@npm:2.0.0-beta.74":
+  version: 2.0.0-beta.74
+  resolution: "@shoelace-style/shoelace@npm:2.0.0-beta.74"
   dependencies:
-    "@floating-ui/dom": ^0.3.1
-    "@lit-labs/react": ^1.0.2
+    "@floating-ui/dom": ^0.5.1
+    "@lit-labs/react": ^1.0.4
     "@shoelace-style/animations": ^1.1.0
     "@shoelace-style/localize": ^2.1.3
     color: 4.2
-    lit: ^2.1.4
+    lit: ^2.2.5
     qr-creator: ^1.0.0
-  checksum: 893f0ed64ee136b20203888e410057ace53a9ddef4bb958ac6f6c7bd61ac352d2a492ef74b803b1c22658ab84e872ad9b394e7d7216489fe06612549babb2b50
+  checksum: 487f04bcd3f9daf0ba2e86486e986fecd21d579ec9c29535610dcb67ec8038c071093958460858eac292ce533dc9c87b110151e8b57b9e5356c1f11ccf727e08
   languageName: node
   linkType: hard
 
@@ -2367,7 +2367,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:2.2.5, lit@npm:^2.1.4":
+"lit@npm:2.2.5, lit@npm:^2.2.5":
   version: 2.2.5
   resolution: "lit@npm:2.2.5"
   dependencies:
