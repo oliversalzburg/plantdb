@@ -17,7 +17,7 @@
     "dygraphs": "2.1.0",
     "i18next": "21.8.5",
     "i18next-browser-languagedetector": "6.1.4",
-    "i18next-http-backend": "1.4.0",
+    "i18next-http-backend": "1.4.1",
     "lit": "2.2.5",
     "lit-i18n": "3.0.2",
     "lunr": "2.3.9",
