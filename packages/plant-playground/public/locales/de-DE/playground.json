@@ -132,9 +132,9 @@
     "tempMaxPlaceholder": "32",
     "notesLabel": "Notizen",
     "notesPlaceholder": "Im Park gesammelt",
-    "plantgeekLabel": "plantgeek ID",
+    "plantgeekLabel": "plantgeek Identifikation",
     "detailsPot": "Topfdetails",
-    "detailsDiagnostics": "Diagnostics",
-    "detailsExternals": "Externals"
+    "detailsDiagnostics": "Diagnose",
+    "detailsExternals": "Äußerlichkeiten"
   }
 }
