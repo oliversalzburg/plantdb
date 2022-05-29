@@ -193,8 +193,8 @@ export class LogEntry {
       dataRow[2]
     );
     logEntry.#note = dataRow[3] !== "" ? dataRow[3] : undefined;
-    logEntry.#ec = tryParseInt(dataRow[4], plantDb.config);
-    logEntry.#ph = tryParseFloat(dataRow[5], plantDb.config);
+    logEntry.#ec = tryParseInt(dataRow[4], format);
+    logEntry.#ph = tryParseFloat(dataRow[5], format);
     logEntry.#productUsed = dataRow[6] !== "" ? dataRow[6] : undefined;
 
     return logEntry;

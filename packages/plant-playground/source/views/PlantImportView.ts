@@ -58,13 +58,14 @@ export class PlantImportView extends View {
     const plantDbConfig = DatabaseFormat.fromJSObject({
       columnSeparator: this.config.columnSeparator,
       dateFormat: this.config.dateFormat,
+      decimalSeparator: this.config.decimalSeparator,
       hasHeaderRow: this.config.hasHeaderRow,
       timezone: this.config.timezone,
       typeMap: Object.fromEntries(this.plantStore.plantDb.config.typeMap),
     } as DatabaseFormatSerialized);
 
     // Temporary DB to hold constructed data.
-    let plantDb = new PlantDB();
+    let plantDb = PlantDB.fromJSObjects(plantDbConfig);
 
     const plants = plantDataRaw
       ? plantsFromCSV(plantDb, plantDataRaw, plantDbConfig)
@@ -116,6 +117,7 @@ export class PlantImportView extends View {
           .plantLogData=${this.plantLogData}
           .hasHeaderRow=${this.config.hasHeaderRow}
           .columnSeparator=${this.config.columnSeparator}
+          .decimalSeparator=${this.config.decimalSeparator}
           .dateFormat=${this.config.dateFormat}
           .timezone=${this.config.timezone}
           @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) =>

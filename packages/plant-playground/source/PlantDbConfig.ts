@@ -21,6 +21,9 @@ export class PlantDbConfig extends LitElement {
   @property()
   dateFormat = "yyyy-MM-dd HH:mm";
 
+  @property()
+  decimalSeparator = ".";
+
   @property({ type: Boolean })
   hasHeaderRow = true;
 
@@ -31,6 +34,7 @@ export class PlantDbConfig extends LitElement {
     return DatabaseFormat.fromJSObject({
       columnSeparator: this.columnSeparator,
       dateFormat: this.dateFormat,
+      decimalSeparator: this.decimalSeparator,
       hasHeaderRow: this.hasHeaderRow,
       timezone: this.timezone,
     });
@@ -64,6 +68,21 @@ export class PlantDbConfig extends LitElement {
         <sl-menu-item value=",">${t("dbConfig.comma")}</sl-menu-item>
         <sl-menu-item value=";">${t("dbConfig.semicolon")}</sl-menu-item>
         <sl-menu-item value="&#9;">${t("dbConfig.tab")}</sl-menu-item></sl-select
+      ><br />
+
+      <sl-select
+        id="decimal-separator"
+        label=${t("dbConfig.decimalSeparator")}
+        value=${this.decimalSeparator}
+        @sl-change=${(event: MouseEvent) => {
+          this.decimalSeparator = (event.target as SlSelect).value as string;
+          this.dispatchEvent(
+            new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+          );
+        }}
+      >
+        <sl-menu-item value=",">${t("dbConfig.comma")}</sl-menu-item>
+        <sl-menu-item value=".">${t("dbConfig.period")}</sl-menu-item> </sl-select
       ><br />
 
       <sl-select
