@@ -181,10 +181,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@plantdb/libplantdb@workspace:packages/libplantdb"
   dependencies:
-    "@types/chai": ^4
+    "@types/chai": 4.3.1
     "@types/luxon": 2.3.2
     "@types/mocha": 9.1.1
-    "@types/source-map-support": ^0
+    "@types/source-map-support": 0.5.4
     chai: 4.3.6
     csv-parse: 5.1.0
     csv-stringify: 6.1.0
@@ -275,7 +275,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai@npm:^4":
+"@types/chai@npm:4.3.1":
   version: 4.3.1
   resolution: "@types/chai@npm:4.3.1"
   checksum: 1735099ea33e22ee18885de48d6961e9d030adea046a07b8a89f5e02a364c85ab0519fde9aeb81e49b7edfbcf8d7534db8fbff59e2e45643b83ea520a7d2c390
@@ -371,7 +371,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-map-support@npm:^0":
+"@types/source-map-support@npm:0.5.4":
   version: 0.5.4
   resolution: "@types/source-map-support@npm:0.5.4"
   dependencies:
