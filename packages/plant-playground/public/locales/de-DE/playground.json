@@ -38,7 +38,9 @@
     "title": "Datenbankeinstellungen",
     "hasHeaderRow": "Spaltentitel vorhanden?",
     "columnSeparator": "Trennzeichen",
+    "decimalSeparator": "Dezimaltrennzeichen",
     "comma": "Komma ,",
+    "period": "Punkt .",
     "semicolon": "Semikolon ;",
     "tab": "Tabulator",
     "dateTimeFormat": "Zeitstempelformat",
@@ -129,6 +131,10 @@
     "tempMaxLabel": "Temp. Max. (°C)",
     "tempMaxPlaceholder": "32",
     "notesLabel": "Notizen",
-    "notesPlaceholder": "Im Park gesammelt"
+    "notesPlaceholder": "Im Park gesammelt",
+    "plantgeekLabel": "plantgeek ID",
+    "detailsPot": "Topfdetails",
+    "detailsDiagnostics": "Diagnose",
+    "detailsExternals": "Externe Dienste"
   }
 }

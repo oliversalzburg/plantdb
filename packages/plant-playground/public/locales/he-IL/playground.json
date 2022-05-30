@@ -38,7 +38,9 @@
     "title": "קונפיגורציית מסד נתונים",
     "hasHeaderRow": "קיימת שורת כותרת?",
     "columnSeparator": "מפריד עמודות",
+    "decimalSeparator": "Decimal separator",
     "comma": "פסיק ,",
+    "period": "Period .",
     "semicolon": "נקופסיק ;",
     "tab": "טאב",
     "dateTimeFormat": "פורמט זמן",
@@ -129,6 +131,10 @@
     "tempMaxLabel": "Temp. max. (°F)",
     "tempMaxPlaceholder": "89",
     "notesLabel": "Notes",
-    "notesPlaceholder": "Collected in the park"
+    "notesPlaceholder": "Collected in the park",
+    "plantgeekLabel": "plantgeek ID",
+    "detailsPot": "Pot details",
+    "detailsDiagnostics": "Diagnostics",
+    "detailsExternals": "Externals"
   }
 }
