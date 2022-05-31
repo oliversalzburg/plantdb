@@ -22,6 +22,7 @@ export class PlantListView extends View {
     return [
       0 < (this.plantStore?.plantDb.plants.size ?? 0)
         ? html`<plant-list
+            id="list"
             .plantStore=${this.plantStore}
             .plantStoreUi=${this.plantStoreUi}
             .plants=${this.plants}

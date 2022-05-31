@@ -12,18 +12,29 @@ export class PlantList extends LitElement {
   static readonly styles = [
     css`
       :host {
-        display: block;
-        flex: 1;
+        display: flex;
+        flex-direction: column;
         min-height: 0;
-        overflow: auto;
       }
 
       #filter-input {
         padding: 1rem;
       }
 
+      #cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-height: 0;
+        overflow: auto;
+        align-items: flex-start;
+        gap: 1rem;
+        justify-content: center;
+      }
+
       plant-card {
         cursor: pointer;
+        width: 25rem;
       }
     `,
   ];
@@ -61,16 +72,18 @@ export class PlantList extends LitElement {
         @sl-input="${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}"
         id="filter-input"
       ></sl-input>`,
-      filteredPlants.map(
-        plant =>
-          html`<plant-card
-            .plant=${plant}
-            .plantDb=${this.plantStore?.plantDb}
-            @click=${() => {
-              retrieveStoreUi()?.navigatePath(`/plant/${plant.id ?? "PID-0"}`);
-            }}
-          ></plant-card>`
-      ),
+      html`<div id="cards">
+        ${filteredPlants.map(
+          plant =>
+            html`<plant-card
+              .plant=${plant}
+              .plantDb=${this.plantStore?.plantDb}
+              @click=${() => {
+                retrieveStoreUi()?.navigatePath(`/plant/${plant.id ?? "PID-0"}`);
+              }}
+            ></plant-card>`
+        )}
+      </div>`,
     ];
   }
 }

@@ -14,12 +14,10 @@ export class PlantCard extends LitElement {
     css`
       :host {
         display: inline-block;
-        width: 400px;
       }
 
       :host sl-card {
-        width: 95%;
-        margin: 1rem;
+        width: 100%;
       }
 
       :host sl-card [slot="header"] {
