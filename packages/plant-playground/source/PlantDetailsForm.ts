@@ -8,6 +8,7 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { isNil, mustExist } from "./Maybe";
+import { PlantMultiValueEditor } from "./PlantMultiValueEditor";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
@@ -134,7 +135,23 @@ export class PlantDetailsForm extends LitElement {
 
   asPlant() {
     const plant = mustExist(this.plantStore).plantDb.makeNewPlant(this._plantId);
-    return plant;
+    return Plant.fromPlant(plant, {
+      ecMax: this._plantEcMax,
+      ecMin: this._plantEcMin,
+      kind: this._plantKind,
+      location: this._plantLocation,
+      name: this._plantName,
+      notes: this._plantNotes,
+      onSaucer: this._plantOnSaucer,
+      phMax: this._plantPhMax,
+      phMin: this._plantPhMin,
+      plantGeekId: this._plantPlantgeekId,
+      potColor: this._plantPotColor,
+      potShapeTop: this._plantPotShapeTop,
+      substrate: this._plantSubstrate,
+      tempMax: this._plantTempMax,
+      tempMin: this._plantTempMin,
+    });
   }
 
   render() {
@@ -184,6 +201,8 @@ export class PlantDetailsForm extends LitElement {
           placeholder=${t("plantEditor.kindPlaceholder")}
           .suggestions=${[...this.plantStore.plantDb.kinds]}
           .value=${this._plantKind}
+          @plant-changed=${(event: CustomEvent) =>
+            (this._plantKind = (event.target as PlantMultiValueEditor).value)}
         ></plant-multi-value-editor>
         <div class="spacer"></div>
 
@@ -193,6 +212,8 @@ export class PlantDetailsForm extends LitElement {
           placeholder=${t("plantEditor.locationPlaceholder")}
           .suggestions=${[...this.plantStore.plantDb.locations]}
           .value=${this._plantLocation}
+          @plant-changed=${(event: CustomEvent) =>
+            (this._plantLocation = (event.target as PlantMultiValueEditor).value)}
         ></plant-multi-value-editor>
         <div class="spacer"></div>
 
@@ -213,6 +234,8 @@ export class PlantDetailsForm extends LitElement {
             placeholder=${t("plantEditor.substratePlaceholder")}
             .suggestions=${[...this.plantStore.plantDb.substrates]}
             .value=${this._plantSubstrate}
+            @plant-changed=${(event: CustomEvent) =>
+              (this._plantSubstrate = (event.target as PlantMultiValueEditor).value)}
           ></plant-multi-value-editor>
           <div class="spacer"></div>
 
@@ -374,6 +397,8 @@ export class PlantDetailsForm extends LitElement {
             label=${t("plantEditor.plantgeekLabel")}
             placeholder="62060b1d6b98d32724f806ed"
             .value=${this._plantPlantgeekId}
+            @plant-changed=${(event: CustomEvent) =>
+              (this._plantPlantgeekId = (event.target as PlantMultiValueEditor).value)}
           ></plant-multi-value-editor>
         </sl-details>
       </form>`,
