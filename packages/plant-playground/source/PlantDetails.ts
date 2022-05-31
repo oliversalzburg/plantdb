@@ -117,8 +117,7 @@ export class PlantDetails extends LitElement {
               : undefined}
             <sl-badge
               variant="neutral"
-              @click=${() =>
-                this.cx.plantStoreUi.showPlantEditor(this.cx.plantStore, this.cx.plant)}
+              @click=${() => this.cx.plantStoreUi.editPlant(this.cx.plant)}
               >${this.plant.id}</sl-badge
             >
           </div>
@@ -153,6 +152,9 @@ export class PlantDetails extends LitElement {
               .plant=${this.plant}
             ></plant-dygraph>`
           : undefined}
+        ${this.plant.plantGeekId
+          ? html`<plant-geek-info .plant=${this.plant}></plant-geek-info>`
+          : undefined}
       </div>
 
       <plant-log
@@ -161,7 +163,7 @@ export class PlantDetails extends LitElement {
         .log=${this.plant.log}
         .headerVisible=${false}
         @plant-edit-entry=${(event: CustomEvent<LogEntry>) =>
-          this.plantStoreUi?.editLogEntry(event.detail)}
+          this.cx.plantStoreUi.editLogEntry(event.detail)}
       ></plant-log>`;
   }
 }
