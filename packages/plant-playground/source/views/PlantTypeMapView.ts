@@ -10,6 +10,17 @@ export class PlantTypeMapView extends View {
   static readonly styles = [
     ...View.styles,
     css`
+      @media (min-width: 1000px) {
+        #type-map {
+          padding: 0 15vw;
+        }
+      }
+      @media (min-width: 2000px) {
+        #type-map {
+          padding: 0 25vw;
+        }
+      }
+
       :host {
         padding: 1rem;
       }
@@ -28,6 +39,7 @@ export class PlantTypeMapView extends View {
     return [
       0 < mustExist(this.plantStore).plantDb.entryTypes.size
         ? html`<plant-type-map
+            id="type-map"
             .plantDb=${this.plantStore?.plantDb}
             .proposedMapping=${this.proposedMapping}
             @plant-config-changed=${() => this.plantStoreUi?.alert(t("log.entryUpdated"))}
