@@ -23,6 +23,7 @@ import "./PlantDetails";
 import "./PlantDetailsForm";
 import "./PlantDygraph";
 import "./PlantEmptyState";
+import "./PlantGeekInfo";
 import "./PlantList";
 import "./PlantLog";
 import "./PlantLogEntry";
