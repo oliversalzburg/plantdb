@@ -19,6 +19,17 @@ export class PlantImportView extends View {
   static readonly styles = [
     ...View.styles,
     css`
+      @media (min-width: 1000px) {
+        #import {
+          padding: 0 15vw;
+        }
+      }
+      @media (min-width: 2000px) {
+        #import {
+          padding: 0 25vw;
+        }
+      }
+
       :host {
         padding: 1rem;
       }
@@ -112,7 +123,8 @@ export class PlantImportView extends View {
       return;
     }
     return [
-      html` <plant-db-config
+      html`<div id="import">
+        <plant-db-config
           .plantData=${this.plantData}
           .plantLogData=${this.plantLogData}
           .hasHeaderRow=${this.config.hasHeaderRow}
@@ -155,7 +167,8 @@ export class PlantImportView extends View {
             @click="${(event: MouseEvent) => this.processImportRequest(event)}"
             >${t("import.import")}</sl-button
           ><sl-button id="export" @click="${() => this.export()}">${t("import.export")}</sl-button>
-        </div>`,
+        </div>
+      </div>`,
     ];
   }
 }
