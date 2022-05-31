@@ -29,7 +29,7 @@ export class PlantGeekInfo extends LitElement {
     _changedProperties: PropertyValueMap<PlantGeekInfo> | Map<PropertyKey, unknown>
   ): void {
     if (_changedProperties.has("plant")) {
-      this._updateInfo();
+      this._updateInfo().catch(console.error);
     }
   }
 
@@ -61,9 +61,9 @@ export class PlantGeekInfo extends LitElement {
     return html`<sl-textarea .value=${
       this._plantgeekInfo
     }></sl-textarea><a href="https://www.plantgeek.co/plant/${
-      this.plant.plantGeekId
+      this.plant?.plantGeekId
     }" class="plantgeek-info" target="_blank">Visit ${kindFlatten(
-      this.plant.kind
+      this.plant?.kind
     )} on Plantgeek</div>`;
   }
 }
