@@ -50,6 +50,12 @@ export class PlantMultiValueEditor extends LitElement {
     this._nextValue = undefined;
     this._input?.focus();
     this.requestUpdate();
+
+    this.dispatchEvent(
+      new CustomEvent("plant-changed", {
+        detail: this.value,
+      })
+    );
   }
 
   render() {
@@ -66,6 +72,11 @@ export class PlantMultiValueEditor extends LitElement {
               this._nextValue = (event.target as SlInput).value;
             } else {
               this.value = (event.target as SlInput).value;
+              this.dispatchEvent(
+                new CustomEvent("plant-changed", {
+                  detail: this.value,
+                })
+              );
             }
           }}
           >${Array.isArray(this.value)
@@ -164,6 +175,11 @@ export class PlantMultiValueEditor extends LitElement {
                         if (-1 < index) {
                           this.value.splice(index, 1);
                           this.requestUpdate();
+                          this.dispatchEvent(
+                            new CustomEvent("plant-changed", {
+                              detail: this.value,
+                            })
+                          );
                         }
                       }}
                       >${element}</sl-tag
