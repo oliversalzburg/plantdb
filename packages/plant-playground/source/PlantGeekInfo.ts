@@ -3,8 +3,9 @@ import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
-import { css, html, LitElement, PropertyValueMap } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, html, LitElement } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { isNil } from "./Maybe";
 
 @customElement("plant-geek-info")
 export class PlantGeekInfo extends LitElement {
@@ -16,54 +17,35 @@ export class PlantGeekInfo extends LitElement {
         flex: 1;
         min-height: 0;
       }
+
+      a {
+        color: var(--sl-color-primary-600);
+      }
     `,
   ];
 
   @property({ type: Plant })
   plant: Plant | undefined;
 
-  @state()
-  private _plantgeekInfo = "";
-
-  protected updated(
-    _changedProperties: PropertyValueMap<PlantGeekInfo> | Map<PropertyKey, unknown>
-  ): void {
-    if (_changedProperties.has("plant")) {
-      this._updateInfo().catch(console.error);
-    }
-  }
-
-  private async _updateInfo() {
-    if (!this.plant || !this.plant.plantGeekId) {
+  render() {
+    if (isNil(this.plant)) {
       return;
     }
-
-    const plantgeekId = Array.isArray(this.plant.plantGeekId)
-      ? this.plant.plantGeekId[0]
-      : this.plant.plantGeekId;
-
-    const geekInfoResponse = await fetch(
-      `https://www.plantgeek.co/plantgeek-api/v1/plant/${plantgeekId}`,
-      {
-        credentials: "omit",
-        headers: {
-          "User-Agent": "plantdb Playground",
-          Accept: "application/json",
-        },
-        method: "GET",
-      }
-    );
-
-    this._plantgeekInfo = (await geekInfoResponse.json()) as string;
-  }
-
-  render() {
-    return html`<sl-textarea .value=${
-      this._plantgeekInfo
-    }></sl-textarea><a href="https://www.plantgeek.co/plant/${
-      this.plant?.plantGeekId
-    }" class="plantgeek-info" target="_blank">Visit ${kindFlatten(
-      this.plant?.kind
-    )} on Plantgeek</div>`;
+    return Array.isArray(this.plant.plantGeekId)
+      ? this.plant.plantGeekId.map(
+          (plantgeekId, index) =>
+            html`<a
+              href="https://www.plantgeek.co/plant/${plantgeekId}"
+              class="plantgeek-info"
+              target="_blank"
+              >Visit entry ${index + 1} on Plantgeek</a
+            >`
+        )
+      : html`<a
+          href="https://www.plantgeek.co/plant/${this.plant.plantGeekId}"
+          class="plantgeek-info"
+          target="_blank"
+          >Visit ${kindFlatten(this.plant.kind)} on Plantgeek</a
+        >`;
   }
 }

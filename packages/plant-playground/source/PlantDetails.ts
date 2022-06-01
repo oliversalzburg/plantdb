@@ -28,11 +28,11 @@ export class PlantDetails extends LitElement {
         min-height: 0;
       }
 
-      :host sl-card {
+      sl-card {
         margin: 1rem;
       }
 
-      :host sl-card [slot="header"] {
+      sl-card [slot="header"] {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -40,18 +40,18 @@ export class PlantDetails extends LitElement {
         gap: 0.25rem;
       }
 
-      :host sl-card [slot="footer"] {
+      sl-card [slot="footer"] {
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
-      :host sl-card [slot="footer"] ul {
+      sl-card [slot="footer"] ul {
         padding: 0;
         list-style: none;
       }
 
-      :host sl-card [slot="footer"] ul li {
+      sl-card [slot="footer"] ul li {
         color: #777;
       }
 
