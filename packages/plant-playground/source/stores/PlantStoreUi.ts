@@ -94,11 +94,11 @@ export class PlantStoreUi extends LitElement {
     const updateSW = registerSW({
       onNeedRefresh: () => {
         if (this.confirm("Load new version?")) {
-          updateSW();
+          updateSW().catch(console.error);
         }
       },
       onOfflineReady: () => {
-        this.alert("offline ready");
+        this.alert("offline ready").catch(console.error);
       },
     });
 
