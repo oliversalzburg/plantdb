@@ -82,7 +82,7 @@ export class PlantLogEntryForm extends LitElement {
   @state()
   private _date = new Date().toISOString().slice(0, 10);
   @state()
-  private _time = new Date().toLocaleTimeString();
+  private _time = new Date().toISOString().slice(11, 19);
   @state()
   private _note: string | undefined;
   @state()
@@ -122,7 +122,7 @@ export class PlantLogEntryForm extends LitElement {
 
   private _setCurrentDateTime() {
     this._date = new Date().toISOString().slice(0, 10);
-    this._time = new Date().toLocaleTimeString();
+    this._time = new Date().toISOString().slice(11, 19);
   }
 
   reportValidity() {
