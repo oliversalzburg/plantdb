@@ -34,6 +34,16 @@ export class PlantDetailsForm extends LitElement {
         margin-bottom: 1rem;
       }
 
+      .button-attached {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 0.25rem;
+      }
+      .button-attached :first-child {
+        flex: 1;
+      }
+
       .row {
         display: flex;
         flex-direction: row;
@@ -154,6 +164,23 @@ export class PlantDetailsForm extends LitElement {
     });
   }
 
+  private async _scanPlant() {
+    const constraints = { audio: false, video: { width: 720, height: 1280 } };
+
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then(mediaStream => {
+        const video = this.shadowRoot?.querySelector("video");
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = function (e) {
+          video.play();
+        };
+      })
+      .catch(function (err) {
+        console.log(err.name + ": " + err.message);
+      });
+  }
+
   render() {
     if (isNil(this.plantStore)) {
       return;
@@ -161,11 +188,12 @@ export class PlantDetailsForm extends LitElement {
 
     return [
       html`<form
-        id="entry-form"
+        id="plant-form"
         @submit=${(event: Event) => {
           event.preventDefault();
         }}
       >
+        <video></video>
         <sl-input
           id="id-input"
           label=${t("plantEditor.idLabel")}
@@ -195,15 +223,18 @@ export class PlantDetailsForm extends LitElement {
         ></sl-input>
         <div class="spacer"></div>
 
-        <plant-multi-value-editor
-          id="kind-input"
-          label=${t("plantEditor.kindLabel")}
-          placeholder=${t("plantEditor.kindPlaceholder")}
-          .suggestions=${[...this.plantStore.plantDb.kinds]}
-          .value=${this._plantKind}
-          @plant-changed=${(event: CustomEvent) =>
-            (this._plantKind = (event.target as PlantMultiValueEditor).value)}
-        ></plant-multi-value-editor>
+        <div class="button-attached">
+          <plant-multi-value-editor
+            id="kind-input"
+            label=${t("plantEditor.kindLabel")}
+            placeholder=${t("plantEditor.kindPlaceholder")}
+            .suggestions=${[...this.plantStore.plantDb.kinds]}
+            .value=${this._plantKind}
+            @plant-changed=${(event: CustomEvent) =>
+              (this._plantKind = (event.target as PlantMultiValueEditor).value)}
+          ></plant-multi-value-editor
+          ><sl-button @click=${() => this._scanPlant()}>Scan</sl-button>
+        </div>
         <div class="spacer"></div>
 
         <plant-multi-value-editor
