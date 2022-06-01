@@ -20,7 +20,7 @@ export default {
         navigateFallback: "index.html",
       },
       includeAssets: ["favicon.svg", "favicon.ico", "robots.txt", "apple-touch-icon.png"],
-      injectRegister: "inline",
+      injectRegister: "script",
       manifest: {
         short_name: "Playground",
         name: "PlantDB Playground",
