@@ -6,6 +6,7 @@ import { html, LitElement, render } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { LogEntry, Plant } from "packages/libplantdb/typings";
+import { registerSW } from "virtual:pwa-register";
 import { assertExists } from "../Maybe";
 import { PlantDetailsForm } from "../PlantDetailsForm";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";
@@ -89,6 +90,17 @@ export class PlantStoreUi extends LitElement {
         this.dispatchEvent(new CustomEvent("plant-i18n-ready", { detail: i18next.language }));
       })
       .catch(console.error);
+
+    const updateSW = registerSW({
+      onNeedRefresh: () => {
+        if (this.confirm("Load new version?")) {
+          updateSW();
+        }
+      },
+      onOfflineReady: () => {
+        this.alert("offline ready");
+      },
+    });
 
     if (
       !userConfiguredTheme &&
@@ -243,6 +255,10 @@ export class PlantStoreUi extends LitElement {
 
     document.body.append(alert);
     return alert.toast();
+  }
+
+  confirm(message: string) {
+    return window.confirm(message);
   }
 
   showEntryEditor(plantStore: PlantStore, logEntry?: LogEntry) {
