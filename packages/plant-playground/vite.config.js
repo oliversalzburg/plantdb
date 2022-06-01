@@ -42,10 +42,8 @@ export default {
             purpose: "any maskable",
           },
         ],
-        start_url: "/",
         background_color: "#ffffff",
         display: "standalone",
-        scope: "/",
         theme_color: "#4cae4f",
         shortcuts: [
           {
