@@ -29,7 +29,12 @@ export class PlantDetails extends LitElement {
       }
 
       sl-card {
+        cursor: pointer;
         margin: 1rem;
+      }
+
+      sl-card:hover {
+        outline: 1px solid var(--sl-color-primary-100);
       }
 
       sl-card [slot="header"] {
@@ -108,18 +113,14 @@ export class PlantDetails extends LitElement {
     const plantDataCsv = this.plantDataAsGraphCSV(this.plant);
 
     return html`<div class="top">
-        <sl-card>
+        <sl-card @click=${() => this.cx.plantStoreUi.editPlant(this.cx.plant)}>
           <div slot="header">
             ${this.plant.location
               ? html`<sl-tooltip content=${this.plant.location}
                   ><sl-icon name="geo-alt"></sl-icon
                 ></sl-tooltip>`
               : undefined}
-            <sl-badge
-              variant="neutral"
-              @click=${() => this.cx.plantStoreUi.editPlant(this.cx.plant)}
-              >${this.plant.id}</sl-badge
-            >
+            <sl-badge variant="neutral">${this.plant.id}</sl-badge>
           </div>
           ${this.plant.name}
           <br />

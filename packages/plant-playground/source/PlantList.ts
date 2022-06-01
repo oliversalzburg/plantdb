@@ -30,11 +30,16 @@ export class PlantList extends LitElement {
         align-items: flex-start;
         gap: 1rem;
         justify-content: center;
+        padding-top: 1rem;
       }
 
       plant-card {
         cursor: pointer;
         width: 25rem;
+      }
+
+      plant-card:hover {
+        outline: 1px solid var(--sl-color-primary-100);
       }
     `,
   ];

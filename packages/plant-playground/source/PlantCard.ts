@@ -16,32 +16,32 @@ export class PlantCard extends LitElement {
         display: inline-block;
       }
 
-      :host sl-card {
+      sl-card {
         width: 100%;
       }
 
-      :host sl-card [slot="header"] {
+      sl-card [slot="header"] {
         display: flex;
         justify-content: right;
         align-items: center;
       }
 
-      :host sl-card [slot="header"] sl-icon {
+      sl-card [slot="header"] sl-icon {
         margin-right: 0.5rem;
       }
 
-      :host sl-card [slot="footer"] {
+      sl-card [slot="footer"] {
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
-      :host sl-card [slot="footer"] ul {
+      sl-card [slot="footer"] ul {
         padding: 0;
         list-style: none;
       }
 
-      :host sl-card [slot="footer"] ul li {
+      sl-card [slot="footer"] ul li {
         color: #777;
       }
     `,
