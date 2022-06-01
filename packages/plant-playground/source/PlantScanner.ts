@@ -75,7 +75,11 @@ export class PlantScanner extends LitElement {
 
     const constraints = {
       audio: false,
-      video: { width: this.clientWidth, height: this.clientHeight },
+      video: {
+        facingMode: { exact: "environment" },
+        width: this.clientWidth,
+        height: this.clientHeight,
+      },
     };
 
     navigator.mediaDevices
