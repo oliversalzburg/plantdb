@@ -47,7 +47,7 @@ export class PlantLogEntry extends LitElement {
         display: flex;
         flex-direction: row;
         align-items: center;
-        height: 2rem;
+        min-height: 2rem;
       }
 
       .first-entry {
@@ -74,6 +74,8 @@ export class PlantLogEntry extends LitElement {
 
       .note-container {
         flex: 1;
+        display: flex;
+        flex-wrap: wrap;
       }
 
       .edit-button {

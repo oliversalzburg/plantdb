@@ -11,6 +11,7 @@ export abstract class View extends LitElement {
         display: flex;
         flex-direction: column;
         min-height: 0;
+        min-width: 0;
       }
     `,
   ];
