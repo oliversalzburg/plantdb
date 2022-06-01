@@ -24,13 +24,20 @@ export class PlantLog extends LitElement {
         margin: 1rem;
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
       }
 
-      .filters sl-input {
-        flex: 0.7;
+      .filters * {
+        flex: 1;
       }
-      .filters sl-select {
-        flex: 0.3;
+
+      @media (min-width: 500px) {
+        .filters sl-input {
+          flex: 0.7;
+        }
+        .filters sl-select {
+          flex: 0.3;
+        }
       }
 
       #entries {

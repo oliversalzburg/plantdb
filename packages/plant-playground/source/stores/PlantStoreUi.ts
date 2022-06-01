@@ -249,7 +249,6 @@ export class PlantStoreUi extends LitElement {
     return new Promise<LogEntry | null>((resolve, reject) => {
       const dialog = Object.assign(document.createElement("sl-dialog"), {
         label: logEntry ? t("log.edit") : t("log.add"),
-        style: "--width: 80vw;",
       });
 
       render(
@@ -304,7 +303,6 @@ export class PlantStoreUi extends LitElement {
     return new Promise<Plant | null>((resolve, reject) => {
       const dialog = Object.assign(document.createElement("sl-dialog"), {
         label: plant ? t("plant.edit") : t("plant.add"),
-        style: "--width: 80vw;",
       });
 
       render(

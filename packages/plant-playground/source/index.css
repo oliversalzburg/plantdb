@@ -18,6 +18,26 @@ body {
   overflow-y: scroll;
 }
 
+sl-dialog {
+  --width: 100vw;
+}
+@media (min-width: 800px) {
+  sl-dialog {
+    --width: 80vw;
+  }
+}
+@media (min-width: 1200px) {
+  sl-dialog {
+    --width: 60vw;
+  }
+}
+@media (min-width: 1600px) {
+  sl-dialog {
+    --width: 40vw;
+  }
+}
+
+
 .app {
   height: 100vh;
 }
