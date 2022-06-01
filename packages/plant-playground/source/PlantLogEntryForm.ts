@@ -1,9 +1,16 @@
 import { LogEntry, Plant } from "@plantdb/libplantdb";
-import { SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
+import {
+  SlButton,
+  SlCheckbox,
+  SlDropdown,
+  SlInput,
+  SlSelect,
+  SlTextarea,
+} from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { isNil, mustExist } from "./Maybe";
+import { assertExists, isNil, mustExist } from "./Maybe";
 import { Typography } from "./PlantComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
@@ -19,11 +26,15 @@ export class PlantLogEntryForm extends LitElement {
         flex-direction: column;
       }
 
-      :host form {
+      form {
         flex: 1;
         display: flex;
         flex-direction: column;
         min-height: 50vh;
+      }
+
+      #submit {
+        display: none;
       }
 
       .spacer {
@@ -81,8 +92,11 @@ export class PlantLogEntryForm extends LitElement {
   @state()
   private _ph: number | undefined;
 
-  @query("#entry-form")
-  private _entryForm: HTMLFormElement | null | undefined;
+  @query("#form")
+  form: HTMLFormElement | null | undefined;
+
+  @query("#submit")
+  submitButton: SlButton | null | undefined;
 
   @query("#plant-dropdown")
   private _plantDrowndown: SlDropdown | null | undefined;
@@ -112,7 +126,20 @@ export class PlantLogEntryForm extends LitElement {
   }
 
   reportValidity() {
-    this._entryForm?.reportValidity();
+    assertExists(this.form);
+
+    const controls: NodeListOf<SlInput | SlSelect | SlTextarea | SlCheckbox> =
+      this.form.querySelectorAll("sl-input, sl-select, sl-textarea, sl-checkbox");
+    let valid = true;
+
+    for (const control of controls) {
+      if (!control.reportValidity()) {
+        valid = false;
+        break;
+      }
+    }
+
+    return valid;
   }
 
   asLogEntry() {
@@ -137,12 +164,8 @@ export class PlantLogEntryForm extends LitElement {
     }
 
     return [
-      html`<form
-        id="entry-form"
-        @submit=${(event: Event) => {
-          event.preventDefault();
-        }}
-      >
+      html`<form id="form">
+        <button id="submit" type="submit" @click=${() => console.warn("button submit")}></button>
         <sl-input
           id="plant-input"
           label=${t("entryEditor.plantLabel")}
@@ -218,7 +241,7 @@ export class PlantLogEntryForm extends LitElement {
             label=${t("entryEditor.dateLabel")}
             value=${this._date}
             @sl-change=${(event: MouseEvent) => {
-              this._date = (event.target as SlSelect).value as string;
+              this._date = (event.target as SlInput).value;
             }}
             required
           ></sl-input
@@ -226,8 +249,9 @@ export class PlantLogEntryForm extends LitElement {
             type="time"
             label=${t("entryEditor.timeLabel")}
             value=${this._time}
+            step="1"
             @sl-change=${(event: MouseEvent) => {
-              this._time = (event.target as SlSelect).value as string;
+              this._time = (event.target as SlInput).value;
             }}
             required
           ></sl-input>

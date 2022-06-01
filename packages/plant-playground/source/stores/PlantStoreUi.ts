@@ -265,7 +265,10 @@ export class PlantStoreUi extends LitElement {
             variant="primary"
             @click=${() => {
               const entryForm = dialog.querySelector("#entry-form") as PlantLogEntryForm;
-              entryForm.reportValidity();
+              if (!entryForm.reportValidity()) {
+                return;
+              }
+
               const logEntry = entryForm.asLogEntry();
 
               dialog
