@@ -23,7 +23,7 @@ export default {
           {
             src: "favicon.svg",
             type: "image/svg+xml",
-            sizes: "24x24",
+            sizes: "512x512",
           },
           {
             src: "images/flower-192.png",
@@ -35,12 +35,6 @@ export default {
             type: "image/png",
             sizes: "512x512",
           },
-          {
-            src: "images/flower-512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable",
-          },
         ],
         background_color: "#ffffff",
         display: "standalone",
@@ -51,7 +45,7 @@ export default {
             short_name: "Plants",
             description: "Your plants",
             url: "/list",
-            icons: [{ src: "/images/playground-plants.png", sizes: "2208x2032" }],
+            icons: [{ src: "images/playground-plants.png", sizes: "2208x2032" }],
           },
         ],
         description: "Interact with PlantDB data",
