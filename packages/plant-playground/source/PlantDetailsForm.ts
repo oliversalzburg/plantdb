@@ -9,6 +9,7 @@ import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { isNil, mustExist } from "./Maybe";
 import { PlantMultiValueEditor } from "./PlantMultiValueEditor";
+import { PlantScanner } from "./PlantScanner";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
@@ -22,7 +23,11 @@ export class PlantDetailsForm extends LitElement {
         flex-direction: column;
       }
 
-      :host form {
+      #scanner {
+        display: none;
+      }
+
+      #plant-form {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -113,6 +118,11 @@ export class PlantDetailsForm extends LitElement {
   @state()
   private _plantPlantgeekId: Array<string> | string | undefined;
 
+  @query("#scanner")
+  private _scanner: PlantScanner | null | undefined;
+
+  @query("#plant-form")
+  private _plantForm: HTMLFormElement | null | undefined;
   @query("#substrate-dropdown")
   private _substrateDropdown: SlDropdown | null | undefined;
   @query("#pot-shape-top-dropdown")
@@ -164,21 +174,17 @@ export class PlantDetailsForm extends LitElement {
     });
   }
 
-  private async _scanPlant() {
-    const constraints = { audio: false, video: { width: 720, height: 1280 } };
+  private _scanPlant() {
+    mustExist(this._plantForm).style.display = "none";
+    mustExist(this._scanner).style.display = "flex";
+    mustExist(this._scanner).start();
+  }
 
-    navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then(mediaStream => {
-        const video = this.shadowRoot?.querySelector("video");
-        video.srcObject = mediaStream;
-        video.onloadedmetadata = function (e) {
-          video.play();
-        };
-      })
-      .catch(function (err) {
-        console.log(err.name + ": " + err.message);
-      });
+  private _plantScanned(dataUrl: string) {
+    mustExist(this._plantForm).style.display = "flex";
+    mustExist(this._scanner).style.display = "none";
+    mustExist(this._scanner).stop();
+    console.log(dataUrl);
   }
 
   render() {
@@ -187,252 +193,255 @@ export class PlantDetailsForm extends LitElement {
     }
 
     return [
-      html`<form
-        id="plant-form"
-        @submit=${(event: Event) => {
-          event.preventDefault();
-        }}
-      >
-        <video></video>
-        <sl-input
-          id="id-input"
-          label=${t("plantEditor.idLabel")}
-          placeholder=${t("plantEditor.idPlaceholder")}
-          clearable
-          value=${this._plantId}
-          @sl-input=${(event: InputEvent) => (this._plantId = (event.target as SlInput).value)}
-          required
-          pattern="PID-\\d{1,6}"
-          >${!this.plant
-            ? html`<small slot="help-text">${t("entryEditor.plantHelp")}</small>`
-            : this._plantId === ""
-            ? html`<small slot="help-text" class="warning"
-                >${t("entryEditor.plantHelpDeleteWarn")}</small
-              >`
-            : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
+      html`<plant-scanner
+          id="scanner"
+          @plant-scanned=${(event: CustomEvent<string>) => this._plantScanned(event.detail)}
+        ></plant-scanner>
+        <form
+          id="plant-form"
+          @submit=${(event: Event) => {
+            event.preventDefault();
+          }}
         >
-        <div class="spacer"></div>
-
-        <sl-input
-          id="name-input"
-          label=${t("plantEditor.nameLabel")}
-          placeholder=${t("plantEditor.namePlaceholder")}
-          clearable
-          value=${this._plantName}
-          @sl-input=${(event: InputEvent) => (this._plantName = (event.target as SlInput).value)}
-        ></sl-input>
-        <div class="spacer"></div>
-
-        <div class="button-attached">
-          <plant-multi-value-editor
-            id="kind-input"
-            label=${t("plantEditor.kindLabel")}
-            placeholder=${t("plantEditor.kindPlaceholder")}
-            .suggestions=${[...this.plantStore.plantDb.kinds]}
-            .value=${this._plantKind}
-            @plant-changed=${(event: CustomEvent) =>
-              (this._plantKind = (event.target as PlantMultiValueEditor).value)}
-          ></plant-multi-value-editor
-          ><sl-button @click=${() => this._scanPlant()}>Scan</sl-button>
-        </div>
-        <div class="spacer"></div>
-
-        <plant-multi-value-editor
-          id="location-input"
-          label=${t("plantEditor.locationLabel")}
-          placeholder=${t("plantEditor.locationPlaceholder")}
-          .suggestions=${[...this.plantStore.plantDb.locations]}
-          .value=${this._plantLocation}
-          @plant-changed=${(event: CustomEvent) =>
-            (this._plantLocation = (event.target as PlantMultiValueEditor).value)}
-        ></plant-multi-value-editor>
-        <div class="spacer"></div>
-
-        <sl-textarea
-          id="notes-input"
-          label=${t("plantEditor.notesLabel")}
-          placeholder=${t("plantEditor.notesPlaceholder")}
-          value=${this._plantNotes}
-          @sl-change=${(event: InputEvent) =>
-            (this._plantNotes = (event.target as SlTextarea).value)}
-        ></sl-textarea>
-        <div class="spacer"></div>
-
-        <sl-details summary=${t("plantEditor.detailsPot")}>
-          <plant-multi-value-editor
-            id="substrate-input"
-            label=${t("plantEditor.substrateLabel")}
-            placeholder=${t("plantEditor.substratePlaceholder")}
-            .suggestions=${[...this.plantStore.plantDb.substrates]}
-            .value=${this._plantSubstrate}
-            @plant-changed=${(event: CustomEvent) =>
-              (this._plantSubstrate = (event.target as PlantMultiValueEditor).value)}
-          ></plant-multi-value-editor>
+          <sl-input
+            id="id-input"
+            label=${t("plantEditor.idLabel")}
+            placeholder=${t("plantEditor.idPlaceholder")}
+            clearable
+            value=${this._plantId}
+            @sl-input=${(event: InputEvent) => (this._plantId = (event.target as SlInput).value)}
+            required
+            pattern="PID-\\d{1,6}"
+            >${!this.plant
+              ? html`<small slot="help-text">${t("entryEditor.plantHelp")}</small>`
+              : this._plantId === ""
+              ? html`<small slot="help-text" class="warning"
+                  >${t("entryEditor.plantHelpDeleteWarn")}</small
+                >`
+              : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
+          >
           <div class="spacer"></div>
 
-          <div class="row">
-            <div class="control">
-              <sl-input
-                id="pot-shape-top-input"
-                label=${t("plantEditor.potShapeTopLabel")}
-                placeholder=${t("plantEditor.potShapeTopPlaceholder")}
-                clearable
-                value=${this._plantPotShapeTop}
-                @sl-focus=${() => this._potShapeTopDropdown?.show()}
-                @sl-input=${(event: InputEvent) =>
-                  (this._plantPotShapeTop = (event.target as SlInput).value)}
-              ></sl-input
-              ><sl-dropdown id="pot-shape-top-dropdown" hoist>
-                <sl-menu>
-                  ${[...this.plantStore.plantDb.potShapesTop]
-                    .sort()
-                    .filter(type =>
-                      type
-                        .toLocaleLowerCase()
-                        .includes(this._plantPotShapeTop?.toLocaleLowerCase() ?? "")
-                    )
-                    .map(
-                      entry =>
-                        html`<sl-menu-item
-                          @click=${() => {
-                            this._plantPotShapeTop = entry;
-                          }}
-                          >${entry}</sl-menu-item
-                        >`
-                    )}
-                </sl-menu>
-              </sl-dropdown>
-            </div>
+          <sl-input
+            id="name-input"
+            label=${t("plantEditor.nameLabel")}
+            placeholder=${t("plantEditor.namePlaceholder")}
+            clearable
+            value=${this._plantName}
+            @sl-input=${(event: InputEvent) => (this._plantName = (event.target as SlInput).value)}
+          ></sl-input>
+          <div class="spacer"></div>
 
-            <div class="control">
-              <sl-input
-                id="pot-color-input"
-                label=${t("plantEditor.potColorLabel")}
-                placeholder=${t("plantEditor.potColorPlaceholder")}
-                clearable
-                value=${this._plantPotColor}
-                @sl-focus=${() => this._potColorDropdown?.show()}
-                @sl-input=${(event: InputEvent) =>
-                  (this._plantPotColor = (event.target as SlInput).value)}
-              ></sl-input
-              ><sl-dropdown id="pot-color-dropdown" hoist>
-                <sl-menu>
-                  ${[...this.plantStore.plantDb.potColors]
-                    .sort()
-                    .filter(type =>
-                      type
-                        .toLocaleLowerCase()
-                        .includes(this._plantPotColor?.toLocaleLowerCase() ?? "")
-                    )
-                    .map(
-                      entry =>
-                        html`<sl-menu-item
-                          @click=${() => {
-                            this._plantPotColor = entry;
-                          }}
-                          >${entry}</sl-menu-item
-                        >`
-                    )}
-                </sl-menu>
-              </sl-dropdown>
-            </div>
-
-            <div class="control">
-              <sl-checkbox
-                id="on-saucer-input"
-                clearable
-                ?checked=${this._plantOnSaucer}
-                ?indeterminate=${this._plantOnSaucer === undefined}
-                @sl-input=${(event: InputEvent) =>
-                  (this._plantOnSaucer = (event.target as SlCheckbox).checked)}
-                >${t("plantEditor.onSaucerLabel")}</sl-checkbox
-              >
-            </div>
-          </div>
-        </sl-details>
-        <div class="spacer"></div>
-
-        <sl-details summary=${t("plantEditor.detailsDiagnostics")}>
-          <div class="row">
-            <sl-input
-              type="number"
-              id="ph-min-input"
-              label=${t("plantEditor.phMinLabel")}
-              placeholder=${t("plantEditor.phMinPlaceholder")}
-              clearable
-              value=${this._plantPhMin}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantPhMin = (event.target as SlInput).valueAsNumber)}
-            ></sl-input>
-            <sl-input
-              type="number"
-              id="ph-max-input"
-              label=${t("plantEditor.phMaxLabel")}
-              placeholder=${t("plantEditor.phMaxPlaceholder")}
-              clearable
-              value=${this._plantPhMax}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantPhMax = (event.target as SlInput).valueAsNumber)}
-            ></sl-input>
-
-            <sl-input
-              type="number"
-              id="ec-min-input"
-              label=${t("plantEditor.ecMinLabel")}
-              placeholder=${t("plantEditor.ecMinPlaceholder")}
-              clearable
-              value=${this._plantEcMin}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantEcMin = (event.target as SlInput).valueAsNumber)}
-            ></sl-input>
-            <sl-input
-              type="number"
-              id="ec-max-input"
-              label=${t("plantEditor.ecMaxLabel")}
-              placeholder=${t("plantEditor.ecMaxPlaceholder")}
-              clearable
-              value=${this._plantEcMax}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantEcMax = (event.target as SlInput).valueAsNumber)}
-            ></sl-input>
+          <div class="button-attached">
+            <plant-multi-value-editor
+              id="kind-input"
+              label=${t("plantEditor.kindLabel")}
+              placeholder=${t("plantEditor.kindPlaceholder")}
+              .suggestions=${[...this.plantStore.plantDb.kinds]}
+              .value=${this._plantKind}
+              @plant-changed=${(event: CustomEvent) =>
+                (this._plantKind = (event.target as PlantMultiValueEditor).value)}
+            ></plant-multi-value-editor
+            ><sl-button @click=${() => this._scanPlant()}>Scan</sl-button>
           </div>
           <div class="spacer"></div>
 
-          <div class="row">
-            <sl-input
-              type="number"
-              id="temp-min-input"
-              label=${t("plantEditor.tempMinLabel")}
-              placeholder=${t("plantEditor.tempMinPlaceholder")}
-              clearable
-              value=${this._plantTempMin}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantTempMin = (event.target as SlInput).valueAsNumber)}
-            ></sl-input
-            ><sl-input
-              type="number"
-              id="temp-max-input"
-              label=${t("plantEditor.tempMaxLabel")}
-              placeholder=${t("plantEditor.tempMaxPlaceholder")}
-              clearable
-              value=${this._plantTempMax}
-              @sl-input=${(event: InputEvent) =>
-                (this._plantTempMax = (event.target as SlInput).valueAsNumber)}
-            ></sl-input></div
-        ></sl-details>
-        <div class="spacer"></div>
-
-        <sl-details summary=${t("plantEditor.detailsExternals")}>
           <plant-multi-value-editor
-            id="plantgeek-input"
-            label=${t("plantEditor.plantgeekLabel")}
-            placeholder="62060b1d6b98d32724f806ed"
-            .value=${this._plantPlantgeekId}
+            id="location-input"
+            label=${t("plantEditor.locationLabel")}
+            placeholder=${t("plantEditor.locationPlaceholder")}
+            .suggestions=${[...this.plantStore.plantDb.locations]}
+            .value=${this._plantLocation}
             @plant-changed=${(event: CustomEvent) =>
-              (this._plantPlantgeekId = (event.target as PlantMultiValueEditor).value)}
+              (this._plantLocation = (event.target as PlantMultiValueEditor).value)}
           ></plant-multi-value-editor>
-        </sl-details>
-      </form>`,
+          <div class="spacer"></div>
+
+          <sl-textarea
+            id="notes-input"
+            label=${t("plantEditor.notesLabel")}
+            placeholder=${t("plantEditor.notesPlaceholder")}
+            value=${this._plantNotes}
+            @sl-change=${(event: InputEvent) =>
+              (this._plantNotes = (event.target as SlTextarea).value)}
+          ></sl-textarea>
+          <div class="spacer"></div>
+
+          <sl-details summary=${t("plantEditor.detailsPot")}>
+            <plant-multi-value-editor
+              id="substrate-input"
+              label=${t("plantEditor.substrateLabel")}
+              placeholder=${t("plantEditor.substratePlaceholder")}
+              .suggestions=${[...this.plantStore.plantDb.substrates]}
+              .value=${this._plantSubstrate}
+              @plant-changed=${(event: CustomEvent) =>
+                (this._plantSubstrate = (event.target as PlantMultiValueEditor).value)}
+            ></plant-multi-value-editor>
+            <div class="spacer"></div>
+
+            <div class="row">
+              <div class="control">
+                <sl-input
+                  id="pot-shape-top-input"
+                  label=${t("plantEditor.potShapeTopLabel")}
+                  placeholder=${t("plantEditor.potShapeTopPlaceholder")}
+                  clearable
+                  value=${this._plantPotShapeTop}
+                  @sl-focus=${() => this._potShapeTopDropdown?.show()}
+                  @sl-input=${(event: InputEvent) =>
+                    (this._plantPotShapeTop = (event.target as SlInput).value)}
+                ></sl-input
+                ><sl-dropdown id="pot-shape-top-dropdown" hoist>
+                  <sl-menu>
+                    ${[...this.plantStore.plantDb.potShapesTop]
+                      .sort()
+                      .filter(type =>
+                        type
+                          .toLocaleLowerCase()
+                          .includes(this._plantPotShapeTop?.toLocaleLowerCase() ?? "")
+                      )
+                      .map(
+                        entry =>
+                          html`<sl-menu-item
+                            @click=${() => {
+                              this._plantPotShapeTop = entry;
+                            }}
+                            >${entry}</sl-menu-item
+                          >`
+                      )}
+                  </sl-menu>
+                </sl-dropdown>
+              </div>
+
+              <div class="control">
+                <sl-input
+                  id="pot-color-input"
+                  label=${t("plantEditor.potColorLabel")}
+                  placeholder=${t("plantEditor.potColorPlaceholder")}
+                  clearable
+                  value=${this._plantPotColor}
+                  @sl-focus=${() => this._potColorDropdown?.show()}
+                  @sl-input=${(event: InputEvent) =>
+                    (this._plantPotColor = (event.target as SlInput).value)}
+                ></sl-input
+                ><sl-dropdown id="pot-color-dropdown" hoist>
+                  <sl-menu>
+                    ${[...this.plantStore.plantDb.potColors]
+                      .sort()
+                      .filter(type =>
+                        type
+                          .toLocaleLowerCase()
+                          .includes(this._plantPotColor?.toLocaleLowerCase() ?? "")
+                      )
+                      .map(
+                        entry =>
+                          html`<sl-menu-item
+                            @click=${() => {
+                              this._plantPotColor = entry;
+                            }}
+                            >${entry}</sl-menu-item
+                          >`
+                      )}
+                  </sl-menu>
+                </sl-dropdown>
+              </div>
+
+              <div class="control">
+                <sl-checkbox
+                  id="on-saucer-input"
+                  clearable
+                  ?checked=${this._plantOnSaucer}
+                  ?indeterminate=${this._plantOnSaucer === undefined}
+                  @sl-input=${(event: InputEvent) =>
+                    (this._plantOnSaucer = (event.target as SlCheckbox).checked)}
+                  >${t("plantEditor.onSaucerLabel")}</sl-checkbox
+                >
+              </div>
+            </div>
+          </sl-details>
+          <div class="spacer"></div>
+
+          <sl-details summary=${t("plantEditor.detailsDiagnostics")}>
+            <div class="row">
+              <sl-input
+                type="number"
+                id="ph-min-input"
+                label=${t("plantEditor.phMinLabel")}
+                placeholder=${t("plantEditor.phMinPlaceholder")}
+                clearable
+                value=${this._plantPhMin}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantPhMin = (event.target as SlInput).valueAsNumber)}
+              ></sl-input>
+              <sl-input
+                type="number"
+                id="ph-max-input"
+                label=${t("plantEditor.phMaxLabel")}
+                placeholder=${t("plantEditor.phMaxPlaceholder")}
+                clearable
+                value=${this._plantPhMax}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantPhMax = (event.target as SlInput).valueAsNumber)}
+              ></sl-input>
+
+              <sl-input
+                type="number"
+                id="ec-min-input"
+                label=${t("plantEditor.ecMinLabel")}
+                placeholder=${t("plantEditor.ecMinPlaceholder")}
+                clearable
+                value=${this._plantEcMin}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantEcMin = (event.target as SlInput).valueAsNumber)}
+              ></sl-input>
+              <sl-input
+                type="number"
+                id="ec-max-input"
+                label=${t("plantEditor.ecMaxLabel")}
+                placeholder=${t("plantEditor.ecMaxPlaceholder")}
+                clearable
+                value=${this._plantEcMax}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantEcMax = (event.target as SlInput).valueAsNumber)}
+              ></sl-input>
+            </div>
+            <div class="spacer"></div>
+
+            <div class="row">
+              <sl-input
+                type="number"
+                id="temp-min-input"
+                label=${t("plantEditor.tempMinLabel")}
+                placeholder=${t("plantEditor.tempMinPlaceholder")}
+                clearable
+                value=${this._plantTempMin}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantTempMin = (event.target as SlInput).valueAsNumber)}
+              ></sl-input
+              ><sl-input
+                type="number"
+                id="temp-max-input"
+                label=${t("plantEditor.tempMaxLabel")}
+                placeholder=${t("plantEditor.tempMaxPlaceholder")}
+                clearable
+                value=${this._plantTempMax}
+                @sl-input=${(event: InputEvent) =>
+                  (this._plantTempMax = (event.target as SlInput).valueAsNumber)}
+              ></sl-input></div
+          ></sl-details>
+          <div class="spacer"></div>
+
+          <sl-details summary=${t("plantEditor.detailsExternals")}>
+            <plant-multi-value-editor
+              id="plantgeek-input"
+              label=${t("plantEditor.plantgeekLabel")}
+              placeholder="62060b1d6b98d32724f806ed"
+              .value=${this._plantPlantgeekId}
+              @plant-changed=${(event: CustomEvent) =>
+                (this._plantPlantgeekId = (event.target as PlantMultiValueEditor).value)}
+            ></plant-multi-value-editor>
+          </sl-details>
+        </form>`,
     ];
   }
 }
