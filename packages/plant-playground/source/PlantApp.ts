@@ -107,6 +107,9 @@ export class PlantApp extends LitElement {
       case "plant":
         document.title = `${pageParams[0]} - PlantDB Playground`;
         break;
+      case "plant-properties":
+        document.title = `${pageParams[0]} Properties - PlantDB Playground`;
+        break;
       case "types":
         document.title = `${t("menu.typeMap")} - PlantDB Playground`;
         break;
@@ -240,6 +243,15 @@ export class PlantApp extends LitElement {
                   this._plantStoreUi.pageParams[0] ?? ""
                 )}
               ></plant-details-view>
+              <plant-properties-view
+                class="view"
+                ?active=${this._plantStoreUi.page === "plant-properties"}
+                .plantStore=${this._plantStore}
+                .plantStoreUi=${this._plantStoreUi}
+                .plant=${this._plantStore.plantDb.plants.get(
+                  this._plantStoreUi.pageParams[0] ?? ""
+                )}
+              ></plant-properties-view>
 
               <plant-type-map-view
                 class="view"

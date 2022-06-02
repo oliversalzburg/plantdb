@@ -1,12 +1,5 @@
 import { LogEntry, Plant } from "@plantdb/libplantdb";
-import {
-  SlButton,
-  SlCheckbox,
-  SlDropdown,
-  SlInput,
-  SlSelect,
-  SlTextarea,
-} from "@shoelace-style/shoelace";
+import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
@@ -26,15 +19,11 @@ export class PlantLogEntryForm extends LitElement {
         flex-direction: column;
       }
 
-      form {
+      #form {
         flex: 1;
         display: flex;
         flex-direction: column;
         min-height: 50vh;
-      }
-
-      #submit {
-        display: none;
       }
 
       .spacer {
@@ -93,10 +82,7 @@ export class PlantLogEntryForm extends LitElement {
   private _ph: number | undefined;
 
   @query("#form")
-  form: HTMLFormElement | null | undefined;
-
-  @query("#submit")
-  submitButton: SlButton | null | undefined;
+  private _form: HTMLFormElement | null | undefined;
 
   @query("#plant-dropdown")
   private _plantDrowndown: SlDropdown | null | undefined;
@@ -132,10 +118,10 @@ export class PlantLogEntryForm extends LitElement {
   }
 
   reportValidity() {
-    assertExists(this.form);
+    assertExists(this._form);
 
     const controls: NodeListOf<SlInput | SlSelect | SlTextarea | SlCheckbox> =
-      this.form.querySelectorAll("sl-input, sl-select, sl-textarea, sl-checkbox");
+      this._form.querySelectorAll("sl-input, sl-select, sl-textarea, sl-checkbox");
     let valid = true;
 
     for (const control of controls) {
@@ -183,7 +169,6 @@ export class PlantLogEntryForm extends LitElement {
 
     return [
       html`<form id="form">
-        <button id="submit" type="submit" @click=${() => console.warn("button submit")}></button>
         <sl-input
           id="plant-input"
           label=${t("entryEditor.plantLabel")}

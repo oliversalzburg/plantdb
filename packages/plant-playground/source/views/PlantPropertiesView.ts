@@ -1,27 +1,27 @@
+import { Plant } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
-import { LogEntry } from "packages/libplantdb/typings";
 import { mustExist } from "../Maybe";
-import { PlantLogEntryForm } from "../PlantLogEntryForm";
+import { PlantPropertiesForm } from "../PlantPropertiesForm";
 import { View } from "./View";
 
-@customElement("plant-log-entry-view")
-export class PlantLogEntryView extends View {
+@customElement("plant-properties-view")
+export class PlantPropertiesView extends View {
   static readonly styles = [
     ...View.styles,
     css`
-      #entry-form {
+      #form {
         padding: 0 5vw;
       }
 
       @media (min-width: 1000px) {
-        #entry-form {
+        #form {
           padding: 0 15vw;
         }
       }
       @media (min-width: 2000px) {
-        #entry-form {
+        #form {
           padding: 0 25vw;
         }
       }
@@ -36,21 +36,21 @@ export class PlantLogEntryView extends View {
   ];
 
   @property()
-  logEntry: LogEntry | undefined;
+  plant: Plant | undefined;
 
   @query("#form")
-  private _form: PlantLogEntryForm | null | undefined;
+  private _form: PlantPropertiesForm | null | undefined;
 
   save() {
     if (!mustExist(this._form).reportValidity()) {
       return;
     }
 
-    const event = new CustomEvent("plant-log-entry-saved", {
+    const event = new CustomEvent("plant-properties-saved", {
       bubbles: true,
       cancelable: true,
       composed: true,
-      detail: this._form?.asLogEntry(),
+      detail: this._form?.asPlant(),
     });
     this.dispatchEvent(event);
 
@@ -64,11 +64,11 @@ export class PlantLogEntryView extends View {
     this.plantStoreUi?.alert("Cancelled").catch(console.error);
     history.back();
     */
-    const event = new CustomEvent("plant-log-entry-cancelled", {
+    const event = new CustomEvent("plant-properties-cancelled", {
       bubbles: true,
       cancelable: true,
       composed: true,
-      detail: this._form?.asLogEntry(),
+      detail: this._form?.asPlant(),
     });
     this.dispatchEvent(event);
 
@@ -79,12 +79,12 @@ export class PlantLogEntryView extends View {
 
   render() {
     return [
-      html`<plant-log-entry-form
+      html`<plant-properties-form
           id="form"
           .plantStore=${this.plantStore}
           .plantStoreUi=${this.plantStoreUi}
-          .logEntry=${this.logEntry}
-        ></plant-log-entry-form>
+          .plant=${this.plant}
+        ></plant-properties-form>
         <section class="footer">
           <sl-button variant="primary" @click=${() => this.save()}
             >${t("save", { ns: "common" })}</sl-button

@@ -1,20 +1,20 @@
 import { Plant } from "@plantdb/libplantdb";
-import { SlCheckbox, SlDropdown, SlInput, SlTextarea } from "@shoelace-style/shoelace";
+import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
 import { t } from "i18next";
-import { css, html, LitElement } from "lit";
+import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { isNil, mustExist } from "./Maybe";
+import { assertExists, isNil, mustExist } from "./Maybe";
 import { PlantMultiValueEditor } from "./PlantMultiValueEditor";
 import { PlantScanner } from "./PlantScanner";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
-@customElement("plant-details-form")
-export class PlantDetailsForm extends LitElement {
+@customElement("plant-properties-form")
+export class PlantPropertiesForm extends LitElement {
   static readonly styles = [
     css`
       :host {
@@ -27,7 +27,7 @@ export class PlantDetailsForm extends LitElement {
         display: none;
       }
 
-      #plant-form {
+      #form {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -121,8 +121,9 @@ export class PlantDetailsForm extends LitElement {
   @query("#scanner")
   private _scanner: PlantScanner | null | undefined;
 
-  @query("#plant-form")
-  private _plantForm: HTMLFormElement | null | undefined;
+  @query("#form")
+  private _form: HTMLFormElement | null | undefined;
+
   @query("#substrate-dropdown")
   private _substrateDropdown: SlDropdown | null | undefined;
   @query("#pot-shape-top-dropdown")
@@ -153,6 +154,46 @@ export class PlantDetailsForm extends LitElement {
     this._plantPlantgeekId = this.plant?.plantGeekId ?? this._plantPlantgeekId;
   }
 
+  protected updated(
+    _changedProperties: PropertyValueMap<PlantPropertiesForm> | Map<PropertyKey, unknown>
+  ): void {
+    if (_changedProperties.has("plant")) {
+      this._plantId = this.plant?.id ?? "";
+      this._plantName = this.plant?.name ?? "";
+      this._plantKind = this.plant?.kind ?? "";
+      this._plantSubstrate = this.plant?.substrate ?? "";
+      this._plantPotShapeTop = this.plant?.potShapeTop ?? "";
+      this._plantPotColor = this.plant?.potColor ?? "";
+      this._plantOnSaucer = this.plant?.onSaucer ?? undefined;
+      this._plantLocation = this.plant?.location ?? "";
+      this._plantPhMin = this.plant?.phMin ?? undefined;
+      this._plantPhMax = this.plant?.phMax ?? undefined;
+      this._plantEcMin = this.plant?.ecMin ?? undefined;
+      this._plantEcMax = this.plant?.ecMax ?? undefined;
+      this._plantTempMin = this.plant?.tempMin ?? undefined;
+      this._plantTempMax = this.plant?.tempMax ?? undefined;
+      this._plantNotes = this.plant?.notes ?? "";
+      this._plantPlantgeekId = this.plant?.plantGeekId ?? "";
+    }
+  }
+
+  reportValidity() {
+    assertExists(this._form);
+
+    const controls: NodeListOf<SlInput | SlSelect | SlTextarea | SlCheckbox> =
+      this._form.querySelectorAll("sl-input, sl-select, sl-textarea, sl-checkbox");
+    let valid = true;
+
+    for (const control of controls) {
+      if (!control.reportValidity()) {
+        valid = false;
+        break;
+      }
+    }
+
+    return valid;
+  }
+
   asPlant() {
     const plant = mustExist(this.plantStore).plantDb.makeNewPlant(this._plantId);
     return Plant.fromPlant(plant, {
@@ -175,13 +216,13 @@ export class PlantDetailsForm extends LitElement {
   }
 
   private _scanPlant() {
-    mustExist(this._plantForm).style.display = "none";
+    mustExist(this._form).style.display = "none";
     mustExist(this._scanner).style.display = "flex";
     mustExist(this._scanner).start();
   }
 
   private _plantScanned(dataUrl: string) {
-    mustExist(this._plantForm).style.display = "flex";
+    mustExist(this._form).style.display = "flex";
     mustExist(this._scanner).style.display = "none";
     mustExist(this._scanner).stop();
     console.log(dataUrl);
@@ -198,7 +239,7 @@ export class PlantDetailsForm extends LitElement {
           @plant-scanned=${(event: CustomEvent<string>) => this._plantScanned(event.detail)}
         ></plant-scanner>
         <form
-          id="plant-form"
+          id="form"
           @submit=${(event: Event) => {
             event.preventDefault();
           }}

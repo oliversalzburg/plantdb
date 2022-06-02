@@ -2,13 +2,12 @@ import { getBasePath } from "@shoelace-style/shoelace";
 import i18next, { t } from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
-import { html, LitElement, render } from "lit";
+import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { LogEntry, Plant } from "packages/libplantdb/typings";
 import { registerSW } from "virtual:pwa-register";
 import { assertExists } from "../Maybe";
-import { PlantDetailsForm } from "../PlantDetailsForm";
 import { PlantStore } from "./PlantStore";
 
 let globalStore: PlantStoreUi | undefined;
@@ -16,7 +15,15 @@ let globalStore: PlantStoreUi | undefined;
 export const retrieveStoreUi = () => globalStore;
 
 export type SupportedLocales = "de-DE" | "en-US" | "he-IL";
-export type KnownViews = "import" | "list" | "log" | "log-entry" | "plant" | "types" | "view404";
+export type KnownViews =
+  | "import"
+  | "list"
+  | "log"
+  | "log-entry"
+  | "plant"
+  | "plant-properties"
+  | "types"
+  | "view404";
 
 @customElement("plant-store-ui")
 export class PlantStoreUi extends LitElement {
@@ -291,7 +298,7 @@ export class PlantStoreUi extends LitElement {
     return window.confirm(message);
   }
 
-  showEntryEditor(plantStore: PlantStore, logEntry?: LogEntry) {
+  showEntryEditor(logEntry?: LogEntry) {
     return new Promise<LogEntry | null>(resolve => {
       this.navigateTo("log-entry", [logEntry ? logEntry.sourceLine.toString() : "new"]);
 
@@ -319,53 +326,31 @@ export class PlantStoreUi extends LitElement {
     });
   }
 
-  showPlantEditor(plantStore: PlantStore, plant?: Plant) {
-    return new Promise<Plant | null>((resolve, reject) => {
-      const dialog = Object.assign(document.createElement("sl-dialog"), {
-        label: plant ? t("plant.edit") : t("plant.add"),
-      });
+  showPlantEditor(plant?: Plant) {
+    return new Promise<Plant | null>(resolve => {
+      this.navigateTo("plant-properties", [plant ? plant.id : "new"]);
 
-      render(
-        html`<plant-details-form
-            id="details-form"
-            .plantStore=${plantStore}
-            .plantStoreUi=${this}
-            .plant=${plant}
-          ></plant-details-form>
+      const onCancel = (event: Event) => {
+        event.preventDefault();
+        history.back();
 
-          <sl-button
-            slot="footer"
-            variant="primary"
-            @click=${() => {
-              const detailsForm = dialog.querySelector("#details-form") as PlantDetailsForm;
-              const plant = detailsForm.asPlant();
+        resolve(null);
 
-              dialog
-                .hide()
-                .catch(console.error)
-                .finally(() => document.body.removeChild(dialog));
+        document.removeEventListener("plant-properties-saved", onSave);
+        document.removeEventListener("plant-properties-cancelled", onCancel);
+      };
+      const onSave = (event: Event) => {
+        event.preventDefault();
+        history.back();
 
-              resolve(plant);
-            }}
-            >${t("save", { ns: "common" })}</sl-button
-          ><sl-button
-            slot="footer"
-            @click=${() => {
-              dialog
-                .hide()
-                .catch(console.error)
-                .finally(() => document.body.removeChild(dialog));
+        resolve((event as CustomEvent<Plant>).detail);
 
-              resolve(null);
-            }}
-            >${t("close", { ns: "common" })}</sl-button
-          >`,
-        dialog
-      );
+        document.removeEventListener("plant-properties-saved", onSave);
+        document.removeEventListener("plant-properties-cancelled", onCancel);
+      };
 
-      document.body.appendChild(dialog);
-
-      dialog.show().catch(reject);
+      document.addEventListener("plant-properties-saved", onSave);
+      document.addEventListener("plant-properties-cancelled", onCancel);
     });
   }
 
@@ -373,7 +358,7 @@ export class PlantStoreUi extends LitElement {
     assertExists(this.plantStore);
 
     console.debug(`Show entry dialog for entry #${logEntry.sourceLine}`);
-    const updatedEntry = await this.showEntryEditor(this.plantStore, logEntry);
+    const updatedEntry = await this.showEntryEditor(logEntry);
     if (!updatedEntry) {
       return;
     }
@@ -397,7 +382,7 @@ export class PlantStoreUi extends LitElement {
     assertExists(this.plantStore);
 
     console.debug(`Show details dialog for plant #${plant.id}`);
-    const updatedPlant = await this.showPlantEditor(this.plantStore, plant);
+    const updatedPlant = await this.showPlantEditor(plant);
     if (!updatedPlant) {
       return;
     }
