@@ -4,7 +4,12 @@
     "experimentalDecorators": true,
     "outDir": "output",
     "rootDir": "source",
-    "types": ["@types/web", "vite/client", "vite-plugin-pwa/client"],
+    "types": [
+      "@types/web",
+      "@types/wicg-file-system-access",
+      "vite/client",
+      "vite-plugin-pwa/client"
+    ],
     "useDefineForClassFields": false
   },
   "include": ["../../@types", "source"],

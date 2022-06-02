@@ -116,13 +116,45 @@ export const plantsFromCSV = (
  * or as a single multi-line string (false)?
  * @returns The correctly parsed CSV value.
  */
-export const valueFromCSV = (csvData: Array<string>, column: number, expectMultiValue = true) => {
+export const valueFromCSV = (
+  csvData: ReadonlyArray<string>,
+  column: number,
+  expectMultiValue = true
+) => {
   // Falsey check covers empty string, null, undefined.
   if (!csvData[column]) {
     return undefined;
   }
 
   return expectMultiValue ? splitMultiValue(csvData[column]) : csvData[column];
+};
+
+export const floatFromCSV = (
+  csvData: ReadonlyArray<string>,
+  column: number,
+  databaseFormat: DatabaseFormat
+) => {
+  const value = valueFromCSV(csvData, column, false) as string;
+  if (value === undefined) {
+    return undefined;
+  }
+
+  const float = tryParseFloat(value, databaseFormat);
+  return float;
+};
+
+export const intFromCSV = (
+  csvData: ReadonlyArray<string>,
+  column: number,
+  databaseFormat: DatabaseFormat
+) => {
+  const value = valueFromCSV(csvData, column, false) as string;
+  if (value === undefined) {
+    return undefined;
+  }
+
+  const float = tryParseInt(value, databaseFormat);
+  return float;
 };
 
 /**
@@ -157,6 +189,16 @@ export const splitMultiValue = (multiValue: string) => {
  */
 export const makePlantMap = (plants: ReadonlyArray<Plant>) => {
   return new Map(plants.map(plant => [plant.id, plant]));
+};
+
+export const tryParseBool = (boolValue: string) => {
+  if (boolValue === "TRUE") {
+    return true;
+  }
+  if (boolValue === "FALSE") {
+    return false;
+  }
+  return undefined;
 };
 
 export const tryParseFloat = (numberValue: string, databaseFormat = new DatabaseFormat()) => {

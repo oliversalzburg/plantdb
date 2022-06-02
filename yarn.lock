@@ -1509,6 +1509,7 @@ __metadata:
     "@types/dygraphs": 2.1.4
     "@types/lunr": 2.3.4
     "@types/web": 0.0.67
+    "@types/wicg-file-system-access": 2020.9.5
     dygraphs: 2.1.0
     i18next: 21.8.5
     i18next-browser-languagedetector: 6.1.4
@@ -1771,6 +1772,13 @@ __metadata:
   version: 0.0.67
   resolution: "@types/web@npm:0.0.67"
   checksum: 90aa678121bd344c56d337bc2f2797390a58e69409764dae56455beabfd9dfbfbc502c1c499872d9e2182f91a9a368c3be7acf04cb80e175c54928f4502ab305
+  languageName: node
+  linkType: hard
+
+"@types/wicg-file-system-access@npm:2020.9.5":
+  version: 2020.9.5
+  resolution: "@types/wicg-file-system-access@npm:2020.9.5"
+  checksum: a5442f60cef0e99d687a4fb83fd4f4a522361747dbbca03bf4dd15b4883d22e0867e1c6577fb99b4918f77c3e3f67b649303c84885678d71c1b4050183c65751
   languageName: node
   linkType: hard
 

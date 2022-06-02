@@ -1,7 +1,7 @@
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry } from "./LogEntry.js";
 import { PlantDB } from "./PlantDB.js";
-import { kindSummarize, tryParseFloat, tryParseInt, valueFromCSV, valueToCSV } from "./Tools.js";
+import { floatFromCSV, intFromCSV, kindSummarize, valueFromCSV, valueToCSV } from "./Tools.js";
 
 /**
  * Matches a Plant ID.
@@ -254,17 +254,17 @@ export class Plant {
     plant.#name = dataRow[1] !== "" ? dataRow[1] : undefined;
     plant.#kind = valueFromCSV(dataRow, 2);
     plant.#substrate = valueFromCSV(dataRow, 3);
-    plant.#potShapeTop = dataRow[4] !== "" ? dataRow[4] : undefined;
-    plant.#potColor = dataRow[5] !== "" ? dataRow[5] : undefined;
+    plant.#potShapeTop = valueFromCSV(dataRow, 4, false) as string | undefined;
+    plant.#potColor = valueFromCSV(dataRow, 5, false) as string | undefined;
     plant.#onSaucer = dataRow[6] === "TRUE" ? true : dataRow[6] === "FALSE" ? false : undefined;
     plant.#location = valueFromCSV(dataRow, 7);
-    plant.#phMin = dataRow[8] !== "" ? tryParseFloat(dataRow[8]) : undefined;
-    plant.#phMax = dataRow[9] !== "" ? tryParseFloat(dataRow[9]) : undefined;
-    plant.#ecMin = dataRow[10] !== "" ? tryParseInt(dataRow[10]) : undefined;
-    plant.#ecMax = dataRow[11] !== "" ? tryParseInt(dataRow[11]) : undefined;
-    plant.#tempMin = dataRow[12] !== "" ? tryParseFloat(dataRow[12]) : undefined;
-    plant.#tempMax = dataRow[13] !== "" ? tryParseFloat(dataRow[13]) : undefined;
-    plant.#notes = dataRow[14] !== "" ? dataRow[14] : undefined;
+    plant.#phMin = floatFromCSV(dataRow, 8, plantDb.config);
+    plant.#phMax = floatFromCSV(dataRow, 9, plantDb.config);
+    plant.#ecMin = intFromCSV(dataRow, 10, plantDb.config);
+    plant.#ecMax = intFromCSV(dataRow, 11, plantDb.config);
+    plant.#tempMin = floatFromCSV(dataRow, 12, plantDb.config);
+    plant.#tempMax = floatFromCSV(dataRow, 13, plantDb.config);
+    plant.#notes = valueFromCSV(dataRow, 14, false) as string | undefined;
     plant.#plantGeekId = valueFromCSV(dataRow, 15);
     return plant;
   }

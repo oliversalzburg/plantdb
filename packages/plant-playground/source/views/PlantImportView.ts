@@ -149,6 +149,32 @@ export class PlantImportView extends View {
               this.plantLogData = (event.target as SlTextarea).value;
             }}"
           ></sl-textarea>
+          <sl-button
+            @click=${async () => {
+              const pickerOpts = {
+                types: [
+                  {
+                    description: "CSV Files",
+                    accept: {
+                      "text/csv": [".csv"],
+                    },
+                  },
+                ],
+                excludeAcceptAllOption: true,
+                multiple: false,
+              };
+              // open file picker
+              const [fileHandle] = await window.showOpenFilePicker(pickerOpts);
+
+              // get file contents
+              const fileData = await fileHandle.getFile();
+
+              this.plantLogData = await fileData.text();
+
+              this.requestUpdate();
+            }}
+            >Open plantlog.csv</sl-button
+          >
 
           <sl-textarea
             id="plant-data"
@@ -160,6 +186,34 @@ export class PlantImportView extends View {
               this.plantData = (event.target as SlTextarea).value;
             }}"
           ></sl-textarea>
+          <sl-button
+            @click=${async () => {
+              const pickerOpts = {
+                types: [
+                  {
+                    description: "CSV Files",
+                    accept: {
+                      "text/csv": [".csv"],
+                    },
+                  },
+                ],
+                excludeAcceptAllOption: true,
+                multiple: false,
+              };
+              // open file picker
+              const [fileHandle] = await window.showOpenFilePicker(pickerOpts);
+
+              // get file contents
+              const fileData = await fileHandle.getFile();
+
+              this.plantData = await fileData.text();
+
+              this.requestUpdate();
+            }}
+            >Open plants.csv</sl-button
+          >
+
+          <sl-divider></sl-divider>
 
           <sl-button
             id="process"
