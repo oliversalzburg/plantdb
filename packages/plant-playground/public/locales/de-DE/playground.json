@@ -10,9 +10,11 @@
     "typeMap": "Typ-Zuordnungen"
   },
   "empty": {
+    "backToPlants": "Back to plant list",
     "importNow": "Jetzt importieren",
     "log": "Es scheint, als hättest du keine Einträge 😔",
     "or": "oder",
+    "plant": "The requested plant wan't found 😟",
     "plants": "Es scheint, als hättest du keine Pflanzen 😔"
   },
   "log": {
