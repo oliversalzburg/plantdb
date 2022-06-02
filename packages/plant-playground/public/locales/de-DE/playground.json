@@ -10,11 +10,11 @@
     "typeMap": "Typ-Zuordnungen"
   },
   "empty": {
-    "backToPlants": "Back to plant list",
+    "backToPlants": "Zurück zur Pflanzen-Liste",
     "importNow": "Jetzt importieren",
     "log": "Es scheint, als hättest du keine Einträge 😔",
     "or": "oder",
-    "plant": "The requested plant wan't found 😟",
+    "plant": "Die angeforderte Pflanze wurde nicht gefunden :pepehands:",
     "plants": "Es scheint, als hättest du keine Pflanzen 😔"
   },
   "log": {
@@ -64,7 +64,8 @@
     "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
     "save": "Zuordnung speichern",
     "title": "Typ-Zuordnungen",
-    "unmapped": "Nicht zugeordneter Ereignistyp"
+    "unmapped": "Nicht zugeordneter Ereignistyp",
+    "updated": "Mappings updated"
   },
   "eventType": {
     "Acquisition": "Anschaffung",
