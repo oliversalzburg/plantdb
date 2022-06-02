@@ -15,6 +15,7 @@ export class PlantMultiValueEditor extends LitElement {
         display: flex;
         margin-top: 0.1rem;
         gap: 0.1rem;
+        flex-wrap: wrap;
       }
     `,
   ];
