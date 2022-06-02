@@ -43,15 +43,34 @@ export class PlantLogEntry extends LitElement {
         color: var(--sl-panel-background-color);
       }
 
-      sl-card section {
+      .log-body {
         display: flex;
         flex-direction: row;
         align-items: center;
         min-height: 2rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
       }
 
-      .first-entry {
+      @media (min-width: 500px) {
+        .timestamp {
+          max-width: 10rem;
+        }
+      }
+
+      .time-distance {
         cursor: default;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 800px) {
+        .hover-guide {
+          display: none;
+        }
+      }
+
+      .log-body sl-divider {
+        height: 2rem;
       }
 
       .event-type {
@@ -75,7 +94,8 @@ export class PlantLogEntry extends LitElement {
       .note-container {
         flex: 1;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        min-width: 50%;
       }
 
       .edit-button {
@@ -106,7 +126,7 @@ export class PlantLogEntry extends LitElement {
         return {
           icon: "moisture",
           details: html`${logEntry?.ec
-            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number> µS/cm`
+            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number>`
             : undefined}
           ${logEntry?.ph
             ? html`pH: <sl-format-number value=${logEntry.ph}></sl-format-number>`
@@ -117,7 +137,7 @@ export class PlantLogEntry extends LitElement {
         return {
           icon: "rulers",
           details: html`${logEntry?.ec
-            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number> µS/cm`
+            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number>`
             : undefined}
           ${logEntry?.ph
             ? html`pH: <sl-format-number value=${logEntry.ph}></sl-format-number>`
@@ -155,7 +175,7 @@ export class PlantLogEntry extends LitElement {
         return {
           icon: "droplet-half",
           details: html`${logEntry?.ec
-            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number> µS/cm`
+            ? html`EC: <sl-format-number value=${logEntry.ec}></sl-format-number>`
             : undefined}
           ${logEntry?.ph
             ? html`pH: <sl-format-number value=${logEntry.ph}></sl-format-number>`
@@ -168,8 +188,10 @@ export class PlantLogEntry extends LitElement {
 
   augmentType(logEntry: LogEntry, eventType?: EventType) {
     const { icon, details } = PlantLogEntry.extractTypeDetails(logEntry, eventType);
-    return html`${icon ? html`<sl-icon name="${icon}"></sl-icon> ` : undefined}${logEntry.type}
-    ${details ?? ""}`;
+    return html`${icon ? html`<sl-icon name="${icon}"></sl-icon> ` : undefined}<strong
+        >${logEntry.type}</strong
+      >
+      ${details ?? ""}`;
   }
 
   render() {
@@ -188,7 +210,7 @@ export class PlantLogEntry extends LitElement {
                 <small><em>${this.logEntry.plant.kind}</em></small>
               </div>
               <div id="infos">
-                <a class="navigation-guide" href="/plant/${this.logEntry.plant.id}"
+                <a class="navigation-guide hover-guide" href="/plant/${this.logEntry.plant.id}"
                   >${t("log.goToDetails")}</a
                 ><span class="navigation-guide"> →</span>
                 ${this.logEntry.plant.location
@@ -204,10 +226,11 @@ export class PlantLogEntry extends LitElement {
               </div>
             </div>`
           : undefined}
-        <section>
-          <div>
-            ${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}<br />
-            <small class="first-entry"
+
+        <section class="log-body">
+          <div class="timestamp">
+            <span>${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}</span>
+            <small class="time-distance"
               >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.logEntry
                 .plant?.logEntryOldest === this.logEntry
                 ? html`<sl-tooltip content=${t("log.firstEntry")}><span>🌟</span></sl-tooltip>`
@@ -215,15 +238,15 @@ export class PlantLogEntry extends LitElement {
             >
           </div>
 
-          <sl-divider vertical></sl-divider>
+          <sl-divider class="hover-guide" vertical></sl-divider>
 
           <div class="note-container">
-            <strong class="event-type"
+            <span class="event-type"
               >${this.augmentType(this.logEntry, identifiedType)}${!identifiedType
                 ? html`<sl-tooltip class="unmapped-guide" content=${t("log.unmappedEvent")}
                     ><a href="/types">?</a></sl-tooltip
                   >`
-                : undefined}</strong
+                : undefined}</span
             >
 
             <cite>${this.linkify(this.logEntry.note)}</cite>
@@ -231,7 +254,7 @@ export class PlantLogEntry extends LitElement {
 
           <sl-tooltip content=${t("log.openEntry")} placement="left">
             <sl-icon-button
-              class="edit-button"
+              class="edit-button hover-guide"
               name="pencil"
               @click=${() => this.dispatchEvent(new CustomEvent("plant-body-click"))}
             ></sl-icon-button
