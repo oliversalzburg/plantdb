@@ -2,42 +2,6 @@
   "app": {
     "title": "PlantDB Playground"
   },
-  "menu": {
-    "close": "$t(common:close)",
-    "import": "Import",
-    "log": "Log",
-    "plants": "Plants",
-    "typeMap": "Type mappings"
-  },
-  "empty": {
-    "backToPlants": "Back to plant list",
-    "importNow": "Import now",
-    "log": "It seems like you have no log entries 😔",
-    "or": "or",
-    "plant": "The requested plant wan't found 😟",
-    "plants": "It seems like you have no plants 😔"
-  },
-  "log": {
-    "add": "Add log entry",
-    "edit": "Edit log entry",
-    "entryDeleted": "Entry deleted",
-    "entryUpdated": "Entry updated",
-    "firstEntry": "This is the first entry for this plant.",
-    "goToDetails": "Go to plant details",
-    "openEntry": "Open log entry",
-    "unmappedEvent": "Unmapped event. Click to map."
-  },
-  "plant": {
-    "add": "Add plant",
-    "edit": "Edit plant",
-    "never": "never",
-    "plantDeleted": "Plant deleted",
-    "plantUpdated": "Plant updated",
-    "whenAdded": "Added: {{when}}",
-    "whenInfested": "Infested since: {{when}}",
-    "whenPestControl": "Last pest control: {{when}}",
-    "whenUpdated": "Last updated: {{when}}"
-  },
   "dbConfig": {
     "columnSeparator": "Column separator",
     "comma": "Comma ,",
@@ -50,40 +14,13 @@
     "timezone": "Timezone",
     "title": "Database Configuration"
   },
-  "import": {
-    "export": "Insert current data",
-    "import": "Import",
-    "pastePlantLog": "paste plantlog.csv here",
-    "pastePlants": "paste plants.csv here",
-    "plantData": "Plant data",
-    "plantLog": "Plant log",
-    "title": "Import Data"
-  },
-  "typeMap": {
-    "empty": "You don't have any log entries yet. Return here later, once you have created log entries and you will be able to help the Playground understand what they mean.",
-    "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
-    "save": "Save mapping",
-    "title": "Type Mappings",
-    "unmapped": "Unmapped event type",
-    "updated": "Mappings updated"
-  },
-  "eventType": {
-    "Acquisition": "Acquisition",
-    "Fertilization": "Fertilization",
-    "Measurement": "Measurement",
-    "Observation": "Observation",
-    "PestControl": "Pest control",
-    "PestInfestation": "Pest infestation",
-    "Pruning": "Pruning",
-    "Relocation": "Relocation",
-    "Repotting": "Repotting",
-    "RootPruning": "Root pruning",
-    "Shaping": "Shaping",
-    "Watering": "Watering"
-  },
-  "placeholder": {
-    "eventFilter": "Filter event types",
-    "filter": "Type filter here"
+  "empty": {
+    "backToPlants": "Back to plant list",
+    "importNow": "Import now",
+    "log": "It seems like you have no log entries 😔",
+    "or": "or",
+    "plant": "The requested plant wan't found 😟",
+    "plants": "It seems like you have no plants 😔"
   },
   "entryEditor": {
     "dateLabel": "Date *",
@@ -106,6 +43,62 @@
     "typeHelpDeleteWarn": "If you save this entry, IT WILL BE DELETED!",
     "typeLabel": "Event type *",
     "typePlaceholder": "Select event type"
+  },
+  "eventType": {
+    "Acquisition": "Acquisition",
+    "Fertilization": "Fertilization",
+    "Measurement": "Measurement",
+    "Observation": "Observation",
+    "PestControl": "Pest control",
+    "PestInfestation": "Pest infestation",
+    "Pruning": "Pruning",
+    "Relocation": "Relocation",
+    "Repotting": "Repotting",
+    "RootPruning": "Root pruning",
+    "Shaping": "Shaping",
+    "Watering": "Watering"
+  },
+  "import": {
+    "export": "Insert current data",
+    "fsUnsupported": "File system access is not supported on your device.",
+    "import": "Import",
+    "openPlantLogCsv": "Open plantlog.csv",
+    "openPlantsCsv": "Open plants.csv",
+    "pastePlantLog": "paste plantlog.csv here",
+    "pastePlants": "paste plants.csv here",
+    "plantData": "Plant data",
+    "plantLog": "Plant log",
+    "title": "Import Data"
+  },
+  "log": {
+    "add": "Add log entry",
+    "edit": "Edit log entry",
+    "entryDeleted": "Entry deleted",
+    "entryUpdated": "Entry updated",
+    "filterPlaceholder": "Type filter here",
+    "filterTypePlaceholder": "Filter event types",
+    "firstEntry": "This is the first entry for this plant.",
+    "goToDetails": "Go to plant details",
+    "openEntry": "Open log entry",
+    "unmappedEvent": "Unmapped event. Click to map."
+  },
+  "menu": {
+    "close": "$t(common:close)",
+    "import": "Import",
+    "log": "Log",
+    "plants": "Plants",
+    "typeMap": "Type mappings"
+  },
+  "plant": {
+    "add": "Add plant",
+    "edit": "Edit plant",
+    "never": "never",
+    "plantDeleted": "Plant deleted",
+    "plantUpdated": "Plant updated",
+    "whenAdded": "Added: {{when}}",
+    "whenInfested": "Infested since: {{when}}",
+    "whenPestControl": "Last pest control: {{when}}",
+    "whenUpdated": "Last updated: {{when}}"
   },
   "plantEditor": {
     "detailsDiagnostics": "Diagnostics",
@@ -141,5 +134,13 @@
     "tempMaxPlaceholder": "89",
     "tempMinLabel": "Temp. min. (°F)",
     "tempMinPlaceholder": "59"
+  },
+  "typeMap": {
+    "empty": "You don't have any log entries yet. Return here later, once you have created log entries and you will be able to help the Playground understand what they mean.",
+    "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
+    "save": "Save mapping",
+    "title": "Type Mappings",
+    "unmapped": "Unmapped event type",
+    "updated": "Mappings updated"
   }
 }

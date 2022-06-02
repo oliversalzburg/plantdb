@@ -119,6 +119,35 @@ export class PlantImportView extends View {
     this.plantData = plants;
   }
 
+  private async _openCsvFromFileSystem() {
+    const pickerOpts = {
+      types: [
+        {
+          description: "CSV Files",
+          accept: {
+            "text/csv": [".csv"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    };
+    try {
+      // open file picker
+      const [fileHandle] = await window.showOpenFilePicker(pickerOpts);
+
+      // get file contents
+      const fileData = await fileHandle.getFile();
+
+      return fileData.text();
+    } catch (error) {
+      this.plantStoreUi
+        ?.alert(t("import.fsUnsupported"), "danger", "x-circle")
+        .catch(console.error);
+      throw error;
+    }
+  }
+
   render() {
     if (!this.config) {
       return;
@@ -152,29 +181,10 @@ export class PlantImportView extends View {
           ></sl-textarea>
           <sl-button
             @click=${async () => {
-              const pickerOpts = {
-                types: [
-                  {
-                    description: "CSV Files",
-                    accept: {
-                      "text/csv": [".csv"],
-                    },
-                  },
-                ],
-                excludeAcceptAllOption: true,
-                multiple: false,
-              };
-              // open file picker
-              const [fileHandle] = await window.showOpenFilePicker(pickerOpts);
-
-              // get file contents
-              const fileData = await fileHandle.getFile();
-
-              this.plantLogData = await fileData.text();
-
+              this.plantLogData = await this._openCsvFromFileSystem();
               this.requestUpdate();
             }}
-            >Open plantlog.csv</sl-button
+            >${t("import.openPlantLogCsv")}</sl-button
           >
 
           <sl-textarea
@@ -189,29 +199,10 @@ export class PlantImportView extends View {
           ></sl-textarea>
           <sl-button
             @click=${async () => {
-              const pickerOpts = {
-                types: [
-                  {
-                    description: "CSV Files",
-                    accept: {
-                      "text/csv": [".csv"],
-                    },
-                  },
-                ],
-                excludeAcceptAllOption: true,
-                multiple: false,
-              };
-              // open file picker
-              const [fileHandle] = await window.showOpenFilePicker(pickerOpts);
-
-              // get file contents
-              const fileData = await fileHandle.getFile();
-
-              this.plantData = await fileData.text();
-
+              this.plantData = await this._openCsvFromFileSystem();
               this.requestUpdate();
             }}
-            >Open plants.csv</sl-button
+            >${t("import.openPlantsCsv")}</sl-button
           >
 
           <sl-divider></sl-divider>
