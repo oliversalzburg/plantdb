@@ -10,6 +10,7 @@ export class PlantScanner extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
+        gap: 1rem;
       }
 
       .top {
@@ -20,6 +21,9 @@ export class PlantScanner extends LitElement {
         flex-direction: column;
       }
       .controls {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
       }
 
       #spinner {
@@ -148,6 +152,7 @@ export class PlantScanner extends LitElement {
     canvas.style.display = "none";
     video.style.display = "block";
     mustExist(this._clickPhotoButton).style.display = "";
+    mustExist(this._abortButton).style.display = "";
     mustExist(this._pickImageButton).style.display = "none";
     mustExist(this._retryButton).style.display = "none";
 
@@ -179,11 +184,13 @@ export class PlantScanner extends LitElement {
         </div>
         <div class="controls">
           <sl-button id="pick-image" variant="primary" @click=${() => this._pick()}
-            >Pick image</sl-button
+            >Pick image <sl-icon slot="prefix" name="check"></sl-button
           ><sl-button id="click-photo" variant="primary" @click=${() => this._capture()}
-            >Capture image</sl-button
-          ><sl-button id="retry" @click=${() => this._retry()}>Retry</sl-button
-          ><sl-button id="abort" @click=${() => this._abort()}>Abort</sl-button>
+            ><sl-icon slot="prefix" name="camera"></sl-icon>Capture image</sl-button
+          ><sl-button id="retry" @click=${() =>
+            this._retry()}>Retry<sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon></sl-button
+          ><sl-button id="abort" @click=${() =>
+            this._abort()}>Abort<sl-icon slot="suffix" name="x"></sl-icon></sl-button>
         </div>`,
     ];
   }
