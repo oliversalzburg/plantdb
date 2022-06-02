@@ -64,7 +64,8 @@
     "introduction": "On the left, you see the event types that you have used in your input data. Assign the PlantDB type identifiers on the right to make your events recognizable in the app.",
     "save": "Save mapping",
     "title": "Type Mappings",
-    "unmapped": "Unmapped event type"
+    "unmapped": "Unmapped event type",
+    "updated": "Mappings updated"
   },
   "eventType": {
     "Acquisition": "Acquisition",
