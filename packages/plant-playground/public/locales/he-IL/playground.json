@@ -64,7 +64,8 @@
     "introduction": "לשמאל, ניתן לראות סוגי אירועים הכלולים במידע שלך. שייך אליהם את סוגי הטיפוסים של PlantDB המופיעים מימין כדי שהאירועים יזוהו באפליקציה.",
     "save": "שמור מיפוי",
     "title": "מיפוי סוגים",
-    "unmapped": "סוג אירוע לא ממופה"
+    "unmapped": "סוג אירוע לא ממופה",
+    "updated": "Mappings updated"
   },
   "eventType": {
     "Acquisition": "Acquisition",
