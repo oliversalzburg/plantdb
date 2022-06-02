@@ -46,7 +46,10 @@ export class PlantPropertiesForm extends LitElement {
         gap: 0.25rem;
       }
       .button-attached :first-child {
+        min-width: 0;
         flex: 1;
+      }
+      .button-attached :last-child {
       }
 
       .row {
