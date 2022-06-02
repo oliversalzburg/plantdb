@@ -31,6 +31,7 @@ export class PlantImportView extends View {
       }
 
       :host {
+        overflow: auto;
         padding: 1rem;
       }
 

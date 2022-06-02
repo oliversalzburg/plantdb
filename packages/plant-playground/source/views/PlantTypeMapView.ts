@@ -22,6 +22,7 @@ export class PlantTypeMapView extends View {
       }
 
       :host {
+        overflow: auto;
         padding: 1rem;
       }
 
