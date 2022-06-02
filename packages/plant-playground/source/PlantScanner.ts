@@ -73,17 +73,7 @@ export class PlantScanner extends LitElement {
     canvas.style.display = "none";
     video.style.display = "unset";
 
-    const constraints = {
-      audio: false,
-      video: {
-        facingMode: { exact: "environment" },
-        width: this.clientWidth,
-        height: this.clientHeight,
-      },
-    };
-
-    navigator.mediaDevices
-      .getUserMedia(constraints)
+    this._getMediaStream()
       .then(mediaStream => {
         mustExist(this._spinner).style.display = "none";
         this._mediaStream = mediaStream;
@@ -99,6 +89,34 @@ export class PlantScanner extends LitElement {
         };
       })
       .catch(console.error);
+  }
+
+  private async _getMediaStream(
+    constraints: {
+      audio: boolean;
+      video: { facingMode?: { exact: string }; width: number; height: number };
+    } = {
+      audio: false,
+      video: {
+        facingMode: { exact: "environment" },
+        width: this.clientWidth,
+        height: this.clientHeight,
+      },
+    }
+  ): Promise<MediaStream> {
+    let mediaStream;
+    try {
+      mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+    } catch (error) {
+      if ((error as Error).name === "OverconstrainedError" && "facingMode" in constraints.video) {
+        // Environment camera problably not available. Assume we're on deskop.
+        delete constraints.video.facingMode;
+        return this._getMediaStream(constraints);
+      }
+      throw error;
+    }
+
+    return mediaStream;
   }
 
   private _capture() {
@@ -139,6 +157,12 @@ export class PlantScanner extends LitElement {
     this.dataUrl = null;
   }
 
+  private _abort() {
+    this.stop();
+
+    this.dispatchEvent(new CustomEvent("plant-aborted"));
+  }
+
   private _pick() {
     if (!this._imageAvailable) {
       return;
@@ -159,7 +183,7 @@ export class PlantScanner extends LitElement {
           ><sl-button id="click-photo" variant="primary" @click=${() => this._capture()}
             >Capture image</sl-button
           ><sl-button id="retry" @click=${() => this._retry()}>Retry</sl-button
-          ><sl-button id="abort" @click=${() => this._retry()}>Abort</sl-button>
+          ><sl-button id="abort" @click=${() => this._abort()}>Abort</sl-button>
         </div>`,
     ];
   }

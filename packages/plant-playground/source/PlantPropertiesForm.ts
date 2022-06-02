@@ -221,11 +221,14 @@ export class PlantPropertiesForm extends LitElement {
     mustExist(this._scanner).start();
   }
 
-  private _plantScanned(dataUrl: string) {
+  private _plantScanned(dataUrl: string | null) {
     mustExist(this._form).style.display = "flex";
     mustExist(this._scanner).style.display = "none";
     mustExist(this._scanner).stop();
-    console.log(dataUrl);
+    if (dataUrl !== null) {
+      console.log(dataUrl);
+      this.plantStoreUi?.alert("Image captured").catch(console.error);
+    }
   }
 
   render() {
@@ -236,6 +239,7 @@ export class PlantPropertiesForm extends LitElement {
     return [
       html`<plant-scanner
           id="scanner"
+          @plant-aborted=${() => this._plantScanned(null)}
           @plant-scanned=${(event: CustomEvent<string>) => this._plantScanned(event.detail)}
         ></plant-scanner>
         <form
