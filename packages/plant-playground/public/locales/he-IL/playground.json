@@ -2,42 +2,6 @@
   "app": {
     "title": "PlantDB Playground"
   },
-  "menu": {
-    "close": "$t(common:close)",
-    "import": "יבא",
-    "log": "יומן",
-    "plants": "צמחים",
-    "typeMap": "מיפוי סוגים"
-  },
-  "empty": {
-    "backToPlants": "Back to plant list",
-    "importNow": "יבא עכשיו",
-    "log": "נראה שאין לך רישומים ביומן 😔",
-    "or": "or",
-    "plant": "The requested plant wan't found 😟",
-    "plants": "It seems like you have no plants 😔"
-  },
-  "log": {
-    "add": "הוסף רשומה ליומן",
-    "edit": "Edit log entry",
-    "entryDeleted": "Entry deleted",
-    "entryUpdated": "Entry updated",
-    "firstEntry": "This is the first entry for this plant.",
-    "goToDetails": "Go to plant details",
-    "openEntry": "Open log entry",
-    "unmappedEvent": "Unmapped event. Click to map."
-  },
-  "plant": {
-    "add": "Add plant",
-    "edit": "Edit plant",
-    "never": "אף פעם",
-    "plantDeleted": "Plant deleted",
-    "plantUpdated": "Plant updated",
-    "whenAdded": "נוסף: {{when}}",
-    "whenInfested": "הודבק לאחרונה: {{when}}",
-    "whenPestControl": "הדברה אחרונה: {{when}}",
-    "whenUpdated": "עודכן לאחרונה: {{when}}"
-  },
   "dbConfig": {
     "columnSeparator": "מפריד עמודות",
     "comma": "פסיק ,",
@@ -50,40 +14,13 @@
     "timezone": "אזור זמן",
     "title": "קונפיגורציית מסד נתונים"
   },
-  "import": {
-    "export": "Insert current data",
-    "import": "יבא",
-    "pastePlantLog": "הדבק plantlog.csv כאן",
-    "pastePlants": "הדבק plants.csv כאן",
-    "plantData": "מידע צמח",
-    "plantLog": "יומן צמח",
-    "title": "יבא מידע"
-  },
-  "typeMap": {
-    "empty": "You don't have any log entries yet. Return here later, once you have created log entries and you will be able to help the Playground understand what they mean.",
-    "introduction": "לשמאל, ניתן לראות סוגי אירועים הכלולים במידע שלך. שייך אליהם את סוגי הטיפוסים של PlantDB המופיעים מימין כדי שהאירועים יזוהו באפליקציה.",
-    "save": "שמור מיפוי",
-    "title": "מיפוי סוגים",
-    "unmapped": "סוג אירוע לא ממופה",
-    "updated": "Mappings updated"
-  },
-  "eventType": {
-    "Acquisition": "Acquisition",
-    "Fertilization": "Fertilization",
-    "Measurement": "Measurement",
-    "Observation": "Observation",
-    "PestControl": "Pest control",
-    "PestInfestation": "Pest infestation",
-    "Pruning": "Pruning",
-    "Relocation": "Relocation",
-    "Repotting": "Repotting",
-    "RootPruning": "Root pruning",
-    "Shaping": "Shaping",
-    "Watering": "Watering"
-  },
-  "placeholder": {
-    "eventFilter": "סנן סוגי אירועים",
-    "filter": "הכנס סנן כאן"
+  "empty": {
+    "backToPlants": "Back to plant list",
+    "importNow": "יבא עכשיו",
+    "log": "נראה שאין לך רישומים ביומן 😔",
+    "or": "or",
+    "plant": "The requested plant wasn't found 😟",
+    "plants": "It seems like you have no plants 😔"
   },
   "entryEditor": {
     "dateLabel": "Date *",
@@ -106,6 +43,62 @@
     "typeHelpDeleteWarn": "If you save this entry, IT WILL BE DELETED!",
     "typeLabel": "Event type *",
     "typePlaceholder": "Select event type"
+  },
+  "eventType": {
+    "Acquisition": "Acquisition",
+    "Fertilization": "Fertilization",
+    "Measurement": "Measurement",
+    "Observation": "Observation",
+    "PestControl": "Pest control",
+    "PestInfestation": "Pest infestation",
+    "Pruning": "Pruning",
+    "Relocation": "Relocation",
+    "Repotting": "Repotting",
+    "RootPruning": "Root pruning",
+    "Shaping": "Shaping",
+    "Watering": "Watering"
+  },
+  "import": {
+    "export": "Insert current data",
+    "fsUnsupported": "File system access is not supported on your device.",
+    "import": "יבא",
+    "openPlantLogCsv": "Open plantlog.csv",
+    "openPlantsCsv": "Open plants.csv",
+    "pastePlantLog": "הדבק plantlog.csv כאן",
+    "pastePlants": "הדבק plants.csv כאן",
+    "plantData": "מידע צמח",
+    "plantLog": "יומן צמח",
+    "title": "יבא מידע"
+  },
+  "log": {
+    "add": "הוסף רשומה ליומן",
+    "edit": "Edit log entry",
+    "entryDeleted": "Entry deleted",
+    "entryUpdated": "Entry updated",
+    "filterPlaceholder": "Type filter here",
+    "filterTypePlaceholder": "Filter event types",
+    "firstEntry": "This is the first entry for this plant.",
+    "goToDetails": "Go to plant details",
+    "openEntry": "Open log entry",
+    "unmappedEvent": "Unmapped event. Click to map."
+  },
+  "menu": {
+    "close": "$t(common:close)",
+    "import": "יבא",
+    "log": "יומן",
+    "plants": "צמחים",
+    "typeMap": "מיפוי סוגים"
+  },
+  "plant": {
+    "add": "Add plant",
+    "edit": "Edit plant",
+    "never": "אף פעם",
+    "plantDeleted": "Plant deleted",
+    "plantUpdated": "Plant updated",
+    "whenAdded": "נוסף: {{when}}",
+    "whenInfested": "הודבק לאחרונה: {{when}}",
+    "whenPestControl": "הדברה אחרונה: {{when}}",
+    "whenUpdated": "עודכן לאחרונה: {{when}}"
   },
   "plantEditor": {
     "detailsDiagnostics": "Diagnostics",
@@ -141,5 +134,13 @@
     "tempMaxPlaceholder": "89",
     "tempMinLabel": "Temp. min. (°F)",
     "tempMinPlaceholder": "59"
+  },
+  "typeMap": {
+    "empty": "You don't have any log entries yet. Return here later, once you have created log entries and you will be able to help the Playground understand what they mean.",
+    "introduction": "לשמאל, ניתן לראות סוגי אירועים הכלולים במידע שלך. שייך אליהם את סוגי הטיפוסים של PlantDB המופיעים מימין כדי שהאירועים יזוהו באפליקציה.",
+    "save": "שמור מיפוי",
+    "title": "מיפוי סוגים",
+    "unmapped": "סוג אירוע לא ממופה",
+    "updated": "Mappings updated"
   }
 }
