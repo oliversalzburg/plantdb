@@ -2,42 +2,6 @@
   "app": {
     "title": "PlantDB Playground"
   },
-  "menu": {
-    "close": "$t(common:close)",
-    "import": "Importieren",
-    "log": "Protokoll",
-    "plants": "Pflanzen",
-    "typeMap": "Typ-Zuordnungen"
-  },
-  "empty": {
-    "backToPlants": "Zurück zur Pflanzen-Liste",
-    "importNow": "Jetzt importieren",
-    "log": "Es scheint, als hättest du keine Einträge 😔",
-    "or": "oder",
-    "plant": "Die angeforderte Pflanze wurde nicht gefunden :pepehands:",
-    "plants": "Es scheint, als hättest du keine Pflanzen 😔"
-  },
-  "log": {
-    "add": "Eintrag hinzufügen",
-    "edit": "Eintrag bearbeiten",
-    "entryDeleted": "Eintrag gelöscht",
-    "entryUpdated": "Eintrag aktualisiert",
-    "firstEntry": "Das ist der erste Eintrag für diese Pflanze.",
-    "goToDetails": "Pflanzendetails anzeigen",
-    "openEntry": "Eintrag öffnen",
-    "unmappedEvent": "Nicht zugeordneter Typ. Zum Zuweisen klicken."
-  },
-  "plant": {
-    "add": "Pflanze hinzufügen",
-    "edit": "Pflanze bearbeiten",
-    "never": "nie",
-    "plantDeleted": "Pflanze gelöscht",
-    "plantUpdated": "Pflanze aktualisiert",
-    "whenAdded": "Erstellt: {{when}}",
-    "whenInfested": "Befallen seit: {{when}}",
-    "whenPestControl": "Letzte Schädlingsbekämpfung: {{when}}",
-    "whenUpdated": "Zuletzt aktualisiert: {{when}}"
-  },
   "dbConfig": {
     "columnSeparator": "Trennzeichen",
     "comma": "Komma ,",
@@ -50,40 +14,13 @@
     "timezone": "Zeitzone",
     "title": "Datenbankeinstellungen"
   },
-  "import": {
-    "export": "Aktuelle Daten einfügen",
-    "import": "Importieren",
-    "pastePlantLog": "plantlog.csv hier einfügen",
-    "pastePlants": "plants.csv hier einfügen",
-    "plantData": "Pflanzendaten",
-    "plantLog": "Protokolldaten",
-    "title": "Datenimport"
-  },
-  "typeMap": {
-    "empty": "Es sind noch keine Einträge angelegt. Kehre später hierher zurück, sobald Einträge erstellt wurden. Dann kann hier dem Playground geholfen werden zu verstehen, was sie bedeuten.",
-    "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
-    "save": "Zuordnung speichern",
-    "title": "Typ-Zuordnungen",
-    "unmapped": "Nicht zugeordneter Ereignistyp",
-    "updated": "Mappings updated"
-  },
-  "eventType": {
-    "Acquisition": "Anschaffung",
-    "Fertilization": "Düngung",
-    "Measurement": "Messung",
-    "Observation": "Beobachtung",
-    "PestControl": "Schädlingsbekämpfung",
-    "PestInfestation": "Schädlingsbefall",
-    "Pruning": "Formung",
-    "Relocation": "Standortwechsel",
-    "Repotting": "Umtopfen",
-    "RootPruning": "Wurzelschnitt",
-    "Shaping": "Formung",
-    "Watering": "Gießvorgang"
-  },
-  "placeholder": {
-    "eventFilter": "Ereignis-Typen filtern",
-    "filter": "Filter hier eingeben"
+  "empty": {
+    "backToPlants": "Zurück zur Pflanzen-Liste",
+    "importNow": "Jetzt importieren",
+    "log": "Es scheint, als hättest du keine Einträge 😔",
+    "or": "oder",
+    "plant": "The requested plant wasn't found 😟",
+    "plants": "Es scheint, als hättest du keine Pflanzen 😔"
   },
   "entryEditor": {
     "dateLabel": "Datum *",
@@ -106,6 +43,62 @@
     "typeHelpDeleteWarn": "Wenn Sie diesen Eintrag speichern, WIRD ER GELÖSCHT!",
     "typeLabel": "Ereignis-Typ *",
     "typePlaceholder": "Ereignistyp auswählen"
+  },
+  "eventType": {
+    "Acquisition": "Anschaffung",
+    "Fertilization": "Düngung",
+    "Measurement": "Messung",
+    "Observation": "Beobachtung",
+    "PestControl": "Schädlingsbekämpfung",
+    "PestInfestation": "Schädlingsbefall",
+    "Pruning": "Formung",
+    "Relocation": "Standortwechsel",
+    "Repotting": "Umtopfen",
+    "RootPruning": "Wurzelschnitt",
+    "Shaping": "Formung",
+    "Watering": "Gießvorgang"
+  },
+  "import": {
+    "export": "Aktuelle Daten einfügen",
+    "fsUnsupported": "File system access is not supported on your device.",
+    "import": "Importieren",
+    "openPlantLogCsv": "Open plantlog.csv",
+    "openPlantsCsv": "Open plants.csv",
+    "pastePlantLog": "plantlog.csv hier einfügen",
+    "pastePlants": "plants.csv hier einfügen",
+    "plantData": "Pflanzendaten",
+    "plantLog": "Protokolldaten",
+    "title": "Datenimport"
+  },
+  "log": {
+    "add": "Eintrag hinzufügen",
+    "edit": "Eintrag bearbeiten",
+    "entryDeleted": "Eintrag gelöscht",
+    "entryUpdated": "Eintrag aktualisiert",
+    "filterPlaceholder": "Type filter here",
+    "filterTypePlaceholder": "Filter event types",
+    "firstEntry": "Das ist der erste Eintrag für diese Pflanze.",
+    "goToDetails": "Pflanzendetails anzeigen",
+    "openEntry": "Eintrag öffnen",
+    "unmappedEvent": "Nicht zugeordneter Typ. Zum Zuweisen klicken."
+  },
+  "menu": {
+    "close": "$t(common:close)",
+    "import": "Importieren",
+    "log": "Protokoll",
+    "plants": "Pflanzen",
+    "typeMap": "Typ-Zuordnungen"
+  },
+  "plant": {
+    "add": "Pflanze hinzufügen",
+    "edit": "Pflanze bearbeiten",
+    "never": "nie",
+    "plantDeleted": "Pflanze gelöscht",
+    "plantUpdated": "Pflanze aktualisiert",
+    "whenAdded": "Erstellt: {{when}}",
+    "whenInfested": "Befallen seit: {{when}}",
+    "whenPestControl": "Letzte Schädlingsbekämpfung: {{when}}",
+    "whenUpdated": "Zuletzt aktualisiert: {{when}}"
   },
   "plantEditor": {
     "detailsDiagnostics": "Diagnose",
@@ -141,5 +134,13 @@
     "tempMaxPlaceholder": "32",
     "tempMinLabel": "Temp. Min. (°C)",
     "tempMinPlaceholder": "15"
+  },
+  "typeMap": {
+    "empty": "Es sind noch keine Einträge angelegt. Kehre später hierher zurück, sobald Einträge erstellt wurden. Dann kann hier dem Playground geholfen werden zu verstehen, was sie bedeuten.",
+    "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
+    "save": "Zuordnung speichern",
+    "title": "Typ-Zuordnungen",
+    "unmapped": "Nicht zugeordneter Ereignistyp",
+    "updated": "Zuordnungen aktualisiert"
   }
 }
