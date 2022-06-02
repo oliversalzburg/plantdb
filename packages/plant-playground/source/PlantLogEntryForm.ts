@@ -113,7 +113,7 @@ export class PlantLogEntryForm extends LitElement {
     this._plantName = this.logEntry?.plantId ?? this._plantName;
     this._entryType = this.logEntry?.type ?? this._entryType;
     this._date = this.logEntry?.timestamp.toISOString().slice(0, 10) ?? this._date;
-    this._time = this.logEntry?.timestamp.toLocaleTimeString() ?? this._time;
+    this._time = this.logEntry?.timestamp.toISOString().slice(11, 19) ?? this._time;
     this._note = this.logEntry?.note ?? this._note;
     this._productUsed = this.logEntry?.productUsed ?? this._productUsed;
     this._ec = this.logEntry?.ec ?? this._ec;
