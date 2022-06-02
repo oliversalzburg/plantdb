@@ -7,7 +7,7 @@ import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { LogEntry, Plant } from "packages/libplantdb/typings";
 import { registerSW } from "virtual:pwa-register";
-import { assertExists } from "../Maybe";
+import { assertExists, mustExist } from "../Maybe";
 import { PlantStore } from "./PlantStore";
 
 let globalStore: PlantStoreUi | undefined;
@@ -299,8 +299,12 @@ export class PlantStoreUi extends LitElement {
   }
 
   showEntryEditor(logEntry?: LogEntry) {
+    const index = logEntry
+      ? mustExist(this.plantStore).plantDb.log.indexOf(logEntry).toString()
+      : "new";
+
     return new Promise<LogEntry | null>(resolve => {
-      this.navigateTo("log-entry", [logEntry ? logEntry.sourceLine.toString() : "new"]);
+      this.navigateTo("log-entry", [index]);
 
       const onCancel = (event: Event) => {
         event.preventDefault();
@@ -357,7 +361,6 @@ export class PlantStoreUi extends LitElement {
   async editLogEntry(logEntry: LogEntry) {
     assertExists(this.plantStore);
 
-    console.debug(`Show entry dialog for entry #${logEntry.sourceLine}`);
     const updatedEntry = await this.showEntryEditor(logEntry);
     if (!updatedEntry) {
       return;

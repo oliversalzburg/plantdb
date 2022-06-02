@@ -46,7 +46,7 @@ export class PlantLogView extends View {
     assertExists(this.plantStore);
     assertExists(this.plantStoreUi);
 
-    const logEntry = await this.plantStoreUi.showEntryEditor(mustExist(this.plantStore));
+    const logEntry = await this.plantStoreUi.showEntryEditor();
     if (!logEntry) {
       return;
     }
