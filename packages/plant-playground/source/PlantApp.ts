@@ -268,11 +268,13 @@ export class PlantApp extends LitElement {
                     .filter(Boolean) as Array<[string, EventType]>
                 )}
                 @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) => {
+                  this._plantStoreUi.alert(t("typeMap.updated")).catch(console.error);
                   this._plantStore.updatePlantDb(
                     PlantDB.fromPlantDB(this._plantStore.plantDb, {
                       config: event.detail,
                     })
                   );
+                  this._plantStoreUi.navigateTo("log");
                 }}
               ></plant-type-map-view>
               <plant-import-view
