@@ -215,6 +215,10 @@ export class PlantPropertiesForm extends LitElement {
     });
   }
 
+  shouldDelete() {
+    return this._plantId === "";
+  }
+
   private _scanPlant() {
     mustExist(this._form).style.display = "none";
     mustExist(this._scanner).style.display = "flex";

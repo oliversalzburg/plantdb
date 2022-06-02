@@ -2,7 +2,7 @@ import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { LogEntry } from "packages/libplantdb/typings";
-import { mustExist } from "../Maybe";
+import { assertExists } from "../Maybe";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";
 import { View } from "./View";
 
@@ -42,8 +42,14 @@ export class PlantLogEntryView extends View {
   private _form: PlantLogEntryForm | null | undefined;
 
   save() {
-    if (!mustExist(this._form).reportValidity()) {
-      return;
+    assertExists(this._form);
+
+    // Check if the user wants to delete.
+    if (!this._form.shouldDelete()) {
+      // If they don't, then the form needs to be valid to proceed.
+      if (!this._form.reportValidity()) {
+        return;
+      }
     }
 
     const event = new CustomEvent("plant-log-entry-saved", {
@@ -60,10 +66,6 @@ export class PlantLogEntryView extends View {
   }
 
   cancel() {
-    /*
-    this.plantStoreUi?.alert("Cancelled").catch(console.error);
-    history.back();
-    */
     const event = new CustomEvent("plant-log-entry-cancelled", {
       bubbles: true,
       cancelable: true,

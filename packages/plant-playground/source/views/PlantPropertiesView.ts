@@ -2,7 +2,7 @@ import { Plant } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
-import { mustExist } from "../Maybe";
+import { assertExists } from "../Maybe";
 import { PlantPropertiesForm } from "../PlantPropertiesForm";
 import { View } from "./View";
 
@@ -42,8 +42,14 @@ export class PlantPropertiesView extends View {
   private _form: PlantPropertiesForm | null | undefined;
 
   save() {
-    if (!mustExist(this._form).reportValidity()) {
-      return;
+    assertExists(this._form);
+
+    // Check if the user wants to delete.
+    if (!this._form.shouldDelete()) {
+      // If they don't, then the form needs to be valid to proceed.
+      if (!this._form.reportValidity()) {
+        return;
+      }
     }
 
     const event = new CustomEvent("plant-properties-saved", {

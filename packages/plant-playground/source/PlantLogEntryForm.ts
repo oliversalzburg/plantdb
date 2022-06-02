@@ -150,6 +150,10 @@ export class PlantLogEntryForm extends LitElement {
     });
   }
 
+  shouldDelete() {
+    return this._plantName === "" || this._entryType === "";
+  }
+
   render() {
     if (isNil(this.plantStore)) {
       return;
