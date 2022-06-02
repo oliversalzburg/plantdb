@@ -15,7 +15,7 @@ body {
   background-color: var(--sl-color-neutral-0);
   color: var(--sl-color-neutral-900);
 
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 sl-dialog {
