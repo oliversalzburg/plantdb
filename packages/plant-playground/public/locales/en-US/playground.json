@@ -10,9 +10,11 @@
     "typeMap": "Type mappings"
   },
   "empty": {
+    "backToPlants": "Back to plant list",
     "importNow": "Import now",
     "log": "It seems like you have no log entries 😔",
     "or": "or",
+    "plant": "The requested plant wan't found 😟",
     "plants": "It seems like you have no plants 😔"
   },
   "log": {
