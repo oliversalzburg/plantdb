@@ -25,6 +25,7 @@ export class PlantLog extends LitElement {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 0.25rem 0;
       }
 
       .filters * {
