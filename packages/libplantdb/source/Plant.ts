@@ -1,7 +1,7 @@
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry } from "./LogEntry.js";
 import { PlantDB } from "./PlantDB.js";
-import { kindSummarize, tryParseFloat, tryParseInt } from "./Tools.js";
+import { kindSummarize, tryParseFloat, tryParseInt, valueFromCSV, valueToCSV } from "./Tools.js";
 
 /**
  * Matches a Plant ID.
@@ -252,27 +252,12 @@ export class Plant {
   static fromCSVData(plantDb: PlantDB, dataRow: Array<string>): Plant {
     const plant = new Plant(plantDb, dataRow[0]);
     plant.#name = dataRow[1] !== "" ? dataRow[1] : undefined;
-    plant.#kind =
-      dataRow[2] !== ""
-        ? dataRow[2].includes("\n")
-          ? dataRow[2].split("\n")
-          : dataRow[2]
-        : undefined;
-    plant.#substrate =
-      dataRow[3] !== ""
-        ? dataRow[3].includes("\n")
-          ? dataRow[3].split("\n")
-          : dataRow[3]
-        : undefined;
+    plant.#kind = valueFromCSV(dataRow, 2);
+    plant.#substrate = valueFromCSV(dataRow, 3);
     plant.#potShapeTop = dataRow[4] !== "" ? dataRow[4] : undefined;
     plant.#potColor = dataRow[5] !== "" ? dataRow[5] : undefined;
     plant.#onSaucer = dataRow[6] === "TRUE" ? true : dataRow[6] === "FALSE" ? false : undefined;
-    plant.#location =
-      dataRow[7] !== ""
-        ? dataRow[7].includes("\n")
-          ? dataRow[7].split("\n")
-          : dataRow[7]
-        : undefined;
+    plant.#location = valueFromCSV(dataRow, 7);
     plant.#phMin = dataRow[8] !== "" ? tryParseFloat(dataRow[8]) : undefined;
     plant.#phMax = dataRow[9] !== "" ? tryParseFloat(dataRow[9]) : undefined;
     plant.#ecMin = dataRow[10] !== "" ? tryParseInt(dataRow[10]) : undefined;
@@ -280,12 +265,7 @@ export class Plant {
     plant.#tempMin = dataRow[12] !== "" ? tryParseFloat(dataRow[12]) : undefined;
     plant.#tempMax = dataRow[13] !== "" ? tryParseFloat(dataRow[13]) : undefined;
     plant.#notes = dataRow[14] !== "" ? dataRow[14] : undefined;
-    plant.#plantGeekId =
-      dataRow[15] !== ""
-        ? dataRow[15].includes("\n")
-          ? dataRow[15].split("\n")
-          : dataRow[15]
-        : undefined;
+    plant.#plantGeekId = valueFromCSV(dataRow, 15);
     return plant;
   }
 
@@ -295,12 +275,12 @@ export class Plant {
     return [
       serialized.id,
       serialized.name,
-      Array.isArray(serialized.kind) ? serialized.kind.join("\n") : serialized.kind,
-      Array.isArray(serialized.substrate) ? serialized.substrate.join("\n") : serialized.substrate,
+      valueToCSV(serialized.kind),
+      valueToCSV(serialized.substrate),
       serialized.potShapeTop,
       serialized.potColor,
       serialized.onSaucer === true ? "TRUE" : serialized.onSaucer === false ? "FALSE" : undefined,
-      serialized.location,
+      valueToCSV(serialized.location),
       serialized.phMin,
       serialized.phMax,
       serialized.ecMin,
@@ -308,7 +288,7 @@ export class Plant {
       serialized.tempMin,
       serialized.tempMax,
       serialized.notes,
-      serialized.plantGeekId,
+      valueToCSV(serialized.plantGeekId),
     ];
   }
 

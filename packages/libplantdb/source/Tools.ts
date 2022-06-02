@@ -106,6 +106,55 @@ export const plantsFromCSV = (
   return plantData.map(plantRecord => Plant.fromCSVData(plantDb, plantRecord));
 };
 
+/**
+ * Retrieve the value from a specific column in CSV data.
+ * If the column contains no readable value, it is treated as `undefined`.
+ *
+ * @param csvData CSV data that has already been parsed into individual columns.
+ * @param column The index of the column to retrieve.
+ * @param expectMultiValue Should multiple lines of strings be treated as individual values (true)
+ * or as a single multi-line string (false)?
+ * @returns The correctly parsed CSV value.
+ */
+export const valueFromCSV = (csvData: Array<string>, column: number, expectMultiValue = true) => {
+  // Falsey check covers empty string, null, undefined.
+  if (!csvData[column]) {
+    return undefined;
+  }
+
+  return expectMultiValue ? splitMultiValue(csvData[column]) : csvData[column];
+};
+
+/**
+ * Turn a data value into a single string that we can serialize to CSV.
+ *
+ * @param value The value to prepare for CSV serialization.
+ * @returns A single string containing all the provided values.
+ */
+export const valueToCSV = (value?: string | Array<string>) => {
+  if (value === undefined) {
+    return "";
+  }
+
+  return Array.isArray(value) ? value.join("\n") : value;
+};
+
+/**
+ * Split the provided value into an array of strings, if it contains multiple lines of text.
+ *
+ * @param multiValue A string that potentially holds multiple lines of text.
+ * @returns A single string if the column contained a single line. An array of strings of the column contained multiple lines.
+ */
+export const splitMultiValue = (multiValue: string) => {
+  return multiValue.includes("\n") ? multiValue.split("\n") : multiValue;
+};
+
+/**
+ * Turn an array of plants into a map that maps their IDs to the respective plant.
+ *
+ * @param plants The plants to turn into a `Map`.
+ * @returns A `Map` that maps plant IDs to their respective plant.
+ */
 export const makePlantMap = (plants: ReadonlyArray<Plant>) => {
   return new Map(plants.map(plant => [plant.id, plant]));
 };
