@@ -163,6 +163,18 @@ export class PlantLogEntryForm extends LitElement {
       return;
     }
 
+    const foundPlants = [...this.plantStore.searchPlants(this._plantName)];
+    const foundEntryTypes = [...this.plantStore.plantDb.entryTypes]
+      .sort()
+      .filter(type => type.toLocaleLowerCase().includes(this._entryType.toLocaleLowerCase()));
+    const foundProducts = [...this.plantStore.plantDb.usedProducts]
+      .sort()
+      .filter(
+        type =>
+          !this._productUsed ||
+          type.toLocaleLowerCase().includes(this._productUsed.toLocaleLowerCase())
+      );
+
     return [
       html`<form id="form">
         <button id="submit" type="submit" @click=${() => console.warn("button submit")}></button>
@@ -183,21 +195,23 @@ export class PlantLogEntryForm extends LitElement {
                 >${t("entryEditor.plantHelpDeleteWarn")}</small
               >`
             : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
-        ><sl-dropdown id="plant-dropdown" hoist>
-          <sl-menu>
-            ${[...this.plantStore.searchPlants(this._plantName)].slice(0, 8).map(
-              plant =>
-                html`<sl-menu-item
-                  @click=${() => {
-                    this._plantName = plant.id;
-                  }}
-                  >${plant.name}<sl-badge slot="suffix" variant="neutral"
-                    >${plant.id}</sl-badge
-                  ></sl-menu-item
-                >`
-            )}
-          </sl-menu>
-        </sl-dropdown>
+        >${foundPlants.length
+          ? html`<sl-dropdown id="plant-dropdown" hoist>
+              <sl-menu>
+                ${foundPlants.slice(0, 8).map(
+                  plant =>
+                    html`<sl-menu-item
+                      @click=${() => {
+                        this._plantName = plant.id;
+                      }}
+                      >${plant.name}<sl-badge slot="suffix" variant="neutral"
+                        >${plant.id}</sl-badge
+                      ></sl-menu-item
+                    >`
+                )}
+              </sl-menu>
+            </sl-dropdown>`
+          : undefined}
         <div class="spacer"></div>
 
         <sl-input
@@ -215,24 +229,21 @@ export class PlantLogEntryForm extends LitElement {
                 >${t("entryEditor.typeHelpDeleteWarn")}</small
               >`
             : undefined}</sl-input
-        ><sl-dropdown id="type-dropdown" hoist>
-          <sl-menu>
-            ${[...this.plantStore.plantDb.entryTypes]
-              .sort()
-              .filter(type =>
-                type.toLocaleLowerCase().includes(this._entryType.toLocaleLowerCase())
-              )
-              .map(
-                entry =>
-                  html`<sl-menu-item
-                    @click=${() => {
-                      this._entryType = entry;
-                    }}
-                    >${entry}</sl-menu-item
-                  >`
-              )}
-          </sl-menu></sl-dropdown
-        >
+        >${foundEntryTypes.length
+          ? html`<sl-dropdown id="type-dropdown" hoist>
+              <sl-menu>
+                ${foundEntryTypes.map(
+                  entry =>
+                    html`<sl-menu-item
+                      @click=${() => {
+                        this._entryType = entry;
+                      }}
+                      >${entry}</sl-menu-item
+                    >`
+                )}
+              </sl-menu></sl-dropdown
+            >`
+          : undefined}
         <div class="spacer"></div>
 
         <div class="date-time row">
@@ -282,26 +293,28 @@ export class PlantLogEntryForm extends LitElement {
           @sl-focus=${() => this._productDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._productUsed = (event.target as SlInput).value)}
         ></sl-input
-        ><sl-dropdown id="product-dropdown" hoist>
-          <sl-menu>
-            ${[...this.plantStore.plantDb.usedProducts]
-              .sort()
-              .filter(
-                type =>
-                  !this._productUsed ||
-                  type.toLocaleLowerCase().includes(this._productUsed.toLocaleLowerCase())
-              )
-              .map(
-                product =>
-                  html`<sl-menu-item
-                    @click=${() => {
-                      this._productUsed = product;
-                    }}
-                    >${product}</sl-menu-item
-                  >`
-              )}
-          </sl-menu></sl-dropdown
-        >
+        >${foundProducts.length
+          ? html`<sl-dropdown id="product-dropdown" hoist>
+              <sl-menu>
+                ${[...this.plantStore.plantDb.usedProducts]
+                  .sort()
+                  .filter(
+                    type =>
+                      !this._productUsed ||
+                      type.toLocaleLowerCase().includes(this._productUsed.toLocaleLowerCase())
+                  )
+                  .map(
+                    product =>
+                      html`<sl-menu-item
+                        @click=${() => {
+                          this._productUsed = product;
+                        }}
+                        >${product}</sl-menu-item
+                      >`
+                  )}
+              </sl-menu></sl-dropdown
+            >`
+          : undefined}
         <div class="spacer"></div>
 
         <div class="row">
