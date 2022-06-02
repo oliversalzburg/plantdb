@@ -8,7 +8,7 @@ import {
   SlTextarea,
 } from "@shoelace-style/shoelace";
 import { t } from "i18next";
-import { css, html, LitElement } from "lit";
+import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { assertExists, isNil, mustExist } from "./Maybe";
 import { Typography } from "./PlantComponentStyles";
@@ -107,17 +107,23 @@ export class PlantLogEntryForm extends LitElement {
   @query("#product-dropdown")
   private _productDrowndown: SlDropdown | null | undefined;
 
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    this._plantName = this.logEntry?.plantId ?? this._plantName;
-    this._entryType = this.logEntry?.type ?? this._entryType;
-    this._date = this.logEntry?.timestamp.toISOString().slice(0, 10) ?? this._date;
-    this._time = this.logEntry?.timestamp.toISOString().slice(11, 19) ?? this._time;
-    this._note = this.logEntry?.note ?? this._note;
-    this._productUsed = this.logEntry?.productUsed ?? this._productUsed;
-    this._ec = this.logEntry?.ec ?? this._ec;
-    this._ph = this.logEntry?.ph ?? this._ph;
+  protected updated(
+    _changedProperties: PropertyValueMap<PlantLogEntryForm> | Map<PropertyKey, unknown>
+  ): void {
+    if (_changedProperties.has("logEntry")) {
+      this._plantName = this.logEntry?.plantId ?? "";
+      this._entryType = this.logEntry?.type ?? "";
+      this._date =
+        this.logEntry?.timestamp.toISOString().slice(0, 10) ??
+        new Date().toISOString().slice(0, 10);
+      this._time =
+        this.logEntry?.timestamp.toISOString().slice(11, 19) ??
+        new Date().toISOString().slice(11, 19);
+      this._note = this.logEntry?.note ?? "";
+      this._productUsed = this.logEntry?.productUsed ?? "";
+      this._ec = this.logEntry?.ec ?? undefined;
+      this._ph = this.logEntry?.ph ?? undefined;
+    }
   }
 
   private _setCurrentDateTime() {

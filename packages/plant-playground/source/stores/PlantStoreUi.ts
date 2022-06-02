@@ -9,7 +9,6 @@ import { LogEntry, Plant } from "packages/libplantdb/typings";
 import { registerSW } from "virtual:pwa-register";
 import { assertExists } from "../Maybe";
 import { PlantDetailsForm } from "../PlantDetailsForm";
-import { PlantLogEntryForm } from "../PlantLogEntryForm";
 import { PlantStore } from "./PlantStore";
 
 let globalStore: PlantStoreUi | undefined;
@@ -17,6 +16,7 @@ let globalStore: PlantStoreUi | undefined;
 export const retrieveStoreUi = () => globalStore;
 
 export type SupportedLocales = "de-DE" | "en-US" | "he-IL";
+export type KnownViews = "import" | "list" | "log" | "log-entry" | "plant" | "types" | "view404";
 
 @customElement("plant-store-ui")
 export class PlantStoreUi extends LitElement {
@@ -32,7 +32,7 @@ export class PlantStoreUi extends LitElement {
   drawerIsOpen = false;
 
   @property({ type: String })
-  page = "list";
+  page: KnownViews = "list";
   @property({ type: [String] })
   pageParams = new Array<string>();
 
@@ -189,7 +189,7 @@ export class PlantStoreUi extends LitElement {
    */
   handleUserNavigationEvent(href: string) {
     const { path, pathParameters } = this.parsePath(href);
-    this.page = path;
+    this.page = path as KnownViews;
     this.pageParams = pathParameters;
 
     this.dispatchEvent(
@@ -199,7 +199,14 @@ export class PlantStoreUi extends LitElement {
     );
   }
 
-  navigate(page: string, pageParams = new Array<string>()) {
+  /**
+   * Navigates to a given view, without updating the browser's location.
+   * If you need to update the browsers' location, use `navigateTo()` instead.
+   *
+   * @param page The view to navigate to.
+   * @param pageParams The parameters for the view.
+   */
+  navigate(page: KnownViews, pageParams = new Array<string>()) {
     this.page = page;
     this.pageParams = pageParams;
 
@@ -211,16 +218,35 @@ export class PlantStoreUi extends LitElement {
       })
     );
   }
+
+  /**
+   * Updates the browser's location and navigates to the given view.
+   * If the browser is already navigated to the given page and the view only needs to be drawn,
+   * use `navigate()` instead.
+   *
+   * @param page The view to navigate to.
+   * @param pageParams The parameters for the view.
+   */
+  navigateTo(page: KnownViews, pageParams = new Array<string>()) {
+    const href = this.makePath(page, pageParams);
+    this.navigatePath(href);
+  }
+
+  /**
+   * Updates the browser's location and navigates to the given view.
+   *
+   * @param href The path to navigate to.
+   */
   navigatePath(href: string) {
     const newPath = import.meta.env.BASE_URL + (href.startsWith("/") ? href.slice(1) : href);
     history.pushState(null, "", newPath);
 
     const { path, pathParameters } = this.parsePath(href);
 
-    this.navigate(path, pathParameters);
+    this.navigate(path as KnownViews, pathParameters);
   }
 
-  parsePath(href: string, assumePathForRoot = "log") {
+  parsePath(href: string, assumePathForRoot: KnownViews = "log") {
     if (href.startsWith(import.meta.env.BASE_URL)) {
       href = href.slice(import.meta.env.BASE_URL.length - 1);
     }
@@ -234,6 +260,10 @@ export class PlantStoreUi extends LitElement {
     }
 
     return { path: pathString, pathParameters: [] };
+  }
+  makePath(page: KnownViews, pageParams = new Array<string>()) {
+    const params = pageParams.length ? pageParams.join("/") : "";
+    return `${page}/${params}`;
   }
 
   alert(message: string, variant = "primary", icon = "info-circle", duration = 3000) {
@@ -262,56 +292,30 @@ export class PlantStoreUi extends LitElement {
   }
 
   showEntryEditor(plantStore: PlantStore, logEntry?: LogEntry) {
-    return new Promise<LogEntry | null>((resolve, reject) => {
-      const dialog = Object.assign(document.createElement("sl-dialog"), {
-        label: logEntry ? t("log.edit") : t("log.add"),
-      });
+    return new Promise<LogEntry | null>(resolve => {
+      this.navigateTo("log-entry", [logEntry ? logEntry.sourceLine.toString() : "new"]);
 
-      render(
-        html`<plant-log-entry-form
-            id="entry-form"
-            .plantStore=${plantStore}
-            .plantStoreUi=${this}
-            .logEntry=${logEntry}
-          ></plant-log-entry-form>
+      const onCancel = (event: Event) => {
+        event.preventDefault();
+        history.back();
 
-          <sl-button
-            slot="footer"
-            variant="primary"
-            @click=${() => {
-              const entryForm = dialog.querySelector("#entry-form") as PlantLogEntryForm;
-              if (!entryForm.reportValidity()) {
-                return;
-              }
+        resolve(null);
 
-              const logEntry = entryForm.asLogEntry();
+        document.removeEventListener("plant-log-entry-saved", onSave);
+        document.removeEventListener("plant-log-entry-cancelled", onCancel);
+      };
+      const onSave = (event: Event) => {
+        event.preventDefault();
+        history.back();
 
-              dialog
-                .hide()
-                .catch(console.error)
-                .finally(() => document.body.removeChild(dialog));
+        resolve((event as CustomEvent<LogEntry>).detail);
 
-              resolve(logEntry);
-            }}
-            >${t("save", { ns: "common" })}</sl-button
-          ><sl-button
-            slot="footer"
-            @click=${() => {
-              dialog
-                .hide()
-                .catch(console.error)
-                .finally(() => document.body.removeChild(dialog));
+        document.removeEventListener("plant-log-entry-saved", onSave);
+        document.removeEventListener("plant-log-entry-cancelled", onCancel);
+      };
 
-              resolve(null);
-            }}
-            >${t("close", { ns: "common" })}</sl-button
-          >`,
-        dialog
-      );
-
-      document.body.appendChild(dialog);
-
-      dialog.show().catch(reject);
+      document.addEventListener("plant-log-entry-saved", onSave);
+      document.addEventListener("plant-log-entry-cancelled", onCancel);
     });
   }
 

@@ -38,6 +38,7 @@ import "./views/Plant404View";
 import "./views/PlantDetailsView";
 import "./views/PlantImportView";
 import "./views/PlantListView";
+import "./views/PlantLogEntryView";
 import "./views/PlantLogView";
 import "./views/PlantTypeMapView";
 

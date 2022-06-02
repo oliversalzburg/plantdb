@@ -7,7 +7,7 @@ import { installRouter } from "pwa-helpers/router.js";
 import { mustExist } from "./Maybe";
 import { Typography } from "./PlantComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi";
 
 @customElement("plant-app")
 export class PlantApp extends LitElement {
@@ -59,7 +59,7 @@ export class PlantApp extends LitElement {
 
     this._plantStoreUi.addEventListener("plant-navigate", (event: Event) => {
       const { page, pageParams } = (
-        event as CustomEvent<{ page: string; pageParams: Array<string> }>
+        event as CustomEvent<{ page: KnownViews; pageParams: Array<string> }>
       ).detail;
       this.handleUserNavigationEvent(page, pageParams);
     });
@@ -93,10 +93,13 @@ export class PlantApp extends LitElement {
    * @param page The path of the link the user clicked on.
    * @param pageParams The parameters for the page.
    */
-  handleUserNavigationEvent(page: string, pageParams: Array<string>) {
+  handleUserNavigationEvent(page: KnownViews, pageParams: Array<string>) {
     switch (page) {
       case "log":
         document.title = `${t("menu.log")} - PlantDB Playground`;
+        break;
+      case "log-entry":
+        document.title = `${t("menu.logEntry")} - PlantDB Playground`;
         break;
       case "list":
         document.title = `${t("menu.plants")} - PlantDB Playground`;
@@ -211,6 +214,16 @@ export class PlantApp extends LitElement {
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
               ></plant-log-view>
+              <plant-log-entry-view
+                class="view"
+                ?active=${this._plantStoreUi.page === "log-entry"}
+                .plantStore=${this._plantStore}
+                .plantStoreUi=${this._plantStoreUi}
+                .logEntry=${this._plantStore.plantDb.log[
+                  Number(this._plantStoreUi.pageParams[0] ?? -1)
+                ]}
+              ></plant-log-entry-view>
+
               <plant-list-view
                 class="view"
                 ?active=${this._plantStoreUi.page === "list"}
