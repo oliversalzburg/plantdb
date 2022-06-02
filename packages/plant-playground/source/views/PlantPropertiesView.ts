@@ -32,6 +32,9 @@ export class PlantPropertiesView extends View {
         gap: 0.5rem;
         padding: 1rem;
       }
+      :host(.scanning) .footer {
+        display: none;
+      }
     `,
   ];
 
@@ -66,10 +69,6 @@ export class PlantPropertiesView extends View {
   }
 
   cancel() {
-    /*
-    this.plantStoreUi?.alert("Cancelled").catch(console.error);
-    history.back();
-    */
     const event = new CustomEvent("plant-properties-cancelled", {
       bubbles: true,
       cancelable: true,
@@ -90,6 +89,12 @@ export class PlantPropertiesView extends View {
           .plantStore=${this.plantStore}
           .plantStoreUi=${this.plantStoreUi}
           .plant=${this.plant}
+          @plant-scanning=${() => {
+            this.classList.add("scanning");
+          }}
+          @plant-scanned=${() => {
+            this.classList.remove("scanning");
+          }}
         ></plant-properties-form>
         <section class="footer">
           <sl-button variant="primary" @click=${() => this.save()}

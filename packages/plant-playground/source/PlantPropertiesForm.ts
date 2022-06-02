@@ -226,12 +226,14 @@ export class PlantPropertiesForm extends LitElement {
     mustExist(this._form).style.display = "none";
     mustExist(this._scanner).style.display = "flex";
     mustExist(this._scanner).start();
+    this.dispatchEvent(new CustomEvent("plant-scanning"));
   }
 
   private _plantScanned(dataUrl: string | null) {
     mustExist(this._form).style.display = "flex";
     mustExist(this._scanner).style.display = "none";
     mustExist(this._scanner).stop();
+    this.dispatchEvent(new CustomEvent("plant-scanned"));
     if (dataUrl !== null) {
       console.log(dataUrl);
       this.plantStoreUi?.alert("Image captured").catch(console.error);
