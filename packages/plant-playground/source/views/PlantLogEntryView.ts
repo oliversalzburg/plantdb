@@ -11,17 +11,17 @@ export class PlantLogEntryView extends View {
   static readonly styles = [
     ...View.styles,
     css`
-      #entry-form {
+      #form {
         padding: 0 5vw;
       }
 
       @media (min-width: 1000px) {
-        #entry-form {
+        #form {
           padding: 0 15vw;
         }
       }
       @media (min-width: 2000px) {
-        #entry-form {
+        #form {
           padding: 0 25vw;
         }
       }
