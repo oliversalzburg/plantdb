@@ -7,7 +7,13 @@ import "dygraphs/dist/dygraph.css";
 import { t } from "i18next";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { makeIdentificationRequest } from "./identification/Tools";
 import { assertExists, isNil, mustExist } from "./Maybe";
+import {
+  PlantIdentificationPicker,
+  PlantNetResponse,
+  PlantNetResult,
+} from "./PlantIdentificationPicker";
 import { PlantMultiValueEditor } from "./PlantMultiValueEditor";
 import { PlantScanner } from "./PlantScanner";
 import { PlantStore } from "./stores/PlantStore";
@@ -23,7 +29,8 @@ export class PlantPropertiesForm extends LitElement {
         flex-direction: column;
       }
 
-      #scanner {
+      #scanner,
+      #picker {
         display: none;
       }
 
@@ -123,6 +130,8 @@ export class PlantPropertiesForm extends LitElement {
 
   @query("#scanner")
   private _scanner: PlantScanner | null | undefined;
+  @query("#picker")
+  private _picker: PlantIdentificationPicker | null | undefined;
 
   @query("#form")
   private _form: HTMLFormElement | null | undefined;
@@ -135,6 +144,9 @@ export class PlantPropertiesForm extends LitElement {
   private _potColorDropdown: SlDropdown | null | undefined;
   @query("#location-dropdown")
   private _locationDropdown: SlDropdown | null | undefined;
+
+  @state()
+  private _identificationResponse: PlantNetResponse | undefined;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -230,14 +242,35 @@ export class PlantPropertiesForm extends LitElement {
   }
 
   private _plantScanned(dataUrl: string | null) {
-    mustExist(this._form).style.display = "flex";
     mustExist(this._scanner).style.display = "none";
     mustExist(this._scanner).stop();
     this.dispatchEvent(new CustomEvent("plant-scanned"));
     if (dataUrl !== null) {
       console.log(dataUrl);
       this.plantStoreUi?.alert("Image captured").catch(console.error);
+      this._identifyPlant(dataUrl).catch(console.error);
     }
+  }
+
+  private async _identifyPlant(dataUrl: string) {
+    const response = await makeIdentificationRequest(dataUrl);
+    const json = (await response.json()) as PlantNetResponse;
+    this._identificationResponse = json;
+    console.debug(json);
+    console.debug(JSON.stringify(json));
+
+    mustExist(this._picker).style.display = "flex";
+  }
+
+  private _cancelPlantIdentify() {
+    mustExist(this._form).style.display = "flex";
+    mustExist(this._picker).style.display = "none";
+    mustExist(this._scanner).style.display = "none";
+  }
+
+  private _identifyPlantPick(result: PlantNetResult) {
+    this._plantKind = result.species.scientificName;
+    this._cancelPlantIdentify();
   }
 
   render() {
@@ -251,6 +284,13 @@ export class PlantPropertiesForm extends LitElement {
           @plant-aborted=${() => this._plantScanned(null)}
           @plant-scanned=${(event: CustomEvent<string>) => this._plantScanned(event.detail)}
         ></plant-scanner>
+        <plant-identification-picker
+          id="picker"
+          .response=${this._identificationResponse}
+          @plant-identification-cancelled=${() => this._cancelPlantIdentify()}
+          @plant-identification-picked=${(event: Event) =>
+            this._identifyPlantPick((event as CustomEvent<PlantNetResult>).detail)}
+        ></plant-identification-picker>
         <form
           id="form"
           @submit=${(event: Event) => {

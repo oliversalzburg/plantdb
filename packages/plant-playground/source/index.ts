@@ -24,6 +24,7 @@ import "./PlantDetails";
 import "./PlantDygraph";
 import "./PlantEmptyState";
 import "./PlantGeekInfo";
+import "./PlantIdentificationPicker";
 import "./PlantList";
 import "./PlantLog";
 import "./PlantLogEntry";
