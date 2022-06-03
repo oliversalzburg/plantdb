@@ -178,6 +178,7 @@ export class PlantLogEntryForm extends LitElement {
           label=${t("entryEditor.plantLabel")}
           placeholder=${t("entryEditor.plantPlaceholder")}
           clearable
+          autocapitalize="characters"
           value=${this._plantName}
           @sl-focus=${() => this._plantDrowndown?.show()}
           @sl-input=${(event: MouseEvent) => (this._plantName = (event.target as SlInput).value)}
