@@ -8,7 +8,7 @@ A JavaScript/TypeScript SDK to build PlantDB applications.
 
 Its functionality is best explored through one of the consuming applications:
 
--   libplantdb powers the [PlantDB Playground](https://github.com/oliversalzburg/plantdb/tree/main/packages/plant-playground)
+-   libplantdb powers the [PlantDB Nursery](https://github.com/oliversalzburg/plantdb/tree/main/packages/plant-nursery)
 
 ## Philosophy notes
 

@@ -18,8 +18,8 @@
       "isRootManifest": false
     },
     {
-      "manifestPath": "packages/plant-playground/package.json",
-      "projectName": "@plantdb/plant-playground",
+      "manifestPath": "packages/plant-nursery/package.json",
+      "projectName": "@plantdb/plant-nursery",
       "scriptName": "build",
       "scriptCode": "vite build",
       "isGlobal": false,
@@ -114,8 +114,8 @@
       "isRootManifest": false
     },
     {
-      "manifestPath": "packages/plant-playground/package.json",
-      "projectName": "@plantdb/plant-playground",
+      "manifestPath": "packages/plant-nursery/package.json",
+      "projectName": "@plantdb/plant-nursery",
       "scriptName": "lint",
       "scriptCode": "eslint source && tsc --noEmit",
       "isGlobal": false,
@@ -146,16 +146,16 @@
       "isRootManifest": false
     },
     {
-      "manifestPath": "packages/plant-playground/package.json",
-      "projectName": "@plantdb/plant-playground",
+      "manifestPath": "packages/plant-nursery/package.json",
+      "projectName": "@plantdb/plant-nursery",
       "scriptName": "preview",
       "scriptCode": "vite preview",
       "isGlobal": false,
       "isRootManifest": false
     },
     {
-      "manifestPath": "packages/plant-playground/package.json",
-      "projectName": "@plantdb/plant-playground",
+      "manifestPath": "packages/plant-nursery/package.json",
+      "projectName": "@plantdb/plant-nursery",
       "scriptName": "serve",
       "scriptCode": "vite",
       "isGlobal": false,
@@ -170,8 +170,8 @@
       "isRootManifest": false
     },
     {
-      "manifestPath": "packages/plant-playground/package.json",
-      "projectName": "@plantdb/plant-playground",
+      "manifestPath": "packages/plant-nursery/package.json",
+      "projectName": "@plantdb/plant-nursery",
       "scriptName": "watch",
       "scriptCode": "vite build --watch",
       "isGlobal": false,

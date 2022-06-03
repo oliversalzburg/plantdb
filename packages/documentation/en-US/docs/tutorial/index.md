@@ -6,7 +6,7 @@ If you've never heard of PlantDB, you're going to want to start here:
 
 [Getting Started for Users Guide](./getting-started-user.md){ .md-button .md-button--primary }
 
-If you already have a PlantDB log, you might want to get an introduction to the [PlantDB Playground](./playground.md)
+If you already have a PlantDB log, you might want to get an introduction to the [PlantDB Nursery](./nursery.md)
 
 ## For Developers
 

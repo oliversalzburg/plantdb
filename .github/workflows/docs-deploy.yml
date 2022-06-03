@@ -28,23 +28,23 @@ jobs:
       - name: Build documentation
         run: |
           # Copy stupid shoelace dependencies
-          mkdir --parents packages/plant-playground/public/assets
+          mkdir --parents packages/plant-nursery/public/assets
           cp --recursive node_modules/@shoelace-style/shoelace/dist/assets/icons \
-            packages/plant-playground/public/assets/icons
+            packages/plant-nursery/public/assets/icons
 
           # Build projects & documentation
           yarn workspace @plantdb/libplantdb build
-          yarn workspace @plantdb/plant-playground build --base=/plantdb/playground/
+          yarn workspace @plantdb/plant-nursery build --base=/plantdb/nursery/
           yarn workspace @plantdb/libplantdb docs
           yarn docs:build
 
-          # Put playground and docs on same deployment behind landing-page
+          # Put nursery and docs on same deployment behind landing-page
           mkdir /tmp/plant-deploy
           cp packages/landing-page/index.html /tmp/plant-deploy/
           cp --recursive packages/documentation/public \
             /tmp/plant-deploy/docs
-          cp --recursive packages/plant-playground/output \
-            /tmp/plant-deploy/playground
+          cp --recursive packages/plant-nursery/output \
+            /tmp/plant-deploy/nursery
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4.3.3
