@@ -249,6 +249,8 @@ export class PlantPropertiesForm extends LitElement {
       console.log(dataUrl);
       this.plantStoreUi?.alert("Image captured").catch(console.error);
       this._identifyPlant(dataUrl).catch(console.error);
+    } else {
+      this._cancelPlantIdentify();
     }
   }
 
