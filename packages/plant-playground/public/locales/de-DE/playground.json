@@ -19,7 +19,7 @@
     "importNow": "Jetzt importieren",
     "log": "Es scheint, als hättest du keine Einträge 😔",
     "or": "oder",
-    "plant": "The requested plant wasn't found 😟",
+    "plant": "Die angeforderte Pflanze wurde nicht gefunden 😟",
     "plants": "Es scheint, als hättest du keine Pflanzen 😔"
   },
   "entryEditor": {
@@ -60,10 +60,10 @@
   },
   "import": {
     "export": "Aktuelle Daten einfügen",
-    "fsUnsupported": "File system access is not supported on your device.",
+    "fsUnsupported": "Zugriff aufs Dateisystem ist auf deinem Gerät nicht möglich.",
     "import": "Importieren",
-    "openPlantLogCsv": "Open plantlog.csv",
-    "openPlantsCsv": "Open plants.csv",
+    "openPlantLogCsv": "plantlog.csv öffnen",
+    "openPlantsCsv": "plants.csv öffnen",
     "pastePlantLog": "plantlog.csv hier einfügen",
     "pastePlants": "plants.csv hier einfügen",
     "plantData": "Pflanzendaten",
@@ -75,8 +75,8 @@
     "edit": "Eintrag bearbeiten",
     "entryDeleted": "Eintrag gelöscht",
     "entryUpdated": "Eintrag aktualisiert",
-    "filterPlaceholder": "Type filter here",
-    "filterTypePlaceholder": "Filter event types",
+    "filterPlaceholder": "Filter hier eingeben",
+    "filterTypePlaceholder": "Ereignis-Typen filtern",
     "firstEntry": "Das ist der erste Eintrag für diese Pflanze.",
     "goToDetails": "Pflanzendetails anzeigen",
     "openEntry": "Eintrag öffnen",
