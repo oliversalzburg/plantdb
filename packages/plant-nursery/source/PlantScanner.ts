@@ -1,4 +1,5 @@
 import { SlSpinner } from "@shoelace-style/shoelace";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { mustExist } from "./Maybe";
@@ -184,13 +185,15 @@ export class PlantScanner extends LitElement {
         </div>
         <div class="controls">
           <sl-button id="pick-image" variant="success" @click=${() => this._pick()}
-            >Pick image <sl-icon slot="prefix" name="check"></sl-button
+            >${t("scanner.pickImage")}<sl-icon slot="prefix" name="check"></sl-button
           ><sl-button id="click-photo" variant="primary" @click=${() => this._capture()}
-            ><sl-icon slot="prefix" name="camera"></sl-icon>Capture image</sl-button
-          ><sl-button id="retry" @click=${() =>
-            this._retry()}>Retry<sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon></sl-button
-          ><sl-button id="abort" @click=${() =>
-            this._abort()}>Abort<sl-icon slot="suffix" name="x"></sl-icon></sl-button>
+            ><sl-icon slot="prefix" name="camera"></sl-icon>${t("scanner.captureImage")}</sl-button
+          ><sl-button id="retry" @click=${() => this._retry()}>${t("retry", {
+        ns: "common",
+      })}<sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon></sl-button
+          ><sl-button id="abort" @click=${() => this._abort()}>${t("cancel", {
+        ns: "common",
+      })}<sl-icon slot="suffix" name="x"></sl-icon></sl-button>
         </div>`,
     ];
   }

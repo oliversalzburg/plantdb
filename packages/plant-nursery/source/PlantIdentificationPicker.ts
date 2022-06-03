@@ -2,6 +2,7 @@ import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { isNil, mustExist } from "./Maybe";
@@ -98,7 +99,7 @@ export class PlantIdentificationPicker extends LitElement {
     }
 
     return [
-      html`<h3>Best match</h3>
+      html`<h3>${t("idPicker.resultBest")}</h3>
         <div id="results">
           ${html`<div
               class="result"
@@ -112,16 +113,16 @@ export class PlantIdentificationPicker extends LitElement {
               <img src=${this.response.results[0].images[0].url.s} />
               <p class="info">
                 <strong>${this.response.results[0].species.scientificName}</strong><br />
-                Genus: ${this.response.results[0].species.genus.scientificName}<br />
-                Family: ${this.response.results[0].species.family.scientificName}
+                ${t("idPicker.genus")}: ${this.response.results[0].species.genus.scientificName}<br />
+                ${t("idPicker.family")}: ${this.response.results[0].species.family.scientificName}
               </p>
-              <sl-button>Pick</sl-button>
+              <sl-button>${t("idPicker.pick")}</sl-button>
             </div>
             <sl-button
               @click=${() => this.dispatchEvent(new CustomEvent("plant-identification-cancelled"))}
-              >Cancel</sl-button
+              >${(t("cancel"), { ns: "common" })}</sl-button
             >
-            <h4>Other results</h4>`}
+            <h4>${t("idPicker.resultsOther")}</h4>`}
           ${this.response.results.slice(1, 10).map(
             result =>
               html`<div
@@ -136,10 +137,10 @@ export class PlantIdentificationPicker extends LitElement {
                 <img src=${result.images[0].url.s} />
                 <p class="info">
                   <strong>${result.species.scientificName}</strong><br />
-                  Genus: ${result.species.genus.scientificName}<br />
-                  Family: ${result.species.family.scientificName}
+                  ${t("idPicker.genus")}: ${result.species.genus.scientificName}<br />
+                  ${t("idPicker.family")}: ${result.species.family.scientificName}
                 </p>
-                <sl-button>Pick</sl-button>
+                <sl-button>${t("idPicker.pick")}</sl-button>
               </div>`
           )}
         </div>`,

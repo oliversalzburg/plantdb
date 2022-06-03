@@ -58,6 +58,13 @@
     "Shaping": "Shaping",
     "Watering": "Watering"
   },
+  "idPicker": {
+    "family": "Family",
+    "genus": "Genus",
+    "pick": "Pick",
+    "resultBest": "Best match",
+    "resultsOther": "Other results"
+  },
   "import": {
     "export": "Insert current data",
     "fsUnsupported": "File system access is not supported on your device.",
@@ -128,12 +135,17 @@
     "potColorPlaceholder": "Black",
     "potShapeTopLabel": "Pot shape (top)",
     "potShapeTopPlaceholder": "Round",
+    "scan": "Scan",
     "substrateLabel": "Substrate",
     "substratePlaceholder": "Soil",
     "tempMaxLabel": "Temp. max. (°F)",
     "tempMaxPlaceholder": "89",
     "tempMinLabel": "Temp. min. (°F)",
     "tempMinPlaceholder": "59"
+  },
+  "scanner": {
+    "captureImage": "Capture image",
+    "pickImage": "Pick image"
   },
   "typeMap": {
     "empty": "You don't have any log entries yet. Return here later, once you have created log entries and you will be able to help the Nursery understand what they mean.",

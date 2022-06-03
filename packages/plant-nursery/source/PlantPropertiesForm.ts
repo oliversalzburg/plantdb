@@ -336,7 +336,7 @@ export class PlantPropertiesForm extends LitElement {
               @plant-changed=${(event: CustomEvent) =>
                 (this._plantKind = (event.target as PlantMultiValueEditor).value)}
             ></plant-multi-value-editor
-            ><sl-button @click=${() => this._scanPlant()}>Scan</sl-button>
+            ><sl-button @click=${() => this._scanPlant()}>${t("plantEditor.scan")}</sl-button>
           </div>
           <div class="spacer"></div>
 
