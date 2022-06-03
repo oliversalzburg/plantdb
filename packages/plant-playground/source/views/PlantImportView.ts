@@ -9,7 +9,7 @@ import {
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { t } from "i18next";
 import { css, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { assertExists, mustExist } from "../Maybe";
 import { View } from "./View";
@@ -48,6 +48,8 @@ export class PlantImportView extends View {
 
   @property()
   plantLogData = "";
+  @state()
+  private _logAnalysis = "";
 
   @property()
   config = new DatabaseFormat();
@@ -57,6 +59,19 @@ export class PlantImportView extends View {
     if (storedConfig) {
       this.config = DatabaseFormat.fromJSON(storedConfig);
     }
+  }
+
+  private _checkInputData() {
+    const plantLogDataRaw = this.plantLogData;
+    const counts = {
+      comma: (plantLogDataRaw.match(/,/g) || []).length,
+      semicolon: (plantLogDataRaw.match(/;/g) || []).length,
+      tab: (plantLogDataRaw.match(/\t/g) || []).length,
+    };
+    const likelySeparator = (Object.keys(counts) as Array<keyof typeof counts>).reduce((a, b) =>
+      counts[a] > counts[b] ? a : b
+    );
+    this._logAnalysis = `Data contains: comma ${counts["comma"]} time(s), semicolon ${counts["semicolon"]} time(s), tab ${counts["tab"]} time(s). Most likely column separator: ${likelySeparator}`;
   }
 
   processImportRequest(event?: MouseEvent) {
@@ -175,17 +190,18 @@ export class PlantImportView extends View {
             placeholder=${t("import.pastePlantLog")}
             label=${t("import.plantLog")}
             .value=${this.plantLogData}
-            @sl-blur="${(event: InputEvent) => {
+            @sl-change=${(event: InputEvent) => {
               this.plantLogData = (event.target as SlTextarea).value;
+              this._checkInputData();
             }}"
-          ></sl-textarea>
-          <sl-button
+          >
+          <small slot="help-text" class="log-analysis">${this._logAnalysis}</small></sl-textarea
+          ><sl-button
             @click=${async () => {
               this.plantLogData = await this._openCsvFromFileSystem();
               this.requestUpdate();
             }}
-            >${t("import.openPlantLogCsv")}</sl-button
-          >
+            >${t("import.openPlantLogCsv")}</sl-button>
 
           <sl-textarea
             id="plant-data"
