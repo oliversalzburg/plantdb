@@ -40,7 +40,7 @@ export default {
             sizes: "512x512",
           },
         ],
-        background_color: "#ffffff",
+        background_color: "#888888",
         display: "standalone",
         theme_color: "#4cae4f",
         shortcuts: [
