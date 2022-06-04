@@ -220,7 +220,7 @@ export class PlantImportView extends View {
           }
 
           this._googleDriveConnected = true;
-          this.plantStoreUi?.alert("Success").catch(console.error);
+          this.plantStoreUi?.alert(t("import.googleDriveConnected")).catch(console.error);
           this._listFiles().catch(console.error);
         },
       });
