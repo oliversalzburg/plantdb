@@ -48,7 +48,7 @@ export default {
             name: "Plants",
             short_name: "Plants",
             description: "Your plants",
-            url: "/list",
+            url: "list",
             icons: [{ src: "images/nursery-plants.png", sizes: "2208x2032" }],
           },
         ],
