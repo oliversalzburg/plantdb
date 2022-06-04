@@ -60,6 +60,8 @@ export class PlantImportView extends View {
   plantLogData = "";
   @state()
   private _logAnalysis = "";
+  @state()
+  private _googleDriveConnected = false;
 
   @property()
   config = new DatabaseFormat();
@@ -189,6 +191,8 @@ export class PlantImportView extends View {
             throw resp;
           }
 
+          this._googleDriveConnected = true;
+          this.plantStoreUi?.alert("Success").catch(console.error);
           this._listFiles().catch(console.error);
         },
       });
@@ -208,8 +212,6 @@ export class PlantImportView extends View {
           // Skip display of account chooser and consent dialog for an existing session.
           mustExist(this._tokenClient).requestAccessToken({ prompt: "" });
         }
-
-        this.plantStoreUi?.alert("Success").catch(console.error);
       };
       gapi.load("client", () => {
         onClientLoaded().catch(console.error);
@@ -308,12 +310,14 @@ export class PlantImportView extends View {
 
         <div id="import-section">
           <sl-tab-group>
-            <sl-tab slot="nav" panel="clipboard">Clipboard</sl-tab>
+            <sl-tab slot="nav" panel="clipboard">Text</sl-tab>
             <sl-tab slot="nav" panel="filesystem">Filesystem</sl-tab>
             <sl-tab slot="nav" panel="google-drive">Google Drive</sl-tab>
 
             <sl-tab-panel name="google-drive"
-              ><sl-button @click=${() => this._testGoogleDrive()}
+              ><sl-button
+                @click=${() => this._testGoogleDrive()}
+                variant=${this._googleDriveConnected ? "success" : "default"}
                 ><sl-icon slot="prefix" name="google"></sl-icon>Connect Google Drive</sl-button
               ></sl-tab-panel
             >
@@ -346,18 +350,24 @@ export class PlantImportView extends View {
                     this.plantData = (event.target as SlTextarea).value;
                   }}"
                 ></sl-textarea>
+
+                <sl-button id="export" @click="${() => this.export()}"
+                  >${t("import.export")}</sl-button
+                >
               </div>
             </sl-tab-panel>
 
             <sl-tab-panel name="filesystem"
               ><div class="filesystem">
                 <sl-button
+                  variant=${this.plantLogData !== "" ? "success" : "default"}
                   @click=${async () => {
                     this.plantLogData = await this._openCsvFromFileSystem();
                     this.requestUpdate();
                   }}
                   >${t("import.openPlantLogCsv")}</sl-button
                 ><sl-button
+                  variant=${this.plantData !== "" ? "success" : "default"}
                   @click=${async () => {
                     this.plantData = await this._openCsvFromFileSystem();
                     this.requestUpdate();
@@ -375,7 +385,7 @@ export class PlantImportView extends View {
             variant="primary"
             @click="${(event: MouseEvent) => this.processImportRequest(event)}"
             >${t("import.import")}</sl-button
-          ><sl-button id="export" @click="${() => this.export()}">${t("import.export")}</sl-button>
+          >
         </div>
       </div>`,
     ];
