@@ -12,7 +12,9 @@
     "semicolon": "Semicolon ;",
     "tab": "Tab",
     "timezone": "Timezone",
-    "title": "Database Configuration"
+    "title": "Database Configuration",
+    "withoutSeconds": "without seconds",
+    "withSeconds": "with seconds"
   },
   "empty": {
     "backToPlants": "Back to plant list",
@@ -72,7 +74,7 @@
     "filesystem": "File System",
     "fsUnsupported": "File system access is not supported on your device.",
     "googleDrive": "Google Drive",
-    "googleDriveConnect": "Google Drive connected",
+    "googleDriveConnected": "Google Drive connected",
     "import": "Import",
     "loadPlantLogCsv": "Load plantlog.csv",
     "loadPlantsCsv": "Load plants.csv",
