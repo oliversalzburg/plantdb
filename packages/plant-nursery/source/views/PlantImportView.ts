@@ -193,15 +193,16 @@ export class PlantImportView extends View {
             @sl-change=${(event: InputEvent) => {
               this.plantLogData = (event.target as SlTextarea).value;
               this._checkInputData();
-            }}"
+            }}
           >
-          <small slot="help-text" class="log-analysis">${this._logAnalysis}</small></sl-textarea
+            <small slot="help-text" class="log-analysis">${this._logAnalysis}</small></sl-textarea
           ><sl-button
             @click=${async () => {
               this.plantLogData = await this._openCsvFromFileSystem();
               this.requestUpdate();
             }}
-            >${t("import.openPlantLogCsv")}</sl-button>
+            >${t("import.openPlantLogCsv")}</sl-button
+          >
 
           <sl-textarea
             id="plant-data"
@@ -209,7 +210,7 @@ export class PlantImportView extends View {
             placeholder=${t("import.pastePlants")}
             label=${t("import.plantData")}
             .value=${this.plantData}
-            @sl-blur="${(event: InputEvent) => {
+            @sl-change="${(event: InputEvent) => {
               this.plantData = (event.target as SlTextarea).value;
             }}"
           ></sl-textarea>

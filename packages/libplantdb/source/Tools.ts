@@ -129,6 +129,15 @@ export const valueFromCSV = (
   return expectMultiValue ? splitMultiValue(csvData[column]) : csvData[column];
 };
 
+/**
+ * Retrieve a float value from a specific column in CSV data.
+ * If the column contains no readable value, it is treated as `undefined`.
+ *
+ * @param csvData CSV data that has already been parsed into individual columns.
+ * @param column The index of the column to retrieve.
+ * @param databaseFormat The `DatabaseFormat` to be used to interpret the data.
+ * @returns The correctly parsed CSV value.
+ */
 export const floatFromCSV = (
   csvData: ReadonlyArray<string>,
   column: number,
@@ -143,6 +152,15 @@ export const floatFromCSV = (
   return float;
 };
 
+/**
+ * Retrieve an integer value from a specific column in CSV data.
+ * If the column contains no readable value, it is treated as `undefined`.
+ *
+ * @param csvData CSV data that has already been parsed into individual columns.
+ * @param column The index of the column to retrieve.
+ * @param databaseFormat The `DatabaseFormat` to be used to interpret the data.
+ * @returns The correctly parsed CSV value.
+ */
 export const intFromCSV = (
   csvData: ReadonlyArray<string>,
   column: number,
