@@ -62,6 +62,7 @@ export class PlantDetails extends LitElement {
 
       .top {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
       }
 
