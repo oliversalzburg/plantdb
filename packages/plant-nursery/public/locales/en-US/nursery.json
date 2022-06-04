@@ -74,7 +74,7 @@
     "filesystem": "File System",
     "fsUnsupported": "File system access is not supported on your device.",
     "googleDrive": "Google Drive",
-    "googleDriveConnect": "Google Drive connected",
+    "googleDriveConnected": "Google Drive connected",
     "import": "Import",
     "loadPlantLogCsv": "Load plantlog.csv",
     "loadPlantsCsv": "Load plants.csv",
