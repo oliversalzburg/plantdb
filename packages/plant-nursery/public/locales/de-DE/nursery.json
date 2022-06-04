@@ -109,6 +109,8 @@
     "add": "Pflanze hinzufügen",
     "edit": "Pflanze bearbeiten",
     "never": "nie",
+    "details": "Details",
+    "log": "Protokoll",
     "plantDeleted": "Pflanze gelöscht",
     "plantUpdated": "Pflanze aktualisiert",
     "whenAdded": "Erstellt: {{when}}",
