@@ -12,7 +12,9 @@
     "semicolon": "Semicolon ;",
     "tab": "Tab",
     "timezone": "Timezone",
-    "title": "Database Configuration"
+    "title": "Database Configuration",
+    "withoutSeconds": "without seconds",
+    "withSeconds": "with seconds"
   },
   "empty": {
     "backToPlants": "Back to plant list",

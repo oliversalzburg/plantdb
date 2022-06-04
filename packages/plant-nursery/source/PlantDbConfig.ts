@@ -96,10 +96,16 @@ export class PlantDbConfig extends LitElement {
           );
         }}
       >
+        <sl-menu-label>${t("dbConfig.withoutSeconds")}</sl-menu-label>
         <sl-menu-item value="yyyy-MM-dd HH:mm">yyyy-MM-dd HH:mm</sl-menu-item>
         <sl-menu-item value="dd.MM.yyyy HH:mm">dd.MM.yyyy HH:mm</sl-menu-item>
         <sl-menu-item value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</sl-menu-item>
-        <sl-menu-item value="MM/dd/yyyy hh:mm a">MM/dd/yyyy hh:mm a</sl-menu-item> </sl-select
+        <sl-menu-item value="MM/dd/yyyy hh:mm a">MM/dd/yyyy hh:mm a</sl-menu-item
+        ><sl-divider></sl-divider><sl-menu-label>${t("dbConfig.withSeconds")}</sl-menu-label
+        ><sl-menu-item value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</sl-menu-item>
+        <sl-menu-item value="dd.MM.yyyy HH:mm:ss">dd.MM.yyyy HH:mm:ss</sl-menu-item>
+        <sl-menu-item value="dd/MM/yyyy HH:mm:ss">dd/MM/yyyy HH:mm:ss</sl-menu-item>
+        <sl-menu-item value="MM/dd/yyyy hh:mm:ss a">MM/dd/yyyy hh:mm:ss a</sl-menu-item></sl-select
       ><br />
 
       <sl-select
