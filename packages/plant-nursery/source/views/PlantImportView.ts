@@ -108,7 +108,10 @@ export class PlantImportView extends View {
     const likelySeparator = (Object.keys(counts) as Array<keyof typeof counts>).reduce((a, b) =>
       counts[a] > counts[b] ? a : b
     );
-    this._logAnalysis = `Data contains: comma ${counts["comma"]} time(s), semicolon ${counts["semicolon"]} time(s), tab ${counts["tab"]} time(s). Most likely column separator: ${likelySeparator}`;
+    this._logAnalysis = t("import.logAnalysis", {
+      counts,
+      likelySeparator,
+    });
   }
 
   processImportRequest(event?: MouseEvent) {
@@ -374,16 +377,16 @@ export class PlantImportView extends View {
                     ?disabled=${this._plantLogFileId === undefined}
                     variant=${this.plantLogData !== "" ? "success" : "default"}
                     @click=${() => this._loadPlantLogFromGoogleDrive()}
-                    >Load plantlog.csv</sl-button
+                    >${t("import.loadPlantLogCsv")}</sl-button
                   ><sl-button
                     ?disabled=${this._plantsFileId === undefined}
                     variant=${this.plantData !== "" ? "success" : "default"}
                     @click=${() => this._loadPlantsFromGoogleDrive()}
-                    >Load plants.csv</sl-button
+                    >${t("import.openPlantsCsv")}</sl-button
                   >
                 </div>
                 <small class="help-text ${this.plantLogData || this.plantData ? "data-loaded" : ""}"
-                  >Check the "Text" panel to see your loaded data.</small
+                  >${t("import.dataLoadedHelp")}</small
                 >
               </div></sl-tab-panel
             >
@@ -444,7 +447,7 @@ export class PlantImportView extends View {
                   >
                 </div>
                 <small class="help-text ${this.plantLogData || this.plantData ? "data-loaded" : ""}"
-                  >Check the "Text" panel to see your loaded data.</small
+                  >${t("import.dataLoadedHelp")}</small
                 >
               </div></sl-tab-panel
             >
