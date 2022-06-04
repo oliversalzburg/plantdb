@@ -120,7 +120,7 @@ export class PlantIdentificationPicker extends LitElement {
             </div>
             <sl-button
               @click=${() => this.dispatchEvent(new CustomEvent("plant-identification-cancelled"))}
-              >${(t("cancel"), { ns: "common" })}</sl-button
+              >${t("cancel", { ns: "common" })}</sl-button
             >
             <h4>${t("idPicker.resultsOther")}</h4>`}
           ${this.response.results.slice(1, 10).map(
