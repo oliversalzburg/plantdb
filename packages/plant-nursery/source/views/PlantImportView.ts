@@ -40,6 +40,16 @@ export class PlantImportView extends View {
         flex-direction: column;
         gap: 1rem;
       }
+
+      .clipboard {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .filesystem {
+        display: flex;
+        gap: 1rem;
+      }
     `,
   ];
 
@@ -296,48 +306,67 @@ export class PlantImportView extends View {
 
         <h3>${t("import.title")}</h3>
 
-        <sl-button @click=${() => this._testGoogleDrive()}
-          ><sl-icon slot="prefix" name="google"></sl-icon>Google Drive</sl-button
-        >
-
         <div id="import-section">
-          <sl-textarea
-            id="log-data"
-            rows="10"
-            placeholder=${t("import.pastePlantLog")}
-            label=${t("import.plantLog")}
-            .value=${this.plantLogData}
-            @sl-change=${(event: InputEvent) => {
-              this.plantLogData = (event.target as SlTextarea).value;
-              this._checkInputData();
-            }}
-          >
-            <small slot="help-text" class="log-analysis">${this._logAnalysis}</small></sl-textarea
-          ><sl-button
-            @click=${async () => {
-              this.plantLogData = await this._openCsvFromFileSystem();
-              this.requestUpdate();
-            }}
-            >${t("import.openPlantLogCsv")}</sl-button
-          >
+          <sl-tab-group>
+            <sl-tab slot="nav" panel="clipboard">Clipboard</sl-tab>
+            <sl-tab slot="nav" panel="filesystem">Filesystem</sl-tab>
+            <sl-tab slot="nav" panel="google-drive">Google Drive</sl-tab>
 
-          <sl-textarea
-            id="plant-data"
-            rows="10"
-            placeholder=${t("import.pastePlants")}
-            label=${t("import.plantData")}
-            .value=${this.plantData}
-            @sl-change="${(event: InputEvent) => {
-              this.plantData = (event.target as SlTextarea).value;
-            }}"
-          ></sl-textarea>
-          <sl-button
-            @click=${async () => {
-              this.plantData = await this._openCsvFromFileSystem();
-              this.requestUpdate();
-            }}
-            >${t("import.openPlantsCsv")}</sl-button
-          >
+            <sl-tab-panel name="google-drive"
+              ><sl-button @click=${() => this._testGoogleDrive()}
+                ><sl-icon slot="prefix" name="google"></sl-icon>Connect Google Drive</sl-button
+              ></sl-tab-panel
+            >
+
+            <sl-tab-panel name="clipboard"
+              ><div class="clipboard">
+                <sl-textarea
+                  id="log-data"
+                  rows="10"
+                  placeholder=${t("import.pastePlantLog")}
+                  label=${t("import.plantLog")}
+                  .value=${this.plantLogData}
+                  @sl-change=${(event: InputEvent) => {
+                    this.plantLogData = (event.target as SlTextarea).value;
+                    this._checkInputData();
+                  }}
+                >
+                  <small slot="help-text" class="log-analysis"
+                    >${this._logAnalysis}</small
+                  ></sl-textarea
+                >
+
+                <sl-textarea
+                  id="plant-data"
+                  rows="10"
+                  placeholder=${t("import.pastePlants")}
+                  label=${t("import.plantData")}
+                  .value=${this.plantData}
+                  @sl-change="${(event: InputEvent) => {
+                    this.plantData = (event.target as SlTextarea).value;
+                  }}"
+                ></sl-textarea>
+              </div>
+            </sl-tab-panel>
+
+            <sl-tab-panel name="filesystem"
+              ><div class="filesystem">
+                <sl-button
+                  @click=${async () => {
+                    this.plantLogData = await this._openCsvFromFileSystem();
+                    this.requestUpdate();
+                  }}
+                  >${t("import.openPlantLogCsv")}</sl-button
+                ><sl-button
+                  @click=${async () => {
+                    this.plantData = await this._openCsvFromFileSystem();
+                    this.requestUpdate();
+                  }}
+                  >${t("import.openPlantsCsv")}</sl-button
+                >
+              </div></sl-tab-panel
+            >
+          </sl-tab-group>
 
           <sl-divider></sl-divider>
 
