@@ -12,7 +12,9 @@
     "semicolon": "Semikolon ;",
     "tab": "Tabulator",
     "timezone": "Zeitzone",
-    "title": "Datenbankeinstellungen"
+    "title": "Datenbankeinstellungen",
+    "withoutSeconds": "without seconds",
+    "withSeconds": "with seconds"
   },
   "empty": {
     "backToPlants": "Zurück zur Pflanzen-Liste",
@@ -67,16 +69,16 @@
   },
   "import": {
     "connectGoogleDrive": "Google Drive verbinden",
-    "dataLoadedHelp": "Check the \"Text\" panel to see your loaded data.",
+    "dataLoadedHelp": "Klicken Sie auf \"Text\", um die geladenen Daten zu sehen.",
     "export": "Aktuelles Datum einfügen",
     "filesystem": "Dateisystem",
     "fsUnsupported": "Zugriff aufs Dateisystem ist auf deinem Gerät nicht möglich.",
     "googleDrive": "Google Drive",
-    "googleDriveConnect": "Google Drive connected",
+    "googleDriveConnected": "Google Drive connected",
     "import": "Importieren",
-    "loadPlantLogCsv": "Load plantlog.csv",
-    "loadPlantsCsv": "Load plants.csv",
-    "logAnalysis": "Data contains: comma {{counts.comma}} time(s), semicolon {{counts.semicolon}} time(s), tab {{counts.tab}} time(s). Most likely column separator: {{likelySeparator}}",
+    "loadPlantLogCsv": "plantlog.csv laden",
+    "loadPlantsCsv": "plants.csv laden",
+    "logAnalysis": "Daten enthalten: Komma {{counts.comma}} mal(e), Semikolon {{counts.semicolon}} mal(s), Tabulator {{counts.tab}} mal(s). Wahrscheinlichster Spaltentrenner: {{likelySeparator}}",
     "openPlantLogCsv": "plantlog.csv öffnen",
     "openPlantsCsv": "plants.csv öffnen",
     "pastePlantLog": "plantlog.csv hier einfügen",
