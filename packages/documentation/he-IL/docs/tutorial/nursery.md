@@ -4,11 +4,11 @@ Or "Nursery" for short, is an example application of a plant care app that could
 
 The Nursery runs entirely in your browser and does not send any data anywhere.
 
-[Visit the PlantDB Nursery](/plantdb/nursery/){.md-button}
+[Visit the PlantDB Nursery](/plantdb/nursery/ ""){.md-button}
 
 ## Introduction
 
-When you first visit the nursery, you'll like be greeted by a message telling you that you have no data yet.
+When you first visit the nursery, you'll likely be greeted by a message telling you that you have no data yet.
 
 ![Empty Nursery](nursery.assets/image-20220511221331624.png)
 
