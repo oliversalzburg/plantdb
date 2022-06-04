@@ -1,0 +1,29 @@
+{
+  "name": "PlantDB Nursery",
+  "short_name": "Nursery",
+  "start_url": "/plantdb/nursery/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "lang": "en",
+  "scope": "/plantdb/nursery/",
+  "icons": [
+    { "src": "favicon.svg", "type": "image/svg+xml", "sizes": "512x512" },
+    { "src": "images/flower-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "images/flower-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "theme_color": "#4cae4f",
+  "shortcuts": [
+    {
+      "name": "Plants",
+      "short_name": "Plants",
+      "description": "Your plants",
+      "url": "/list",
+      "icons": [{ "src": "images/nursery-plants.png", "sizes": "2208x2032" }]
+    }
+  ],
+  "description": "Interact with PlantDB data",
+  "screenshots": [
+    { "src": "images/nursery-log.png", "type": "image/png", "sizes": "2208x2032" },
+    { "src": "images/nursery-plants.png", "type": "image/png", "sizes": "2208x2032" }
+  ]
+}

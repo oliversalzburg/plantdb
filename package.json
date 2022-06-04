@@ -17,6 +17,7 @@
     "typedoc-plugin-markdown@3.12.1": "patch:typedoc-plugin-markdown@npm:3.12.1#.yarn/patches/typedoc-plugin-markdown-npm-3.12.1-73b5590d78.patch"
   },
   "devDependencies": {
+    "@bubblewrap/cli": "1.17.2",
     "@types/eslint": "8.4.2",
     "@types/web": "0.0.67",
     "@typescript-eslint/eslint-plugin": "5.27.0",
