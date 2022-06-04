@@ -13,8 +13,8 @@
     "tab": "Tabulator",
     "timezone": "Zeitzone",
     "title": "Datenbankeinstellungen",
-    "withoutSeconds": "without seconds",
-    "withSeconds": "with seconds"
+    "withoutSeconds": "ohne Sekunden",
+    "withSeconds": "mit Sekunden"
   },
   "empty": {
     "backToPlants": "Zurück zur Pflanzen-Liste",
@@ -69,12 +69,12 @@
   },
   "import": {
     "connectGoogleDrive": "Google Drive verbinden",
-    "dataLoadedHelp": "Klicken Sie auf \"Text\", um die geladenen Daten zu sehen.",
+    "dataLoadedHelp": "Klicken Sie auf \"Text\", um die geladenen Daten anzuzeigen.",
     "export": "Aktuelles Datum einfügen",
     "filesystem": "Dateisystem",
     "fsUnsupported": "Zugriff aufs Dateisystem ist auf deinem Gerät nicht möglich.",
     "googleDrive": "Google Drive",
-    "googleDriveConnected": "Google Drive connected",
+    "googleDriveConnected": "Google Drive ist verbunden",
     "import": "Importieren",
     "loadPlantLogCsv": "plantlog.csv laden",
     "loadPlantsCsv": "plants.csv laden",
