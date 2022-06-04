@@ -3,7 +3,7 @@
     "title": "PlantDB Nursery"
   },
   "dbConfig": {
-    "columnSeparator": "Trennzeichen",
+    "columnSeparator": "Spaltentrennzeichen",
     "comma": "Komma ,",
     "dateTimeFormat": "Zeitstempelformat",
     "decimalSeparator": "Dezimaltrennzeichen",
@@ -58,16 +58,32 @@
     "Shaping": "Formung",
     "Watering": "Gießvorgang"
   },
+  "idPicker": {
+    "family": "Familie",
+    "genus": "Gattung",
+    "pick": "Auswählen",
+    "resultBest": "Beste Übereinstimmung",
+    "resultsOther": "Andere Ergebnisse"
+  },
   "import": {
-    "export": "Aktuelle Daten einfügen",
+    "connectGoogleDrive": "Google Drive verbinden",
+    "dataLoadedHelp": "Check the \"Text\" panel to see your loaded data.",
+    "export": "Aktuelles Datum einfügen",
+    "filesystem": "Dateisystem",
     "fsUnsupported": "Zugriff aufs Dateisystem ist auf deinem Gerät nicht möglich.",
+    "googleDrive": "Google Drive",
+    "googleDriveConnect": "Google Drive connected",
     "import": "Importieren",
+    "loadPlantLogCsv": "Load plantlog.csv",
+    "loadPlantsCsv": "Load plants.csv",
+    "logAnalysis": "Data contains: comma {{counts.comma}} time(s), semicolon {{counts.semicolon}} time(s), tab {{counts.tab}} time(s). Most likely column separator: {{likelySeparator}}",
     "openPlantLogCsv": "plantlog.csv öffnen",
     "openPlantsCsv": "plants.csv öffnen",
     "pastePlantLog": "plantlog.csv hier einfügen",
     "pastePlants": "plants.csv hier einfügen",
     "plantData": "Pflanzendaten",
     "plantLog": "Protokolldaten",
+    "text": "Text",
     "title": "Datenimport"
   },
   "log": {
@@ -128,12 +144,17 @@
     "potColorPlaceholder": "Schwarz",
     "potShapeTopLabel": "Topfform (oben)",
     "potShapeTopPlaceholder": "Rund",
+    "scan": "Scannen",
     "substrateLabel": "Substrat",
     "substratePlaceholder": "Erde",
     "tempMaxLabel": "Temp. Max. (°C)",
     "tempMaxPlaceholder": "32",
     "tempMinLabel": "Temp. Min. (°C)",
     "tempMinPlaceholder": "15"
+  },
+  "scanner": {
+    "captureImage": "Bild aufnehmen",
+    "pickImage": "Bild auswählen"
   },
   "typeMap": {
     "empty": "Es sind noch keine Einträge angelegt. Kehre später hierher zurück, sobald Einträge erstellt wurden. Dann kann hier der Nursery geholfen werden zu verstehen, was sie bedeuten.",
