@@ -109,6 +109,8 @@
     "add": "Add plant",
     "edit": "Edit plant",
     "never": "never",
+    "details": "Details",
+    "log": "Log",
     "plantDeleted": "Plant deleted",
     "plantUpdated": "Plant updated",
     "whenAdded": "Added: {{when}}",
