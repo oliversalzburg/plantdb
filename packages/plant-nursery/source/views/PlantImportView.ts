@@ -430,6 +430,7 @@ export class PlantImportView extends View {
                     variant=${this.plantLogData !== "" ? "success" : "default"}
                     @click=${async () => {
                       this.plantLogData = await this._openCsvFromFileSystem();
+                      this._checkInputData();
                       this.requestUpdate();
                     }}
                     >${t("import.openPlantLogCsv")}</sl-button
