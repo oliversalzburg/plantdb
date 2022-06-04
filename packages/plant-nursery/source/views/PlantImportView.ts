@@ -163,6 +163,119 @@ export class PlantImportView extends View {
     }
   }
 
+  private _tokenClient: google.accounts.oauth2.TokenClient | undefined;
+  private async _testGoogleDrive() {
+    const CLIENT_ID = "621528596325-b01c3qtllvnrl2gk8hmfctn7s8s7s4q8.apps.googleusercontent.com";
+    const API_KEY = "AIzaSyBeBF_z_jai2SzHHaFXEAatLeYReL_OObE";
+    const SCOPES = "https://www.googleapis.com/auth/drive.readonly";
+
+    if (!this._tokenClient) {
+      await this._loadGoogleAuthApi();
+      this._tokenClient = window.google.accounts.oauth2.initTokenClient({
+        client_id: CLIENT_ID,
+        scope: SCOPES,
+        callback: resp => {
+          if (resp.error !== undefined) {
+            throw resp;
+          }
+
+          this._listFiles().catch(console.error);
+        },
+      });
+
+      await this._loadGoogleDriveApi();
+      const onClientLoaded = async () => {
+        await gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+        });
+
+        if (gapi.client.getToken() === null) {
+          // Prompt the user to select a Google Account and ask for consent to share their data
+          // when establishing a new session.
+          mustExist(this._tokenClient).requestAccessToken({ prompt: "consent" });
+        } else {
+          // Skip display of account chooser and consent dialog for an existing session.
+          mustExist(this._tokenClient).requestAccessToken({ prompt: "" });
+        }
+
+        this.plantStoreUi?.alert("Success").catch(console.error);
+      };
+      gapi.load("client", () => {
+        onClientLoaded().catch(console.error);
+      });
+    } else {
+      return this._listFiles();
+    }
+  }
+
+  private async _listFiles() {
+    let response;
+    try {
+      response = await gapi.client.drive.files.list({
+        fields: "files(id, name)",
+        pageSize: 10,
+        q: "mimeType='text/csv'",
+        spaces: "drive",
+      });
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+    const files = response.result.files;
+    if (!files || files.length == 0) {
+      console.log("No files found.");
+      return;
+    }
+
+    for (const file of files) {
+      if (file.name === "plantlog.csv" && file.id) {
+        const fileData = await gapi.client.drive.files.get({ fileId: file.id, alt: "media" });
+        this.plantLogData = fileData.body;
+        this._checkInputData();
+      }
+      if (file.name === "plants.csv" && file.id) {
+        const fileData = await gapi.client.drive.files.get({ fileId: file.id, alt: "media" });
+        this.plantData = fileData.body;
+      }
+    }
+  }
+
+  private _scriptGoogleAuthApi: HTMLScriptElement | undefined;
+  private async _loadGoogleAuthApi() {
+    return new Promise(resolve => {
+      if (this._scriptGoogleAuthApi) {
+        resolve(null);
+        return;
+      }
+
+      this._scriptGoogleAuthApi = Object.assign(document.createElement("script"), {
+        async: true,
+        defer: true,
+        src: "https://accounts.google.com/gsi/client",
+        onload: () => resolve(null),
+      });
+      document.body.appendChild(this._scriptGoogleAuthApi);
+    });
+  }
+  private _scriptGoogleDriveApi: HTMLScriptElement | undefined;
+  private async _loadGoogleDriveApi() {
+    return new Promise(resolve => {
+      if (this._scriptGoogleDriveApi) {
+        resolve(window.gapi);
+        return;
+      }
+
+      this._scriptGoogleDriveApi = Object.assign(document.createElement("script"), {
+        async: true,
+        defer: true,
+        src: "https://apis.google.com/js/api.js",
+        onload: () => resolve(window.gapi),
+      });
+      document.body.appendChild(this._scriptGoogleDriveApi);
+    });
+  }
+
   render() {
     if (!this.config) {
       return;
@@ -182,6 +295,10 @@ export class PlantImportView extends View {
         ></plant-db-config>
 
         <h3>${t("import.title")}</h3>
+
+        <sl-button @click=${() => this._testGoogleDrive()}
+          ><sl-icon slot="prefix" name="google"></sl-icon>Google Drive</sl-button
+        >
 
         <div id="import-section">
           <sl-textarea

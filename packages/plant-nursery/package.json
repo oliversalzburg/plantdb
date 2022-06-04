@@ -26,6 +26,10 @@
   },
   "devDependencies": {
     "@types/dygraphs": "2.1.4",
+    "@types/gapi": "0.0.42",
+    "@types/gapi.client": "1.0.5",
+    "@types/gapi.client.drive": "3.0.13",
+    "@types/google.accounts": "0.0.2",
     "@types/lunr": "2.3.4",
     "@types/web": "0.0.67",
     "@types/wicg-file-system-access": "2020.9.5",

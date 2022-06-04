@@ -5,6 +5,10 @@
     "outDir": "output",
     "rootDir": "source",
     "types": [
+      "@types/gapi",
+      "@types/gapi.client",
+      "@types/gapi.client.drive",
+      "@types/google.accounts",
       "@types/web",
       "@types/wicg-file-system-access",
       "vite/client",

@@ -1410,6 +1410,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@maxim_mazurok/gapi.client.drive@npm:latest":
+  version: 3.0.20220529
+  resolution: "@maxim_mazurok/gapi.client.drive@npm:3.0.20220529"
+  dependencies:
+    "@types/gapi.client": "*"
+  checksum: 684aa47936d85f69a75eb874f624a53faf4a9115679abddd0df7e9754d392706ba377c1073464626701c96edba8090505063b0ef87f87a3cf029c23f1bade2fd
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1507,6 +1516,10 @@ __metadata:
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.74
     "@types/dygraphs": 2.1.4
+    "@types/gapi": 0.0.42
+    "@types/gapi.client": 1.0.5
+    "@types/gapi.client.drive": 3.0.13
+    "@types/google.accounts": 0.0.2
     "@types/lunr": 2.3.4
     "@types/web": 0.0.67
     "@types/wicg-file-system-access": 2020.9.5
@@ -1670,6 +1683,36 @@ __metadata:
   version: 0.0.39
   resolution: "@types/estree@npm:0.0.39"
   checksum: f0af6c95ac1988c4827964bd9d3b51d24da442e2188943f6dfcb1e1559103d5d024d564b2e9d3f84c53714a02a0a7435c7441138eb63d9af5de4dfc66cdc0d92
+  languageName: node
+  linkType: hard
+
+"@types/gapi.client.drive@npm:3.0.13":
+  version: 3.0.13
+  resolution: "@types/gapi.client.drive@npm:3.0.13"
+  dependencies:
+    "@maxim_mazurok/gapi.client.drive": latest
+  checksum: 2d313aa63d1903bbb5fa600fc53660ee1c054d73f1b51ea1004d40de28d41b08dcfb75e5d8c3841d48151b61a44ee3e6f3edee0c25331ba9bd5009df67b62de2
+  languageName: node
+  linkType: hard
+
+"@types/gapi.client@npm:*, @types/gapi.client@npm:1.0.5":
+  version: 1.0.5
+  resolution: "@types/gapi.client@npm:1.0.5"
+  checksum: dbd6b26dda8dc343f19fbe32a555b39c6af3a8158d4387fc8a1c7204ed9229aa86de86087189f2b807e9f1548e76483d75dd6bb316c162d58bac86871b12d4e7
+  languageName: node
+  linkType: hard
+
+"@types/gapi@npm:0.0.42":
+  version: 0.0.42
+  resolution: "@types/gapi@npm:0.0.42"
+  checksum: 0a25eb4860646e5cd4002e36870a8c0f0b064201f7b5d6fa3e8d3b3e443f5d6c62f53c4059a055975f9c228dfd13ce8bf23a3fdb53fb8fdd61329371cfa99dd8
+  languageName: node
+  linkType: hard
+
+"@types/google.accounts@npm:0.0.2":
+  version: 0.0.2
+  resolution: "@types/google.accounts@npm:0.0.2"
+  checksum: 36b94d3b469605172da68048bc3319de4ebd7edd709147f925bd83a1b43ecf1982a500be74731921e5c13a3d755c0ff065340df30e7c366ae3235039c24c837a
   languageName: node
   linkType: hard
 
