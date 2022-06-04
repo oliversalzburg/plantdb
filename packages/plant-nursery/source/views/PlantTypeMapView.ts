@@ -15,9 +15,14 @@ export class PlantTypeMapView extends View {
           padding: 0 15vw;
         }
       }
-      @media (min-width: 2000px) {
+      @media (min-width: 1600px) {
         #type-map {
           padding: 0 25vw;
+        }
+      }
+      @media (min-width: 2200px) {
+        #type-map {
+          padding: 0 30vw;
         }
       }
 

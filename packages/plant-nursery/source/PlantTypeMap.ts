@@ -20,12 +20,18 @@ export class PlantTypeMap extends LitElement {
       .type-list li {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
         margin-bottom: 1rem;
       }
 
-      .type-list li > * {
-        flex: 1;
+      .type-list li * {
+        flex: 0.5;
+      }
+      @media (max-width: 500px) {
+        .type-list li * {
+          min-width: 100%;
+        }
       }
     `,
   ];
@@ -44,7 +50,7 @@ export class PlantTypeMap extends LitElement {
           ${[...this.plantDb.entryTypes.values()].sort().map(
             entryType =>
               html`<li>
-                <span>${entryType}</span><span>→</span>
+                <span>${entryType}</span>
                 <sl-select
                   placeholder=${t("typeMap.unmapped")}
                   value=${this.plantDb.config.typeMap.get(entryType)}
