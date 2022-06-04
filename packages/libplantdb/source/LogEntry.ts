@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import { DatabaseFormat, EventType } from "./DatabaseFormat";
+import { MATCH_PID } from "./Plant";
 import { PlantDB } from "./PlantDB";
 import { tryParseFloat, tryParseInt } from "./Tools";
 
@@ -185,6 +186,10 @@ export class LogEntry {
     format: DatabaseFormat,
     sourceFileLineNumber: number
   ): LogEntry {
+    if (!MATCH_PID.test(dataRow[0])) {
+      throw new Error("Invalid PID");
+    }
+
     const logEntry = new LogEntry(
       plantDb,
       sourceFileLineNumber,
