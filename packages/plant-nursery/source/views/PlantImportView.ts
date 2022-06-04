@@ -310,15 +310,17 @@ export class PlantImportView extends View {
 
         <div id="import-section">
           <sl-tab-group>
-            <sl-tab slot="nav" panel="clipboard">Text</sl-tab>
-            <sl-tab slot="nav" panel="filesystem">Filesystem</sl-tab>
-            <sl-tab slot="nav" panel="google-drive">Google Drive</sl-tab>
+            <sl-tab slot="nav" panel="clipboard">${t("import.text")}</sl-tab>
+            <sl-tab slot="nav" panel="filesystem">${t("import.filesystem")}</sl-tab>
+            <sl-tab slot="nav" panel="google-drive">${t("import.googleDrive")}</sl-tab>
 
             <sl-tab-panel name="google-drive"
               ><sl-button
                 @click=${() => this._testGoogleDrive()}
                 variant=${this._googleDriveConnected ? "success" : "default"}
-                ><sl-icon slot="prefix" name="google"></sl-icon>Connect Google Drive</sl-button
+                ><sl-icon slot="prefix" name="google"></sl-icon>${t(
+                  "import.connectGoogleDrive"
+                )}</sl-button
               ></sl-tab-panel
             >
 

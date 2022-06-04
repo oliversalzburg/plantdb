@@ -66,8 +66,11 @@
     "resultsOther": "Other results"
   },
   "import": {
+    "connectGoogleDrive": "Connect Google Drive",
     "export": "Insert current data",
+    "filesystem": "File System",
     "fsUnsupported": "File system access is not supported on your device.",
+    "googleDrive": "Google Drive",
     "import": "Import",
     "openPlantLogCsv": "Open plantlog.csv",
     "openPlantsCsv": "Open plants.csv",
@@ -75,6 +78,7 @@
     "pastePlants": "paste plants.csv here",
     "plantData": "Plant data",
     "plantLog": "Plant log",
+    "text": "Text",
     "title": "Import Data"
   },
   "log": {
