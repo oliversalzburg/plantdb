@@ -48,11 +48,32 @@ export class PlantImportView extends View {
       }
       .filesystem {
         display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .filesystem .actions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 1rem;
       }
       .google-drive {
         display: flex;
+        flex-direction: column;
         gap: 1rem;
+      }
+      .google-drive .actions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .help-text {
+        display: none;
+      }
+      .help-text.data-loaded {
+        display: block;
       }
     `,
   ];
@@ -342,22 +363,27 @@ export class PlantImportView extends View {
 
             <sl-tab-panel name="google-drive"
               ><div class="google-drive">
-                <sl-button
-                  @click=${() => this._testGoogleDrive()}
-                  variant=${this._googleDriveConnected ? "success" : "default"}
-                  ><sl-icon slot="prefix" name="google"></sl-icon>${t(
-                    "import.connectGoogleDrive"
-                  )}</sl-button
-                ><sl-button
-                  ?disabled=${this._plantLogFileId === undefined}
-                  variant=${this.plantLogData !== "" ? "success" : "default"}
-                  @click=${() => this._loadPlantLogFromGoogleDrive()}
-                  >Load plantlog.csv</sl-button
-                ><sl-button
-                  ?disabled=${this._plantsFileId === undefined}
-                  variant=${this.plantData !== "" ? "success" : "default"}
-                  @click=${() => this._loadPlantsFromGoogleDrive()}
-                  >Load plants.csv</sl-button
+                <div class="actions">
+                  <sl-button
+                    @click=${() => this._testGoogleDrive()}
+                    variant=${this._googleDriveConnected ? "success" : "default"}
+                    ><sl-icon slot="prefix" name="google"></sl-icon>${t(
+                      "import.connectGoogleDrive"
+                    )}</sl-button
+                  ><sl-button
+                    ?disabled=${this._plantLogFileId === undefined}
+                    variant=${this.plantLogData !== "" ? "success" : "default"}
+                    @click=${() => this._loadPlantLogFromGoogleDrive()}
+                    >Load plantlog.csv</sl-button
+                  ><sl-button
+                    ?disabled=${this._plantsFileId === undefined}
+                    variant=${this.plantData !== "" ? "success" : "default"}
+                    @click=${() => this._loadPlantsFromGoogleDrive()}
+                    >Load plants.csv</sl-button
+                  >
+                </div>
+                <small class="help-text ${this.plantLogData || this.plantData ? "data-loaded" : ""}"
+                  >Check the "Text" panel to see your loaded data.</small
                 >
               </div></sl-tab-panel
             >
@@ -399,20 +425,25 @@ export class PlantImportView extends View {
 
             <sl-tab-panel name="filesystem"
               ><div class="filesystem">
-                <sl-button
-                  variant=${this.plantLogData !== "" ? "success" : "default"}
-                  @click=${async () => {
-                    this.plantLogData = await this._openCsvFromFileSystem();
-                    this.requestUpdate();
-                  }}
-                  >${t("import.openPlantLogCsv")}</sl-button
-                ><sl-button
-                  variant=${this.plantData !== "" ? "success" : "default"}
-                  @click=${async () => {
-                    this.plantData = await this._openCsvFromFileSystem();
-                    this.requestUpdate();
-                  }}
-                  >${t("import.openPlantsCsv")}</sl-button
+                <div class="actions">
+                  <sl-button
+                    variant=${this.plantLogData !== "" ? "success" : "default"}
+                    @click=${async () => {
+                      this.plantLogData = await this._openCsvFromFileSystem();
+                      this.requestUpdate();
+                    }}
+                    >${t("import.openPlantLogCsv")}</sl-button
+                  ><sl-button
+                    variant=${this.plantData !== "" ? "success" : "default"}
+                    @click=${async () => {
+                      this.plantData = await this._openCsvFromFileSystem();
+                      this.requestUpdate();
+                    }}
+                    >${t("import.openPlantsCsv")}</sl-button
+                  >
+                </div>
+                <small class="help-text ${this.plantLogData || this.plantData ? "data-loaded" : ""}"
+                  >Check the "Text" panel to see your loaded data.</small
                 >
               </div></sl-tab-panel
             >
