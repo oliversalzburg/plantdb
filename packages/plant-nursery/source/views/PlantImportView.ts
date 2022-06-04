@@ -50,6 +50,10 @@ export class PlantImportView extends View {
         display: flex;
         gap: 1rem;
       }
+      .google-drive {
+        display: flex;
+        gap: 1rem;
+      }
     `,
   ];
 
@@ -242,13 +246,10 @@ export class PlantImportView extends View {
 
     for (const file of files) {
       if (file.name === "plantlog.csv" && file.id) {
-        const fileData = await gapi.client.drive.files.get({ fileId: file.id, alt: "media" });
-        this.plantLogData = fileData.body;
-        this._checkInputData();
+        this._plantLogFileId = file.id;
       }
       if (file.name === "plants.csv" && file.id) {
-        const fileData = await gapi.client.drive.files.get({ fileId: file.id, alt: "media" });
-        this.plantData = fileData.body;
+        this._plantsFileId = file.id;
       }
     }
   }
@@ -287,6 +288,31 @@ export class PlantImportView extends View {
       document.body.appendChild(this._scriptGoogleDriveApi);
     });
   }
+  @state()
+  private _plantLogFileId: string | undefined;
+  private async _loadPlantLogFromGoogleDrive() {
+    if (!this._plantLogFileId) {
+      return;
+    }
+    const fileData = await gapi.client.drive.files.get({
+      fileId: this._plantLogFileId,
+      alt: "media",
+    });
+    this.plantLogData = fileData.body;
+    this._checkInputData();
+  }
+  @state()
+  private _plantsFileId: string | undefined;
+  private async _loadPlantsFromGoogleDrive() {
+    if (!this._plantsFileId) {
+      return;
+    }
+    const fileData = await gapi.client.drive.files.get({
+      fileId: this._plantsFileId,
+      alt: "media",
+    });
+    this.plantData = fileData.body;
+  }
 
   render() {
     if (!this.config) {
@@ -315,13 +341,25 @@ export class PlantImportView extends View {
             <sl-tab slot="nav" panel="google-drive">${t("import.googleDrive")}</sl-tab>
 
             <sl-tab-panel name="google-drive"
-              ><sl-button
-                @click=${() => this._testGoogleDrive()}
-                variant=${this._googleDriveConnected ? "success" : "default"}
-                ><sl-icon slot="prefix" name="google"></sl-icon>${t(
-                  "import.connectGoogleDrive"
-                )}</sl-button
-              ></sl-tab-panel
+              ><div class="google-drive">
+                <sl-button
+                  @click=${() => this._testGoogleDrive()}
+                  variant=${this._googleDriveConnected ? "success" : "default"}
+                  ><sl-icon slot="prefix" name="google"></sl-icon>${t(
+                    "import.connectGoogleDrive"
+                  )}</sl-button
+                ><sl-button
+                  ?disabled=${this._plantLogFileId === undefined}
+                  variant=${this.plantLogData !== "" ? "success" : "default"}
+                  @click=${() => this._loadPlantLogFromGoogleDrive()}
+                  >Load plantlog.csv</sl-button
+                ><sl-button
+                  ?disabled=${this._plantsFileId === undefined}
+                  variant=${this.plantData !== "" ? "success" : "default"}
+                  @click=${() => this._loadPlantsFromGoogleDrive()}
+                  >Load plants.csv</sl-button
+                >
+              </div></sl-tab-panel
             >
 
             <sl-tab-panel name="clipboard"
