@@ -204,7 +204,7 @@ export class PlantImportView extends View {
   private async _testGoogleDrive() {
     const CLIENT_ID = "621528596325-b01c3qtllvnrl2gk8hmfctn7s8s7s4q8.apps.googleusercontent.com";
     const API_KEY = "AIzaSyBeBF_z_jai2SzHHaFXEAatLeYReL_OObE";
-    const SCOPES = "https://www.googleapis.com/auth/drive.readonly";
+    const SCOPES = "https://www.googleapis.com/auth/drive";
 
     if (!this._tokenClient) {
       await this._loadGoogleAuthApi();
