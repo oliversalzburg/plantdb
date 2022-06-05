@@ -4,6 +4,7 @@
     "404Title": "Hoppla! Ein 404 Fehler",
     "offlineReady": "Offline bereit",
     "title": "PlantDB Nursery",
+    "updateAvailable": "Update available",
     "updateConfirm": "Neue Version laden?"
   },
   "dbConfig": {
@@ -111,6 +112,7 @@
     "firstEntry": "Das ist der erste Eintrag für diese Pflanze.",
     "goToDetails": "Pflanzendetails anzeigen",
     "openEntry": "Eintrag öffnen",
+    "showMore": "Show more entries",
     "unmappedEvent": "Nicht zugeordneter Typ. Zum Zuweisen klicken."
   },
   "menu": {
@@ -171,7 +173,7 @@
     "tempMinPlaceholder": "15"
   },
   "scanner": {
-    "captured": "Image captured.",
+    "captured": "Bild aufgenommen.",
     "captureImage": "Bild aufnehmen",
     "pickImage": "Bild auswählen"
   },
