@@ -27,12 +27,12 @@ export class PlantListView extends View {
             .plantStoreUi=${this.plantStoreUi}
             .plants=${this.plants}
           ></plant-list>`
-        : html`<plant-empty-state class="empty"
+        : html`<pn-empty-state class="empty"
             ><p>${t("empty.plants")}</p>
 
             <sl-button href="import" variant="primary"
               >${t("empty.importNow")}</sl-button
-            ></plant-empty-state
+            ></pn-empty-state
           >`,
     ];
   }

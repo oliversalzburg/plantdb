@@ -7,7 +7,7 @@ import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { LogEntry, Plant } from "packages/libplantdb/typings";
 import { registerSW } from "virtual:pwa-register";
-import { PlantConfirmDialog } from "../ConfirmDialog";
+import { ConfirmDialog } from "../ConfirmDialog";
 import { assertExists, mustExist } from "../Maybe";
 import { prepareAsyncContext } from "../UiTools";
 import { PlantStore } from "./PlantStore";
@@ -297,10 +297,7 @@ export class PlantStoreUi extends LitElement {
   }
 
   async confirm(message: string) {
-    const confirm = Object.assign(
-      document.createElement("plant-confirm-dialog"),
-      {}
-    ) as PlantConfirmDialog;
+    const confirm = Object.assign(document.createElement("pn-confirm-dialog"), {}) as ConfirmDialog;
     return confirm.show(message);
   }
 

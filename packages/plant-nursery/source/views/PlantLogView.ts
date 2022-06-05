@@ -78,14 +78,14 @@ export class PlantLogView extends View {
                 >
               </section>`,
           ]
-        : html`<plant-empty-state class="empty"
+        : html`<pn-empty-state class="empty"
             ><p>${t("empty.log")}</p>
 
             <sl-button href="import" variant="primary">${t("empty.importNow")}</sl-button>
             <span class="or">${t("empty.or")}</span>
             <sl-button @click=${() => this.createNewLogEntry()}
               >${t("log.add")}</sl-button
-            ></plant-empty-state
+            ></pn-empty-state
           >`,
     ];
   }

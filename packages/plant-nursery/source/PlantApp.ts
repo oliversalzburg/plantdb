@@ -4,8 +4,8 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
+import { Typography } from "./ComponentStyles";
 import { mustExist } from "./Maybe";
-import { Typography } from "./PlantComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi";
 

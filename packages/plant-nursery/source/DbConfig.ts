@@ -5,8 +5,8 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-@customElement("plant-db-config")
-export class PlantDbConfig extends LitElement {
+@customElement("pn-db-config")
+export class DbConfig extends LitElement {
   static readonly styles = [
     css`
       :host {

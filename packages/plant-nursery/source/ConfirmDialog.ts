@@ -3,8 +3,8 @@ import { css, html, LitElement } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { mustExist } from "./Maybe";
 
-@customElement("plant-confirm-dialog")
-export class PlantConfirmDialog extends LitElement {
+@customElement("pn-confirm-dialog")
+export class ConfirmDialog extends LitElement {
   static readonly styles = [
     css`
       .empty {

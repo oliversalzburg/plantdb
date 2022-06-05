@@ -3,8 +3,8 @@ import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace
 import { t } from "i18next";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { Typography } from "./ComponentStyles";
 import { assertExists, isNil, mustExist } from "./Maybe";
-import { Typography } from "./PlantComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 

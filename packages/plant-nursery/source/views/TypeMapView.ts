@@ -44,12 +44,12 @@ export class TypeMapView extends View {
   render() {
     return [
       0 < mustExist(this.plantStore).plantDb.entryTypes.size
-        ? html`<plant-type-map
+        ? html`<pn-type-map
             id="type-map"
             .plantDb=${this.plantStore?.plantDb}
             .proposedMapping=${this.proposedMapping}
-          ></plant-type-map>`
-        : html`<plant-empty-state class="empty">${t("typeMap.empty")}</plant-empty-state>`,
+          ></pn-type-map>`
+        : html`<pn-empty-state class="empty">${t("typeMap.empty")}</pn-empty-state>`,
     ];
   }
 }

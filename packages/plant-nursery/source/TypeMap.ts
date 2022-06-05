@@ -4,8 +4,8 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-@customElement("plant-type-map")
-export class PlantTypeMap extends LitElement {
+@customElement("pn-type-map")
+export class TypeMap extends LitElement {
   static readonly styles = [
     css`
       :host {

@@ -3,7 +3,7 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { Typography } from "./PlantComponentStyles";
+import { Typography } from "./ComponentStyles";
 
 @customElement("plant-log-entry")
 export class PlantLogEntry extends LitElement {

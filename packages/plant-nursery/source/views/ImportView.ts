@@ -345,7 +345,7 @@ export class ImportView extends View {
 
     return [
       html`<div id="import">
-        <plant-db-config
+        <pn-db-config
           .plantData=${this.plantData}
           .plantLogData=${this.plantLogData}
           .hasHeaderRow=${this.config.hasHeaderRow}
@@ -355,7 +355,7 @@ export class ImportView extends View {
           .timezone=${this.config.timezone}
           @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) =>
             (this.config = event.detail)}
-        ></plant-db-config>
+        ></pn-db-config>
 
         <h3>${t("import.title")}</h3>
 
