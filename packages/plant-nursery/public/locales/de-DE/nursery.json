@@ -74,7 +74,7 @@
   "import": {
     "connectGoogleDrive": "Google Drive verbinden",
     "dataLoadedHelp": "Klicken Sie auf \"$t(import.text)\", um die geladenen Daten anzuzeigen.",
-    "export": "Aktuelles Datum einfügen",
+    "export": "Aktuelle Daten einfügen",
     "filesystem": "Dateisystem",
     "fsUnsupported": "Zugriff aufs Dateisystem ist auf deinem Gerät nicht möglich.",
     "googleDrive": "Google Drive",
