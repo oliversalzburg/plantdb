@@ -56,8 +56,7 @@ export class DbConfig extends LitElement {
     ];
     const now = new Date();
 
-    return html`<h3>${t("dbConfig.title")}</h3>
-      <sl-checkbox
+    return html`<sl-checkbox
         id="has-header-row"
         ?checked=${this.hasHeaderRow}
         @sl-change=${(event: MouseEvent) => {

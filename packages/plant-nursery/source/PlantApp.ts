@@ -145,6 +145,7 @@ export class PlantApp extends LitElement {
                   >${t("menu.plants")}</sl-menu-item
                 >
                 <sl-divider></sl-divider>
+                <sl-menu-label>${t("menu.settings")}</sl-menu-label>
                 <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/types")}
                   >${t("menu.typeMap")}</sl-menu-item
                 >

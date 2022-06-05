@@ -9,7 +9,7 @@ import {
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { t } from "i18next";
 import { css, html } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { customElement, property, queryAll, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { assertExists, mustExist } from "../Maybe";
 import { View } from "./View";
@@ -35,6 +35,7 @@ export class ImportView extends View {
         padding: 1rem;
       }
 
+      #export-section,
       #import-section {
         display: flex;
         flex-direction: column;
@@ -62,7 +63,7 @@ export class ImportView extends View {
         flex-direction: column;
         gap: 1rem;
       }
-      #google-drive-actions {
+      .google-drive-actions {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -94,10 +95,10 @@ export class ImportView extends View {
   private _googleDriveDbLastModified: Date | null | undefined = null;
   @state()
   private _googleDriveHelpText = "";
-  @query("#google-drive-actions")
-  private _googleDriveActions: HTMLDivElement | null | undefined;
-  @query("#google-drive-busy")
-  private _googleDriveBusy: HTMLDivElement | null | undefined;
+  @queryAll(".google-drive-actions")
+  private _googleDriveActions: Array<HTMLDivElement> | null | undefined;
+  @queryAll(".google-drive-busy")
+  private _googleDriveBusy: Array<HTMLDivElement> | null | undefined;
 
   @property()
   config = new DatabaseFormat();
@@ -108,7 +109,7 @@ export class ImportView extends View {
       this.config = DatabaseFormat.fromJSON(storedConfig);
     }
 
-    mustExist(this._googleDriveBusy).style.display = "none";
+    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
   }
 
   private _checkInputData() {
@@ -219,9 +220,26 @@ export class ImportView extends View {
     }
   }
 
+  private async _saveCsvToFileSystem(data: string, filename: string) {
+    const pickerOpts = {
+      suggestedName: filename,
+      types: [
+        {
+          description: "CSV Files",
+          accept: {
+            "text/csv": [".csv"],
+          },
+        },
+      ],
+    };
+    const fileHandle = await window.showSaveFilePicker(pickerOpts);
+    const writeable = await fileHandle.createWritable();
+    return writeable.write(data);
+  }
+
   private async _connectGoogleDrive() {
-    mustExist(this._googleDriveActions).style.display = "none";
-    mustExist(this._googleDriveBusy).style.display = "";
+    mustExist(this._googleDriveActions).forEach(target => (target.style.display = "none"));
+    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = ""));
 
     try {
       await this.plantStore?.googleDriveConnect();
@@ -248,8 +266,8 @@ export class ImportView extends View {
     } catch (error) {
       this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
     } finally {
-      mustExist(this._googleDriveActions).style.display = "";
-      mustExist(this._googleDriveBusy).style.display = "none";
+      mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
+      mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
     }
   }
 
@@ -258,8 +276,8 @@ export class ImportView extends View {
       return;
     }
 
-    mustExist(this._googleDriveActions).style.display = "none";
-    mustExist(this._googleDriveBusy).style.display = "";
+    mustExist(this._googleDriveActions).forEach(target => (target.style.display = "none"));
+    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = ""));
 
     try {
       this._googleDriveHelpText = "";
@@ -273,8 +291,8 @@ export class ImportView extends View {
     } catch (error) {
       this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
     } finally {
-      mustExist(this._googleDriveActions).style.display = "";
-      mustExist(this._googleDriveBusy).style.display = "none";
+      mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
+      mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
     }
   }
 
@@ -283,8 +301,8 @@ export class ImportView extends View {
       return;
     }
 
-    mustExist(this._googleDriveActions).style.display = "none";
-    mustExist(this._googleDriveBusy).style.display = "";
+    mustExist(this._googleDriveActions).forEach(target => (target.style.display = "none"));
+    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = ""));
 
     try {
       this._googleDriveHelpText = "";
@@ -298,14 +316,14 @@ export class ImportView extends View {
     } catch (error) {
       this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
     } finally {
-      mustExist(this._googleDriveActions).style.display = "";
-      mustExist(this._googleDriveBusy).style.display = "none";
+      mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
+      mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
     }
   }
 
   private _cancelGoogleDrive() {
-    mustExist(this._googleDriveActions).style.display = "";
-    mustExist(this._googleDriveBusy).style.display = "none";
+    mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
+    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
   }
 
   render() {
@@ -315,132 +333,210 @@ export class ImportView extends View {
 
     return [
       html`<div id="import">
-        <pn-db-config
-          .plantData=${this.plantData}
-          .plantLogData=${this.plantLogData}
-          .hasHeaderRow=${this.config.hasHeaderRow}
-          .columnSeparator=${this.config.columnSeparator}
-          .decimalSeparator=${this.config.decimalSeparator}
-          .dateFormat=${this.config.dateFormat}
-          .timezone=${this.config.timezone}
-          @pn-config-changed=${(event: CustomEvent<DatabaseFormat>) => (this.config = event.detail)}
-        ></pn-db-config>
+        <sl-details summary=${t("dbConfig.title")}>
+          <pn-db-config
+            .plantData=${this.plantData}
+            .plantLogData=${this.plantLogData}
+            .hasHeaderRow=${this.config.hasHeaderRow}
+            .columnSeparator=${this.config.columnSeparator}
+            .decimalSeparator=${this.config.decimalSeparator}
+            .dateFormat=${this.config.dateFormat}
+            .timezone=${this.config.timezone}
+            @pn-config-changed=${(event: CustomEvent<DatabaseFormat>) =>
+              (this.config = event.detail)}
+          ></pn-db-config
+        ></sl-details>
 
-        <h3>${t("import.title")}</h3>
+        <sl-details summary=${t("import.title")} open>
+          <div id="import-section">
+            <sl-tab-group>
+              <sl-tab slot="nav" panel="clipboard">${t("import.text")}</sl-tab>
+              <sl-tab slot="nav" panel="filesystem">${t("import.filesystem")}</sl-tab>
+              <sl-tab slot="nav" panel="google-drive">${t("import.googleDrive")}</sl-tab>
 
-        <div id="import-section">
-          <sl-tab-group>
-            <sl-tab slot="nav" panel="clipboard">${t("import.text")}</sl-tab>
-            <sl-tab slot="nav" panel="filesystem">${t("import.filesystem")}</sl-tab>
-            <sl-tab slot="nav" panel="google-drive">${t("import.googleDrive")}</sl-tab>
-
-            <sl-tab-panel name="google-drive"
-              ><div class="google-drive">
-                <div id="google-drive-busy">
-                  <sl-spinner></sl-spinner> ${t("import.googleDriveBusy")}
-                  <sl-button size="small" @click=${() => this._cancelGoogleDrive()}
-                    >${t("cancel", { ns: "common" })}</sl-button
-                  >
-                </div>
-                <div id="google-drive-actions">
-                  <sl-button
-                    @click=${() => this._connectGoogleDrive()}
-                    variant=${this._googleDriveConnected ? "success" : "default"}
-                    ><sl-icon slot="prefix" name="google"></sl-icon>${t(
-                      "import.connectGoogleDrive"
-                    )}</sl-button
-                  >${this._googleDriveConnected
-                    ? html`<sl-button
+              <sl-tab-panel name="google-drive"
+                ><div class="google-drive">
+                  <div class="google-drive-busy">
+                    <sl-spinner></sl-spinner> ${t("import.googleDriveBusy")}
+                    <sl-button size="small" @click=${() => this._cancelGoogleDrive()}
+                      >${t("cancel", { ns: "common" })}</sl-button
+                    >
+                  </div>
+                  <div class="google-drive-actions">
+                    <sl-button
+                      @click=${() => this._connectGoogleDrive()}
+                      variant=${this._googleDriveConnected ? "success" : "default"}
+                      ><sl-icon slot="prefix" name="google"></sl-icon>${t(
+                        "import.connectGoogleDrive"
+                      )}</sl-button
+                    >${this._googleDriveConnected
+                      ? html`<sl-button
                           ?disabled=${!this._googleDriveHasDb}
                           @click=${() => this._importFromGoogleDrive()}
                           ><sl-icon slot="prefix" name="cloud-download"></sl-icon>${t(
                             "import.googleDriveImport"
                           )}</sl-button
-                        ><sl-button @click=${() => this._syncToGoogleDrive()}
+                        >`
+                      : undefined}
+                  </div>
+                  ${this._googleDriveHasDb
+                    ? html`<span>${this._googleDriveHelpText}</span>`
+                    : undefined}
+                </div></sl-tab-panel
+              >
+
+              <sl-tab-panel name="clipboard"
+                ><div class="clipboard">
+                  <sl-textarea
+                    id="log-data"
+                    rows="10"
+                    placeholder=${t("import.pastePlantLog")}
+                    label=${t("import.plantLog")}
+                    .value=${this.plantLogData}
+                    @sl-change=${(event: InputEvent) => {
+                      this.plantLogData = (event.target as SlTextarea).value;
+                      this._checkInputData();
+                    }}
+                  >
+                    <small slot="help-text" class="log-analysis"
+                      >${this._logAnalysis}</small
+                    ></sl-textarea
+                  >
+
+                  <sl-textarea
+                    id="plant-data"
+                    rows="10"
+                    placeholder=${t("import.pastePlants")}
+                    label=${t("import.plantData")}
+                    .value=${this.plantData}
+                    @sl-change="${(event: InputEvent) => {
+                      this.plantData = (event.target as SlTextarea).value;
+                    }}"
+                  ></sl-textarea>
+                </div>
+              </sl-tab-panel>
+
+              <sl-tab-panel name="filesystem"
+                ><div class="filesystem">
+                  <div class="actions">
+                    <sl-button
+                      variant=${this.plantLogData !== "" ? "success" : "default"}
+                      @click=${async () => {
+                        this.plantLogData = await this._openCsvFromFileSystem();
+                        this._checkInputData();
+                        this.requestUpdate();
+                      }}
+                      >${t("import.openPlantLogCsv")}</sl-button
+                    ><sl-button
+                      variant=${this.plantData !== "" ? "success" : "default"}
+                      @click=${async () => {
+                        this.plantData = await this._openCsvFromFileSystem();
+                        this.requestUpdate();
+                      }}
+                      >${t("import.openPlantsCsv")}</sl-button
+                    >
+                  </div>
+                  <small
+                    class="help-text ${this.plantLogData || this.plantData ? "data-loaded" : ""}"
+                    >${t("import.dataLoadedHelp")}</small
+                  >
+                </div></sl-tab-panel
+              >
+            </sl-tab-group>
+
+            <sl-button
+              id="process"
+              variant="primary"
+              @click="${() => this.processImportRequest()}"
+              ?disabled=${!this.plantLogData && !this.plantData}
+              >${t("import.import")}</sl-button
+            >
+          </div></sl-details
+        >
+        <sl-details summary="Export"
+          ><div id="export-section">
+            <sl-tab-group>
+              <sl-tab slot="nav" panel="clipboard">${t("import.text")}</sl-tab>
+              <sl-tab slot="nav" panel="filesystem">${t("import.filesystem")}</sl-tab>
+              <sl-tab slot="nav" panel="google-drive">${t("import.googleDrive")}</sl-tab>
+
+              <sl-tab-panel name="google-drive"
+                ><div class="google-drive">
+                  <div class="google-drive-busy">
+                    <sl-spinner></sl-spinner> ${t("import.googleDriveBusy")}
+                    <sl-button size="small" @click=${() => this._cancelGoogleDrive()}
+                      >${t("cancel", { ns: "common" })}</sl-button
+                    >
+                  </div>
+                  <div class="google-drive-actions">
+                    <sl-button
+                      @click=${() => this._connectGoogleDrive()}
+                      variant=${this._googleDriveConnected ? "success" : "default"}
+                      ><sl-icon slot="prefix" name="google"></sl-icon>${t(
+                        "import.connectGoogleDrive"
+                      )}</sl-button
+                    >${this._googleDriveConnected
+                      ? html`<sl-button @click=${() => this._syncToGoogleDrive()}
                           ><sl-icon slot="prefix" name="cloud-upload"></sl-icon>${t(
                             "import.googleDriveSync"
                           )}</sl-button
                         >`
+                      : undefined}
+                  </div>
+                  ${this._googleDriveHasDb
+                    ? html`<span>${this._googleDriveHelpText}</span>`
                     : undefined}
-                </div>
-                ${this._googleDriveHasDb
-                  ? html`<span>${this._googleDriveHelpText}</span>`
-                  : undefined}
-              </div></sl-tab-panel
-            >
+                </div></sl-tab-panel
+              >
 
-            <sl-tab-panel name="clipboard"
-              ><div class="clipboard">
-                <sl-textarea
-                  id="log-data"
-                  rows="10"
-                  placeholder=${t("import.pastePlantLog")}
-                  label=${t("import.plantLog")}
-                  .value=${this.plantLogData}
-                  @sl-change=${(event: InputEvent) => {
-                    this.plantLogData = (event.target as SlTextarea).value;
-                    this._checkInputData();
-                  }}
-                >
-                  <small slot="help-text" class="log-analysis"
-                    >${this._logAnalysis}</small
-                  ></sl-textarea
-                >
-
-                <sl-textarea
-                  id="plant-data"
-                  rows="10"
-                  placeholder=${t("import.pastePlants")}
-                  label=${t("import.plantData")}
-                  .value=${this.plantData}
-                  @sl-change="${(event: InputEvent) => {
-                    this.plantData = (event.target as SlTextarea).value;
-                  }}"
-                ></sl-textarea>
-
-                <sl-button id="export" @click="${() => this.export()}"
-                  >${t("import.export")}</sl-button
-                >
-              </div>
-            </sl-tab-panel>
-
-            <sl-tab-panel name="filesystem"
-              ><div class="filesystem">
-                <div class="actions">
-                  <sl-button
-                    variant=${this.plantLogData !== "" ? "success" : "default"}
-                    @click=${async () => {
-                      this.plantLogData = await this._openCsvFromFileSystem();
-                      this._checkInputData();
-                      this.requestUpdate();
-                    }}
-                    >${t("import.openPlantLogCsv")}</sl-button
-                  ><sl-button
-                    variant=${this.plantData !== "" ? "success" : "default"}
-                    @click=${async () => {
-                      this.plantData = await this._openCsvFromFileSystem();
-                      this.requestUpdate();
-                    }}
-                    >${t("import.openPlantsCsv")}</sl-button
+              <sl-tab-panel name="clipboard"
+                ><div class="clipboard">
+                  <sl-button id="export" @click="${() => this.export()}"
+                    >${t("import.export")}</sl-button
                   >
+                  <sl-textarea
+                    id="log-data"
+                    rows="10"
+                    label=${t("import.plantLog")}
+                    .value=${this.plantLogData}
+                    readonly
+                  ></sl-textarea>
+
+                  <sl-textarea
+                    id="plant-data"
+                    rows="10"
+                    label=${t("import.plantData")}
+                    .value=${this.plantData}
+                    readonly
+                  ></sl-textarea>
                 </div>
-                <small class="help-text ${this.plantLogData || this.plantData ? "data-loaded" : ""}"
-                  >${t("import.dataLoadedHelp")}</small
-                >
-              </div></sl-tab-panel
-            >
-          </sl-tab-group>
+              </sl-tab-panel>
 
-          <sl-divider></sl-divider>
-
-          <sl-button
-            id="process"
-            variant="primary"
-            @click="${() => this.processImportRequest()}"
-            ?disabled=${!this.plantLogData && !this.plantData}
-            >${t("import.import")}</sl-button
-          >
-        </div>
+              <sl-tab-panel name="filesystem"
+                ><div class="filesystem">
+                  <div class="actions">
+                    <sl-button
+                      ?disabled=${!this.plantLogData}
+                      @click=${async () => {
+                        await this._saveCsvToFileSystem(this.plantLogData, "plantlog.csv");
+                        this._checkInputData();
+                        this.requestUpdate();
+                      }}
+                      >${t("import.savePlantLogCsv")}</sl-button
+                    ><sl-button
+                      ?disabled=${!this.plantData}
+                      @click=${async () => {
+                        await this._saveCsvToFileSystem(this.plantData, "plants.csv");
+                        this.requestUpdate();
+                      }}
+                      >${t("import.savePlantsCsv")}</sl-button
+                    >
+                  </div>
+                </div></sl-tab-panel
+              >
+            </sl-tab-group>
+          </div></sl-details
+        >
       </div>`,
     ];
   }
