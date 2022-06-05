@@ -107,7 +107,7 @@ export class GoogleDrive {
     const API_KEY = "AIzaSyBeBF_z_jai2SzHHaFXEAatLeYReL_OObE";
     const SCOPES = [
       // Full read-write on all data in Drive
-      "https://www.googleapis.com/auth/drive",
+      //"https://www.googleapis.com/auth/drive",
       // Access to application-specific data folder.
       "https://www.googleapis.com/auth/drive.appdata",
     ];
