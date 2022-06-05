@@ -255,7 +255,10 @@ export class PlantPropertiesForm extends LitElement {
   }
 
   private async _identifyPlant(dataUrl: string) {
-    const response = await makeIdentificationRequest(dataUrl, this.plantStoreUi?.locale);
+    const response = await makeIdentificationRequest(
+      dataUrl,
+      mustExist(this.plantStoreUi).locale.slice(0, 2)
+    );
     const json = (await response.json()) as PlantNetResponse;
     this._identificationResponse = json;
     console.debug(json);
