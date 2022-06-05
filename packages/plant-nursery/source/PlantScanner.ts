@@ -4,7 +4,7 @@ import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { mustExist } from "./Maybe";
 
-@customElement("plant-scanner")
+@customElement("pn-plant-scanner")
 export class PlantScanner extends LitElement {
   static readonly styles = [
     css`
@@ -166,7 +166,7 @@ export class PlantScanner extends LitElement {
   private _abort() {
     this.stop();
 
-    this.dispatchEvent(new CustomEvent("plant-aborted"));
+    this.dispatchEvent(new CustomEvent("pn-aborted"));
   }
 
   private _pick() {
@@ -174,7 +174,7 @@ export class PlantScanner extends LitElement {
       return;
     }
 
-    this.dispatchEvent(new CustomEvent("plant-scanned", { detail: this.dataUrl }));
+    this.dispatchEvent(new CustomEvent("pn-scanned", { detail: this.dataUrl }));
   }
 
   render() {

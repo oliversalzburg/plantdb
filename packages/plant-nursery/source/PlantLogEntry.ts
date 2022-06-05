@@ -5,7 +5,7 @@ import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { Typography } from "./ComponentStyles";
 
-@customElement("plant-log-entry")
+@customElement("pn-plant-log-entry")
 export class PlantLogEntry extends LitElement {
   static readonly styles = [
     Typography,
@@ -220,7 +220,7 @@ export class PlantLogEntry extends LitElement {
                   : undefined}
                 <sl-badge
                   variant="neutral"
-                  @click=${() => this.dispatchEvent(new CustomEvent("plant-badge-click"))}
+                  @click=${() => this.dispatchEvent(new CustomEvent("pn-badge-click"))}
                   >${this.logEntry.plant.id}</sl-badge
                 >
               </div>
@@ -256,7 +256,7 @@ export class PlantLogEntry extends LitElement {
             <sl-icon-button
               class="edit-button hover-guide"
               name="pencil"
-              @click=${() => this.dispatchEvent(new CustomEvent("plant-body-click"))}
+              @click=${() => this.dispatchEvent(new CustomEvent("pn-body-click"))}
             ></sl-icon-button
           ></sl-tooltip>
         </section>

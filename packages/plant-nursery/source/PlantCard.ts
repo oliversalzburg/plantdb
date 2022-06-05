@@ -8,7 +8,7 @@ import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { isNil } from "./Maybe";
 
-@customElement("plant-card")
+@customElement("pn-plant-card")
 export class PlantCard extends LitElement {
   static readonly styles = [
     css`

@@ -21,12 +21,12 @@ export class PlantListView extends View {
   render() {
     return [
       0 < (this.plantStore?.plantDb.plants.size ?? 0)
-        ? html`<plant-list
+        ? html`<pn-plant-list
             id="list"
             .plantStore=${this.plantStore}
             .plantStoreUi=${this.plantStoreUi}
             .plants=${this.plants}
-          ></plant-list>`
+          ></pn-plant-list>`
         : html`<pn-empty-state class="empty"
             ><p>${t("empty.plants")}</p>
 

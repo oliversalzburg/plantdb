@@ -55,7 +55,7 @@ export class PlantPropertiesView extends View {
       }
     }
 
-    const event = new CustomEvent("plant-properties-saved", {
+    const event = new CustomEvent("pn-properties-saved", {
       bubbles: true,
       cancelable: true,
       composed: true,
@@ -69,7 +69,7 @@ export class PlantPropertiesView extends View {
   }
 
   cancel() {
-    const event = new CustomEvent("plant-properties-cancelled", {
+    const event = new CustomEvent("pn-properties-cancelled", {
       bubbles: true,
       cancelable: true,
       composed: true,
@@ -84,18 +84,18 @@ export class PlantPropertiesView extends View {
 
   render() {
     return [
-      html`<plant-properties-form
+      html`<pn-plant-properties-form
           id="form"
           .plantStore=${this.plantStore}
           .plantStoreUi=${this.plantStoreUi}
           .plant=${this.plant}
-          @plant-scanning=${() => {
+          @pn-scanning=${() => {
             this.classList.add("scanning");
           }}
-          @plant-scanned=${() => {
+          @pn-scanned=${() => {
             this.classList.remove("scanning");
           }}
-        ></plant-properties-form>
+        ></pn-plant-properties-form>
         <section class="footer">
           <sl-button variant="primary" @click=${() => this.save()}
             >${t("save", { ns: "common" })}</sl-button

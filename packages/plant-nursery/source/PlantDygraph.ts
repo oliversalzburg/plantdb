@@ -5,7 +5,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { mustExist } from "./Maybe";
 import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
 
-@customElement("plant-dygraph")
+@customElement("pn-plant-dygraph")
 export class PlantDygraph extends LitElement {
   static readonly styles = [
     css`
@@ -150,12 +150,12 @@ export class PlantDygraph extends LitElement {
       this.darkMode = (event as CustomEvent<"dark" | "light">).detail === "dark";
       this._handleThemeChange();
     };
-    this._plantStoreUi.addEventListener("plant-theme-changed", this._onThemeChangeHandler);
+    this._plantStoreUi.addEventListener("pn-theme-changed", this._onThemeChangeHandler);
   }
 
   disconnectedCallback(): void {
     if (this._onThemeChangeHandler) {
-      this._plantStoreUi?.removeEventListener("plant-theme-changed", this._onThemeChangeHandler);
+      this._plantStoreUi?.removeEventListener("pn-theme-changed", this._onThemeChangeHandler);
       this._onThemeChangeHandler = undefined;
     }
   }

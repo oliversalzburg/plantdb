@@ -55,7 +55,7 @@ export type PlantNetResponse = {
   remainingIdentificationRequests: number;
 };
 
-@customElement("plant-identification-picker")
+@customElement("pn-plant-identification-picker")
 export class PlantIdentificationPicker extends LitElement {
   static readonly styles = [
     css`
@@ -105,7 +105,7 @@ export class PlantIdentificationPicker extends LitElement {
               class="result"
               @click=${() =>
                 this.dispatchEvent(
-                  new CustomEvent<PlantNetResult>("plant-identification-picked", {
+                  new CustomEvent<PlantNetResult>("pn-identification-picked", {
                     detail: mustExist(this.response).results[0],
                   })
                 )}
@@ -119,7 +119,7 @@ export class PlantIdentificationPicker extends LitElement {
               <sl-button>${t("idPicker.pick")}</sl-button>
             </div>
             <sl-button
-              @click=${() => this.dispatchEvent(new CustomEvent("plant-identification-cancelled"))}
+              @click=${() => this.dispatchEvent(new CustomEvent("pn-identification-cancelled"))}
               >${t("cancel", { ns: "common" })}</sl-button
             >
             <h4>${t("idPicker.resultsOther")}</h4>`}
@@ -129,7 +129,7 @@ export class PlantIdentificationPicker extends LitElement {
                 class="result"
                 @click=${() =>
                   this.dispatchEvent(
-                    new CustomEvent<PlantNetResult>("plant-identification-picked", {
+                    new CustomEvent<PlantNetResult>("pn-identification-picked", {
                       detail: result,
                     })
                   )}

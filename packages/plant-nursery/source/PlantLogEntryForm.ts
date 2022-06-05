@@ -8,7 +8,7 @@ import { assertExists, isNil, mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
-@customElement("plant-log-entry-form")
+@customElement("pn-plant-log-entry-form")
 export class PlantLogEntryForm extends LitElement {
   static readonly styles = [
     Typography,

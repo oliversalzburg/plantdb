@@ -11,7 +11,7 @@ import { mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
-@customElement("plant-details")
+@customElement("pn-plant-details")
 export class PlantDetails extends LitElement {
   static readonly styles = [
     css`
@@ -147,27 +147,27 @@ export class PlantDetails extends LitElement {
             </div>
           </sl-card>
           ${plantDataCsv
-            ? html`<plant-dygraph
+            ? html`<pn-plant-dygraph
                 class="graph"
                 .data=${plantDataCsv}
                 .plant=${this.plant}
-              ></plant-dygraph>`
+              ></pn-plant-dygraph>`
             : undefined}
           ${this.plant.plantGeekId
-            ? html`<plant-geek-info .plant=${this.plant}></plant-geek-info>`
+            ? html`<pn-plantgeek-info .plant=${this.plant}></pn-plantgeek-info>`
             : undefined}
         </div>
       </sl-details>
 
       <sl-details summary=${t("plant.log")} open>
-        <plant-log
+        <pn-plant-log
           .plantStore=${this.plantStore}
           .plantStoreUi=${this.plantStoreUi}
           .log=${this.plant.log}
           .headerVisible=${false}
-          @plant-edit-entry=${(event: CustomEvent<LogEntry>) =>
+          @pn-edit-entry=${(event: CustomEvent<LogEntry>) =>
             this.cx.plantStoreUi.editLogEntry(event.detail)}
-        ></plant-log
+        ></pn-plant-log
       ></sl-details>`;
   }
 }

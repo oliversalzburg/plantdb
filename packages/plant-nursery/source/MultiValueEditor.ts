@@ -2,8 +2,8 @@ import { SlDropdown, SlInput } from "@shoelace-style/shoelace";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 
-@customElement("plant-multi-value-editor")
-export class PlantMultiValueEditor extends LitElement {
+@customElement("pn-multi-value-editor")
+export class MultiValueEditor extends LitElement {
   static readonly styles = [
     css`
       :host {
@@ -53,7 +53,7 @@ export class PlantMultiValueEditor extends LitElement {
     this.requestUpdate();
 
     this.dispatchEvent(
-      new CustomEvent("plant-changed", {
+      new CustomEvent("pn-changed", {
         detail: this.value,
       })
     );
@@ -74,7 +74,7 @@ export class PlantMultiValueEditor extends LitElement {
             } else {
               this.value = (event.target as SlInput).value;
               this.dispatchEvent(
-                new CustomEvent("plant-changed", {
+                new CustomEvent("pn-changed", {
                   detail: this.value,
                 })
               );
@@ -177,7 +177,7 @@ export class PlantMultiValueEditor extends LitElement {
                           this.value.splice(index, 1);
                           this.requestUpdate();
                           this.dispatchEvent(
-                            new CustomEvent("plant-changed", {
+                            new CustomEvent("pn-changed", {
                               detail: this.value,
                             })
                           );

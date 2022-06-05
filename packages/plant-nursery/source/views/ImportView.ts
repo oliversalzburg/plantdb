@@ -353,8 +353,7 @@ export class ImportView extends View {
           .decimalSeparator=${this.config.decimalSeparator}
           .dateFormat=${this.config.dateFormat}
           .timezone=${this.config.timezone}
-          @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) =>
-            (this.config = event.detail)}
+          @pn-config-changed=${(event: CustomEvent<DatabaseFormat>) => (this.config = event.detail)}
         ></pn-db-config>
 
         <h3>${t("import.title")}</h3>

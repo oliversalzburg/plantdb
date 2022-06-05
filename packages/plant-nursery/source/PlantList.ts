@@ -7,7 +7,7 @@ import { mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
 
-@customElement("plant-list")
+@customElement("pn-plant-list")
 export class PlantList extends LitElement {
   static readonly styles = [
     css`
@@ -33,12 +33,12 @@ export class PlantList extends LitElement {
         padding-top: 1rem;
       }
 
-      plant-card {
+      pn-plant-card {
         cursor: pointer;
         width: 25rem;
       }
 
-      plant-card:hover {
+      pn-plant-card:hover {
         outline: 1px solid var(--sl-color-primary-100);
       }
     `,
@@ -80,13 +80,13 @@ export class PlantList extends LitElement {
       html`<div id="cards">
         ${filteredPlants.map(
           plant =>
-            html`<plant-card
+            html`<pn-plant-card
               .plant=${plant}
               .plantDb=${this.plantStore?.plantDb}
               @click=${() => {
                 retrieveStoreUi()?.navigatePath(`/plant/${plant.id ?? "PID-0"}`);
               }}
-            ></plant-card>`
+            ></pn-plant-card>`
         )}
       </div>`,
     ];

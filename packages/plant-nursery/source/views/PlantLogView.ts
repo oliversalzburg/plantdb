@@ -39,7 +39,7 @@ export class PlantLogView extends View {
 
   connectedCallback(): void {
     super.connectedCallback();
-    mustExist(this.plantStore).addEventListener("plant-config-changed", () => this.requestUpdate());
+    mustExist(this.plantStore).addEventListener("pn-config-changed", () => this.requestUpdate());
   }
 
   async createNewLogEntry() {
@@ -64,14 +64,14 @@ export class PlantLogView extends View {
     return [
       0 < (this.plantStore?.plantDb.log.length ?? 0)
         ? [
-            html`<plant-log
+            html`<pn-plant-log
                 id="log"
                 .plantStore=${this.plantStore}
                 .plantStoreUi=${this.plantStoreUi}
                 .log=${this.plantStore.plantDb.log}
-                @plant-edit-entry=${(event: CustomEvent<LogEntry>) =>
+                @pn-edit-entry=${(event: CustomEvent<LogEntry>) =>
                   this.plantStoreUi?.editLogEntry(event.detail)}
-              ></plant-log>
+              ></pn-plant-log>
               <section class="footer">
                 <sl-button variant="primary" @click=${() => this.createNewLogEntry()}
                   >${t("log.add")}</sl-button

@@ -48,7 +48,7 @@ export class DbConfig extends LitElement {
         @sl-change=${(event: MouseEvent) => {
           this.hasHeaderRow = (event.target as SlCheckbox).checked;
           this.dispatchEvent(
-            new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+            new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
         }}
         >${t("dbConfig.hasHeaderRow")}</sl-checkbox
@@ -61,7 +61,7 @@ export class DbConfig extends LitElement {
         @sl-change=${(event: MouseEvent) => {
           this.columnSeparator = (event.target as SlSelect).value as string;
           this.dispatchEvent(
-            new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+            new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
         }}
       >
@@ -77,7 +77,7 @@ export class DbConfig extends LitElement {
         @sl-change=${(event: MouseEvent) => {
           this.decimalSeparator = (event.target as SlSelect).value as string;
           this.dispatchEvent(
-            new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+            new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
         }}
       >
@@ -92,7 +92,7 @@ export class DbConfig extends LitElement {
         @sl-change=${(event: MouseEvent) => {
           this.dateFormat = (event.target as SlSelect).value as string;
           this.dispatchEvent(
-            new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+            new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
         }}
       >
@@ -115,7 +115,7 @@ export class DbConfig extends LitElement {
         @sl-change=${(event: MouseEvent) => {
           this.timezone = (event.target as SlSelect).value as string;
           this.dispatchEvent(
-            new CustomEvent("plant-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+            new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
           );
         }}
       >

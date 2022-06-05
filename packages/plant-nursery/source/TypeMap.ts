@@ -79,7 +79,7 @@ export class TypeMap extends LitElement {
           variant="primary"
           @click=${() => {
             this.dispatchEvent(
-              new CustomEvent("plant-config-changed", {
+              new CustomEvent("pn-config-changed", {
                 bubbles: true,
                 composed: true,
                 detail: this.plantDb.config.withNewTypeMap(this.proposedMapping),

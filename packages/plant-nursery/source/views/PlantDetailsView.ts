@@ -21,11 +21,11 @@ export class PlantDetailsView extends View {
   render() {
     return [
       this.plant
-        ? html`<plant-details
+        ? html`<pn-plant-details
             .plantStore=${this.plantStore}
             .plantStoreUi=${this.plantStoreUi}
             .plant=${this.plant}
-          ></plant-details>`
+          ></pn-plant-details>`
         : html`<pn-empty-state class="empty"
             ><p>${t("empty.plant")}</p>
 

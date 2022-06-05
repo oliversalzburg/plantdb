@@ -9,7 +9,7 @@ import { PlantLogEntry } from "./PlantLogEntry";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
-@customElement("plant-log")
+@customElement("pn-plant-log")
 export class PlantLog extends LitElement {
   static readonly styles = [
     css`
@@ -69,7 +69,7 @@ export class PlantLog extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    mustExist(this.plantStore).addEventListener("plant-config-changed", () => this.requestUpdate());
+    mustExist(this.plantStore).addEventListener("pn-config-changed", () => this.requestUpdate());
   }
 
   render() {
@@ -124,20 +124,18 @@ export class PlantLog extends LitElement {
       html`<div id="entries">
         ${filteredLog.slice(0, 100).map(
           entry =>
-            html`<plant-log-entry
+            html`<pn-plant-log-entry
               .plantDb=${this.plantStore?.plantDb}
               .plant=${this.plantStore?.plantDb.plants.get(entry.plantId)}
               .logEntry=${entry}
               .headerVisible=${this.headerVisible}
-              @plant-badge-click=${() => {
+              @pn-badge-click=${() => {
                 this.plantStoreUi?.navigatePath(`/plant/${entry.plantId}`);
               }}
-              @plant-body-click=${() => {
-                this.dispatchEvent(
-                  new CustomEvent<LogEntry>("plant-edit-entry", { detail: entry })
-                );
+              @pn-body-click=${() => {
+                this.dispatchEvent(new CustomEvent<LogEntry>("pn-edit-entry", { detail: entry }));
               }}
-            ></plant-log-entry>`
+            ></pn-plant-log-entry>`
         )}
       </div>`,
     ];

@@ -7,8 +7,8 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { isNil } from "./Maybe";
 
-@customElement("plant-geek-info")
-export class PlantGeekInfo extends LitElement {
+@customElement("pn-plantgeek-info")
+export class PlantgeekInfo extends LitElement {
   static readonly styles = [
     css`
       :host {

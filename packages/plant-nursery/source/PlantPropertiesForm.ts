@@ -9,17 +9,17 @@ import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { makeIdentificationRequest } from "./identification/Tools";
 import { assertExists, isNil, mustExist } from "./Maybe";
+import { MultiValueEditor } from "./MultiValueEditor";
 import {
   PlantIdentificationPicker,
   PlantNetResponse,
   PlantNetResult,
 } from "./PlantIdentificationPicker";
-import { PlantMultiValueEditor } from "./PlantMultiValueEditor";
 import { PlantScanner } from "./PlantScanner";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
-@customElement("plant-properties-form")
+@customElement("pn-plant-properties-form")
 export class PlantPropertiesForm extends LitElement {
   static readonly styles = [
     css`
@@ -238,13 +238,13 @@ export class PlantPropertiesForm extends LitElement {
     mustExist(this._form).style.display = "none";
     mustExist(this._scanner).style.display = "flex";
     mustExist(this._scanner).start();
-    this.dispatchEvent(new CustomEvent("plant-scanning"));
+    this.dispatchEvent(new CustomEvent("pn-scanning"));
   }
 
   private _plantScanned(dataUrl: string | null) {
     mustExist(this._scanner).style.display = "none";
     mustExist(this._scanner).stop();
-    this.dispatchEvent(new CustomEvent("plant-scanned"));
+    this.dispatchEvent(new CustomEvent("pn-scanned"));
     if (dataUrl !== null) {
       console.log(dataUrl);
       this.plantStoreUi?.alert("Image captured").catch(console.error);
@@ -281,18 +281,18 @@ export class PlantPropertiesForm extends LitElement {
     }
 
     return [
-      html`<plant-scanner
+      html`<pn-plant-scanner
           id="scanner"
-          @plant-aborted=${() => this._plantScanned(null)}
-          @plant-scanned=${(event: CustomEvent<string>) => this._plantScanned(event.detail)}
-        ></plant-scanner>
-        <plant-identification-picker
+          @pn-aborted=${() => this._plantScanned(null)}
+          @pn-scanned=${(event: CustomEvent<string>) => this._plantScanned(event.detail)}
+        ></pn-plant-scanner>
+        <pn-plant-identification-picker
           id="picker"
           .response=${this._identificationResponse}
-          @plant-identification-cancelled=${() => this._cancelPlantIdentify()}
-          @plant-identification-picked=${(event: Event) =>
+          @pn-identification-cancelled=${() => this._cancelPlantIdentify()}
+          @pn-identification-picked=${(event: Event) =>
             this._identifyPlantPick((event as CustomEvent<PlantNetResult>).detail)}
-        ></plant-identification-picker>
+        ></pn-plant-identification-picker>
         <form
           id="form"
           @submit=${(event: Event) => {
@@ -329,28 +329,28 @@ export class PlantPropertiesForm extends LitElement {
           <div class="spacer"></div>
 
           <div class="button-attached">
-            <plant-multi-value-editor
+            <pn-multi-value-editor
               id="kind-input"
               label=${t("plantEditor.kindLabel")}
               placeholder=${t("plantEditor.kindPlaceholder")}
               .suggestions=${[...this.plantStore.plantDb.kinds]}
               .value=${this._plantKind}
-              @plant-changed=${(event: CustomEvent) =>
-                (this._plantKind = (event.target as PlantMultiValueEditor).value)}
-            ></plant-multi-value-editor
+              @pn-changed=${(event: CustomEvent) =>
+                (this._plantKind = (event.target as MultiValueEditor).value)}
+            ></pn-multi-value-editor
             ><sl-button @click=${() => this._scanPlant()}>${t("plantEditor.scan")}</sl-button>
           </div>
           <div class="spacer"></div>
 
-          <plant-multi-value-editor
+          <pn-multi-value-editor
             id="location-input"
             label=${t("plantEditor.locationLabel")}
             placeholder=${t("plantEditor.locationPlaceholder")}
             .suggestions=${[...this.plantStore.plantDb.locations]}
             .value=${this._plantLocation}
-            @plant-changed=${(event: CustomEvent) =>
-              (this._plantLocation = (event.target as PlantMultiValueEditor).value)}
-          ></plant-multi-value-editor>
+            @pn-changed=${(event: CustomEvent) =>
+              (this._plantLocation = (event.target as MultiValueEditor).value)}
+          ></pn-multi-value-editor>
           <div class="spacer"></div>
 
           <sl-textarea
@@ -364,15 +364,15 @@ export class PlantPropertiesForm extends LitElement {
           <div class="spacer"></div>
 
           <sl-details summary=${t("plantEditor.detailsPot")}>
-            <plant-multi-value-editor
+            <pn-multi-value-editor
               id="substrate-input"
               label=${t("plantEditor.substrateLabel")}
               placeholder=${t("plantEditor.substratePlaceholder")}
               .suggestions=${[...this.plantStore.plantDb.substrates]}
               .value=${this._plantSubstrate}
-              @plant-changed=${(event: CustomEvent) =>
-                (this._plantSubstrate = (event.target as PlantMultiValueEditor).value)}
-            ></plant-multi-value-editor>
+              @pn-changed=${(event: CustomEvent) =>
+                (this._plantSubstrate = (event.target as MultiValueEditor).value)}
+            ></pn-multi-value-editor>
             <div class="spacer"></div>
 
             <div class="row">
@@ -528,14 +528,14 @@ export class PlantPropertiesForm extends LitElement {
           <div class="spacer"></div>
 
           <sl-details summary=${t("plantEditor.detailsExternals")}>
-            <plant-multi-value-editor
+            <pn-multi-value-editor
               id="plantgeek-input"
               label=${t("plantEditor.plantgeekLabel")}
               placeholder="62060b1d6b98d32724f806ed"
               .value=${this._plantPlantgeekId}
-              @plant-changed=${(event: CustomEvent) =>
-                (this._plantPlantgeekId = (event.target as PlantMultiValueEditor).value)}
-            ></plant-multi-value-editor>
+              @pn-changed=${(event: CustomEvent) =>
+                (this._plantPlantgeekId = (event.target as MultiValueEditor).value)}
+            ></pn-multi-value-editor>
           </sl-details>
         </form>`,
     ];

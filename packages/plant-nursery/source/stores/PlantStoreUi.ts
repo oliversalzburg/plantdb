@@ -96,7 +96,7 @@ export class PlantStoreUi extends LitElement {
         document.documentElement.lang = i18next.language;
         this._updateTextDirectionality();
         Settings.defaultLocale = i18next.language;
-        this.dispatchEvent(new CustomEvent("plant-i18n-ready", { detail: i18next.language }));
+        this.dispatchEvent(new CustomEvent("pn-i18n-ready", { detail: i18next.language }));
       })
       .catch(console.error);
 
@@ -145,7 +145,7 @@ export class PlantStoreUi extends LitElement {
     this.darkMode = true;
     localStorage.setItem("plantdb.theme", "dark");
 
-    this.dispatchEvent(new CustomEvent("plant-theme-changed", { detail: "dark" }));
+    this.dispatchEvent(new CustomEvent("pn-theme-changed", { detail: "dark" }));
   }
 
   darkModeLeave() {
@@ -153,7 +153,7 @@ export class PlantStoreUi extends LitElement {
     this.darkMode = false;
     localStorage.setItem("plantdb.theme", "light");
 
-    this.dispatchEvent(new CustomEvent("plant-theme-changed", { detail: "light" }));
+    this.dispatchEvent(new CustomEvent("pn-theme-changed", { detail: "light" }));
   }
 
   async changeLocale(locale: SupportedLocales) {
@@ -162,7 +162,7 @@ export class PlantStoreUi extends LitElement {
     document.documentElement.lang = i18next.language;
     this._updateTextDirectionality();
     Settings.defaultLocale = i18next.language;
-    this.dispatchEvent(new CustomEvent("plant-i18n-changed", { detail: i18next.language }));
+    this.dispatchEvent(new CustomEvent("pn-i18n-changed", { detail: i18next.language }));
   }
 
   private _updateTextDirectionality() {
@@ -179,7 +179,7 @@ export class PlantStoreUi extends LitElement {
     }
 
     this.drawerIsOpen = true;
-    this.dispatchEvent(new CustomEvent("plant-drawer-open", { detail: true }));
+    this.dispatchEvent(new CustomEvent("pn-drawer-open", { detail: true }));
   }
 
   drawerClose() {
@@ -188,7 +188,7 @@ export class PlantStoreUi extends LitElement {
     }
 
     this.drawerIsOpen = false;
-    this.dispatchEvent(new CustomEvent("plant-drawer-open", { detail: false }));
+    this.dispatchEvent(new CustomEvent("pn-drawer-open", { detail: false }));
   }
 
   /**
@@ -202,7 +202,7 @@ export class PlantStoreUi extends LitElement {
     this.pageParams = pathParameters;
 
     this.dispatchEvent(
-      new CustomEvent("plant-navigate", {
+      new CustomEvent("pn-navigate", {
         detail: { page: this.page, pageParams: this.pageParams },
       })
     );
@@ -222,7 +222,7 @@ export class PlantStoreUi extends LitElement {
     this.drawerClose();
 
     this.dispatchEvent(
-      new CustomEvent("plant-navigate", {
+      new CustomEvent("pn-navigate", {
         detail: { page: this.page, pageParams: this.pageParams },
       })
     );
@@ -315,8 +315,8 @@ export class PlantStoreUi extends LitElement {
 
         resolve(null);
 
-        document.removeEventListener("plant-log-entry-saved", onSave);
-        document.removeEventListener("plant-log-entry-cancelled", onCancel);
+        document.removeEventListener("pn-log-entry-saved", onSave);
+        document.removeEventListener("pn-log-entry-cancelled", onCancel);
       };
       const onSave = (event: Event) => {
         event.preventDefault();
@@ -324,12 +324,12 @@ export class PlantStoreUi extends LitElement {
 
         resolve((event as CustomEvent<LogEntry>).detail);
 
-        document.removeEventListener("plant-log-entry-saved", onSave);
-        document.removeEventListener("plant-log-entry-cancelled", onCancel);
+        document.removeEventListener("pn-log-entry-saved", onSave);
+        document.removeEventListener("pn-log-entry-cancelled", onCancel);
       };
 
-      document.addEventListener("plant-log-entry-saved", onSave);
-      document.addEventListener("plant-log-entry-cancelled", onCancel);
+      document.addEventListener("pn-log-entry-saved", onSave);
+      document.addEventListener("pn-log-entry-cancelled", onCancel);
     });
   }
 
@@ -343,8 +343,8 @@ export class PlantStoreUi extends LitElement {
 
         resolve(null);
 
-        document.removeEventListener("plant-properties-saved", onSave);
-        document.removeEventListener("plant-properties-cancelled", onCancel);
+        document.removeEventListener("pn-properties-saved", onSave);
+        document.removeEventListener("pn-properties-cancelled", onCancel);
       };
       const onSave = (event: Event) => {
         event.preventDefault();
@@ -352,12 +352,12 @@ export class PlantStoreUi extends LitElement {
 
         resolve((event as CustomEvent<Plant>).detail);
 
-        document.removeEventListener("plant-properties-saved", onSave);
-        document.removeEventListener("plant-properties-cancelled", onCancel);
+        document.removeEventListener("pn-properties-saved", onSave);
+        document.removeEventListener("pn-properties-cancelled", onCancel);
       };
 
-      document.addEventListener("plant-properties-saved", onSave);
-      document.addEventListener("plant-properties-cancelled", onCancel);
+      document.addEventListener("pn-properties-saved", onSave);
+      document.addEventListener("pn-properties-cancelled", onCancel);
     });
   }
 

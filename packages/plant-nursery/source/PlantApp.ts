@@ -9,7 +9,7 @@ import { mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi";
 
-@customElement("plant-app")
+@customElement("pn-plant-app")
 export class PlantApp extends LitElement {
   static readonly styles = [
     Typography,
@@ -57,16 +57,16 @@ export class PlantApp extends LitElement {
 
     this._plantStoreUi.plantStore = this._plantStore;
 
-    this._plantStoreUi.addEventListener("plant-navigate", (event: Event) => {
+    this._plantStoreUi.addEventListener("pn-navigate", (event: Event) => {
       const { page, pageParams } = (
         event as CustomEvent<{ page: KnownViews; pageParams: Array<string> }>
       ).detail;
       this.handleUserNavigationEvent(page, pageParams);
     });
-    this._plantStoreUi.addEventListener("plant-drawer-open", () => this.requestUpdate());
-    this._plantStoreUi.addEventListener("plant-theme-changed", () => this.requestUpdate());
+    this._plantStoreUi.addEventListener("pn-drawer-open", () => this.requestUpdate());
+    this._plantStoreUi.addEventListener("pn-theme-changed", () => this.requestUpdate());
     this._plantStoreUi.addEventListener(
-      "plant-i18n-changed",
+      "pn-i18n-changed",
       // @ts-expect-error wtf?
       () => (window.location = getBasePath())
     );
@@ -75,13 +75,13 @@ export class PlantApp extends LitElement {
     // Then we install the router and expect it to call back with the inital location.
     // We pass this info to the store and expect it invoke the `plant-navigate` event.
     // Then we are ready to handle the starting location like any later naviation event.
-    this._plantStoreUi.addEventListener("plant-i18n-ready", () =>
+    this._plantStoreUi.addEventListener("pn-i18n-ready", () =>
       installRouter(location =>
         this._plantStoreUi?.handleUserNavigationEvent(decodeURIComponent(location.pathname))
       )
     );
 
-    this._plantStore.addEventListener("plant-config-changed", () => this.requestUpdate());
+    this._plantStore.addEventListener("pn-config-changed", () => this.requestUpdate());
 
     this.appendChild(this._plantStore);
     this.appendChild(this._plantStoreUi);
@@ -267,7 +267,7 @@ export class PlantApp extends LitElement {
                     )
                     .filter(Boolean) as Array<[string, EventType]>
                 )}
-                @plant-config-changed=${(event: CustomEvent<DatabaseFormat>) => {
+                @pn-config-changed=${(event: CustomEvent<DatabaseFormat>) => {
                   this._plantStoreUi.alert(t("typeMap.updated")).catch(console.error);
                   this._plantStore.updatePlantDb(
                     PlantDB.fromPlantDB(this._plantStore.plantDb, {

@@ -44,7 +44,7 @@ export class PlantStore extends LitElement {
 
         this._updateIndex();
 
-        this.dispatchEvent(new CustomEvent("plant-config-changed", { detail: this.plantDb }));
+        this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
       }
     }
   }
@@ -56,7 +56,7 @@ export class PlantStore extends LitElement {
   updatePlantDb(plantDb: PlantDB) {
     this.plantDb = plantDb;
     PlantDbStorage.persistPlantDb(this.plantDb);
-    this.dispatchEvent(new CustomEvent("plant-config-changed", { detail: this.plantDb }));
+    this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
   }
 
   private _updateIndex() {

@@ -52,7 +52,7 @@ export class LogEntryView extends View {
       }
     }
 
-    const event = new CustomEvent("plant-log-entry-saved", {
+    const event = new CustomEvent("pn-log-entry-saved", {
       bubbles: true,
       cancelable: true,
       composed: true,
@@ -66,7 +66,7 @@ export class LogEntryView extends View {
   }
 
   cancel() {
-    const event = new CustomEvent("plant-log-entry-cancelled", {
+    const event = new CustomEvent("pn-log-entry-cancelled", {
       bubbles: true,
       cancelable: true,
       composed: true,
@@ -81,12 +81,12 @@ export class LogEntryView extends View {
 
   render() {
     return [
-      html`<plant-log-entry-form
+      html`<pn-plant-log-entry-form
           id="form"
           .plantStore=${this.plantStore}
           .plantStoreUi=${this.plantStoreUi}
           .logEntry=${this.logEntry}
-        ></plant-log-entry-form>
+        ></pn-plant-log-entry-form>
         <section class="footer">
           <sl-button variant="primary" @click=${() => this.save()}
             >${t("save", { ns: "common" })}</sl-button
