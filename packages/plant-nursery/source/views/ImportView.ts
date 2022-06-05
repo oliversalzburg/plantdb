@@ -12,6 +12,7 @@ import { css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { assertExists, mustExist } from "../Maybe";
+import { prepareAsyncContext } from "../UiTools";
 import { View } from "./View";
 
 @customElement("pn-import-view")
@@ -207,13 +208,18 @@ export class ImportView extends View {
   private async _connectGoogleDrive() {
     const CLIENT_ID = "621528596325-b01c3qtllvnrl2gk8hmfctn7s8s7s4q8.apps.googleusercontent.com";
     const API_KEY = "AIzaSyBeBF_z_jai2SzHHaFXEAatLeYReL_OObE";
-    const SCOPES = "https://www.googleapis.com/auth/drive";
+    const SCOPES = [
+      // Full read-write on all data in Drive
+      "https://www.googleapis.com/auth/drive",
+      // Access to application-specific data folder.
+      "https://www.googleapis.com/auth/drive.appdata",
+    ];
 
     if (!this._tokenClient) {
       await this._loadGoogleAuthApi();
       this._tokenClient = window.google.accounts.oauth2.initTokenClient({
         client_id: CLIENT_ID,
-        scope: SCOPES,
+        scope: SCOPES.join(" "),
         callback: resp => {
           if (resp.error !== undefined) {
             throw resp;
@@ -241,9 +247,7 @@ export class ImportView extends View {
           mustExist(this._tokenClient).requestAccessToken({ prompt: "" });
         }
       };
-      gapi.load("client", () => {
-        onClientLoaded().catch(console.error);
-      });
+      gapi.load("client", prepareAsyncContext(onClientLoaded));
     } else {
       return this._listFiles();
     }

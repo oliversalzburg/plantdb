@@ -1,16 +1,9 @@
-import {
-  DatabaseFormat,
-  LogEntry,
-  LogEntrySerialized,
-  Plant,
-  PlantDB,
-  PlantSerialized,
-} from "@plantdb/libplantdb";
+import { LogEntry, Plant, PlantDB } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
 import { isNil, mustExist } from "../Maybe";
-import { PlantDbStorage } from "../PlantDbStorage";
+import { LocalStorage } from "../storage/LocalStorage";
 
 let globalStore: PlantStore | undefined;
 
@@ -28,24 +21,13 @@ export class PlantStore extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     globalStore = this;
 
-    const storedConfig = localStorage.getItem("plantdb.config");
-    if (storedConfig) {
-      const storedLog = localStorage.getItem("plantdb.log");
-      const storedPlants = localStorage.getItem("plantdb.plants");
+    const storedDb = LocalStorage.retrievePlantDb();
+    if (storedDb) {
+      console.info("Restored DB from localStorage.");
+      this.plantDb = storedDb;
+      this._updateIndex();
 
-      if (storedLog && storedPlants) {
-        const config = DatabaseFormat.fromJSON(storedConfig);
-        const logData = JSON.parse(storedLog) as Array<LogEntrySerialized>;
-        //const log = logData.map(logEntry => LogEntry.fromJSON(logEntry));
-
-        const plants = JSON.parse(storedPlants) as Array<PlantSerialized>;
-        //this.plants = plants.map(plant => Plant.fromJSON(plant, log));
-        this.plantDb = PlantDB.fromJSObjects(config, plants, logData);
-
-        this._updateIndex();
-
-        this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
-      }
+      this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
     }
   }
 
@@ -55,7 +37,8 @@ export class PlantStore extends LitElement {
 
   updatePlantDb(plantDb: PlantDB) {
     this.plantDb = plantDb;
-    PlantDbStorage.persistPlantDb(this.plantDb);
+    LocalStorage.persistPlantDb(this.plantDb);
+    console.info("Stored DB in localStorage.");
     this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
   }
 
