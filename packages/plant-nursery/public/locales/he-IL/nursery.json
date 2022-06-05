@@ -1,6 +1,10 @@
 {
   "app": {
-    "title": "PlantDB Nursery"
+    "404Body": "The page you're looking for doesn't seem to exist.",
+    "404Title": "Oops! You hit a 404",
+    "offlineReady": "Offline ready",
+    "title": "PlantDB Nursery",
+    "updateConfirm": "Load new version?"
   },
   "dbConfig": {
     "columnSeparator": "Column separator",
@@ -74,10 +78,16 @@
     "filesystem": "File System",
     "fsUnsupported": "File system access is not supported on your device.",
     "googleDrive": "Google Drive",
-    "googleDriveConnected": "Google Drive connected",
+    "googleDriveConnected": "Google Drive connected.",
+    "googleDriveDbModified": "It was last changed on {{when}} ({{relative}})",
+    "googleDriveHasDb": "You already have a PlantDB in your Google Drive!",
+    "googleDriveImport": "Import from Drive",
+    "googleDriveImported": "Database imported from Google Drive.",
+    "googleDriveImportedHelp": "Imported database from Google Drive just now.",
+    "googleDriveSync": "Sync to Drive",
+    "googleDriveSynchronized": "Synchronized database with Google Drive.",
+    "googleDriveSynchronizedHelp": "Synchronized database with Google Drive just now.",
     "import": "Import",
-    "loadPlantLogCsv": "Load plantlog.csv",
-    "loadPlantsCsv": "Load plants.csv",
     "logAnalysis": "Data contains: comma {{counts.comma}} time(s), semicolon {{counts.semicolon}} time(s), tab {{counts.tab}} time(s). Most likely column separator: {{likelySeparator}}",
     "openPlantLogCsv": "Open plantlog.csv",
     "openPlantsCsv": "Open plants.csv",
