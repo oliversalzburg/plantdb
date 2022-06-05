@@ -113,6 +113,8 @@ export class GoogleDrive {
     ];
 
     return new Promise<boolean>((resolve, reject) => {
+      let resolved = false;
+
       const init = async () => {
         if (!this._tokenClient) {
           await this._loadGoogleAuthApi();
@@ -124,7 +126,13 @@ export class GoogleDrive {
                 throw resp;
               }
 
+              if (resolved) {
+                // This request has already timed out.
+                return;
+              }
+
               GoogleDrive._googleDriveConnected = true;
+              resolved = true;
               resolve(true);
             },
           });
@@ -147,11 +155,19 @@ export class GoogleDrive {
           };
           gapi.load("client", prepareAsyncContext(onClientLoaded));
         } else {
+          resolved = true;
           resolve(true);
         }
       };
 
       init().catch(reject);
+
+      setTimeout(() => {
+        if (!resolved) {
+          resolved = true;
+          reject(new Error("Authentication timed out."));
+        }
+      }, 30000);
     });
   }
 

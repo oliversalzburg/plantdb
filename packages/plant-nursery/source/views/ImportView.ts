@@ -245,6 +245,8 @@ export class ImportView extends View {
             : ""
         }`;
       }
+    } catch (error) {
+      this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
     } finally {
       mustExist(this._googleDriveActions).style.display = "";
       mustExist(this._googleDriveBusy).style.display = "none";
@@ -268,6 +270,8 @@ export class ImportView extends View {
       this._googleDriveHelpText = t("import.googleDriveImportedHelp");
       this.plantStoreUi?.alert(t("import.googleDriveImported")).catch(console.error);
       this.requestUpdate();
+    } catch (error) {
+      this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
     } finally {
       mustExist(this._googleDriveActions).style.display = "";
       mustExist(this._googleDriveBusy).style.display = "none";
@@ -291,10 +295,17 @@ export class ImportView extends View {
       this._googleDriveHelpText = t("import.googleDriveSynchronizedHelp");
       this.plantStoreUi?.alert(t("import.googleDriveSynchronized")).catch(console.error);
       this.requestUpdate();
+    } catch (error) {
+      this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
     } finally {
       mustExist(this._googleDriveActions).style.display = "";
       mustExist(this._googleDriveBusy).style.display = "none";
     }
+  }
+
+  private _cancelGoogleDrive() {
+    mustExist(this._googleDriveActions).style.display = "";
+    mustExist(this._googleDriveBusy).style.display = "none";
   }
 
   render() {
@@ -326,7 +337,10 @@ export class ImportView extends View {
             <sl-tab-panel name="google-drive"
               ><div class="google-drive">
                 <div id="google-drive-busy">
-                  <sl-spinner></sl-spinner> Communicating with Google Drive...
+                  <sl-spinner></sl-spinner> ${t("import.googleDriveBusy")}
+                  <sl-button size="small" @click=${() => this._cancelGoogleDrive()}
+                    >${t("cancel", { ns: "common" })}</sl-button
+                  >
                 </div>
                 <div id="google-drive-actions">
                   <sl-button
