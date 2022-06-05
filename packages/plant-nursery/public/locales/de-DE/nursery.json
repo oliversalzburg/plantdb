@@ -36,7 +36,7 @@
     "notePlaceholder": "Notizen hier hinzufügen",
     "phLabel": "pH",
     "phPlaceholder": "5,5",
-    "plantHelp": "Wenn Sie eine PID eingiben, die noch nicht existiert, wird diese Pflanze für Sie angelegt.",
+    "plantHelp": "Wenn Sie eine PID eingeben, die noch nicht existiert, wird diese Pflanze für Sie angelegt.",
     "plantHelpDelete": "Um diesen Eintrag zu löschen, entfernen Sie die Pflanzen-ID und speichern Sie ihn.",
     "plantHelpDeleteWarn": "Wenn Sie diesen Eintrag speichern, WIRD ER GELÖSCHT!",
     "plantLabel": "Pflanze *",
