@@ -151,11 +151,9 @@ export class PlantLog extends LitElement {
                 this.dispatchEvent(new CustomEvent<LogEntry>("pn-edit-entry", { detail: entry }));
               }}
             ></pn-plant-log-entry>`
-        )}<sl-button
-          ?disabled=${filteredLog.length < this.maxItems}
-          @click=${() => (this.maxItems += 10)}
-          >${t("log.showMore")}</sl-button
-        >
+        )}${this.maxItems < filteredLog.length
+          ? html`<sl-button @click=${() => (this.maxItems += 10)}>${t("log.showMore")}</sl-button>`
+          : undefined}
       </div>`,
     ];
   }
