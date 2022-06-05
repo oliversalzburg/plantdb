@@ -4,6 +4,7 @@ import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { DateTime } from "luxon";
 
 @customElement("pn-db-config")
 export class DbConfig extends LitElement {
@@ -41,6 +42,20 @@ export class DbConfig extends LitElement {
   }
 
   render() {
+    const dateFormats = [
+      "yyyy-MM-dd HH:mm",
+      "dd.MM.yyyy HH:mm",
+      "dd/MM/yyyy HH:mm",
+      "MM/dd/yyyy hh:mm a",
+    ];
+    const dateFormatsSeconds = [
+      "yyyy-MM-dd HH:mm:ss",
+      "dd.MM.yyyy HH:mm:ss",
+      "dd/MM/yyyy HH:mm:ss",
+      "MM/dd/yyyy hh:mm:ss a",
+    ];
+    const now = new Date();
+
     return html`<h3>${t("dbConfig.title")}</h3>
       <sl-checkbox
         id="has-header-row"
@@ -97,15 +112,21 @@ export class DbConfig extends LitElement {
         }}
       >
         <sl-menu-label>${t("dbConfig.withoutSeconds")}</sl-menu-label>
-        <sl-menu-item value="yyyy-MM-dd HH:mm">yyyy-MM-dd HH:mm</sl-menu-item>
-        <sl-menu-item value="dd.MM.yyyy HH:mm">dd.MM.yyyy HH:mm</sl-menu-item>
-        <sl-menu-item value="dd/MM/yyyy HH:mm">dd/MM/yyyy HH:mm</sl-menu-item>
-        <sl-menu-item value="MM/dd/yyyy hh:mm a">MM/dd/yyyy hh:mm a</sl-menu-item
-        ><sl-divider></sl-divider><sl-menu-label>${t("dbConfig.withSeconds")}</sl-menu-label
-        ><sl-menu-item value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</sl-menu-item>
-        <sl-menu-item value="dd.MM.yyyy HH:mm:ss">dd.MM.yyyy HH:mm:ss</sl-menu-item>
-        <sl-menu-item value="dd/MM/yyyy HH:mm:ss">dd/MM/yyyy HH:mm:ss</sl-menu-item>
-        <sl-menu-item value="MM/dd/yyyy hh:mm:ss a">MM/dd/yyyy hh:mm:ss a</sl-menu-item></sl-select
+        ${dateFormats.map(
+          dateFormat => html`<sl-menu-item value=${dateFormat}
+            >${dateFormat}<small slot="suffix"
+              >${DateTime.fromJSDate(now).toFormat(dateFormat)}</small
+            ></sl-menu-item
+          >`
+        )}
+        <sl-divider></sl-divider
+        ><sl-menu-label>${t("dbConfig.withSeconds")}</sl-menu-label>${dateFormatsSeconds.map(
+          dateFormat => html`<sl-menu-item value=${dateFormat}
+            >${dateFormat}<small slot="suffix"
+              >${DateTime.fromJSDate(now).toFormat(dateFormat)}</small
+            ></sl-menu-item
+          >`
+        )}</sl-select
       ><br />
 
       <sl-select
