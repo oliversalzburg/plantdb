@@ -16,6 +16,8 @@ export class ConfirmDialog extends LitElement {
 
   @property()
   message = "Are you sure?";
+  @property()
+  title = "";
 
   @property()
   labelConfirm = "Confirm";
@@ -53,6 +55,7 @@ export class ConfirmDialog extends LitElement {
       html`<sl-dialog
         open
         id="confirm"
+        label=${this.title}
         @sl-request-close=${(event: CustomEvent<{ source: string }>) => {
           if (event.detail.source === "overlay") {
             event.preventDefault();

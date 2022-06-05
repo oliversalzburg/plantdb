@@ -4,6 +4,7 @@
     "404Title": "Oops! You hit a 404",
     "offlineReady": "Offline ready",
     "title": "PlantDB Nursery",
+    "updateAvailable": "Update available",
     "updateConfirm": "Load new version?"
   },
   "dbConfig": {

@@ -102,7 +102,7 @@ export class PlantStoreUi extends LitElement {
 
     const updateSW = registerSW({
       onNeedRefresh: prepareAsyncContext(async () => {
-        if (await this.confirm(t("app.updateConfirm"))) {
+        if (await this.confirm(t("app.updateConfirm"), t("app.updateAvailable"))) {
           await updateSW();
         }
       }),
@@ -296,9 +296,12 @@ export class PlantStoreUi extends LitElement {
     return alert.toast();
   }
 
-  async confirm(message: string) {
-    const confirm = Object.assign(document.createElement("pn-confirm-dialog"), {}) as ConfirmDialog;
-    return confirm.show(message);
+  async confirm(message: string, title = "") {
+    const confirm = Object.assign(document.createElement("pn-confirm-dialog"), {
+      message,
+      title,
+    }) as ConfirmDialog;
+    return confirm.show();
   }
 
   showEntryEditor(logEntry?: LogEntry) {
