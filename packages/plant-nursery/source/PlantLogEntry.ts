@@ -227,7 +227,10 @@ export class PlantLogEntry extends LitElement {
             </div>`
           : undefined}
 
-        <section class="log-body">
+        <section
+          class="log-body"
+          @click=${() => this.dispatchEvent(new CustomEvent("pn-body-click"))}
+        >
           <div class="timestamp">
             <span>${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}</span>
             <small class="time-distance"
