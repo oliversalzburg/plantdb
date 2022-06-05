@@ -36,7 +36,7 @@
     "notePlaceholder": "Notizen hier hinzufügen",
     "phLabel": "pH",
     "phPlaceholder": "5,5",
-    "plantHelp": "Wenn Sie eine PID eingiben, die noch nicht existiert, wird diese Pflanze für Sie angelegt.",
+    "plantHelp": "Wenn Sie eine PID eingeben, die noch nicht existiert, wird diese Pflanze für Sie angelegt.",
     "plantHelpDelete": "Um diesen Eintrag zu löschen, entfernen Sie die Pflanzen-ID und speichern Sie ihn.",
     "plantHelpDeleteWarn": "Wenn Sie diesen Eintrag speichern, WIRD ER GELÖSCHT!",
     "plantLabel": "Pflanze *",
@@ -80,7 +80,7 @@
     "googleDrive": "Google Drive",
     "googleDriveBusy": "Google Drive ist beschäftigt...",
     "googleDriveConnected": "Google Drive verbunden.",
-    "googleDriveDbModified": "Sie wurde zuletzt am {{when}} geändert ({{relative}})",
+    "googleDriveDbModified": "Sie wurde zuletzt am {{- when}} geändert ({{- relative}})",
     "googleDriveHasDb": "Sie haben bereits eine PlantDB in Ihrem Google Drive!",
     "googleDriveImport": "Aus Drive importieren",
     "googleDriveImported": "Datenbank aus Google Drive importiert.",
@@ -129,10 +129,10 @@
     "log": "Protokoll",
     "plantDeleted": "Pflanze gelöscht",
     "plantUpdated": "Pflanze aktualisiert",
-    "whenAdded": "Erstellt: {{when}}",
-    "whenInfested": "Befallen seit: {{when}}",
-    "whenPestControl": "Letzte Schädlingsbekämpfung: {{when}}",
-    "whenUpdated": "Zuletzt aktualisiert: {{when}}"
+    "whenAdded": "Erstellt: {{- when}}",
+    "whenInfested": "Befallen seit: {{- when}}",
+    "whenPestControl": "Letzte Schädlingsbekämpfung: {{- when}}",
+    "whenUpdated": "Zuletzt aktualisiert: {{- when}}"
   },
   "plantEditor": {
     "detailsDiagnostics": "Diagnose",
