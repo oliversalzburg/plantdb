@@ -7,7 +7,9 @@ import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { LogEntry, Plant } from "packages/libplantdb/typings";
 import { registerSW } from "virtual:pwa-register";
+import { PlantConfirmDialog } from "../ConfirmDialog";
 import { assertExists, mustExist } from "../Maybe";
+import { prepareAsyncContext } from "../UiTools";
 import { PlantStore } from "./PlantStore";
 
 let globalStore: PlantStoreUi | undefined;
@@ -99,13 +101,13 @@ export class PlantStoreUi extends LitElement {
       .catch(console.error);
 
     const updateSW = registerSW({
-      onNeedRefresh: () => {
-        if (this.confirm("Load new version?")) {
-          updateSW().catch(console.error);
+      onNeedRefresh: prepareAsyncContext(async () => {
+        if (await this.confirm(t("app.updateConfirm"))) {
+          await updateSW();
         }
-      },
+      }),
       onOfflineReady: () => {
-        this.alert("offline ready").catch(console.error);
+        this.alert(t("app.offlineReady")).catch(console.error);
       },
     });
 
@@ -294,8 +296,12 @@ export class PlantStoreUi extends LitElement {
     return alert.toast();
   }
 
-  confirm(message: string) {
-    return window.confirm(message);
+  async confirm(message: string) {
+    const confirm = Object.assign(
+      document.createElement("plant-confirm-dialog"),
+      {}
+    ) as PlantConfirmDialog;
+    return confirm.show(message);
   }
 
   showEntryEditor(logEntry?: LogEntry) {

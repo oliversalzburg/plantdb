@@ -17,6 +17,7 @@ import "@shoelace-style/shoelace/dist/translations/de";
 import "@shoelace-style/shoelace/dist/translations/en";
 import "@shoelace-style/shoelace/dist/translations/he";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
+import "./ConfirmDialog";
 import "./PlantApp";
 import "./PlantCard";
 import "./PlantDbConfig";

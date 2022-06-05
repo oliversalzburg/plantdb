@@ -11,12 +11,6 @@ import { mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 
-export type PlantDetailsConnected = {
-  plantStore: PlantStore;
-  plantStoreUi: PlantStoreUi;
-  plant: Plant;
-} & PlantDetails;
-
 @customElement("plant-details")
 export class PlantDetails extends LitElement {
   static readonly styles = [
@@ -83,8 +77,12 @@ export class PlantDetails extends LitElement {
   @property({ type: Plant })
   plant: Plant | undefined;
 
-  get cx(): PlantDetailsConnected {
-    return this as PlantDetailsConnected;
+  get cx() {
+    return {
+      plantStore: mustExist(this.plantStore),
+      plantStoreUi: mustExist(this.plantStoreUi),
+      plant: mustExist(this.plant),
+    };
   }
 
   plantDataAsGraphCSV(plant: Plant) {

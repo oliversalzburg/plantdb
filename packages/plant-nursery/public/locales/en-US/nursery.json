@@ -1,6 +1,8 @@
 {
   "app": {
-    "title": "PlantDB Nursery"
+    "offlineReady": "Offline ready",
+    "title": "PlantDB Nursery",
+    "updateConfirm": "Load new version?"
   },
   "dbConfig": {
     "columnSeparator": "Column separator",

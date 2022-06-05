@@ -204,7 +204,7 @@ export class PlantImportView extends View {
   }
 
   private _tokenClient: google.accounts.oauth2.TokenClient | undefined;
-  private async _testGoogleDrive() {
+  private async _connectGoogleDrive() {
     const CLIENT_ID = "621528596325-b01c3qtllvnrl2gk8hmfctn7s8s7s4q8.apps.googleusercontent.com";
     const API_KEY = "AIzaSyBeBF_z_jai2SzHHaFXEAatLeYReL_OObE";
     const SCOPES = "https://www.googleapis.com/auth/drive";
@@ -342,6 +342,7 @@ export class PlantImportView extends View {
     if (!this.config) {
       return;
     }
+
     return [
       html`<div id="import">
         <plant-db-config
@@ -368,7 +369,7 @@ export class PlantImportView extends View {
               ><div class="google-drive">
                 <div class="actions">
                   <sl-button
-                    @click=${() => this._testGoogleDrive()}
+                    @click=${() => this._connectGoogleDrive()}
                     variant=${this._googleDriveConnected ? "success" : "default"}
                     ><sl-icon slot="prefix" name="google"></sl-icon>${t(
                       "import.connectGoogleDrive"
