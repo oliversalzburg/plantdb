@@ -1,7 +1,7 @@
 {
   "app": {
-    "404Body": "Die Seite, nach der Du gesucht hast, wurde nicht gefunden.",
-    "404Title": "Hoppla! Du hast eine 404 erwischt",
+    "404Body": "Die gesuchte Seite wurde nicht gefunden.",
+    "404Title": "Hoppla! Ein 404 Fehler",
     "offlineReady": "Offline bereit",
     "title": "PlantDB Nursery",
     "updateConfirm": "Neue Version laden?"
@@ -23,10 +23,10 @@
   "empty": {
     "backToPlants": "Zurück zur Pflanzen-Liste",
     "importNow": "Jetzt importieren",
-    "log": "Es scheint, als hättest du keine Einträge 😔",
+    "log": "Es scheint, als hätten Sie keine Einträge 😔",
     "or": "oder",
     "plant": "Die angeforderte Pflanze wurde nicht gefunden 😟",
-    "plants": "Es scheint, als hättest du keine Pflanzen 😔"
+    "plants": "Es scheint, als hätten Sie keine Pflanzen 😔"
   },
   "entryEditor": {
     "dateLabel": "Datum *",
@@ -36,7 +36,7 @@
     "notePlaceholder": "Notizen hier hinzufügen",
     "phLabel": "pH",
     "phPlaceholder": "5,5",
-    "plantHelp": "Wenn du eine PID eingibst, die noch nicht existiert, wird diese Pflanze für dich angelegt.",
+    "plantHelp": "Wenn Sie eine PID eingiben, die noch nicht existiert, wird diese Pflanze für Sie angelegt.",
     "plantHelpDelete": "Um diesen Eintrag zu löschen, entfernen Sie die Pflanzen-ID und speichern Sie ihn.",
     "plantHelpDeleteWarn": "Wenn Sie diesen Eintrag speichern, WIRD ER GELÖSCHT!",
     "plantLabel": "Pflanze *",
@@ -73,21 +73,24 @@
   },
   "import": {
     "connectGoogleDrive": "Google Drive verbinden",
-    "dataLoadedHelp": "Klicken Sie auf \"Text\", um die geladenen Daten anzuzeigen.",
+    "dataLoadedHelp": "Klicken Sie auf \"$t(import.text)\", um die geladenen Daten anzuzeigen.",
     "export": "Aktuelle Daten einfügen",
     "filesystem": "Dateisystem",
     "fsUnsupported": "Zugriff aufs Dateisystem ist auf deinem Gerät nicht möglich.",
     "googleDrive": "Google Drive",
+    "googleDriveBusy": "Google Drive ist beschäftigt...",
     "googleDriveConnected": "Google Drive verbunden.",
     "googleDriveDbModified": "Sie wurde zuletzt am {{when}} geändert ({{relative}})",
-    "googleDriveHasDb": "Du hast bereits eine PlantDB in deinem Google Drive!",
+    "googleDriveHasDb": "Sie haben bereits eine PlantDB in Ihrem Google Drive!",
     "googleDriveImport": "Aus Drive importieren",
     "googleDriveImported": "Datenbank aus Google Drive importiert.",
     "googleDriveImportedHelp": "Datenbank wurde gerade eben aus Google Drive importiert.",
     "googleDriveSync": "Zu Drive synchronisieren",
     "googleDriveSynchronized": "Datenbank mit Google Drive synchronisiert.",
     "googleDriveSynchronizedHelp": "Datenbank wurde gerade eben mit Google Drive synchronisiert.",
+    "googleDriveSyncWarn": "Dies ersetzt alle $t(app.title) Daten, die Sie derzeit in Google Drive gespeichert haben. Sind Sie sicher, dass Sie fortfahren möchten?",
     "import": "Importieren",
+    "importWarn": "Dies ersetzt alle $t(app.title) Daten, die Sie derzeit lokal gespeichert haben. Sind Sie sicher, dass Sie fortfahren möchten?",
     "logAnalysis": "Daten enthalten: Komma {{counts.comma}} mal(e), Semikolon {{counts.semicolon}} mal(s), Tabulator {{counts.tab}} mal(s). Wahrscheinlichster Spaltentrenner: {{likelySeparator}}",
     "openPlantLogCsv": "plantlog.csv öffnen",
     "openPlantsCsv": "plants.csv öffnen",
@@ -114,6 +117,7 @@
     "close": "$t(common:close)",
     "import": "Importieren",
     "log": "Protokoll",
+    "logEntry": "Protokolleintrag",
     "plants": "Pflanzen",
     "typeMap": "Typ-Zuordnungen"
   },
@@ -172,7 +176,7 @@
   },
   "typeMap": {
     "empty": "Es sind noch keine Einträge angelegt. Kehre später hierher zurück, sobald Einträge erstellt wurden. Dann kann hier der Nursery geholfen werden zu verstehen, was sie bedeuten.",
-    "introduction": "Link stehen die Ereignis-Typen die du in deinen importierten Daten verwendet hast. Ordne deine Typen den PlantDB Ereignis-Typen zu, damit deine Ereignisse besser ausgewertet werden können.",
+    "introduction": "Hier stehen die Ereignis-Typen die in den importierten Daten verwendet wurden. Ordne die Typen den PlantDB Ereignis-Typen zu, damit die Ereignisse besser ausgewertet werden können.",
     "save": "Zuordnung speichern",
     "title": "Typ-Zuordnungen",
     "unmapped": "Nicht zugeordneter Ereignistyp",
