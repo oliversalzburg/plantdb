@@ -130,22 +130,17 @@ export class PlantCard extends LitElement {
       <small><em>${this.plant.kind}</em></small>
       <div slot="footer">
         <small>
-          <ul>
-            <li>
-              ${t("plant.whenAdded", {
-                when: this.plant.logEntryOldest
-                  ? DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()
-                  : t("never"),
-              })}
-            </li>
-            <li>
-              ${t("plant.whenUpdated", {
-                when: this.plant.logEntryLatest
-                  ? DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()
-                  : t("never"),
-              })}
-            </li>
-          </ul>
+          ${t("plant.whenAdded", {
+            when: this.plant.logEntryOldest
+              ? DateTime.fromJSDate(this.plant.logEntryOldest.timestamp).toRelative()
+              : t("never"),
+          })}
+          <br />
+          ${t("plant.whenUpdated", {
+            when: this.plant.logEntryLatest
+              ? DateTime.fromJSDate(this.plant.logEntryLatest.timestamp).toRelative()
+              : t("never"),
+          })}
         </small>
       </div>
     </sl-card>`;
