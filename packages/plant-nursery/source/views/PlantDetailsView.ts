@@ -4,7 +4,7 @@ import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { View } from "./View";
 
-@customElement("plant-details-view")
+@customElement("pn-plant-details-view")
 export class PlantDetailsView extends View {
   static readonly styles = [
     ...View.styles,

@@ -6,7 +6,7 @@ import { assertExists } from "../Maybe";
 import { PlantPropertiesForm } from "../PlantPropertiesForm";
 import { View } from "./View";
 
-@customElement("plant-properties-view")
+@customElement("pn-plant-properties-view")
 export class PlantPropertiesView extends View {
   static readonly styles = [
     ...View.styles,

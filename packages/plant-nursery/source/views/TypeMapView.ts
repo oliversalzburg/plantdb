@@ -5,8 +5,8 @@ import { customElement, property } from "lit/decorators.js";
 import { mustExist } from "../Maybe";
 import { View } from "./View";
 
-@customElement("plant-type-map-view")
-export class PlantTypeMapView extends View {
+@customElement("pn-type-map-view")
+export class TypeMapView extends View {
   static readonly styles = [
     ...View.styles,
     css`

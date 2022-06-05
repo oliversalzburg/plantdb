@@ -16,7 +16,7 @@ let globalStore: PlantStore | undefined;
 
 export const retrieveStore = () => globalStore;
 
-@customElement("plant-store")
+@customElement("pn-plant-store")
 export class PlantStore extends LitElement {
   @property({ type: PlantDB })
   plantDb = PlantDB.Empty();

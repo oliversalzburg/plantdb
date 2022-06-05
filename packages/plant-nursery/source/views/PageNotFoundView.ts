@@ -1,9 +1,10 @@
+import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { View } from "./View";
 
-@customElement("plant-404-view")
-export class Plant404View extends View {
+@customElement("pn-page-not-found-view")
+export class PageNotFoundView extends View {
   static readonly styles = [
     ...View.styles,
     css`
@@ -22,11 +23,9 @@ export class Plant404View extends View {
   render() {
     return [
       html`<section>
-        <h2>Oops! You hit a 404</h2>
-        <p>
-          The page you're looking for doesn't seem to exist. Head back
-          <a href="">home</a> and try again?
-        </p>
+        <h2>${t("app.404Title")}</h2>
+        <p>${t("app.404Body")}</p>
+        <sl-button href="list" variant="primary">${t("empty.backToPlants")}</sl-button>
       </section>`,
     ];
   }

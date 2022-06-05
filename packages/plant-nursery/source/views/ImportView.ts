@@ -14,8 +14,8 @@ import { DateTime } from "luxon";
 import { assertExists, mustExist } from "../Maybe";
 import { View } from "./View";
 
-@customElement("plant-import-view")
-export class PlantImportView extends View {
+@customElement("pn-import-view")
+export class ImportView extends View {
   static readonly styles = [
     ...View.styles,
     css`

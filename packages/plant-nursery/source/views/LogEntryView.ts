@@ -6,8 +6,8 @@ import { assertExists } from "../Maybe";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";
 import { View } from "./View";
 
-@customElement("plant-log-entry-view")
-export class PlantLogEntryView extends View {
+@customElement("pn-log-entry-view")
+export class LogEntryView extends View {
   static readonly styles = [
     ...View.styles,
     css`

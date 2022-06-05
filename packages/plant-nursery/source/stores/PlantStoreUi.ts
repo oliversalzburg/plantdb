@@ -27,7 +27,7 @@ export type KnownViews =
   | "types"
   | "view404";
 
-@customElement("plant-store-ui")
+@customElement("pn-plant-store-ui")
 export class PlantStoreUi extends LitElement {
   @property({ type: Boolean })
   i18nReady = false;

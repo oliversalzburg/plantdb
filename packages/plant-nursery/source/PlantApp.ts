@@ -206,18 +206,18 @@ export class PlantApp extends LitElement {
             </div>
 
             <div class="view-container">
-              <plant-404-view
+              <pn-page-not-found-view
                 class="view"
                 ?active=${this._plantStoreUi.page === "view404"}
-              ></plant-404-view>
+              ></pn-page-not-found-view>
 
-              <plant-log-view
+              <pn-plant-log-view
                 class="view"
                 ?active=${this._plantStoreUi.page === "log"}
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
-              ></plant-log-view>
-              <plant-log-entry-view
+              ></pn-plant-log-view>
+              <pn-log-entry-view
                 class="view"
                 ?active=${this._plantStoreUi.page === "log-entry"}
                 .plantStore=${this._plantStore}
@@ -225,16 +225,16 @@ export class PlantApp extends LitElement {
                 .logEntry=${this._plantStore.plantDb.log[
                   Number(this._plantStoreUi.pageParams[0] ?? -1)
                 ]}
-              ></plant-log-entry-view>
+              ></pn-log-entry-view>
 
-              <plant-list-view
+              <pn-plant-list-view
                 class="view"
                 ?active=${this._plantStoreUi.page === "list"}
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
                 .plants=${[...(this._plantStore.plantDb.plants.values() ?? [])]}
-              ></plant-list-view>
-              <plant-details-view
+              ></pn-plant-list-view>
+              <pn-plant-details-view
                 class="view"
                 ?active=${this._plantStoreUi.page === "plant"}
                 .plantStore=${this._plantStore}
@@ -242,8 +242,8 @@ export class PlantApp extends LitElement {
                 .plant=${this._plantStore.plantDb.plants.get(
                   this._plantStoreUi.pageParams[0] ?? ""
                 )}
-              ></plant-details-view>
-              <plant-properties-view
+              ></pn-plant-details-view>
+              <pn-plant-properties-view
                 class="view"
                 ?active=${this._plantStoreUi.page === "plant-properties"}
                 .plantStore=${this._plantStore}
@@ -251,9 +251,9 @@ export class PlantApp extends LitElement {
                 .plant=${this._plantStore.plantDb.plants.get(
                   this._plantStoreUi.pageParams[0] ?? ""
                 )}
-              ></plant-properties-view>
+              ></pn-plant-properties-view>
 
-              <plant-type-map-view
+              <pn-type-map-view
                 class="view"
                 ?active=${this._plantStoreUi?.page === "types"}
                 .plantStore=${this._plantStore}
@@ -276,13 +276,13 @@ export class PlantApp extends LitElement {
                   );
                   this._plantStoreUi.navigateTo("log");
                 }}
-              ></plant-type-map-view>
-              <plant-import-view
+              ></pn-type-map-view>
+              <pn-import-view
                 class="view"
                 ?active=${this._plantStoreUi.page === "import"}
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
-              ></plant-import-view>
+              ></pn-import-view>
             </div>`
         : undefined,
     ];

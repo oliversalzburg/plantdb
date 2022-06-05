@@ -5,7 +5,7 @@ import { LogEntry } from "packages/libplantdb/typings";
 import { assertExists, isNil, mustExist } from "../Maybe";
 import { View } from "./View";
 
-@customElement("plant-log-view")
+@customElement("pn-plant-log-view")
 export class PlantLogView extends View {
   static readonly styles = [
     ...View.styles,

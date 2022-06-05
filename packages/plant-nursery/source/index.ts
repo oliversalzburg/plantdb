@@ -36,13 +36,13 @@ import "./PlantScanner";
 import "./PlantTypeMap";
 import "./stores/PlantStore";
 import "./stores/PlantStoreUi";
-import "./views/Plant404View";
+import "./views/ImportView";
+import "./views/LogEntryView";
+import "./views/PageNotFoundView";
 import "./views/PlantDetailsView";
-import "./views/PlantImportView";
 import "./views/PlantListView";
-import "./views/PlantLogEntryView";
 import "./views/PlantLogView";
 import "./views/PlantPropertiesView";
-import "./views/PlantTypeMapView";
+import "./views/TypeMapView";
 
 setBasePath(import.meta.env.BASE_URL);
