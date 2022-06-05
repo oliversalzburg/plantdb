@@ -127,8 +127,11 @@ export class ImportView extends View {
     });
   }
 
-  processImportRequest(event?: MouseEvent) {
-    event?.preventDefault();
+  async processImportRequest() {
+    if (!(await this.plantStoreUi?.confirm(t("import.importWarn")))) {
+      return;
+    }
+
     console.info("Processing data...");
 
     assertExists(this.plantStore);
@@ -249,6 +252,10 @@ export class ImportView extends View {
   }
 
   private async _importFromGoogleDrive() {
+    if (!(await this.plantStoreUi?.confirm(t("import.importWarn")))) {
+      return;
+    }
+
     mustExist(this._googleDriveActions).style.display = "none";
     mustExist(this._googleDriveBusy).style.display = "";
 
@@ -266,7 +273,12 @@ export class ImportView extends View {
       mustExist(this._googleDriveBusy).style.display = "none";
     }
   }
+
   private async _syncToGoogleDrive() {
+    if (!(await this.plantStoreUi?.confirm(t("import.googleDriveSyncWarn")))) {
+      return;
+    }
+
     mustExist(this._googleDriveActions).style.display = "none";
     mustExist(this._googleDriveBusy).style.display = "";
 
@@ -407,10 +419,7 @@ export class ImportView extends View {
 
           <sl-divider></sl-divider>
 
-          <sl-button
-            id="process"
-            variant="primary"
-            @click="${(event: MouseEvent) => this.processImportRequest(event)}"
+          <sl-button id="process" variant="primary" @click="${() => this.processImportRequest()}"
             >${t("import.import")}</sl-button
           >
         </div>
