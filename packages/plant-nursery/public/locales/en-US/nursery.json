@@ -171,6 +171,7 @@
     "tempMinPlaceholder": "59"
   },
   "scanner": {
+    "captured": "Image captured.",
     "captureImage": "Capture image",
     "pickImage": "Pick image"
   },
