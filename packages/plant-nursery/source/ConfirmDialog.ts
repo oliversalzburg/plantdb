@@ -1,4 +1,5 @@
 import { SlDialog } from "@shoelace-style/shoelace";
+import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { mustExist } from "./Maybe";
@@ -25,8 +26,15 @@ export class ConfirmDialog extends LitElement {
   private _confirmDialog: SlDialog | null | undefined;
   private _resolver: ((result: boolean) => void) | undefined;
 
-  show(message = this.message) {
+  show(
+    message = this.message,
+    labelConfirm = t("confirm", { ns: "common" }),
+    labelCancel = t("cancel", { ns: "common" })
+  ) {
     this.message = message;
+    this.labelConfirm = labelConfirm;
+    this.labelCancel = labelCancel;
+
     document.body.appendChild(this);
     return new Promise((resolve, reject) => {
       this._resolver = resolve;
