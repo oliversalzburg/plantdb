@@ -9,6 +9,22 @@ export class PlantDetailsView extends View {
   static readonly styles = [
     ...View.styles,
     css`
+      @media (min-width: 1400px) {
+        #details {
+          padding: 0 15vw;
+        }
+      }
+      @media (min-width: 2000px) {
+        #details {
+          padding: 0 20vw;
+        }
+      }
+      @media (min-width: 2400px) {
+        #details {
+          padding: 0 25vw;
+        }
+      }
+
       .empty {
         flex: 1;
       }
@@ -22,6 +38,7 @@ export class PlantDetailsView extends View {
     return [
       this.plant
         ? html`<pn-plant-details
+            id="details"
             .plantStore=${this.plantStore}
             .plantStoreUi=${this.plantStoreUi}
             .plant=${this.plant}
