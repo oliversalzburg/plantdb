@@ -4,6 +4,7 @@
     "404Title": "Oops! You hit a 404",
     "offlineReady": "Offline ready",
     "title": "PlantDB Nursery",
+    "updateAvailable": "Update available",
     "updateConfirm": "Load new version?"
   },
   "dbConfig": {
@@ -111,6 +112,7 @@
     "firstEntry": "This is the first entry for this plant.",
     "goToDetails": "Go to plant details",
     "openEntry": "Open log entry",
+    "showMore": "Show more entries",
     "unmappedEvent": "Unmapped event. Click to map."
   },
   "menu": {
