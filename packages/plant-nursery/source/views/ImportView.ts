@@ -9,10 +9,9 @@ import {
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { t } from "i18next";
 import { css, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { assertExists, mustExist } from "../Maybe";
-import { prepareAsyncContext } from "../UiTools";
 import { View } from "./View";
 
 @customElement("pn-import-view")
@@ -63,7 +62,7 @@ export class ImportView extends View {
         flex-direction: column;
         gap: 1rem;
       }
-      .google-drive .actions {
+      #google-drive-actions {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -86,8 +85,19 @@ export class ImportView extends View {
   plantLogData = "";
   @state()
   private _logAnalysis = "";
+
   @state()
   private _googleDriveConnected = false;
+  @state()
+  private _googleDriveHasDb = false;
+  @state()
+  private _googleDriveDbLastModified: Date | null | undefined = null;
+  @state()
+  private _googleDriveHelpText = "";
+  @query("#google-drive-actions")
+  private _googleDriveActions: HTMLDivElement | null | undefined;
+  @query("#google-drive-busy")
+  private _googleDriveBusy: HTMLDivElement | null | undefined;
 
   @property()
   config = new DatabaseFormat();
@@ -97,6 +107,8 @@ export class ImportView extends View {
     if (storedConfig) {
       this.config = DatabaseFormat.fromJSON(storedConfig);
     }
+
+    mustExist(this._googleDriveBusy).style.display = "none";
   }
 
   private _checkInputData() {
@@ -204,142 +216,73 @@ export class ImportView extends View {
     }
   }
 
-  private _tokenClient: google.accounts.oauth2.TokenClient | undefined;
   private async _connectGoogleDrive() {
-    const CLIENT_ID = "621528596325-b01c3qtllvnrl2gk8hmfctn7s8s7s4q8.apps.googleusercontent.com";
-    const API_KEY = "AIzaSyBeBF_z_jai2SzHHaFXEAatLeYReL_OObE";
-    const SCOPES = [
-      // Full read-write on all data in Drive
-      "https://www.googleapis.com/auth/drive",
-      // Access to application-specific data folder.
-      "https://www.googleapis.com/auth/drive.appdata",
-    ];
+    mustExist(this._googleDriveActions).style.display = "none";
+    mustExist(this._googleDriveBusy).style.display = "";
 
-    if (!this._tokenClient) {
-      await this._loadGoogleAuthApi();
-      this._tokenClient = window.google.accounts.oauth2.initTokenClient({
-        client_id: CLIENT_ID,
-        scope: SCOPES.join(" "),
-        callback: resp => {
-          if (resp.error !== undefined) {
-            throw resp;
-          }
-
-          this._googleDriveConnected = true;
-          this.plantStoreUi?.alert(t("import.googleDriveConnected")).catch(console.error);
-          this._listFiles().catch(console.error);
-        },
-      });
-
-      await this._loadGoogleDriveApi();
-      const onClientLoaded = async () => {
-        await gapi.client.init({
-          apiKey: API_KEY,
-          discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-        });
-
-        if (gapi.client.getToken() === null) {
-          // Prompt the user to select a Google Account and ask for consent to share their data
-          // when establishing a new session.
-          mustExist(this._tokenClient).requestAccessToken({ prompt: "consent" });
-        } else {
-          // Skip display of account chooser and consent dialog for an existing session.
-          mustExist(this._tokenClient).requestAccessToken({ prompt: "" });
-        }
-      };
-      gapi.load("client", prepareAsyncContext(onClientLoaded));
-    } else {
-      return this._listFiles();
-    }
-  }
-
-  private async _listFiles() {
-    let response;
     try {
-      response = await gapi.client.drive.files.list({
-        fields: "files(id, name)",
-        pageSize: 10,
-        q: "mimeType='text/csv'",
-        spaces: "drive",
-      });
-    } catch (err) {
-      console.error(err);
-      return;
-    }
-    const files = response.result.files;
-    if (!files || files.length == 0) {
-      console.log("No files found.");
-      return;
-    }
+      await this.plantStore?.googleDriveConnect();
 
-    for (const file of files) {
-      if (file.name === "plantlog.csv" && file.id) {
-        this._plantLogFileId = file.id;
+      this._googleDriveConnected = true;
+      this.plantStoreUi?.alert(t("import.googleDriveConnected")).catch(console.error);
+
+      const lastModified = await this.plantStore?.googleDrive.lastModified();
+      this._googleDriveHasDb = lastModified !== null;
+      this._googleDriveDbLastModified = lastModified;
+
+      if (this._googleDriveHasDb) {
+        this._googleDriveHelpText = `${t("import.googleDriveHasDb")} ${
+          this._googleDriveDbLastModified
+            ? t("import.googleDriveDbModified", {
+                relative: DateTime.fromJSDate(
+                  new Date(this._googleDriveDbLastModified)
+                ).toRelative(),
+                when: DateTime.fromJSDate(new Date(this._googleDriveDbLastModified)).toFormat("f"),
+              })
+            : ""
+        }`;
       }
-      if (file.name === "plants.csv" && file.id) {
-        this._plantsFileId = file.id;
-      }
+    } finally {
+      mustExist(this._googleDriveActions).style.display = "";
+      mustExist(this._googleDriveBusy).style.display = "none";
     }
   }
 
-  private _scriptGoogleAuthApi: HTMLScriptElement | undefined;
-  private async _loadGoogleAuthApi() {
-    return new Promise(resolve => {
-      if (this._scriptGoogleAuthApi) {
-        resolve(null);
-        return;
-      }
+  private async _importFromGoogleDrive() {
+    mustExist(this._googleDriveActions).style.display = "none";
+    mustExist(this._googleDriveBusy).style.display = "";
 
-      this._scriptGoogleAuthApi = Object.assign(document.createElement("script"), {
-        async: true,
-        defer: true,
-        src: "https://accounts.google.com/gsi/client",
-        onload: () => resolve(null),
-      });
-      document.body.appendChild(this._scriptGoogleAuthApi);
-    });
-  }
-  private _scriptGoogleDriveApi: HTMLScriptElement | undefined;
-  private async _loadGoogleDriveApi() {
-    return new Promise(resolve => {
-      if (this._scriptGoogleDriveApi) {
-        resolve(window.gapi);
-        return;
-      }
+    try {
+      this._googleDriveHelpText = "";
 
-      this._scriptGoogleDriveApi = Object.assign(document.createElement("script"), {
-        async: true,
-        defer: true,
-        src: "https://apis.google.com/js/api.js",
-        onload: () => resolve(window.gapi),
-      });
-      document.body.appendChild(this._scriptGoogleDriveApi);
-    });
-  }
-  @state()
-  private _plantLogFileId: string | undefined;
-  private async _loadPlantLogFromGoogleDrive() {
-    if (!this._plantLogFileId) {
-      return;
+      await this.plantStore?.googleDrivePull();
+
+      this._googleDriveDbLastModified = new Date();
+      this._googleDriveHelpText = t("import.googleDriveImportedHelp");
+      this.plantStoreUi?.alert(t("import.googleDriveImported")).catch(console.error);
+      this.requestUpdate();
+    } finally {
+      mustExist(this._googleDriveActions).style.display = "";
+      mustExist(this._googleDriveBusy).style.display = "none";
     }
-    const fileData = await gapi.client.drive.files.get({
-      fileId: this._plantLogFileId,
-      alt: "media",
-    });
-    this.plantLogData = fileData.body;
-    this._checkInputData();
   }
-  @state()
-  private _plantsFileId: string | undefined;
-  private async _loadPlantsFromGoogleDrive() {
-    if (!this._plantsFileId) {
-      return;
+  private async _syncToGoogleDrive() {
+    mustExist(this._googleDriveActions).style.display = "none";
+    mustExist(this._googleDriveBusy).style.display = "";
+
+    try {
+      this._googleDriveHelpText = "";
+
+      await this.plantStore?.googleDrivePush();
+
+      this._googleDriveDbLastModified = new Date();
+      this._googleDriveHelpText = t("import.googleDriveSynchronizedHelp");
+      this.plantStoreUi?.alert(t("import.googleDriveSynchronized")).catch(console.error);
+      this.requestUpdate();
+    } finally {
+      mustExist(this._googleDriveActions).style.display = "";
+      mustExist(this._googleDriveBusy).style.display = "none";
     }
-    const fileData = await gapi.client.drive.files.get({
-      fileId: this._plantsFileId,
-      alt: "media",
-    });
-    this.plantData = fileData.body;
   }
 
   render() {
@@ -370,28 +313,33 @@ export class ImportView extends View {
 
             <sl-tab-panel name="google-drive"
               ><div class="google-drive">
-                <div class="actions">
+                <div id="google-drive-busy">
+                  <sl-spinner></sl-spinner> Communicating with Google Drive...
+                </div>
+                <div id="google-drive-actions">
                   <sl-button
                     @click=${() => this._connectGoogleDrive()}
                     variant=${this._googleDriveConnected ? "success" : "default"}
                     ><sl-icon slot="prefix" name="google"></sl-icon>${t(
                       "import.connectGoogleDrive"
                     )}</sl-button
-                  ><sl-button
-                    ?disabled=${this._plantLogFileId === undefined}
-                    variant=${this.plantLogData !== "" ? "success" : "default"}
-                    @click=${() => this._loadPlantLogFromGoogleDrive()}
-                    >${t("import.loadPlantLogCsv")}</sl-button
-                  ><sl-button
-                    ?disabled=${this._plantsFileId === undefined}
-                    variant=${this.plantData !== "" ? "success" : "default"}
-                    @click=${() => this._loadPlantsFromGoogleDrive()}
-                    >${t("import.openPlantsCsv")}</sl-button
-                  >
+                  >${this._googleDriveConnected
+                    ? html`<sl-button
+                          ?disabled=${!this._googleDriveHasDb}
+                          @click=${() => this._importFromGoogleDrive()}
+                          ><sl-icon slot="prefix" name="cloud-download"></sl-icon>${t(
+                            "import.googleDriveImport"
+                          )}</sl-button
+                        ><sl-button @click=${() => this._syncToGoogleDrive()}
+                          ><sl-icon slot="prefix" name="cloud-upload"></sl-icon>${t(
+                            "import.googleDriveSync"
+                          )}</sl-button
+                        >`
+                    : undefined}
                 </div>
-                <small class="help-text ${this.plantLogData || this.plantData ? "data-loaded" : ""}"
-                  >${t("import.dataLoadedHelp")}</small
-                >
+                ${this._googleDriveHasDb
+                  ? html`<span>${this._googleDriveHelpText}</span>`
+                  : undefined}
               </div></sl-tab-panel
             >
 

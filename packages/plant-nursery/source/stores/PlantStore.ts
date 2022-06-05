@@ -3,6 +3,7 @@ import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
 import { isNil, mustExist } from "../Maybe";
+import { GoogleDrive } from "../storage/GoogleDrive";
 import { LocalStorage } from "../storage/LocalStorage";
 
 let globalStore: PlantStore | undefined;
@@ -16,6 +17,8 @@ export class PlantStore extends LitElement {
 
   private _indexLog: Index | undefined;
   private _indexPlants: Index | undefined;
+
+  googleDrive = new GoogleDrive();
 
   connectedCallback(): void {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -40,6 +43,21 @@ export class PlantStore extends LitElement {
     LocalStorage.persistPlantDb(this.plantDb);
     console.info("Stored DB in localStorage.");
     this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
+  }
+
+  async googleDriveConnect() {
+    return this.googleDrive.connect();
+  }
+  async googleDrivePull() {
+    const plantDb = await this.googleDrive.retrievePlantDb();
+    if (!plantDb) {
+      return;
+    }
+
+    this.updatePlantDb(plantDb);
+  }
+  async googleDrivePush() {
+    return this.googleDrive.persistPlantDb(this.plantDb);
   }
 
   private _updateIndex() {
