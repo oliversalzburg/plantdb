@@ -247,7 +247,7 @@ export class PlantPropertiesForm extends LitElement {
     this.dispatchEvent(new CustomEvent("pn-scanned"));
     if (dataUrl !== null) {
       console.log(dataUrl);
-      this.plantStoreUi?.alert("Image captured").catch(console.error);
+      this.plantStoreUi?.alert(t("scanner.captured")).catch(console.error);
       this._identifyPlant(dataUrl).catch(console.error);
     } else {
       this._cancelPlantIdentify();
