@@ -117,6 +117,7 @@
     "close": "$t(common:close)",
     "import": "Import",
     "log": "Log",
+    "logEntry": "Log entry",
     "plants": "Plants",
     "typeMap": "Type mappings"
   },
