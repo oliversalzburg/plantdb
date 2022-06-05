@@ -419,7 +419,11 @@ export class ImportView extends View {
 
           <sl-divider></sl-divider>
 
-          <sl-button id="process" variant="primary" @click="${() => this.processImportRequest()}"
+          <sl-button
+            id="process"
+            variant="primary"
+            @click="${() => this.processImportRequest()}"
+            ?disabled=${!this.plantLogData && !this.plantData}
             >${t("import.import")}</sl-button
           >
         </div>
