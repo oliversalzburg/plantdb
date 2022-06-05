@@ -112,6 +112,7 @@
     "firstEntry": "This is the first entry for this plant.",
     "goToDetails": "Go to plant details",
     "openEntry": "Open log entry",
+    "showMore": "Show more entries",
     "unmappedEvent": "Unmapped event. Click to map."
   },
   "menu": {

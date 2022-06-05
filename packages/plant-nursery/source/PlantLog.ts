@@ -104,7 +104,10 @@ export class PlantLog extends LitElement {
         <sl-input
           placeholder=${t("log.filterPlaceholder")}
           .value=${this.filter}
-          @sl-input=${(event: InputEvent) => (this.filter = (event.target as SlInput).value)}
+          @sl-input=${(event: InputEvent) => {
+            this.filter = (event.target as SlInput).value;
+            this.maxItems = 10;
+          }}
           clearable
         ></sl-input
         ><sl-select
@@ -115,6 +118,7 @@ export class PlantLog extends LitElement {
           @sl-change=${(event: Event) => {
             const value = (event.target as SlSelect).value as string[];
             this._filterEventTypes = value;
+            this.maxItems = 10;
           }}
           >${[...(this.plantStore?.plantDb.entryTypes.values() ?? [])]
             .sort()
@@ -147,7 +151,11 @@ export class PlantLog extends LitElement {
                 this.dispatchEvent(new CustomEvent<LogEntry>("pn-edit-entry", { detail: entry }));
               }}
             ></pn-plant-log-entry>`
-        )}<sl-button @click=${() => (this.maxItems += 10)}>Load more</sl-button>
+        )}<sl-button
+          ?disabled=${filteredLog.length < this.maxItems}
+          @click=${() => (this.maxItems += 10)}
+          >${t("log.showMore")}</sl-button
+        >
       </div>`,
     ];
   }
