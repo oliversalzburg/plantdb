@@ -15,7 +15,6 @@ export class PlantLogEntry extends LitElement {
       }
 
       sl-card {
-        padding: 1rem;
         width: 100%;
       }
 

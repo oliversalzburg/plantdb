@@ -42,9 +42,17 @@ export class PlantLog extends LitElement {
       }
 
       #entries {
+        display: flex;
+        flex-direction: column;
         flex: 1;
         overflow: auto;
         min-height: 0;
+        gap: 0.5rem;
+        padding: 1rem;
+      }
+
+      #entries sl-button {
+        margin: 1rem;
       }
     `,
   ];
@@ -57,6 +65,9 @@ export class PlantLog extends LitElement {
 
   @property({ type: [LogEntry] })
   log = new Array<LogEntry>();
+
+  @property({ type: Number })
+  maxItems = 10;
 
   @property()
   filter = "";
@@ -122,7 +133,7 @@ export class PlantLog extends LitElement {
         >
       </div>`,
       html`<div id="entries">
-        ${filteredLog.slice(0, 100).map(
+        ${filteredLog.slice(0, this.maxItems).map(
           entry =>
             html`<pn-plant-log-entry
               .plantDb=${this.plantStore?.plantDb}
@@ -136,7 +147,7 @@ export class PlantLog extends LitElement {
                 this.dispatchEvent(new CustomEvent<LogEntry>("pn-edit-entry", { detail: entry }));
               }}
             ></pn-plant-log-entry>`
-        )}
+        )}<sl-button @click=${() => (this.maxItems += 10)}>Load more</sl-button>
       </div>`,
     ];
   }
