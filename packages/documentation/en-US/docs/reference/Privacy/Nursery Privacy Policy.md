@@ -1,10 +1,10 @@
-# Privacy Policy for the PlantDB Nursery
+# Nursery Privacy Terms
 
 The Nursery is an application that runs entirely on the client-side, it does not communicate with any backend services to perform regular operations.
 
 ## Data we collect
 
-The only collected data is the enter you explicitly enter into the application. There is no further metadata collected in any way. Any collected data is stored on your device only, unless you explicitly invoke third-party services.
+The only collected data is the data you explicitly enter into the application. There is no further metadata collected in any way. Any collected data is stored on your device only, unless you explicitly invoke third-party services.
 
 ## Data third-parties collect
 
