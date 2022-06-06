@@ -27,11 +27,6 @@ jobs:
 
       - name: Build documentation
         run: |
-          # Copy stupid shoelace dependencies
-          mkdir --parents packages/plant-nursery/public/assets
-          cp --recursive node_modules/@shoelace-style/shoelace/dist/assets/icons \
-            packages/plant-nursery/public/assets/icons
-
           # Build projects & documentation
           yarn workspace @plantdb/libplantdb build
           yarn workspace @plantdb/plant-nursery build --base=/plantdb/nursery/
