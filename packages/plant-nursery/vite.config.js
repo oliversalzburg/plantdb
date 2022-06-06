@@ -70,7 +70,7 @@ export default {
     viteStaticCopy({
       targets: [
         {
-          src: "../../node_modules/@shoelace-style/shoelace/dist/assets/**/*",
+          src: "../../node_modules/@shoelace-style/shoelace/dist/assets/icons",
           dest: "assets",
         },
       ],
