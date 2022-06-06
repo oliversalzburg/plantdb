@@ -1,3 +1,4 @@
 .gradle/
+android.keystore
 app/build/
 app-release-*

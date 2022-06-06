@@ -1,6 +1,6 @@
 {
-  "packageId": "io.github.oliversalzburg.twa",
-  "host": "oliversalzburg.github.io",
+  "packageId": "net.plantdb",
+  "host": "plantdb.net",
   "name": "PlantDB Nursery",
   "launcherName": "Nursery",
   "display": "standalone",
@@ -11,25 +11,25 @@
   "navigationDividerColorDark": "#000000",
   "backgroundColor": "#FFFFFF",
   "enableNotifications": true,
-  "startUrl": "/plantdb/nursery/",
-  "iconUrl": "https://oliversalzburg.github.io/plantdb/nursery/images/flower-512.png",
+  "startUrl": "/nursery/",
+  "iconUrl": "https://plantdb.net/nursery/images/flower-512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "/home/oliver/projects/plantdb/packages/plant-nursery-android/android.keystore",
     "alias": "android"
   },
-  "appVersionName": "1",
-  "appVersionCode": 1,
+  "appVersionName": "3",
+  "appVersionCode": 3,
   "shortcuts": [
     {
       "name": "Plants",
       "shortName": "Plants",
-      "url": "https://oliversalzburg.github.io/list",
-      "chosenIconUrl": "https://oliversalzburg.github.io/plantdb/nursery/images/nursery-plants.png"
+      "url": "https://plantdb.net/nursery/list",
+      "chosenIconUrl": "https://plantdb.net/nursery/images/nursery-plants.png"
     }
   ],
   "generatorApp": "bubblewrap-cli",
-  "webManifestUrl": "https://oliversalzburg.github.io/plantdb/nursery/manifest.webmanifest",
+  "webManifestUrl": "https://plantdb.net/nursery/manifest.webmanifest",
   "fallbackType": "customtabs",
   "features": {},
   "alphaDependencies": {
@@ -45,5 +45,5 @@
   ],
   "additionalTrustedOrigins": [],
   "retainedBundles": [],
-  "appVersion": "1"
+  "appVersion": "3"
 }
