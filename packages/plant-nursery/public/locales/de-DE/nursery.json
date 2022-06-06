@@ -99,8 +99,8 @@
     "pastePlants": "plants.csv hier einfügen",
     "plantData": "Pflanzendaten",
     "plantLog": "Protokolldaten",
-    "savePlantLogCsv": "Save plantlog.csv",
-    "savePlantsCsv": "Save plants.csv",
+    "savePlantLogCsv": "plantlog.csv speichern",
+    "savePlantsCsv": "plants.csv speichern",
     "text": "Text",
     "title": "Datenimport"
   },
@@ -119,11 +119,11 @@
   },
   "menu": {
     "close": "$t(common:close)",
-    "import": "Data transfer",
+    "import": "Datenübertragung",
     "log": "Protokoll",
     "logEntry": "Protokolleintrag",
     "plants": "Pflanzen",
-    "settings": "Settings",
+    "settings": "Einstellungen",
     "typeMap": "Typ-Zuordnungen"
   },
   "plant": {
