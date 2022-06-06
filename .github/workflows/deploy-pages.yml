@@ -36,6 +36,8 @@ jobs:
           # Put nursery and docs on same deployment behind landing-page
           mkdir /tmp/plant-deploy
           cp packages/landing-page/index.html /tmp/plant-deploy/
+          sed -i 's/<base href="\/" \/>/<base href="\/plantdb\/" \/>"/' /tmp/plant-deploy/index.html
+
           cp --recursive packages/documentation/public \
             /tmp/plant-deploy/docs
           cp --recursive packages/plant-nursery/output \
