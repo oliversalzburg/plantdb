@@ -17,7 +17,7 @@ export class TypeMap extends LitElement {
         list-style: none;
       }
 
-      .type-list li {
+      .type-list div {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -25,11 +25,11 @@ export class TypeMap extends LitElement {
         margin-bottom: 1rem;
       }
 
-      .type-list li * {
+      .type-list div * {
         flex: 0.5;
       }
       @media (max-width: 500px) {
-        .type-list li * {
+        .type-list div * {
           min-width: 100%;
         }
       }
@@ -46,10 +46,10 @@ export class TypeMap extends LitElement {
     return [
       html`<h2>${t("typeMap.title")}</h2>
         <p>${t("typeMap.introduction")}</p>
-        <ul class="type-list">
+        <div class="type-list">
           ${[...this.plantDb.entryTypes.values()].sort().map(
             entryType =>
-              html`<li>
+              html`<div>
                 <span>${entryType}</span>
                 <sl-select
                   placeholder=${t("typeMap.unmapped")}
@@ -72,9 +72,9 @@ export class TypeMap extends LitElement {
                         >`
                     )}</sl-select
                 >
-              </li>`
+              </div>`
           )}
-        </ul>
+        </div>
         <sl-button
           variant="primary"
           @click=${() => {
