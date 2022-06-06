@@ -1,0 +1,52 @@
+name: S3 Test
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Select NodeJS version
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build documentation
+        run: |
+          # Build projects & documentation
+          yarn workspace @plantdb/libplantdb build
+          yarn workspace @plantdb/plant-nursery build --base=/nursery/
+          yarn workspace @plantdb/libplantdb docs
+          yarn docs:build
+
+          # Put nursery and docs on same deployment behind landing-page
+          mkdir /tmp/plant-deploy
+          cp packages/landing-page/index.html /tmp/plant-deploy/
+          cp --recursive packages/documentation/public \
+            /tmp/plant-deploy/docs
+          cp --recursive packages/plant-nursery/output \
+            /tmp/plant-deploy/nursery
+
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Copy files to the test website with the AWS CLI
+        run: |
+          aws s3 sync /tmp/plant-deploy s3://${{ secrets.AWS_S3_BUCKET }}
