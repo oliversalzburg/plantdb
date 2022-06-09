@@ -72,6 +72,7 @@ export class DbConfig extends LitElement {
         id="column-separator"
         label=${t("dbConfig.columnSeparator")}
         value=${this.columnSeparator}
+        hoist
         @sl-change=${(event: MouseEvent) => {
           this.columnSeparator = (event.target as SlSelect).value as string;
           this.dispatchEvent(
@@ -88,6 +89,7 @@ export class DbConfig extends LitElement {
         id="decimal-separator"
         label=${t("dbConfig.decimalSeparator")}
         value=${this.decimalSeparator}
+        hoist
         @sl-change=${(event: MouseEvent) => {
           this.decimalSeparator = (event.target as SlSelect).value as string;
           this.dispatchEvent(
@@ -103,6 +105,7 @@ export class DbConfig extends LitElement {
         id="date-format"
         label=${t("dbConfig.dateTimeFormat")}
         value="${this.dateFormat}"
+        hoist
         @sl-change=${(event: MouseEvent) => {
           this.dateFormat = (event.target as SlSelect).value as string;
           this.dispatchEvent(
@@ -132,6 +135,7 @@ export class DbConfig extends LitElement {
         id="timezone"
         label=${t("dbConfig.timezone")}
         value="${this.timezone}"
+        hoist
         @sl-change=${(event: MouseEvent) => {
           this.timezone = (event.target as SlSelect).value as string;
           this.dispatchEvent(
