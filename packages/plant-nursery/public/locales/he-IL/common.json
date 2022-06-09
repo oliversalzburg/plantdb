@@ -1,7 +1,7 @@
 {
-  "cancel": "Cancel",
+  "cancel": "בטל",
   "close": "סגור",
-  "confirm": "Confirm",
-  "retry": "Retry",
-  "save": "Save"
+  "confirm": "אשר",
+  "retry": "נסה שוב",
+  "save": "שמור"
 }
