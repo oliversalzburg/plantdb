@@ -89,6 +89,7 @@ export class PlantStoreUi extends LitElement {
         },
         fallbackLng: ["en-US"],
         ns: ["common", "nursery"],
+        supportedLngs: ["de-DE", "en-US", "he-IL"],
       })
       .then(() => {
         this.i18nReady = true;
