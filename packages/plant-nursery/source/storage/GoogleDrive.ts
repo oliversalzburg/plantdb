@@ -115,9 +115,26 @@ export class GoogleDrive {
     return new Promise<boolean>((resolve, reject) => {
       let resolved = false;
 
-      const init = async () => {
+      const oneTap = async () => {
+        await this._loadGoogleIdentityServices();
+
+        google.accounts.id.initialize({
+          client_id: CLIENT_ID,
+          callback: function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+          },
+        });
+
+        google.accounts.id.prompt(notification => {
+          if (notification.isNotDisplayed()) {
+            console.info("prompt failed", notification.getNotDisplayedReason());
+          } else if (notification.isSkippedMoment()) {
+            console.info("prompt skipped");
+          }
+        });
+      };
+      const oauth2 = async () => {
         if (!this._tokenClient) {
-          await this._loadGoogleAuthApi();
           this._tokenClient = window.google.accounts.oauth2.initTokenClient({
             client_id: CLIENT_ID,
             scope: SCOPES.join(" "),
@@ -160,6 +177,11 @@ export class GoogleDrive {
         }
       };
 
+      const init = async () => {
+        await oneTap();
+        return oauth2();
+      };
+
       init().catch(reject);
 
       setTimeout(() => {
@@ -171,21 +193,21 @@ export class GoogleDrive {
     });
   }
 
-  private static _scriptGoogleAuthApi: HTMLScriptElement | undefined;
-  private async _loadGoogleAuthApi() {
+  private static _scriptGoogleIdentityServices: HTMLScriptElement | undefined;
+  private async _loadGoogleIdentityServices(domTarget: HTMLElement = document.body) {
     return new Promise(resolve => {
-      if (GoogleDrive._scriptGoogleAuthApi) {
+      if (GoogleDrive._scriptGoogleIdentityServices) {
         resolve(null);
         return;
       }
 
-      GoogleDrive._scriptGoogleAuthApi = Object.assign(document.createElement("script"), {
+      GoogleDrive._scriptGoogleIdentityServices = Object.assign(document.createElement("script"), {
         async: true,
         defer: true,
         src: "https://accounts.google.com/gsi/client",
         onload: () => resolve(null),
       });
-      document.body.appendChild(GoogleDrive._scriptGoogleAuthApi);
+      domTarget.appendChild(GoogleDrive._scriptGoogleIdentityServices);
     });
   }
   private static _scriptGoogleDriveApi: HTMLScriptElement | undefined;

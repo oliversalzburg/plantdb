@@ -100,6 +100,8 @@ export class ImportView extends View {
   private _googleDriveActions: Array<HTMLDivElement> | null | undefined;
   @queryAll(".google-drive-busy")
   private _googleDriveBusy: Array<HTMLDivElement> | null | undefined;
+  @queryAll(".g_id_signin")
+  private _googleIdSignin: Array<HTMLDivElement> | null | undefined;
 
   @property()
   config = new DatabaseFormat();
