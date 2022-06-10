@@ -1999,6 +1999,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@plantdb/documentation@workspace:packages/documentation":
+  version: 0.0.0-use.local
+  resolution: "@plantdb/documentation@workspace:packages/documentation"
+  languageName: unknown
+  linkType: soft
+
 "@plantdb/landing-page@workspace:packages/landing-page":
   version: 0.0.0-use.local
   resolution: "@plantdb/landing-page@workspace:packages/landing-page"
@@ -3808,12 +3814,6 @@ __metadata:
   checksum: c96bdccabe9d62ab6fea9399fdff04a66e6563c1d6fb3a3a063e8d53c3bb136ba63e84250bbf63d00086a769ad53aef92d2bd483f03f837fc97b71cbee6b2520
   languageName: node
   linkType: hard
-
-"documentation@workspace:packages/documentation":
-  version: 0.0.0-use.local
-  resolution: "documentation@workspace:packages/documentation"
-  languageName: unknown
-  linkType: soft
 
 "dom-walk@npm:^0.1.0":
   version: 0.1.2

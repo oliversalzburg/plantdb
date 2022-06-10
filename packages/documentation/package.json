@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "documentation",
+  "name": "@plantdb/documentation",
   "version": "latest",
   "description": "Yarn 3 Monorepo Documentation",
   "license": "MIT",
