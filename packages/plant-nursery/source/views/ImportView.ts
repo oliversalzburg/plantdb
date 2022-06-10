@@ -11,6 +11,7 @@ import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, queryAll, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
+import { unknownToError } from "../tools/ErrorSerializer";
 import { assertExists, mustExist } from "../tools/Maybe";
 import { View } from "./View";
 
@@ -264,7 +265,9 @@ export class ImportView extends View {
         }`;
       }
     } catch (error) {
-      this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
+      this.plantStoreUi
+        ?.alert(unknownToError(error).message, "danger", "x-circle")
+        .catch(console.error);
     } finally {
       mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
       mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
