@@ -20,6 +20,13 @@ const getVersionString = () => {
   ].join("");
 };
 
+const getBuildInfo = () => {
+  return [
+    `This project was built ${new Date().toISOString()}.`,
+    `The version of this build is ${getVersionString()}.`,
+  ].join("\n");
+};
+
 /**
  * @type {import("vite").UserConfig}
  */
@@ -31,9 +38,12 @@ export default {
   },
   define: {
     __APP_VERSION__: JSON.stringify(getVersionString()),
+    __BUILD_INFO__: JSON.stringify(getBuildInfo()),
   },
   plugins: [
+    addBuildInfoPlugin(),
     configureBasePlugin(),
+
     VitePWA({
       devOptions: {
         type: "module",
@@ -108,6 +118,17 @@ function configureBasePlugin() {
       enforce: "pre",
       // eslint-disable-next-line quotes
       transform: html => html.replace('<base href="/" />', `<base href="${base}" />`),
+    },
+  };
+}
+
+function addBuildInfoPlugin() {
+  return {
+    name: "build-info",
+    transformIndexHtml: {
+      enforce: "pre",
+      // eslint-disable-next-line quotes
+      transform: html => html.replace("__BUILD_INFO__", getBuildInfo()),
     },
   };
 }
