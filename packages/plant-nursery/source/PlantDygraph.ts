@@ -224,3 +224,9 @@ export class PlantDygraph extends LitElement {
     return [html`<div class="graph ${this.darkMode ? "dark-theme" : ""}"></div>`];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-dygraph": PlantDygraph;
+  }
+}

@@ -171,3 +171,9 @@ export class PlantDetails extends LitElement {
       ></sl-details>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-details": PlantDetails;
+  }
+}

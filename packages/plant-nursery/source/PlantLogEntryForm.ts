@@ -342,3 +342,9 @@ export class PlantLogEntryForm extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-log-entry-form": PlantLogEntryForm;
+  }
+}

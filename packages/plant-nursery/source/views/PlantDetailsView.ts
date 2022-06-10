@@ -53,3 +53,9 @@ export class PlantDetailsView extends View {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-details-view": PlantDetailsView;
+  }
+}

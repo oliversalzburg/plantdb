@@ -148,3 +148,9 @@ export class DbConfig extends LitElement {
       </sl-select>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-db-config": DbConfig;
+  }
+}

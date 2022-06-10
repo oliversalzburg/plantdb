@@ -95,3 +95,9 @@ export class LogEntryView extends View {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-log-entry-view": LogEntryView;
+  }
+}

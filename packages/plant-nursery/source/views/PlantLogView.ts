@@ -90,3 +90,9 @@ export class PlantLogView extends View {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-log-view": PlantLogView;
+  }
+}

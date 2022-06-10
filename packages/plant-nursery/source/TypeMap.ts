@@ -91,3 +91,9 @@ export class TypeMap extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-type-map": TypeMap;
+  }
+}

@@ -147,3 +147,9 @@ export class PlantIdentificationPicker extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-identification-picker": PlantIdentificationPicker;
+  }
+}

@@ -306,3 +306,9 @@ export class PlantApp extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-app": PlantApp;
+  }
+}

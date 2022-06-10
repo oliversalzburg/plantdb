@@ -191,3 +191,9 @@ export class MultiValueEditor extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-multi-value-editor": MultiValueEditor;
+  }
+}

@@ -541,3 +541,9 @@ export class ImportView extends View {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-import-view": ImportView;
+  }
+}

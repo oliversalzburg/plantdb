@@ -18,3 +18,9 @@ export class EmptyState extends LitElement {
     return [html`<slot></slot>`];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-empty-state": EmptyState;
+  }
+}

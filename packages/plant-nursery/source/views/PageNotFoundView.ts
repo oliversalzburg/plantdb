@@ -30,3 +30,9 @@ export class PageNotFoundView extends View {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-page-not-found-view": PageNotFoundView;
+  }
+}

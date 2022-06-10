@@ -544,3 +544,9 @@ export class PlantPropertiesForm extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-properties-form": PlantPropertiesForm;
+  }
+}

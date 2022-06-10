@@ -158,3 +158,9 @@ export class PlantLog extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-log": PlantLog;
+  }
+}

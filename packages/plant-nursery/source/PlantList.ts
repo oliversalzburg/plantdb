@@ -92,3 +92,9 @@ export class PlantList extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-list": PlantList;
+  }
+}

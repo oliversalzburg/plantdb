@@ -104,3 +104,9 @@ export class PlantPropertiesView extends View {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-properties-view": PlantPropertiesView;
+  }
+}

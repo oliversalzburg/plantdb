@@ -70,3 +70,9 @@ export class ConfirmDialog extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-confirm-dialog": ConfirmDialog;
+  }
+}

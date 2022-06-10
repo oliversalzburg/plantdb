@@ -53,3 +53,9 @@ export class TypeMapView extends View {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-type-map-view": TypeMapView;
+  }
+}

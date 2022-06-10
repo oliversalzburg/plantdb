@@ -37,3 +37,9 @@ export class PlantListView extends View {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-list-view": PlantListView;
+  }
+}

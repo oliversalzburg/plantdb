@@ -146,3 +146,9 @@ export class PlantCard extends LitElement {
     </sl-card>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-card": PlantCard;
+  }
+}

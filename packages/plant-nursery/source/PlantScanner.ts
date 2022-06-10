@@ -198,3 +198,9 @@ export class PlantScanner extends LitElement {
     ];
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-scanner": PlantScanner;
+  }
+}

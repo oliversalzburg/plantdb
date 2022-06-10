@@ -49,3 +49,9 @@ export class PlantgeekInfo extends LitElement {
         >`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plantgeek-info": PlantgeekInfo;
+  }
+}

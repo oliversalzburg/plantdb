@@ -282,3 +282,9 @@ export class PlantLogEntry extends LitElement {
     return output;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pn-plant-log-entry": PlantLogEntry;
+  }
+}
