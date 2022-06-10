@@ -11,7 +11,7 @@ import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, queryAll, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { assertExists, mustExist } from "../Maybe";
+import { assertExists, mustExist } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-import-view")

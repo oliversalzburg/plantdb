@@ -2,8 +2,8 @@ import { Plant } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
-import { assertExists } from "../Maybe";
 import { PlantPropertiesForm } from "../PlantPropertiesForm";
+import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-plant-properties-view")

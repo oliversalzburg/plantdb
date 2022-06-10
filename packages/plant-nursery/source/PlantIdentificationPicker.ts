@@ -5,7 +5,7 @@ import "dygraphs/dist/dygraph.css";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isNil, mustExist } from "./Maybe";
+import { isNil, mustExist } from "./tools/Maybe";
 
 export type PlantNetResult = {
   score: number;

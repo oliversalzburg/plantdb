@@ -5,9 +5,9 @@ import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
 import { Typography } from "./ComponentStyles";
-import { mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi";
+import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-app")
 export class PlantApp extends LitElement {

@@ -2,9 +2,9 @@ import { LogEntry, Plant, PlantDB } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
-import { isNil, mustExist } from "../Maybe";
 import { GoogleDrive } from "../storage/GoogleDrive";
 import { LocalStorage } from "../storage/LocalStorage";
+import { isNil, mustExist } from "../tools/Maybe";
 
 let globalStore: PlantStore | undefined;
 

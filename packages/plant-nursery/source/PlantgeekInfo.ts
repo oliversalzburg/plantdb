@@ -5,7 +5,7 @@ import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isNil } from "./Maybe";
+import { isNil } from "./tools/Maybe";
 
 @customElement("pn-plantgeek-info")
 export class PlantgeekInfo extends LitElement {

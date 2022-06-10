@@ -2,8 +2,8 @@ import { Plant, roundTo } from "@plantdb/libplantdb";
 import Dygraph from "dygraphs";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { mustExist } from "./Maybe";
 import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
+import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-dygraph")
 export class PlantDygraph extends LitElement {

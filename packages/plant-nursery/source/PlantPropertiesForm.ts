@@ -8,7 +8,6 @@ import { t } from "i18next";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { makeIdentificationRequest } from "./identification/Tools";
-import { assertExists, isNil, mustExist } from "./Maybe";
 import { MultiValueEditor } from "./MultiValueEditor";
 import {
   PlantIdentificationPicker,
@@ -18,6 +17,7 @@ import {
 import { PlantScanner } from "./PlantScanner";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { assertExists, isNil, mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-properties-form")
 export class PlantPropertiesForm extends LitElement {

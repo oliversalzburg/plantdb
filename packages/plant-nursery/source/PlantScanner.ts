@@ -2,7 +2,7 @@ import { SlSpinner } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { mustExist } from "./Maybe";
+import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-scanner")
 export class PlantScanner extends LitElement {

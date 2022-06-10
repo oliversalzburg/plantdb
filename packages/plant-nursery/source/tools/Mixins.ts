@@ -6,9 +6,19 @@
 export type AnyFunction = (...args: any[]) => any;
 
 /**
+ * Describes an unknown function.
+ */
+export type UnknownFunction = (...args: unknown[]) => unknown;
+
+/**
  * Any constructor
  */
 export type AnyConstructor = new (...args: any[]) => any;
+
+/**
+ * Unknown constructor
+ */
+export type UnknownConstructor = new (...args: unknown[]) => unknown;
 
 /**
  * Describes a function returning an instance of T.

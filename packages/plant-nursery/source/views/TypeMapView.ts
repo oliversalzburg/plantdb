@@ -2,7 +2,7 @@ import { EventType } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { mustExist } from "../Maybe";
+import { mustExist } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-type-map-view")

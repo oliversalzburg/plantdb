@@ -1,6 +1,6 @@
 import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
-import { isNil, mustExist } from "../Maybe";
-import { prepareAsyncContext } from "../UiTools";
+import { prepareAsyncContext } from "../tools/Async";
+import { isNil, mustExist } from "../tools/Maybe";
 
 export class GoogleDrive {
   private static _googleDriveConnected = false;

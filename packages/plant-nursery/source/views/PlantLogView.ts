@@ -2,7 +2,7 @@ import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { LogEntry } from "packages/libplantdb/typings";
-import { assertExists, isNil, mustExist } from "../Maybe";
+import { assertExists, isNil, mustExist } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-plant-log-view")

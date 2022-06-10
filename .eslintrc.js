@@ -13,6 +13,7 @@ module.exports = {
     babelOptions: {
       plugins: ["@babel/plugin-syntax-import-assertions"],
     },
+    requireConfigFile: false,
     sourceType: "module",
   },
   plugins: ["@typescript-eslint", "jsdoc"],

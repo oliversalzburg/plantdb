@@ -7,9 +7,9 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-details")
 export class PlantDetails extends LitElement {

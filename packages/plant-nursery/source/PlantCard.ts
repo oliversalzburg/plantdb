@@ -6,7 +6,7 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { isNil } from "./Maybe";
+import { isNil } from "./tools/Maybe";
 
 @customElement("pn-plant-card")
 export class PlantCard extends LitElement {

@@ -2,8 +2,8 @@ import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { LogEntry } from "packages/libplantdb/typings";
-import { assertExists } from "../Maybe";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";
+import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-log-entry-view")

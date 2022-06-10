@@ -1,5 +1,5 @@
 import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
-import { isNil } from "../Maybe";
+import { isNil } from "../tools/Maybe";
 
 export class LocalStorage {
   static getRawData() {

@@ -3,9 +3,9 @@ import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { mustExist } from "./Maybe";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
+import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-list")
 export class PlantList extends LitElement {

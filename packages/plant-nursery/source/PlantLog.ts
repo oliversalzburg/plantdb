@@ -4,10 +4,10 @@ import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { mustExist } from "./Maybe";
 import { PlantLogEntry } from "./PlantLogEntry";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-log")
 export class PlantLog extends LitElement {
