@@ -1,0 +1,73 @@
+name: Publish Userscript Nightly
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+
+  # Allows you to run this workflow manually from the Actions tab.
+  workflow_dispatch:
+
+env:
+  NIGHTLY_BUILD: true
+
+jobs:
+  check_date:
+    runs-on: ubuntu-latest
+    name: Check latest commit
+    outputs:
+      should_run: ${{ steps.should_run.outputs.should_run }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: print latest_commit
+        run: echo ${{ github.sha }}
+
+      - id: should_run
+        continue-on-error: true
+        name: check latest commit is less than a day
+        if: ${{ github.event_name == 'schedule' }}
+        run: test -z $(git rev-list  --after="24 hours"  ${{ github.sha }}) && echo "::set-output name=should_run::false"
+
+  nightly:
+    needs: check_date
+    if: ${{ needs.check_date.outputs.should_run != 'false' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Select NodeJS version
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build documentation
+        run: |
+          # Build projects & documentation
+          yarn workspace @plantdb/libplantdb build
+          yarn workspace @plantdb/plant-nursery build --base=/nursery/
+          yarn workspace @plantdb/libplantdb docs
+          yarn docs:build
+
+          # Put nursery and docs on same deployment behind landing-page
+          mkdir /tmp/plant-deploy
+          cp packages/landing-page/index.html /tmp/plant-deploy/
+          cp --recursive packages/documentation/public \
+            /tmp/plant-deploy/docs
+          cp --recursive packages/plant-nursery/output \
+            /tmp/plant-deploy/nursery
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync /tmp/plant-deploy s3://${{ secrets.AWS_S3_BUCKET }} --delete
