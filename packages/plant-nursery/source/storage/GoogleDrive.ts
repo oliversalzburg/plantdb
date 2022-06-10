@@ -1,5 +1,4 @@
 import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
-import { prepareAsyncContext } from "../tools/Async";
 import { isNil, mustExist } from "../tools/Maybe";
 
 export class GoogleDrive {
@@ -112,94 +111,42 @@ export class GoogleDrive {
       "https://www.googleapis.com/auth/drive.appdata",
     ];
 
-    return new Promise<boolean>((resolve, reject) => {
-      let resolved = false;
+    await this._loadGoogleIdentityServices();
+    await this._loadGoogleApi();
 
-      const oneTap = async () => {
-        await this._loadGoogleIdentityServices();
+    await new Promise((resolve, reject) => {
+      gapi.load("client", { callback: resolve, onerror: reject });
+    });
+    await gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+    });
 
-        return new Promise((resolve, reject) => {
-          google.accounts.id.initialize({
-            client_id: CLIENT_ID,
-            callback: function handleCredentialResponse(response) {
-              console.log("Encoded JWT ID token: " + response.credential);
+    await new Promise((resolve, reject) => {
+      if (this._tokenClient) {
+        resolve(true);
+        return;
+      }
 
-              resolve(true);
-            },
-          });
-
-          google.accounts.id.prompt(notification => {
-            if (notification.isNotDisplayed()) {
-              console.info("prompt failed", notification.getNotDisplayedReason());
-              reject(new Error(notification.getNotDisplayedReason()));
-            } else if (notification.isSkippedMoment()) {
-              console.info("prompt skipped");
-              reject(new Error("skipped"));
+      try {
+        this._tokenClient = window.google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES.join(" "),
+          prompt: "consent",
+          callback: response => {
+            if (response.error !== undefined) {
+              reject(response);
             }
-          });
+
+            GoogleDrive._googleDriveConnected = true;
+            resolve(response);
+          },
         });
-      };
 
-      const oauth2 = async () => {
-        if (!this._tokenClient) {
-          this._tokenClient = window.google.accounts.oauth2.initTokenClient({
-            client_id: CLIENT_ID,
-            scope: SCOPES.join(" "),
-            callback: resp => {
-              if (resp.error !== undefined) {
-                throw resp;
-              }
-
-              if (resolved) {
-                // This request has already timed out.
-                return;
-              }
-
-              GoogleDrive._googleDriveConnected = true;
-              resolved = true;
-              resolve(true);
-            },
-          });
-
-          await this._loadGoogleDriveApi();
-          const onClientLoaded = async () => {
-            await gapi.client.init({
-              apiKey: API_KEY,
-              discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-            });
-
-            if (gapi.client.getToken() === null) {
-              // Prompt the user to select a Google Account and ask for consent to share their data
-              // when establishing a new session.
-              mustExist(this._tokenClient).requestAccessToken({ prompt: "consent" });
-            } else {
-              // Skip display of account chooser and consent dialog for an existing session.
-              mustExist(this._tokenClient).requestAccessToken({ prompt: "" });
-            }
-          };
-          gapi.load("client", prepareAsyncContext(onClientLoaded));
-        } else {
-          resolved = true;
-          resolve(true);
-        }
-      };
-
-      const init = async () => {
-        try {
-          await oneTap();
-        } catch (error) {
-          return oauth2();
-        }
-      };
-
-      init().catch(reject);
-
-      setTimeout(() => {
-        if (!resolved) {
-          resolved = true;
-          reject(new Error("Authentication timed out."));
-        }
-      }, 30000);
+        this._tokenClient.requestAccessToken();
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
@@ -221,7 +168,7 @@ export class GoogleDrive {
     });
   }
   private static _scriptGoogleDriveApi: HTMLScriptElement | undefined;
-  private async _loadGoogleDriveApi() {
+  private async _loadGoogleApi() {
     return new Promise(resolve => {
       if (GoogleDrive._scriptGoogleDriveApi) {
         resolve(window.gapi);
