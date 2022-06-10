@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@plantdb/plant-nursery",
+  "version": "0.1.0-dev",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "type": "module",

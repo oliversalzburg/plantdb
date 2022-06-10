@@ -44,7 +44,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.11.1":
+"@babel/core@npm:7.18.2, @babel/core@npm:^7.11.1":
   version: 7.18.2
   resolution: "@babel/core@npm:7.18.2"
   dependencies:
@@ -64,6 +64,20 @@ __metadata:
     json5: ^2.2.1
     semver: ^6.3.0
   checksum: f6c74b7376cce1d490271c77d1dd5c8e03e7b528b1f3ea8a9ad23946c72fa807e1710290806e9175ab8f3166bb14fdcbfe31f256954feb03482e88444b2a9ea6
+  languageName: node
+  linkType: hard
+
+"@babel/eslint-parser@npm:7.18.2":
+  version: 7.18.2
+  resolution: "@babel/eslint-parser@npm:7.18.2"
+  dependencies:
+    eslint-scope: ^5.1.1
+    eslint-visitor-keys: ^2.1.0
+    semver: ^6.3.0
+  peerDependencies:
+    "@babel/core": ">=7.11.0"
+    eslint: ^7.5.0 || ^8.0.0
+  checksum: 34558346c7d9f2c024161cfa0efc614e98c940c8185ae06367bff5eba5802d5cd342104838f1b6a75bcf6a7695409f0c9050b86fbbb6aa133db7377c44bb2ef6
   languageName: node
   linkType: hard
 
@@ -342,7 +356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.16.7, @babel/parser@npm:^7.18.0":
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.16.7, @babel/parser@npm:^7.18.0":
   version: 7.18.4
   resolution: "@babel/parser@npm:7.18.4"
   bin:
@@ -618,7 +632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-import-assertions@npm:^7.17.12":
+"@babel/plugin-syntax-import-assertions@npm:7.17.12, @babel/plugin-syntax-import-assertions@npm:^7.17.12":
   version: 7.17.12
   resolution: "@babel/plugin-syntax-import-assertions@npm:7.17.12"
   dependencies:
@@ -1265,7 +1279,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.16.0, @babel/types@npm:^7.16.7, @babel/types@npm:^7.16.8, @babel/types@npm:^7.17.0, @babel/types@npm:^7.18.0, @babel/types@npm:^7.18.2, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.16.0, @babel/types@npm:^7.16.7, @babel/types@npm:^7.16.8, @babel/types@npm:^7.17.0, @babel/types@npm:^7.18.0, @babel/types@npm:^7.18.2, @babel/types@npm:^7.3.0, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
   version: 7.18.4
   resolution: "@babel/types@npm:7.18.4"
   dependencies:
@@ -2189,6 +2203,47 @@ __metadata:
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
   checksum: 073bfa548026b1ebaf1659eb8961e526be22fa77139b10d60e712f46d2f0f05f4e6c8bec62a087d41088ee9e29faa7f54838568e475ab2f776171003c3920858
+  languageName: node
+  linkType: hard
+
+"@types/babel__core@npm:^7":
+  version: 7.1.19
+  resolution: "@types/babel__core@npm:7.1.19"
+  dependencies:
+    "@babel/parser": ^7.1.0
+    "@babel/types": ^7.0.0
+    "@types/babel__generator": "*"
+    "@types/babel__template": "*"
+    "@types/babel__traverse": "*"
+  checksum: d07442fee0a1331405c80efc06dd74fe815fc9ac1351de54c4eaf06fea9e516992a6f6a139361d78df5828b0a94977f33c977d9391b09949b959fd20d80f48d8
+  languageName: node
+  linkType: hard
+
+"@types/babel__generator@npm:*":
+  version: 7.6.4
+  resolution: "@types/babel__generator@npm:7.6.4"
+  dependencies:
+    "@babel/types": ^7.0.0
+  checksum: e0051b450e4ba2df0a7e386f08df902a4e920f6f8d6f185d69ddbe9b0e2e2d3ae434bb51e437bc0fca2a9a0f5dc4ca44d3a1941ef75e74371e8be5bf64416fe4
+  languageName: node
+  linkType: hard
+
+"@types/babel__template@npm:*":
+  version: 7.4.1
+  resolution: "@types/babel__template@npm:7.4.1"
+  dependencies:
+    "@babel/parser": ^7.1.0
+    "@babel/types": ^7.0.0
+  checksum: 6f180e96c39765487f27e861d43eebed341ec7a2fc06cdf5a52c22872fae67f474ca165d149c708f4fd9d5482beb66c0a92f77411b234bb30262ed2303e50b1a
+  languageName: node
+  linkType: hard
+
+"@types/babel__traverse@npm:*":
+  version: 7.17.1
+  resolution: "@types/babel__traverse@npm:7.17.1"
+  dependencies:
+    "@babel/types": ^7.3.0
+  checksum: 2ec77e5307473c1accc1cb7fe65332fe4c873374cde16ffdc631951372be9fdffbb9fe9d7251efdff52ae4f73634f4bff80d808cb90513abbeb61945c02e1866
   languageName: node
   linkType: hard
 
@@ -4480,7 +4535,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^2.0.0":
+"eslint-visitor-keys@npm:^2.0.0, eslint-visitor-keys@npm:^2.1.0":
   version: 2.1.0
   resolution: "eslint-visitor-keys@npm:2.1.0"
   checksum: 9f0e3a2db751d84067d15977ac4b4472efd6b303e369e6ff241a99feac04da758f46d5add022c33d06b53596038dbae4b4aceb27c7e68b8dfc1055b35e495787
@@ -7073,7 +7128,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "plantdb@workspace:."
   dependencies:
+    "@babel/core": 7.18.2
+    "@babel/eslint-parser": 7.18.2
+    "@babel/plugin-syntax-import-assertions": 7.17.12
     "@bubblewrap/cli": 1.17.2
+    "@types/babel__core": ^7
     "@types/eslint": 8.4.3
     "@types/web": 0.0.68
     "@typescript-eslint/eslint-plugin": 5.27.1

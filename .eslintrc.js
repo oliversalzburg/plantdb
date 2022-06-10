@@ -1,11 +1,20 @@
 module.exports = {
   root: true,
+  extends: ["eslint:recommended"],
+
   env: {
     node: true,
     es2022: true,
   },
-  parserOptions: { sourceType: "module" },
-  extends: ["eslint:recommended"],
+  // We need to use the Babel parser to allow import assertions,
+  // which vite *requires* to import JSON files. Yeah...
+  parser: "@babel/eslint-parser",
+  parserOptions: {
+    babelOptions: {
+      plugins: ["@babel/plugin-syntax-import-assertions"],
+    },
+    sourceType: "module",
+  },
   plugins: ["@typescript-eslint", "jsdoc"],
   overrides: [
     {

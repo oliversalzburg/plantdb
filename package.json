@@ -17,7 +17,11 @@
     "typedoc-plugin-markdown@3.12.1": "patch:typedoc-plugin-markdown@npm:3.12.1#.yarn/patches/typedoc-plugin-markdown-npm-3.12.1-73b5590d78.patch"
   },
   "devDependencies": {
+    "@babel/core": "7.18.2",
+    "@babel/eslint-parser": "7.18.2",
+    "@babel/plugin-syntax-import-assertions": "7.17.12",
     "@bubblewrap/cli": "1.17.2",
+    "@types/babel__core": "^7",
     "@types/eslint": "8.4.3",
     "@types/web": "0.0.68",
     "@typescript-eslint/eslint-plugin": "5.27.1",

@@ -46,6 +46,19 @@ export class PlantApp extends LitElement {
       .view[active] {
         display: flex;
       }
+
+      .footer-elements {
+        display: flex;
+        align-items: center;
+      }
+
+      .app-version {
+        color: var(--sl-color-neutral-500);
+      }
+
+      .stretch {
+        flex: 1;
+      }
     `,
   ];
 
@@ -132,7 +145,7 @@ export class PlantApp extends LitElement {
       this._plantStoreUi.i18nReady
         ? html`<div id="view-controls">
               <sl-drawer
-                label="${t("app.title")}"
+                label=${t("app.title")}
                 placement="start"
                 class="drawer-placement-start"
                 ?open=${this._plantStoreUi.drawerIsOpen}
@@ -152,14 +165,18 @@ export class PlantApp extends LitElement {
                 <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/import")}
                   >${t("menu.import")}</sl-menu-item
                 >
-                <sl-button
-                  slot="footer"
-                  variant="primary"
-                  @click=${() => {
-                    mustExist(this._plantStoreUi).drawerClose();
-                  }}
-                  >${t("menu.close")}</sl-button
-                >
+                <div class="footer-elements" slot="footer">
+                  <small class="app-version">${__APP_VERSION__}</small>
+                  <span class="stretch"></span>
+                  <sl-button
+                    slot="footer"
+                    variant="primary"
+                    @click=${() => {
+                      mustExist(this._plantStoreUi).drawerClose();
+                    }}
+                    >${t("menu.close")}</sl-button
+                  >
+                </div>
               </sl-drawer>
               <sl-icon-button
                 name="list"

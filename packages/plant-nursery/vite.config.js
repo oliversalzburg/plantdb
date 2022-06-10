@@ -1,5 +1,6 @@
 import { VitePWA } from "vite-plugin-pwa";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import manifest from "./package.json" assert { type: "json" };
 
 let base = "/";
 
@@ -11,6 +12,9 @@ export default {
   build: {
     manifest: true,
     outDir: "output",
+  },
+  define: {
+    __APP_VERSION__: JSON.stringify(manifest.version ?? "<unknown version>"),
   },
   plugins: [
     configureBasePlugin(),
