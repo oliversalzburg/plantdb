@@ -71,4 +71,4 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          aws s3 sync /tmp/plant-deploy s3://${{ secrets.AWS_S3_BUCKET }} --delete
+          aws s3 sync /tmp/plant-deploy s3://${{ secrets.AWS_S3_BUCKET }}
