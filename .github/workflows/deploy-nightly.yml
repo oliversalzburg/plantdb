@@ -7,10 +7,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
 
-permissions:
-  contents: read
-  id-token: write
-
 env:
   NIGHTLY_BUILD: true
 
@@ -36,7 +32,8 @@ jobs:
     if: ${{ needs.check_date.outputs.should_run != 'false' }}
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout
