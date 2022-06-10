@@ -4,6 +4,22 @@ import manifest from "./package.json" assert { type: "json" };
 
 let base = "/";
 
+const getDateString = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  return `${year}${month}${day}`;
+};
+
+const getVersionString = () => {
+  return [
+    manifest.version ?? "<unknown version>",
+    process.env.NIGHTLY_BUILD ? `-${getDateString()}` : "",
+    process.env.GITHUB_SHA ? `-${String(process.env.GITHUB_SHA).substring(0, 7)}` : "",
+  ].join(" ");
+};
+
 /**
  * @type {import("vite").UserConfig}
  */
@@ -14,7 +30,7 @@ export default {
     outDir: "output",
   },
   define: {
-    __APP_VERSION__: JSON.stringify(manifest.version ?? "<unknown version>"),
+    __APP_VERSION__: JSON.stringify(getVersionString()),
   },
   plugins: [
     configureBasePlugin(),
