@@ -100,6 +100,8 @@ export class ImportView extends View {
   private _googleDriveActions: Array<HTMLDivElement> | null | undefined;
   @queryAll(".google-drive-busy")
   private _googleDriveBusy: Array<HTMLDivElement> | null | undefined;
+  @queryAll(".g_id_signin")
+  private _googleIdSignin: Array<HTMLDivElement> | null | undefined;
 
   @property()
   config = new DatabaseFormat();
@@ -243,7 +245,7 @@ export class ImportView extends View {
     mustExist(this._googleDriveBusy).forEach(target => (target.style.display = ""));
 
     try {
-      await this.plantStore?.googleDriveConnect();
+      await this.plantStore?.googleDriveConnect(this, this._googleIdSignin);
 
       this._googleDriveConnected = true;
       this.plantStoreUi?.alert(t("import.googleDriveConnected")).catch(console.error);
@@ -364,6 +366,16 @@ export class ImportView extends View {
 
               <sl-tab-panel name="google-drive"
                 ><div class="google-drive">
+                  <div
+                    class="g_id_signin"
+                    data-type="standard"
+                    data-shape="rectangular"
+                    data-theme="filled_blue"
+                    data-text="continue_with"
+                    data-size="large"
+                    data-logo_alignment="left"
+                  ></div>
+
                   <div class="google-drive-busy">
                     <sl-spinner></sl-spinner> ${t("import.googleDriveBusy")}
                     <sl-button size="small" @click=${() => this._cancelGoogleDrive()}

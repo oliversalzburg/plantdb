@@ -1,5 +1,4 @@
 import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
-import { prepareAsyncContext } from "../tools/Async";
 import { isNil, mustExist } from "../tools/Maybe";
 
 export class GoogleDrive {
@@ -9,8 +8,12 @@ export class GoogleDrive {
     return GoogleDrive._googleDriveConnected;
   }
 
-  async connect() {
-    return this._connectGoogleDrive();
+  async prepare(domTarget: HTMLElement, connectButtons?: Array<HTMLDivElement>) {
+    return this._connectGoogleDrive(domTarget, connectButtons);
+  }
+
+  async connect(googleIdButtons?: Array<HTMLDivElement>) {
+    return this._connectGoogleDrive(googleIdButtons);
   }
 
   async lastModified() {
@@ -98,7 +101,7 @@ export class GoogleDrive {
   }
 
   private _tokenClient: google.accounts.oauth2.TokenClient | undefined;
-  private async _connectGoogleDrive() {
+  private async _connectGoogleDrive(domTarget: HTMLElement, buttonTargets?: Array<HTMLDivElement>) {
     if (GoogleDrive._googleDriveConnected) {
       return;
     }
@@ -117,7 +120,25 @@ export class GoogleDrive {
 
       const init = async () => {
         if (!this._tokenClient) {
-          await this._loadGoogleAuthApi();
+          await this._loadGoogleAuthApi(domTarget);
+
+          google.accounts.id.initialize({
+            client_id: CLIENT_ID,
+            callback: function handleCredentialResponse(response) {
+              console.log("Encoded JWT ID token: " + response.credential);
+            },
+          });
+
+          if (buttonTargets) {
+            for (const button of buttonTargets) {
+              google.accounts.id.renderButton(
+                button,
+                { theme: "outline", size: "large" } // customization attributes
+              );
+            }
+          }
+          google.accounts.id.prompt();
+          /*
           this._tokenClient = window.google.accounts.oauth2.initTokenClient({
             client_id: CLIENT_ID,
             scope: SCOPES.join(" "),
@@ -154,6 +175,7 @@ export class GoogleDrive {
             }
           };
           gapi.load("client", prepareAsyncContext(onClientLoaded));
+          */
         } else {
           resolved = true;
           resolve(true);
@@ -172,7 +194,7 @@ export class GoogleDrive {
   }
 
   private static _scriptGoogleAuthApi: HTMLScriptElement | undefined;
-  private async _loadGoogleAuthApi() {
+  private async _loadGoogleAuthApi(domTarget: HTMLElement = document.body) {
     return new Promise(resolve => {
       if (GoogleDrive._scriptGoogleAuthApi) {
         resolve(null);
@@ -185,7 +207,7 @@ export class GoogleDrive {
         src: "https://accounts.google.com/gsi/client",
         onload: () => resolve(null),
       });
-      document.body.appendChild(GoogleDrive._scriptGoogleAuthApi);
+      domTarget.appendChild(GoogleDrive._scriptGoogleAuthApi);
     });
   }
   private static _scriptGoogleDriveApi: HTMLScriptElement | undefined;

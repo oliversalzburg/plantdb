@@ -45,8 +45,8 @@ export class PlantStore extends LitElement {
     this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
   }
 
-  async googleDriveConnect() {
-    return this.googleDrive.connect();
+  async googleDriveConnect(googleIdButtons?: Array<HTMLDivElement>) {
+    return this.googleDrive.connect(googleIdButtons);
   }
   async googleDrivePull() {
     const plantDb = await this.googleDrive.retrievePlantDb();
