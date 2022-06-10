@@ -146,6 +146,7 @@ export class DbConfig extends LitElement {
             );
           }}
         >
+          <sl-menu-item value="Asia/Jerusalem">Asia/Jerusalem</sl-menu-item>
           <sl-menu-item value="Europe/Berlin">Europe/Berlin</sl-menu-item>
           <sl-menu-item value="utc">UTC</sl-menu-item>
         </sl-select>`,
