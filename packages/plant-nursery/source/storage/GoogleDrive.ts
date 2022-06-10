@@ -118,21 +118,28 @@ export class GoogleDrive {
       const oneTap = async () => {
         await this._loadGoogleIdentityServices();
 
-        google.accounts.id.initialize({
-          client_id: CLIENT_ID,
-          callback: function handleCredentialResponse(response) {
-            console.log("Encoded JWT ID token: " + response.credential);
-          },
-        });
+        return new Promise((resolve, reject) => {
+          google.accounts.id.initialize({
+            client_id: CLIENT_ID,
+            callback: function handleCredentialResponse(response) {
+              console.log("Encoded JWT ID token: " + response.credential);
 
-        google.accounts.id.prompt(notification => {
-          if (notification.isNotDisplayed()) {
-            console.info("prompt failed", notification.getNotDisplayedReason());
-          } else if (notification.isSkippedMoment()) {
-            console.info("prompt skipped");
-          }
+              resolve(true);
+            },
+          });
+
+          google.accounts.id.prompt(notification => {
+            if (notification.isNotDisplayed()) {
+              console.info("prompt failed", notification.getNotDisplayedReason());
+              reject(new Error(notification.getNotDisplayedReason()));
+            } else if (notification.isSkippedMoment()) {
+              console.info("prompt skipped");
+              reject(new Error("skipped"));
+            }
+          });
         });
       };
+
       const oauth2 = async () => {
         if (!this._tokenClient) {
           this._tokenClient = window.google.accounts.oauth2.initTokenClient({
@@ -178,8 +185,11 @@ export class GoogleDrive {
       };
 
       const init = async () => {
-        await oneTap();
-        return oauth2();
+        try {
+          await oneTap();
+        } catch (error) {
+          return oauth2();
+        }
       };
 
       init().catch(reject);
