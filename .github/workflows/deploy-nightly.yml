@@ -1,4 +1,4 @@
-name: Publish Userscript Nightly
+name: Deploy to S3 Nightly
 
 on:
   schedule:
