@@ -292,7 +292,9 @@ export class ImportView extends View {
       this.plantStoreUi?.alert(t("import.googleDriveImported")).catch(console.error);
       this.requestUpdate();
     } catch (error) {
-      this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
+      this.plantStoreUi
+        ?.alert(unknownToError(error).message, "danger", "x-circle")
+        .catch(console.error);
     } finally {
       mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
       mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
@@ -317,7 +319,9 @@ export class ImportView extends View {
       this.plantStoreUi?.alert(t("import.googleDriveSynchronized")).catch(console.error);
       this.requestUpdate();
     } catch (error) {
-      this.plantStoreUi?.alert((error as Error).message, "danger", "x-circle").catch(console.error);
+      this.plantStoreUi
+        ?.alert(unknownToError(error).message, "danger", "x-circle")
+        .catch(console.error);
     } finally {
       mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
       mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
