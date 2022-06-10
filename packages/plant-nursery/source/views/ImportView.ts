@@ -265,6 +265,7 @@ export class ImportView extends View {
         }`;
       }
     } catch (error) {
+      console.error(error);
       this.plantStoreUi
         ?.alert(unknownToError(error).message, "danger", "x-circle")
         .catch(console.error);
