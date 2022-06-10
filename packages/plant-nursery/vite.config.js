@@ -14,7 +14,7 @@ const getDateString = () => {
 
 const getVersionString = () => {
   return [
-    manifest.version ?? "<unknown version>",
+    manifest.version ?? "<version not manifested>",
     process.env.NIGHTLY_BUILD ? `-${getDateString()}` : "",
     process.env.GITHUB_SHA ? `-${String(process.env.GITHUB_SHA).substring(0, 7)}` : "",
   ].join("");
