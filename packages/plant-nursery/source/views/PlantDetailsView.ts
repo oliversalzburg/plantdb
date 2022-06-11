@@ -2,6 +2,7 @@ import { Plant } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-plant-details-view")
@@ -25,6 +26,12 @@ export class PlantDetailsView extends View {
         }
       }
 
+      .footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+      }
+
       .empty {
         flex: 1;
       }
@@ -34,15 +41,35 @@ export class PlantDetailsView extends View {
   @property()
   plant: Plant | undefined;
 
+  async createNewLogEntry() {
+    assertExists(this.plant);
+    assertExists(this.plantStore);
+    assertExists(this.plantStoreUi);
+
+    const logEntry = await this.plantStoreUi.showEntryEditor();
+    if (!logEntry) {
+      return;
+    }
+
+    console.debug(logEntry);
+    const newDb = this.plantStore.plantDb.withNewLogEntry(logEntry);
+    this.plantStore.updatePlantDb(newDb);
+  }
+
   render() {
     return [
       this.plant
         ? html`<pn-plant-details
-            id="details"
-            .plantStore=${this.plantStore}
-            .plantStoreUi=${this.plantStoreUi}
-            .plant=${this.plant}
-          ></pn-plant-details>`
+              id="details"
+              .plantStore=${this.plantStore}
+              .plantStoreUi=${this.plantStoreUi}
+              .plant=${this.plant}
+            ></pn-plant-details>
+            <section class="footer">
+              <sl-button variant="primary" @click=${() => this.createNewLogEntry()}
+                >${t("log.add")}</sl-button
+              >
+            </section>`
         : html`<pn-empty-state class="empty"
             ><p>${t("empty.plant")}</p>
 
