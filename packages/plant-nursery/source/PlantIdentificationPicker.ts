@@ -54,6 +54,11 @@ export type PlantNetResponse = {
   version: string;
   remainingIdentificationRequests: number;
 };
+export type PlantNetErrorResponse = {
+  statusCode: number;
+  error: string;
+  message: string;
+};
 
 @customElement("pn-plant-identification-picker")
 export class PlantIdentificationPicker extends LitElement {
@@ -94,7 +99,7 @@ export class PlantIdentificationPicker extends LitElement {
   response: PlantNetResponse | undefined;
 
   render() {
-    if (isNil(this.response)) {
+    if (isNil(this.response) || !Array.isArray(this.response.results)) {
       return;
     }
 

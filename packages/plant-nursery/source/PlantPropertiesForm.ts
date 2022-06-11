@@ -12,6 +12,7 @@ import { makeIdentificationRequest } from "./identification/Tools";
 import { MultiValueEditor } from "./MultiValueEditor";
 import {
   PlantIdentificationPicker,
+  PlantNetErrorResponse,
   PlantNetResponse,
   PlantNetResult,
 } from "./PlantIdentificationPicker";
@@ -262,7 +263,7 @@ export class PlantPropertiesForm extends LitElement {
 
   private _scanPlant() {
     this._scanning = true;
-    mustExist(this._scanner).start();
+    mustExist(this._scanner).start().catch(console.error);
     this.dispatchEvent(new CustomEvent("pn-scanning"));
   }
 
@@ -284,7 +285,13 @@ export class PlantPropertiesForm extends LitElement {
       dataUrl,
       mustExist(this.plantStoreUi).locale.slice(0, 2)
     );
-    const json = (await response.json()) as PlantNetResponse;
+    const json = (await response.json()) as PlantNetResponse | PlantNetErrorResponse;
+    if ("error" in json) {
+      this.plantStoreUi?.alert(json.message, "danger", "x-circle").catch(console.error);
+      this._picking = false;
+      return;
+    }
+
     this._identificationResponse = json;
     console.debug(json);
     console.debug(JSON.stringify(json));
