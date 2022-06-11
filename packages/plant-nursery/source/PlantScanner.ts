@@ -9,6 +9,10 @@ export class PlantScanner extends LitElement {
   static readonly styles = [
     css`
       :host {
+        display: block;
+      }
+
+      .scanner {
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -25,7 +29,6 @@ export class PlantScanner extends LitElement {
         display: flex;
         gap: 1rem;
         justify-content: center;
-        margin-top: 1rem;
       }
 
       #canvas,

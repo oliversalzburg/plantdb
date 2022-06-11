@@ -26,7 +26,10 @@ export class PlantPropertiesForm extends LitElement {
   static readonly styles = [
     css`
       :host {
-        flex: 1;
+        display: inline-block;
+      }
+
+      .properties {
         display: flex;
         flex-direction: column;
       }
