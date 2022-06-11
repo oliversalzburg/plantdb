@@ -42,6 +42,17 @@ export class PlantScanner extends LitElement {
         display: block;
       }
 
+      .scanner.scanner--scanning #canvas,
+      .scanner.scanner--scanning #pick-image,
+      .scanner.scanner--scanning #retry {
+        display: none;
+      }
+      .scanner.scanner--scanning #abort,
+      .scanner.scanner--scanning #click-photo,
+      .scanner.scanner--scanning #video {
+        display: block;
+      }
+
       .scanner.scanner--image-available #canvas,
       .scanner.scanner--image-available #pick-image,
       .scanner.scanner--image-available #retry {
@@ -68,6 +79,8 @@ export class PlantScanner extends LitElement {
 
   @state()
   private _busy = false;
+  @state()
+  private _scanning = false;
   @state()
   private _imageAvailable = false;
 
@@ -100,6 +113,7 @@ export class PlantScanner extends LitElement {
     canvas.height = video.clientHeight;
 
     this._busy = false;
+    this._scanning = true;
   }
 
   private async _getMediaStream(
@@ -133,6 +147,8 @@ export class PlantScanner extends LitElement {
   private _capture() {
     const canvas = mustExist(this._canvas);
     const video = mustExist(this._video);
+
+    this._scanning = false;
 
     canvas.width = video.clientWidth;
     canvas.height = video.clientHeight;
@@ -176,6 +192,7 @@ export class PlantScanner extends LitElement {
         class=${classMap({
           scanner: true,
           "scanner--busy": this._busy,
+          "scanner--scanning": this._scanning,
           "scanner--image-available": this._imageAvailable,
         })}>
         <div class="top">
