@@ -9,7 +9,8 @@ import {
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { t } from "i18next";
 import { css, html } from "lit";
-import { customElement, property, queryAll, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { DateTime } from "luxon";
 import { unknownToError } from "../tools/ErrorSerializer";
 import { assertExists, mustExist } from "../tools/Maybe";
@@ -64,11 +65,22 @@ export class ImportView extends View {
         flex-direction: column;
         gap: 1rem;
       }
+
       .google-drive-actions {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 1rem;
+      }
+      .google-drive-busy {
+        display: none;
+      }
+
+      .import.import--google-busy .google-drive-busy {
+        display: unset;
+      }
+      .import.import--google-busy .google-drive-actions {
+        display: none;
       }
 
       .help-text {
@@ -89,6 +101,8 @@ export class ImportView extends View {
   private _logAnalysis = "";
 
   @state()
+  private _googleDriveBusy = false;
+  @state()
   private _googleDriveConnected = false;
   @state()
   private _googleDriveHasDb = false;
@@ -96,12 +110,6 @@ export class ImportView extends View {
   private _googleDriveDbLastModified: Date | null | undefined = null;
   @state()
   private _googleDriveHelpText = "";
-  @queryAll(".google-drive-actions")
-  private _googleDriveActions: Array<HTMLDivElement> | null | undefined;
-  @queryAll(".google-drive-busy")
-  private _googleDriveBusy: Array<HTMLDivElement> | null | undefined;
-  @queryAll(".g_id_signin")
-  private _googleIdSignin: Array<HTMLDivElement> | null | undefined;
 
   @property()
   config = new DatabaseFormat();
@@ -111,8 +119,6 @@ export class ImportView extends View {
     if (storedConfig) {
       this.config = DatabaseFormat.fromJSON(storedConfig);
     }
-
-    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
   }
 
   private _checkInputData() {
@@ -241,8 +247,7 @@ export class ImportView extends View {
   }
 
   private async _connectGoogleDrive() {
-    mustExist(this._googleDriveActions).forEach(target => (target.style.display = "none"));
-    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = ""));
+    this._googleDriveBusy = true;
 
     try {
       await this.plantStore?.googleDriveConnect();
@@ -272,8 +277,7 @@ export class ImportView extends View {
         ?.alert(unknownToError(error).message, "danger", "x-circle")
         .catch(console.error);
     } finally {
-      mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
-      mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
+      this._googleDriveBusy = false;
     }
   }
 
@@ -282,8 +286,7 @@ export class ImportView extends View {
       return;
     }
 
-    mustExist(this._googleDriveActions).forEach(target => (target.style.display = "none"));
-    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = ""));
+    this._googleDriveBusy = true;
 
     try {
       this._googleDriveHelpText = "";
@@ -299,8 +302,7 @@ export class ImportView extends View {
         ?.alert(unknownToError(error).message, "danger", "x-circle")
         .catch(console.error);
     } finally {
-      mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
-      mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
+      this._googleDriveBusy = false;
     }
   }
 
@@ -309,8 +311,7 @@ export class ImportView extends View {
       return;
     }
 
-    mustExist(this._googleDriveActions).forEach(target => (target.style.display = "none"));
-    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = ""));
+    this._googleDriveBusy = true;
 
     try {
       this._googleDriveHelpText = "";
@@ -326,14 +327,12 @@ export class ImportView extends View {
         ?.alert(unknownToError(error).message, "danger", "x-circle")
         .catch(console.error);
     } finally {
-      mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
-      mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
+      this._googleDriveBusy = false;
     }
   }
 
   private _cancelGoogleDrive() {
-    mustExist(this._googleDriveActions).forEach(target => (target.style.display = ""));
-    mustExist(this._googleDriveBusy).forEach(target => (target.style.display = "none"));
+    this._googleDriveBusy = false;
   }
 
   render() {
@@ -342,7 +341,14 @@ export class ImportView extends View {
     }
 
     return [
-      html`<div id="import">
+      html`<div
+        part="base"
+        id="import"
+        class=${classMap({
+          import: true,
+          "import--google-busy": this._googleDriveBusy,
+        })}
+      >
         <sl-details summary=${t("dbConfig.title")}>
           <pn-db-config
             .plantData=${this.plantData}

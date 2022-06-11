@@ -1915,6 +1915,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lit-labs/context@npm:0.1.1":
+  version: 0.1.1
+  resolution: "@lit-labs/context@npm:0.1.1"
+  dependencies:
+    "@lit/reactive-element": ^1.0.0
+    lit: ^2.0.0
+  checksum: ad028e83c3be0002828e95c56b5519d8fcd6d95f753de8e2cb6a64a0fd5e2c82b9e73c4d45b8db6362724ee9a25dd012c53572bd0f355eb3a4627575cff0c37d
+  languageName: node
+  linkType: hard
+
 "@lit-labs/react@npm:^1.0.4":
   version: 1.0.4
   resolution: "@lit-labs/react@npm:1.0.4"
@@ -1922,7 +1932,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit/reactive-element@npm:^1.3.0":
+"@lit/reactive-element@npm:^1.0.0, @lit/reactive-element@npm:^1.3.0":
   version: 1.3.2
   resolution: "@lit/reactive-element@npm:1.3.2"
   checksum: b273ae2d2a0605cc492956d66414f724a88cb8f866f24c2ae145b9f3c37b71b9b7953c32e53c1a3fb61149383ea0ce6233ff10223c126a9d2db7b236796d3b6f
@@ -2066,6 +2076,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@plantdb/plant-nursery@workspace:packages/plant-nursery"
   dependencies:
+    "@lit-labs/context": 0.1.1
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.75
     "@types/dygraphs": 2.1.4
@@ -6165,7 +6176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:2.2.5, lit@npm:^2.2.5":
+"lit@npm:2.2.5, lit@npm:^2.0.0, lit@npm:^2.2.5":
   version: 2.2.5
   resolution: "lit@npm:2.2.5"
   dependencies:
