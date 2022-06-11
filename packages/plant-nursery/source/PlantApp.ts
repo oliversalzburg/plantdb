@@ -121,7 +121,7 @@ export class PlantApp extends LitElement {
         document.title = `${pageParams[0]} - PlantDB Nursery`;
         break;
       case "plant-properties":
-        document.title = `${pageParams[0]} Properties - PlantDB Nursery`;
+        document.title = `${pageParams[0]} ${t("menu.properties")} - PlantDB Nursery`;
         break;
       case "types":
         document.title = `${t("menu.typeMap")} - PlantDB Nursery`;
