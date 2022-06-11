@@ -1,7 +1,7 @@
-import { SlSpinner } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-scanner")
@@ -27,8 +27,29 @@ export class PlantScanner extends LitElement {
         justify-content: center;
       }
 
+      #canvas,
+      #pick-image,
+      #retry {
+        display: none;
+      }
       #spinner {
+        display: none;
         position: absolute;
+      }
+
+      .scanner.scanner--busy #spinner {
+        display: block;
+      }
+
+      .scanner.scanner--image-available #canvas,
+      .scanner.scanner--image-available #pick-image,
+      .scanner.scanner--image-available #retry {
+        display: block;
+      }
+      .scanner.scanner--image-available #abort,
+      .scanner.scanner--image-available #click-photo,
+      .scanner.scanner--image-available #video {
+        display: none;
       }
 
       #video {
@@ -37,23 +58,15 @@ export class PlantScanner extends LitElement {
     `,
   ];
 
-  @query("#spinner")
-  private _spinner: SlSpinner | null | undefined;
   @query("#video")
   private _video: HTMLVideoElement | null | undefined;
   @query("#canvas")
   private _canvas: HTMLCanvasElement | null | undefined;
-  @query("#pick-image")
-  private _pickImageButton: HTMLButtonElement | null | undefined;
-  @query("#click-photo")
-  private _clickPhotoButton: HTMLButtonElement | null | undefined;
-  @query("#retry")
-  private _retryButton: HTMLButtonElement | null | undefined;
-  @query("#abort")
-  private _abortButton: HTMLButtonElement | null | undefined;
 
   private _mediaStream: MediaStream | null = null;
 
+  @state()
+  private _busy = false;
   @state()
   private _imageAvailable = false;
 
@@ -66,34 +79,26 @@ export class PlantScanner extends LitElement {
     this._mediaStream?.getTracks().forEach(track => track.stop());
   }
 
-  start() {
+  async start() {
     const canvas = mustExist(this._canvas);
     const video = mustExist(this._video);
 
-    mustExist(this._clickPhotoButton).style.display = "";
-    mustExist(this._abortButton).style.display = "";
-    mustExist(this._pickImageButton).style.display = "none";
-    mustExist(this._retryButton).style.display = "none";
+    this._busy = true;
 
-    canvas.style.display = "none";
-    video.style.display = "unset";
+    const mediaStream = await this._getMediaStream();
+    this._mediaStream = mediaStream;
 
-    this._getMediaStream()
-      .then(mediaStream => {
-        mustExist(this._spinner).style.display = "none";
-        this._mediaStream = mediaStream;
-        video.srcObject = mediaStream;
-        video.onloadedmetadata = () => {
-          video
-            .play()
-            .then(() => {
-              canvas.width = video.clientWidth;
-              canvas.height = video.clientHeight;
-            })
-            .catch(console.error);
-        };
-      })
-      .catch(console.error);
+    video.srcObject = mediaStream;
+    await new Promise((resolve, reject) => {
+      video.onloadedmetadata = resolve;
+      video.onerror = reject;
+    });
+    await video.play();
+
+    canvas.width = video.clientWidth;
+    canvas.height = video.clientHeight;
+
+    this._busy = false;
   }
 
   private async _getMediaStream(
@@ -135,27 +140,12 @@ export class PlantScanner extends LitElement {
 
     canvas.getContext("2d")?.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    canvas.style.display = "";
-    video.style.display = "none";
-    mustExist(this._clickPhotoButton).style.display = "none";
-    mustExist(this._abortButton).style.display = "none";
-    mustExist(this._pickImageButton).style.display = "";
-    mustExist(this._retryButton).style.display = "";
-
     this._imageAvailable = true;
     this.dataUrl = canvas.toDataURL("image/jpeg");
   }
 
   private _retry() {
-    const canvas = mustExist(this._canvas);
     const video = mustExist(this._video);
-
-    canvas.style.display = "none";
-    video.style.display = "block";
-    mustExist(this._clickPhotoButton).style.display = "";
-    mustExist(this._abortButton).style.display = "";
-    mustExist(this._pickImageButton).style.display = "none";
-    mustExist(this._retryButton).style.display = "none";
 
     video.play().catch(console.error);
 
@@ -179,22 +169,34 @@ export class PlantScanner extends LitElement {
 
   render() {
     return [
-      html`<div class="top">
+      html`<div 
+        part="base"
+        id="scanner"
+        class=${classMap({
+          scanner: true,
+          "scanner--busy": this._busy,
+          "scanner--image-available": this._imageAvailable,
+        })}>
+        <div class="top">
           <sl-spinner id="spinner" style="font-size: 3rem;"></sl-spinner>
           <video id="video" @click=${() => this._capture()}></video><canvas id="canvas"></canvas>
         </div>
         <div class="controls">
-          <sl-button id="pick-image" variant="success" @click=${() => this._pick()}
-            >${t("scanner.pickImage")}<sl-icon slot="prefix" name="check"></sl-button
-          ><sl-button id="click-photo" variant="primary" @click=${() => this._capture()}
-            ><sl-icon slot="prefix" name="camera"></sl-icon>${t("scanner.captureImage")}</sl-button
-          ><sl-button id="retry" @click=${() => this._retry()}>${t("retry", {
+          <sl-button id="pick-image" variant="success" @click=${() => this._pick()}>${t(
+        "scanner.pickImage"
+      )}<sl-icon slot="prefix" name="check"></sl-button>
+          <sl-button id="click-photo" variant="primary" @click=${() =>
+            this._capture()}><sl-icon slot="prefix" name="camera"></sl-icon>${t(
+        "scanner.captureImage"
+      )}</sl-button>
+          <sl-button id="retry" @click=${() => this._retry()}>${t("retry", {
         ns: "common",
-      })}<sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon></sl-button
-          ><sl-button id="abort" @click=${() => this._abort()}>${t("cancel", {
+      })}<sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon></sl-button>
+          <sl-button id="abort" @click=${() => this._abort()}>${t("cancel", {
         ns: "common",
       })}<sl-icon slot="suffix" name="x"></sl-icon></sl-button>
-        </div>`,
+        </div>
+      </div>`,
     ];
   }
 }

@@ -7,6 +7,7 @@ import "dygraphs/dist/dygraph.css";
 import { t } from "i18next";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { makeIdentificationRequest } from "./identification/Tools";
 import { MultiValueEditor } from "./MultiValueEditor";
 import {
@@ -39,6 +40,26 @@ export class PlantPropertiesForm extends LitElement {
         display: flex;
         flex-direction: column;
         min-height: 50vh;
+      }
+
+      .properties.properties--scanning #form {
+        display: none;
+      }
+      .properties.properties--scanning #scanner {
+        display: flex;
+      }
+      .properties.properties--scanning #picker {
+        display: none;
+      }
+
+      .properties.properties--picking #form {
+        display: none;
+      }
+      .properties.properties--picking #scanner {
+        display: none;
+      }
+      .properties.properties--picking #picker {
+        display: flex;
       }
 
       .spacer {
@@ -127,6 +148,11 @@ export class PlantPropertiesForm extends LitElement {
   private _plantNotes: string | undefined;
   @state()
   private _plantPlantgeekId: Array<string> | string | undefined;
+
+  @state()
+  private _picking = false;
+  @state()
+  private _scanning = false;
 
   @query("#scanner")
   private _scanner: PlantScanner | null | undefined;
@@ -235,14 +261,13 @@ export class PlantPropertiesForm extends LitElement {
   }
 
   private _scanPlant() {
-    mustExist(this._form).style.display = "none";
-    mustExist(this._scanner).style.display = "flex";
+    this._scanning = true;
     mustExist(this._scanner).start();
     this.dispatchEvent(new CustomEvent("pn-scanning"));
   }
 
   private _plantScanned(dataUrl: string | null) {
-    mustExist(this._scanner).style.display = "none";
+    this._scanning = false;
     mustExist(this._scanner).stop();
     this.dispatchEvent(new CustomEvent("pn-scanned"));
     if (dataUrl !== null) {
@@ -264,13 +289,11 @@ export class PlantPropertiesForm extends LitElement {
     console.debug(json);
     console.debug(JSON.stringify(json));
 
-    mustExist(this._picker).style.display = "flex";
+    this._picking = true;
   }
 
   private _cancelPlantIdentify() {
-    mustExist(this._form).style.display = "flex";
-    mustExist(this._picker).style.display = "none";
-    mustExist(this._scanner).style.display = "none";
+    this._picking = false;
   }
 
   private _identifyPlantPick(result: PlantNetResult) {
@@ -284,7 +307,16 @@ export class PlantPropertiesForm extends LitElement {
     }
 
     return [
-      html`<pn-plant-scanner
+      html`<div
+        part="base"
+        id="properties"
+        class=${classMap({
+          properties: true,
+          "properties--picking": this._picking,
+          "properties--scanning": this._scanning,
+        })}
+      >
+        <pn-plant-scanner
           id="scanner"
           @pn-aborted=${() => this._plantScanned(null)}
           @pn-scanned=${(event: CustomEvent<string>) => this._plantScanned(event.detail)}
@@ -540,7 +572,8 @@ export class PlantPropertiesForm extends LitElement {
                 (this._plantPlantgeekId = (event.target as MultiValueEditor).value)}
             ></pn-multi-value-editor>
           </sl-details>
-        </form>`,
+        </form>
+      </div>`,
     ];
   }
 }
