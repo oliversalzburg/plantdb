@@ -24,7 +24,7 @@ The character separating the individual columns of values in the document.
 
 **Defined in**
 
-[DatabaseFormat.ts:85](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L85)
+[DatabaseFormat.ts:98](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L98)
 
 ---
 
@@ -42,7 +42,23 @@ The format that is used to record date/time values in the document.
 
 **Defined in**
 
-[DatabaseFormat.ts:93](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L93)
+[DatabaseFormat.ts:107](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L107)
+
+---
+
+### decimalSeparator
+
+• `get` **decimalSeparator**(): `string`
+
+The character separating the integer from the decimal part in a number.
+
+**Returns**
+
+`string`
+
+**Defined in**
+
+[DatabaseFormat.ts:114](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L114)
 
 ---
 
@@ -58,7 +74,7 @@ Whether this document has an initial row that contains the labels for the column
 
 **Defined in**
 
-[DatabaseFormat.ts:100](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L100)
+[DatabaseFormat.ts:121](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L121)
 
 ---
 
@@ -76,7 +92,7 @@ The time zone in which the date/time values in the document were recorded.
 
 **Defined in**
 
-[DatabaseFormat.ts:108](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L108)
+[DatabaseFormat.ts:130](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L130)
 
 ---
 
@@ -93,7 +109,7 @@ they correlate to.
 
 **Defined in**
 
-[DatabaseFormat.ts:116](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L116)
+[DatabaseFormat.ts:138](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L138)
 
 ## Methods
 
@@ -111,7 +127,7 @@ The `DatabaseFormat` as a JSON-serializable object.
 
 **Defined in**
 
-[DatabaseFormat.ts:190](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L190)
+[DatabaseFormat.ts:221](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L221)
 
 ---
 
@@ -129,7 +145,7 @@ The `DatabaseFormat` as a plain JS object.
 
 **Defined in**
 
-[DatabaseFormat.ts:176](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L176)
+[DatabaseFormat.ts:205](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L205)
 
 ---
 
@@ -153,7 +169,7 @@ The new `DatabaseFormat`.
 
 **Defined in**
 
-[DatabaseFormat.ts:125](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L125)
+[DatabaseFormat.ts:148](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L148)
 
 ---
 
@@ -177,7 +193,7 @@ The new `DatabaseFormat`.
 
 **Defined in**
 
-[DatabaseFormat.ts:136](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L136)
+[DatabaseFormat.ts:160](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L160)
 
 ---
 
@@ -201,7 +217,7 @@ The new `DatabaseFormat`.
 
 **Defined in**
 
-[DatabaseFormat.ts:167](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L167)
+[DatabaseFormat.ts:195](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L195)
 
 ---
 
@@ -225,4 +241,4 @@ The new `DatabaseFormat`.
 
 **Defined in**
 
-[DatabaseFormat.ts:151](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/DatabaseFormat.ts#L151)
+[DatabaseFormat.ts:177](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L177)

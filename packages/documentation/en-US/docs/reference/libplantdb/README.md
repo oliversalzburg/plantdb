@@ -12,7 +12,7 @@ Its functionality is best explored through one of the consuming applications:
 
 ## Philosophy notes
 
-1. "User-supplied" means CSV export from a PlantDB spreadsheet.
+1. "User-supplied" means CSV data from a PlantDB spreadsheet.
 
     This is the **only** kind of data up for interpretation. As users introduce PlantDB data into a PlantDB application, augmenting that data is fundamental. Reducing friction is key.
 
@@ -20,7 +20,7 @@ Its functionality is best explored through one of the consuming applications:
 
 2. Empty fields in user-supplied data are interpreted to mean `undefined`.
 
-    They are **not normalized** to empty string or any other default. All consumers must handle this correctly.
+    They are **not normalized** to empty string or any other default. All consumers must handle this correctly. If a user did not fill in a value, it should be considered `undefined`.
 
 3. Fields accept multiple values, separated by newline.
 

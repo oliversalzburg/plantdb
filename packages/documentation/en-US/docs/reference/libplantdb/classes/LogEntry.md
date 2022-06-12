@@ -4,26 +4,6 @@
 
 A single entry in a PlantDB log.
 
-## Constructors
-
-### constructor
-
-• **new LogEntry**(`plantId`, `timestamp?`, `type?`)
-
-Constructs a new `LogEntry`.
-
-**Parameters**
-
-| Name        | Type     | Default value            | Description                           |
-| :---------- | :------- | :----------------------- | :------------------------------------ |
-| `plantId`   | `string` | `undefined`              | The ID of the plant.                  |
-| `timestamp` | `Date`   | `undefined`              | The date/time the event was recorded. |
-| `type`      | `string` | `EventTypes.Observation` | The type of event.                    |
-
-**Defined in**
-
-[LogEntry.ts:128](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L128)
-
 ## Accessors
 
 ### ec
@@ -38,23 +18,7 @@ The EC value that was recorded with the event.
 
 **Defined in**
 
-[LogEntry.ts:95](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L95)
-
----
-
-### indexableText
-
-• `get` **indexableText**(): `string`
-
-An easily indexable string that represents the most relevant bits of text associated with the record.
-
-**Returns**
-
-`string`
-
-**Defined in**
-
-[LogEntry.ts:116](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L116)
+[LogEntry.ts:108](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L108)
 
 ---
 
@@ -70,7 +34,7 @@ The note that the user recorded with the event.
 
 **Defined in**
 
-[LogEntry.ts:88](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L88)
+[LogEntry.ts:101](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L101)
 
 ---
 
@@ -86,7 +50,37 @@ The pH value that was recorded with the event.
 
 **Defined in**
 
-[LogEntry.ts:102](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L102)
+[LogEntry.ts:115](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L115)
+
+---
+
+### plant
+
+• `get` **plant**(): [`Plant`](Plant.md)
+
+The plant this record refers to.
+
+**Returns**
+
+[`Plant`](Plant.md)
+
+**Defined in**
+
+[LogEntry.ts:129](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L129)
+
+---
+
+### plantDb
+
+• `get` **plantDb**(): [`PlantDB`](PlantDB.md)
+
+**Returns**
+
+[`PlantDB`](PlantDB.md)
+
+**Defined in**
+
+[LogEntry.ts:66](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L66)
 
 ---
 
@@ -102,7 +96,21 @@ The ID of the plant. Expected to be in the format `PID-number`.
 
 **Defined in**
 
-[LogEntry.ts:67](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L67)
+[LogEntry.ts:80](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L80)
+
+---
+
+### plants
+
+• `get` **plants**(): `ReadonlyMap`<`string`, [`Plant`](Plant.md)\>
+
+**Returns**
+
+`ReadonlyMap`<`string`, [`Plant`](Plant.md)\>
+
+**Defined in**
+
+[LogEntry.ts:141](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L141)
 
 ---
 
@@ -118,23 +126,23 @@ The product that was used on the plant in this event.
 
 **Defined in**
 
-[LogEntry.ts:109](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L109)
+[LogEntry.ts:122](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L122)
 
 ---
 
 ### sourceLine
 
-• `get` **sourceLine**(): `undefined` \| `number`
+• `get` **sourceLine**(): `number`
 
 If this log entry was read from a file, this indicates the line in the file it originates from.
 
 **Returns**
 
-`undefined` \| `number`
+`number`
 
 **Defined in**
 
-[LogEntry.ts:60](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L60)
+[LogEntry.ts:73](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L73)
 
 ---
 
@@ -150,7 +158,7 @@ The date/time the entry was recorded at.
 
 **Defined in**
 
-[LogEntry.ts:74](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L74)
+[LogEntry.ts:87](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L87)
 
 ---
 
@@ -166,9 +174,29 @@ The type of the event, as it appears in the original user data.
 
 **Defined in**
 
-[LogEntry.ts:81](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L81)
+[LogEntry.ts:94](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L94)
 
 ## Methods
+
+### toCSVData
+
+▸ **toCSVData**(`databaseFormat`): (`undefined` \| `string` \| `number`)[]
+
+**Parameters**
+
+| Name             | Type                                  |
+| :--------------- | :------------------------------------ |
+| `databaseFormat` | [`DatabaseFormat`](DatabaseFormat.md) |
+
+**Returns**
+
+(`undefined` \| `string` \| `number`)[]
+
+**Defined in**
+
+[LogEntry.ts:208](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L208)
+
+---
 
 ### toJSON
 
@@ -184,7 +212,7 @@ The `LogEntry` as JSON-serializable object.
 
 **Defined in**
 
-[LogEntry.ts:231](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L231)
+[LogEntry.ts:267](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L267)
 
 ---
 
@@ -198,21 +226,22 @@ The `LogEntry` as JSON-serializable object.
 
 **Defined in**
 
-[LogEntry.ts:215](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L215)
+[LogEntry.ts:249](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L249)
 
 ---
 
 ### fromCSVData
 
-▸ `Static` **fromCSVData**(`dataRow`, `format`, `sourceFileLineNumber?`): [`LogEntry`](LogEntry.md)
+▸ `Static` **fromCSVData**(`plantDb`, `dataRow`, `format`, `sourceFileLineNumber`): [`LogEntry`](LogEntry.md)
 
 **Parameters**
 
-| Name                    | Type                                  |
-| :---------------------- | :------------------------------------ |
-| `dataRow`               | `string`[]                            |
-| `format`                | [`DatabaseFormat`](DatabaseFormat.md) |
-| `sourceFileLineNumber?` | `number`                              |
+| Name                   | Type                                  |
+| :--------------------- | :------------------------------------ |
+| `plantDb`              | [`PlantDB`](PlantDB.md)               |
+| `dataRow`              | `string`[]                            |
+| `format`               | [`DatabaseFormat`](DatabaseFormat.md) |
+| `sourceFileLineNumber` | `number`                              |
 
 **Returns**
 
@@ -220,21 +249,22 @@ The `LogEntry` as JSON-serializable object.
 
 **Defined in**
 
-[LogEntry.ts:147](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L147)
+[LogEntry.ts:183](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L183)
 
 ---
 
 ### fromJSON
 
-▸ `Static` **fromJSON**(`dataString`): [`LogEntry`](LogEntry.md)
+▸ `Static` **fromJSON**(`plantDb`, `dataString`): [`LogEntry`](LogEntry.md)
 
 Parse a JSON string and construct a new `LogEntry` from it.
 
 **Parameters**
 
-| Name         | Type     | Description                    |
-| :----------- | :------- | :----------------------------- |
-| `dataString` | `string` | The JSON-serialized log entry. |
+| Name         | Type                    | Description                               |
+| :----------- | :---------------------- | :---------------------------------------- |
+| `plantDb`    | [`PlantDB`](PlantDB.md) | The `PlantDB` this `LogEntry` belongs to. |
+| `dataString` | `string`                | The JSON-serialized log entry.            |
 
 **Returns**
 
@@ -244,18 +274,19 @@ The new `LogEntry`.
 
 **Defined in**
 
-[LogEntry.ts:210](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L210)
+[LogEntry.ts:244](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L244)
 
 ---
 
 ### fromJSObject
 
-▸ `Static` **fromJSObject**(`dataObject`): [`LogEntry`](LogEntry.md)
+▸ `Static` **fromJSObject**(`plantDb`, `dataObject`): [`LogEntry`](LogEntry.md)
 
 **Parameters**
 
 | Name         | Type                                                     |
 | :----------- | :------------------------------------------------------- |
+| `plantDb`    | [`PlantDB`](PlantDB.md)                                  |
 | `dataObject` | [`LogEntrySerialized`](../modules.md#logentryserialized) |
 
 **Returns**
@@ -264,19 +295,20 @@ The new `LogEntry`.
 
 **Defined in**
 
-[LogEntry.ts:192](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L192)
+[LogEntry.ts:221](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L221)
 
 ---
 
 ### fromLogEntry
 
-▸ `Static` **fromLogEntry**(`other`): [`LogEntry`](LogEntry.md)
+▸ `Static` **fromLogEntry**(`other`, `initializer?`): [`LogEntry`](LogEntry.md)
 
 **Parameters**
 
-| Name    | Type                      |
-| :------ | :------------------------ |
-| `other` | [`LogEntry`](LogEntry.md) |
+| Name           | Type                                  |
+| :------------- | :------------------------------------ |
+| `other`        | [`LogEntry`](LogEntry.md)             |
+| `initializer?` | `Partial`<[`LogEntry`](LogEntry.md)\> |
 
 **Returns**
 
@@ -284,44 +316,4 @@ The new `LogEntry`.
 
 **Defined in**
 
-[LogEntry.ts:138](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L138)
-
----
-
-### tryParseEC
-
-▸ `Static` **tryParseEC**(`dataValue`): `undefined` \| `number`
-
-**Parameters**
-
-| Name        | Type     |
-| :---------- | :------- |
-| `dataValue` | `string` |
-
-**Returns**
-
-`undefined` \| `number`
-
-**Defined in**
-
-[LogEntry.ts:166](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L166)
-
----
-
-### tryParsePh
-
-▸ `Static` **tryParsePh**(`dataValue`): `undefined` \| `number`
-
-**Parameters**
-
-| Name        | Type     |
-| :---------- | :------- |
-| `dataValue` | `string` |
-
-**Returns**
-
-`undefined` \| `number`
-
-**Defined in**
-
-[LogEntry.ts:179](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/LogEntry.ts#L179)
+[LogEntry.ts:168](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L168)

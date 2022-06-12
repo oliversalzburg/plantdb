@@ -4,9 +4,11 @@
 
 ## Accessors
 
-### ecIdeal
+### ecMax
 
-• `get` **ecIdeal**(): `undefined` \| `number`
+• `get` **ecMax**(): `undefined` \| `number`
+
+The maximum EC value for this plant.
 
 **Returns**
 
@@ -14,7 +16,23 @@
 
 **Defined in**
 
-[Plant.ts:148](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L148)
+[Plant.ts:241](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L241)
+
+---
+
+### ecMin
+
+• `get` **ecMin**(): `undefined` \| `number`
+
+The minium EC value for this plant.
+
+**Returns**
+
+`undefined` \| `number`
+
+**Defined in**
+
+[Plant.ts:234](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L234)
 
 ---
 
@@ -22,19 +40,7 @@
 
 • `get` **id**(): `string`
 
-**Returns**
-
-`string`
-
-**Defined in**
-
-[Plant.ts:112](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L112)
-
----
-
-### indexableText
-
-• `get` **indexableText**(): `string`
+The ID of the plant.
 
 **Returns**
 
@@ -42,111 +48,16 @@
 
 **Defined in**
 
-[Plant.ts:160](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L160)
+[Plant.ts:156](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L156)
 
 ---
 
-### kind
+### isArchived
 
-• `get` **kind**(): `undefined` \| `string` \| `string`[]
+• `get` **isArchived**(): `undefined` \| `boolean`
 
-**Returns**
-
-`undefined` \| `string` \| `string`[]
-
-**Defined in**
-
-[Plant.ts:120](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L120)
-
----
-
-### location
-
-• `get` **location**(): `undefined` \| `string`
-
-**Returns**
-
-`undefined` \| `string`
-
-**Defined in**
-
-[Plant.ts:140](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L140)
-
----
-
-### log
-
-• `get` **log**(): [`LogEntry`](LogEntry.md)[]
-
-**Returns**
-
-[`LogEntry`](LogEntry.md)[]
-
-**Defined in**
-
-[Plant.ts:164](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L164)
-
----
-
-### logEntryLatest
-
-• `get` **logEntryLatest**(): `undefined` \| [`LogEntry`](LogEntry.md)
-
-**Returns**
-
-`undefined` \| [`LogEntry`](LogEntry.md)
-
-**Defined in**
-
-[Plant.ts:171](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L171)
-
----
-
-### logEntryOldest
-
-• `get` **logEntryOldest**(): `undefined` \| [`LogEntry`](LogEntry.md)
-
-**Returns**
-
-`undefined` \| [`LogEntry`](LogEntry.md)
-
-**Defined in**
-
-[Plant.ts:168](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L168)
-
----
-
-### name
-
-• `get` **name**(): `undefined` \| `string`
-
-**Returns**
-
-`undefined` \| `string`
-
-**Defined in**
-
-[Plant.ts:116](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L116)
-
----
-
-### notes
-
-• `get` **notes**(): `string`
-
-**Returns**
-
-`string`
-
-**Defined in**
-
-[Plant.ts:156](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L156)
-
----
-
-### onSaucer
-
-• `get` **onSaucer**(): `undefined` \| `boolean`
+Has this plant been archived?
+Archived plants are usually ignored in primary use cases.
 
 **Returns**
 
@@ -154,13 +65,143 @@
 
 **Defined in**
 
-[Plant.ts:136](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L136)
+[Plant.ts:164](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L164)
 
 ---
 
-### phIdeal
+### kind
 
-• `get` **phIdeal**(): `undefined` \| `number`
+• `get` **kind**(): `undefined` \| `string` \| `string`[]
+
+The kind(s) of the plant.
+
+**Returns**
+
+`undefined` \| `string` \| `string`[]
+
+**Defined in**
+
+[Plant.ts:178](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L178)
+
+---
+
+### location
+
+• `get` **location**(): `undefined` \| `string` \| `string`[]
+
+The current location of the plant.
+
+**Returns**
+
+`undefined` \| `string` \| `string`[]
+
+**Defined in**
+
+[Plant.ts:213](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L213)
+
+---
+
+### log
+
+• `get` **log**(): [`LogEntry`](LogEntry.md)[]
+
+The log entries in the PlantDB relating to this plant.
+
+**Returns**
+
+[`LogEntry`](LogEntry.md)[]
+
+**Defined in**
+
+[Plant.ts:276](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L276)
+
+---
+
+### logEntryLatest
+
+• `get` **logEntryLatest**(): `undefined` \| [`LogEntry`](LogEntry.md)
+
+Convenience access to latest log entry for this plant.
+
+**Returns**
+
+`undefined` \| [`LogEntry`](LogEntry.md)
+
+**Defined in**
+
+[Plant.ts:290](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L290)
+
+---
+
+### logEntryOldest
+
+• `get` **logEntryOldest**(): `undefined` \| [`LogEntry`](LogEntry.md)
+
+Convenience access to first log entry for this plant.
+
+**Returns**
+
+`undefined` \| [`LogEntry`](LogEntry.md)
+
+**Defined in**
+
+[Plant.ts:283](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L283)
+
+---
+
+### name
+
+• `get` **name**(): `undefined` \| `string`
+
+The name of the plant.
+
+**Returns**
+
+`undefined` \| `string`
+
+**Defined in**
+
+[Plant.ts:171](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L171)
+
+---
+
+### notes
+
+• `get` **notes**(): `undefined` \| `string`
+
+Any notes about this plant.
+
+**Returns**
+
+`undefined` \| `string`
+
+**Defined in**
+
+[Plant.ts:262](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L262)
+
+---
+
+### onSaucer
+
+• `get` **onSaucer**(): `undefined` \| `boolean`
+
+Does the plant current sit on a saucer?
+
+**Returns**
+
+`undefined` \| `boolean`
+
+**Defined in**
+
+[Plant.ts:206](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L206)
+
+---
+
+### phMax
+
+• `get` **phMax**(): `undefined` \| `number`
+
+The maximum pH value for this plant.
 
 **Returns**
 
@@ -168,7 +209,53 @@
 
 **Defined in**
 
-[Plant.ts:144](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L144)
+[Plant.ts:227](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L227)
+
+---
+
+### phMin
+
+• `get` **phMin**(): `undefined` \| `number`
+
+The minimum pH value for this plant.
+
+**Returns**
+
+`undefined` \| `number`
+
+**Defined in**
+
+[Plant.ts:220](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L220)
+
+---
+
+### plantDb
+
+• `get` **plantDb**(): [`PlantDB`](PlantDB.md)
+
+**Returns**
+
+[`PlantDB`](PlantDB.md)
+
+**Defined in**
+
+[Plant.ts:149](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L149)
+
+---
+
+### plantgeekId
+
+• `get` **plantgeekId**(): `undefined` \| `string` \| `string`[]
+
+ID(s) of plant(s) on plantgeek.co that provide more information about this plant.
+
+**Returns**
+
+`undefined` \| `string` \| `string`[]
+
+**Defined in**
+
+[Plant.ts:269](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L269)
 
 ---
 
@@ -176,13 +263,15 @@
 
 • `get` **potColor**(): `undefined` \| `string`
 
+The color of the pot.
+
 **Returns**
 
 `undefined` \| `string`
 
 **Defined in**
 
-[Plant.ts:132](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L132)
+[Plant.ts:199](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L199)
 
 ---
 
@@ -190,33 +279,39 @@
 
 • `get` **potShapeTop**(): `undefined` \| `string`
 
+The shape of the pot, when viewed from above.
+
 **Returns**
 
 `undefined` \| `string`
 
 **Defined in**
 
-[Plant.ts:128](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L128)
+[Plant.ts:192](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L192)
 
 ---
 
 ### substrate
 
-• `get` **substrate**(): `undefined` \| `string`
+• `get` **substrate**(): `undefined` \| `string` \| `string`[]
+
+The current substrate(s) the plant is planted in.
 
 **Returns**
 
-`undefined` \| `string`
+`undefined` \| `string` \| `string`[]
 
 **Defined in**
 
-[Plant.ts:124](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L124)
+[Plant.ts:185](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L185)
 
 ---
 
-### tempIdeal
+### tempMax
 
-• `get` **tempIdeal**(): `undefined` \| `number`
+• `get` **tempMax**(): `undefined` \| `number`
+
+The maximum temperature for this plant.
 
 **Returns**
 
@@ -224,21 +319,47 @@
 
 **Defined in**
 
-[Plant.ts:152](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L152)
+[Plant.ts:255](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L255)
 
-## Methods
+---
 
-### identify
+### tempMin
 
-▸ **identify**(): `string`
+• `get` **tempMin**(): `undefined` \| `number`
+
+The minimum temperature for this plant.
 
 **Returns**
 
-`string`
+`undefined` \| `number`
 
 **Defined in**
 
-[Plant.ts:179](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L179)
+[Plant.ts:248](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L248)
+
+## Methods
+
+### toCSVData
+
+▸ **toCSVData**(`databaseFormat`): (`undefined` \| `string` \| `number`)[]
+
+Serialize the `Plant` so it can be be turned into CSV.
+
+**Parameters**
+
+| Name             | Type                                  | Description                                          |
+| :--------------- | :------------------------------------ | :--------------------------------------------------- |
+| `databaseFormat` | [`DatabaseFormat`](DatabaseFormat.md) | The `DatabaseFormat` to use when serializing values. |
+
+**Returns**
+
+(`undefined` \| `string` \| `number`)[]
+
+The `Plant` ready to be serialized into CSV.
+
+**Defined in**
+
+[Plant.ts:370](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L370)
 
 ---
 
@@ -256,7 +377,7 @@ The `Plant` as JSON-serializable object.
 
 **Defined in**
 
-[Plant.ts:274](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L274)
+[Plant.ts:455](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L455)
 
 ---
 
@@ -264,13 +385,17 @@ The `Plant` as JSON-serializable object.
 
 ▸ **toJSObject**(): [`PlantSerialized`](../modules.md#plantserialized)
 
+Serialize this plant into a plain JS hash.
+
 **Returns**
 
 [`PlantSerialized`](../modules.md#plantserialized)
 
+A simple hash with all of this plant's properties.
+
 **Defined in**
 
-[Plant.ts:253](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L253)
+[Plant.ts:429](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L429)
 
 ---
 
@@ -284,56 +409,47 @@ The `Plant` as JSON-serializable object.
 
 **Defined in**
 
-[Plant.ts:183](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L183)
+[Plant.ts:305](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L305)
 
 ---
 
-### Empty
+### fromCSVData
 
-▸ `Static` **Empty**(): [`Plant`](Plant.md)
+▸ `Static` **fromCSVData**(`plantDb`, `dataRow`): [`Plant`](Plant.md)
 
-**Returns**
-
-[`Plant`](Plant.md)
-
-**Defined in**
-
-[Plant.ts:187](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L187)
-
----
-
-### fromCSV
-
-▸ `Static` **fromCSV**(`dataRow`, `log?`): [`Plant`](Plant.md)
+Constructs a `Plant` from CSV data.
 
 **Parameters**
 
-| Name      | Type                        |
-| :-------- | :-------------------------- |
-| `dataRow` | `string`[]                  |
-| `log`     | [`LogEntry`](LogEntry.md)[] |
+| Name      | Type                    | Description                                    |
+| :-------- | :---------------------- | :--------------------------------------------- |
+| `plantDb` | [`PlantDB`](PlantDB.md) | The `PlantDB` to create the plant in.          |
+| `dataRow` | `string`[]              | The strings that were read from the CSV input. |
 
 **Returns**
 
 [`Plant`](Plant.md)
 
+The constructed `Plant`.
+
 **Defined in**
 
-[Plant.ts:207](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L207)
+[Plant.ts:343](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L343)
 
 ---
 
 ### fromJSON
 
-▸ `Static` **fromJSON**(`dataString`): [`Plant`](Plant.md)
+▸ `Static` **fromJSON**(`plantDb`, `dataString`): [`Plant`](Plant.md)
 
 Parse a JSON string and construct a new `Plant` from it.
 
 **Parameters**
 
-| Name         | Type     | Description                |
-| :----------- | :------- | :------------------------- |
-| `dataString` | `string` | The JSON-serialized plant. |
+| Name         | Type                    | Description                           |
+| :----------- | :---------------------- | :------------------------------------ |
+| `plantDb`    | [`PlantDB`](PlantDB.md) | The `PlantDB` this `Plant` belongs to |
+| `dataString` | `string`                | The JSON-serialized plant.            |
 
 **Returns**
 
@@ -343,20 +459,20 @@ The new `Plant`.
 
 **Defined in**
 
-[Plant.ts:248](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L248)
+[Plant.ts:419](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L419)
 
 ---
 
 ### fromJSObject
 
-▸ `Static` **fromJSObject**(`dataObject`, `log?`): [`Plant`](Plant.md)
+▸ `Static` **fromJSObject**(`plantDb`, `dataObject`): [`Plant`](Plant.md)
 
 **Parameters**
 
 | Name         | Type                                               |
 | :----------- | :------------------------------------------------- |
+| `plantDb`    | [`PlantDB`](PlantDB.md)                            |
 | `dataObject` | [`PlantSerialized`](../modules.md#plantserialized) |
-| `log`        | [`LogEntry`](LogEntry.md)[]                        |
 
 **Returns**
 
@@ -364,24 +480,29 @@ The new `Plant`.
 
 **Defined in**
 
-[Plant.ts:225](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L225)
+[Plant.ts:392](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L392)
 
 ---
 
 ### fromPlant
 
-▸ `Static` **fromPlant**(`other`): [`Plant`](Plant.md)
+▸ `Static` **fromPlant**(`other`, `initializer?`): [`Plant`](Plant.md)
+
+Constructs a new `Plant`, given another plant as a template and a hash with additional properties.
 
 **Parameters**
 
-| Name    | Type                |
-| :------ | :------------------ |
-| `other` | [`Plant`](Plant.md) |
+| Name           | Type                            | Description                                         |
+| :------------- | :------------------------------ | :-------------------------------------------------- |
+| `other`        | [`Plant`](Plant.md)             | The `Plant` to copy properties from.                |
+| `initializer?` | `Partial`<[`Plant`](Plant.md)\> | A hash containing properties to add to or override. |
 
 **Returns**
 
 [`Plant`](Plant.md)
 
+A new `Plant` with the `other` plant and the initializer properties merged into it.
+
 **Defined in**
 
-[Plant.ts:191](https://github.com/oliversalzburg/plantdb/blob/a9cd216/packages/libplantdb/source/Plant.ts#L191)
+[Plant.ts:316](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L316)

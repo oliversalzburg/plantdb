@@ -7,8 +7,10 @@
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "main": "Dockerfile",
   "scripts": {
+    "build": ".scripts/build.sh",
     "docs:build": ".scripts/build.sh",
-    "docs:serve": ".scripts/serve.sh"
+    "docs:serve": ".scripts/serve.sh",
+    "serve": ".scripts/serve.sh"
   },
   "engines": {
     "node": "^16"
