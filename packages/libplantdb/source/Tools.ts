@@ -176,6 +176,24 @@ export const intFromCSV = (
 };
 
 /**
+ * Retrieve a boolean value from a specific column in CSV data.
+ * If the column contains no readable value, it is treated as `undefined`.
+ *
+ * @param csvData CSV data that has already been parsed into individual columns.
+ * @param column The index of the column to retrieve.
+ * @returns The correctly parsed CSV value.
+ */
+export const boolFromCSV = (csvData: ReadonlyArray<string>, column: number) => {
+  const value = valueFromCSV(csvData, column, false) as string;
+  if (value === undefined) {
+    return undefined;
+  }
+
+  const bool = tryParseBool(value);
+  return bool;
+};
+
+/**
  * Turn a data value into a single string that we can serialize to CSV.
  *
  * @param value The value to prepare for CSV serialization.

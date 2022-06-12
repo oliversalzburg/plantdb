@@ -1,7 +1,14 @@
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry } from "./LogEntry.js";
 import { PlantDB } from "./PlantDB.js";
-import { floatFromCSV, intFromCSV, kindSummarize, valueFromCSV, valueToCSV } from "./Tools.js";
+import {
+  boolFromCSV,
+  floatFromCSV,
+  intFromCSV,
+  kindSummarize,
+  valueFromCSV,
+  valueToCSV,
+} from "./Tools.js";
 
 /**
  * Matches a Plant ID.
@@ -315,6 +322,7 @@ export class Plant {
    */
   static fromPlant(other: Plant, initializer?: Partial<Plant>) {
     const plant = new Plant(initializer?.plantDb ?? other.#plantDb, initializer?.id ?? other.id);
+    plant.#isArchived = initializer?.isArchived ?? other.#isArchived;
     plant.#name = initializer?.name ?? other.#name;
     plant.#kind = initializer?.kind ?? other.#kind;
     plant.#substrate = initializer?.substrate ?? other.#substrate;
@@ -341,22 +349,24 @@ export class Plant {
    * @returns The constructed `Plant`.
    */
   static fromCSVData(plantDb: PlantDB, dataRow: Array<string>): Plant {
-    const plant = new Plant(plantDb, dataRow[0]);
-    plant.#name = dataRow[1] !== "" ? dataRow[1] : undefined;
-    plant.#kind = valueFromCSV(dataRow, 2);
-    plant.#substrate = valueFromCSV(dataRow, 3);
-    plant.#potShapeTop = valueFromCSV(dataRow, 4, false) as string | undefined;
-    plant.#potColor = valueFromCSV(dataRow, 5, false) as string | undefined;
-    plant.#onSaucer = dataRow[6] === "TRUE" ? true : dataRow[6] === "FALSE" ? false : undefined;
-    plant.#location = valueFromCSV(dataRow, 7);
-    plant.#phMin = floatFromCSV(dataRow, 8, plantDb.config);
-    plant.#phMax = floatFromCSV(dataRow, 9, plantDb.config);
-    plant.#ecMin = intFromCSV(dataRow, 10, plantDb.config);
-    plant.#ecMax = intFromCSV(dataRow, 11, plantDb.config);
-    plant.#tempMin = floatFromCSV(dataRow, 12, plantDb.config);
-    plant.#tempMax = floatFromCSV(dataRow, 13, plantDb.config);
-    plant.#notes = valueFromCSV(dataRow, 14, false) as string | undefined;
-    plant.#plantgeekId = valueFromCSV(dataRow, 15);
+    let rowPointer = 0;
+    const plant = new Plant(plantDb, dataRow[rowPointer++]);
+    plant.#isArchived = boolFromCSV(dataRow, rowPointer++);
+    plant.#name = valueFromCSV(dataRow, rowPointer++) as string | undefined;
+    plant.#kind = valueFromCSV(dataRow, rowPointer++);
+    plant.#substrate = valueFromCSV(dataRow, rowPointer++);
+    plant.#potShapeTop = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
+    plant.#potColor = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
+    plant.#onSaucer = boolFromCSV(dataRow, rowPointer++);
+    plant.#location = valueFromCSV(dataRow, rowPointer++);
+    plant.#phMin = floatFromCSV(dataRow, rowPointer++, plantDb.config);
+    plant.#phMax = floatFromCSV(dataRow, rowPointer++, plantDb.config);
+    plant.#ecMin = intFromCSV(dataRow, rowPointer++, plantDb.config);
+    plant.#ecMax = intFromCSV(dataRow, rowPointer++, plantDb.config);
+    plant.#tempMin = floatFromCSV(dataRow, rowPointer++, plantDb.config);
+    plant.#tempMax = floatFromCSV(dataRow, rowPointer++, plantDb.config);
+    plant.#notes = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
+    plant.#plantgeekId = valueFromCSV(dataRow, rowPointer++);
     return plant;
   }
 
@@ -371,6 +381,7 @@ export class Plant {
     const serialized = this.toJSObject();
     return [
       serialized.id,
+      serialized.isArchived,
       serialized.name,
       valueToCSV(serialized.kind),
       valueToCSV(serialized.substrate),
@@ -391,6 +402,7 @@ export class Plant {
 
   static fromJSObject(plantDb: PlantDB, dataObject: PlantSerialized) {
     const plant = new Plant(plantDb, dataObject.id);
+    plant.#isArchived = dataObject.isArchived ?? plant.#isArchived;
     plant.#name = dataObject.name ?? plant.#name;
     plant.#kind = dataObject.kind ?? plant.#kind;
     plant.#substrate = dataObject.substrate ?? plant.#substrate;
@@ -429,6 +441,7 @@ export class Plant {
   toJSObject(): PlantSerialized {
     return {
       id: this.#id,
+      isArchived: this.#isArchived,
       name: this.#name,
       kind: this.#kind,
       substrate: this.#substrate,

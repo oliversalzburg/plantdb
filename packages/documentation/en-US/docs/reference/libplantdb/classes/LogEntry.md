@@ -18,7 +18,7 @@ The EC value that was recorded with the event.
 
 **Defined in**
 
-[LogEntry.ts:108](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L108)
+[LogEntry.ts:108](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L108)
 
 ---
 
@@ -34,7 +34,7 @@ The note that the user recorded with the event.
 
 **Defined in**
 
-[LogEntry.ts:101](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L101)
+[LogEntry.ts:101](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L101)
 
 ---
 
@@ -50,7 +50,7 @@ The pH value that was recorded with the event.
 
 **Defined in**
 
-[LogEntry.ts:115](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L115)
+[LogEntry.ts:115](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L115)
 
 ---
 
@@ -66,7 +66,7 @@ The plant this record refers to.
 
 **Defined in**
 
-[LogEntry.ts:129](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L129)
+[LogEntry.ts:129](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L129)
 
 ---
 
@@ -80,7 +80,7 @@ The plant this record refers to.
 
 **Defined in**
 
-[LogEntry.ts:66](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L66)
+[LogEntry.ts:66](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L66)
 
 ---
 
@@ -96,7 +96,7 @@ The ID of the plant. Expected to be in the format `PID-number`.
 
 **Defined in**
 
-[LogEntry.ts:80](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L80)
+[LogEntry.ts:80](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L80)
 
 ---
 
@@ -110,7 +110,7 @@ The ID of the plant. Expected to be in the format `PID-number`.
 
 **Defined in**
 
-[LogEntry.ts:141](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L141)
+[LogEntry.ts:141](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L141)
 
 ---
 
@@ -126,7 +126,7 @@ The product that was used on the plant in this event.
 
 **Defined in**
 
-[LogEntry.ts:122](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L122)
+[LogEntry.ts:122](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L122)
 
 ---
 
@@ -142,7 +142,7 @@ If this log entry was read from a file, this indicates the line in the file it o
 
 **Defined in**
 
-[LogEntry.ts:73](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L73)
+[LogEntry.ts:73](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L73)
 
 ---
 
@@ -158,7 +158,7 @@ The date/time the entry was recorded at.
 
 **Defined in**
 
-[LogEntry.ts:87](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L87)
+[LogEntry.ts:87](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L87)
 
 ---
 
@@ -174,7 +174,7 @@ The type of the event, as it appears in the original user data.
 
 **Defined in**
 
-[LogEntry.ts:94](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L94)
+[LogEntry.ts:94](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L94)
 
 ## Methods
 
@@ -194,7 +194,7 @@ The type of the event, as it appears in the original user data.
 
 **Defined in**
 
-[LogEntry.ts:208](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L208)
+[LogEntry.ts:208](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L208)
 
 ---
 
@@ -212,7 +212,7 @@ The `LogEntry` as JSON-serializable object.
 
 **Defined in**
 
-[LogEntry.ts:267](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L267)
+[LogEntry.ts:267](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L267)
 
 ---
 
@@ -226,7 +226,7 @@ The `LogEntry` as JSON-serializable object.
 
 **Defined in**
 
-[LogEntry.ts:249](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L249)
+[LogEntry.ts:249](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L249)
 
 ---
 
@@ -249,7 +249,7 @@ The `LogEntry` as JSON-serializable object.
 
 **Defined in**
 
-[LogEntry.ts:183](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L183)
+[LogEntry.ts:183](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L183)
 
 ---
 
@@ -274,7 +274,7 @@ The new `LogEntry`.
 
 **Defined in**
 
-[LogEntry.ts:244](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L244)
+[LogEntry.ts:244](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L244)
 
 ---
 
@@ -295,7 +295,7 @@ The new `LogEntry`.
 
 **Defined in**
 
-[LogEntry.ts:221](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L221)
+[LogEntry.ts:221](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L221)
 
 ---
 
@@ -316,4 +316,4 @@ The new `LogEntry`.
 
 **Defined in**
 
-[LogEntry.ts:168](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L168)
+[LogEntry.ts:168](https://github.com/oliversalzburg/plantdb/blob/d62bb39/packages/libplantdb/source/LogEntry.ts#L168)
