@@ -352,7 +352,7 @@ export class Plant {
     let rowPointer = 0;
     const plant = new Plant(plantDb, dataRow[rowPointer++]);
     plant.#isArchived = boolFromCSV(dataRow, rowPointer++);
-    plant.#name = valueFromCSV(dataRow, rowPointer++) as string | undefined;
+    plant.#name = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
     plant.#kind = valueFromCSV(dataRow, rowPointer++);
     plant.#substrate = valueFromCSV(dataRow, rowPointer++);
     plant.#potShapeTop = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
