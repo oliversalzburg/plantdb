@@ -18,8 +18,11 @@ export class IndexedDb implements StorageDriver {
   async connect() {
     this._dbPlantDb = await openDB("plantdb", 1, {
       upgrade(db) {
-        db.createObjectStore("plantlog", { keyPath: "sourceLine" });
-        db.createObjectStore("plants", { keyPath: "id" });
+        const storeLog = db.createObjectStore("plantlog", { keyPath: "sourceLine" });
+        storeLog.createIndex("timestamp", "timestamp");
+
+        const storePlants = db.createObjectStore("plants", { keyPath: "id" });
+        storePlants.createIndex("isArchived", "isArchived");
       },
     });
     return Promise.resolve(true);
