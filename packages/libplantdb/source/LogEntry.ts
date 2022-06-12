@@ -9,42 +9,42 @@ import { tryParseFloat, tryParseInt } from "./Tools";
  */
 export type LogEntrySerialized = {
   /**
-   * The line in the original CSV input this entry originated from.
+   * @inheritDoc LogEntry.sourceLine
    */
   sourceLine: number;
 
   /**
-   * The ID of the plant.
+   * @inheritDoc LogEntry.plantId
    */
   plantId: string;
 
   /**
-   * A string representation of a `Date`.
+   * @inheritDoc LogEntry.timestamp
    */
   timestamp: string;
 
   /**
-   * The user-supplied type of this entry.
+   * @inheritDoc LogEntry.type
    */
   type: string;
 
   /**
-   * The EC value recorded with the entry, if any.
+   * @inheritDoc LogEntry.ec
    */
   ec?: number;
 
   /**
-   * The pH value recorded with the entry, if any.
+   * @inheritDoc LogEntry.ph
    */
   ph?: number;
 
   /**
-   * The product that was used during the event, if any.
+   * @inheritDoc LogEntry.productUsed
    */
   productUsed?: string;
 
   /**
-   * A note that was recorded with the event, if any.
+   * @inheritDoc LogEntry.note
    */
   note?: string;
 };
@@ -63,6 +63,9 @@ export class LogEntry {
   #productUsed: string | undefined;
   #note: string | undefined;
 
+  /**
+   * The `PlantDB` this log entry is associated with.
+   */
   get plantDb() {
     return this.#plantDb;
   }
@@ -138,10 +141,6 @@ export class LogEntry {
     return plant;
   }
 
-  get plants() {
-    return this.#plantDb.plants;
-  }
-
   /**
    * Constructs a new `LogEntry`.
    *
@@ -165,6 +164,13 @@ export class LogEntry {
     this.#type = type;
   }
 
+  /**
+   * Constructs a new `LogEntry`, given another log entry as a template and a has with additional properties.
+   *
+   * @param other The `LogEntry` to copy properties from.
+   * @param initializer A hash containing properties to add to or override in the template.
+   * @returns A new `LogEntry` with the `other` log entry and the initializer merged into it.
+   */
   static fromLogEntry(other: LogEntry, initializer?: Partial<LogEntry>) {
     const logEntry = new LogEntry(
       initializer?.plantDb ?? other.#plantDb,
@@ -180,6 +186,15 @@ export class LogEntry {
     return logEntry;
   }
 
+  /**
+   * Constructs a `LogEntry` from CSV data.
+   *
+   * @param plantDb The `PlantDB` to create the log entry in.
+   * @param dataRow The strings that were read from the CSV input.
+   * @param format The `DatabaseFormat` to use when interpreting values.
+   * @param sourceFileLineNumber The line in the source document the values were read from.
+   * @returns The constructed `LogEntry`.
+   */
   static fromCSVData(
     plantDb: PlantDB,
     dataRow: Array<string>,
@@ -205,6 +220,12 @@ export class LogEntry {
     return logEntry;
   }
 
+  /**
+   * Seralize the `LogEntry` so it can be turned into CSV.
+   *
+   * @param databaseFormat The `DatabaseFormat` to use when serializing values.
+   * @returns The `LogEntry` ready to be serialized into CSV.
+   */
   toCSVData(databaseFormat: DatabaseFormat) {
     const serialized = this.toJSObject();
     return [
@@ -218,6 +239,13 @@ export class LogEntry {
     ];
   }
 
+  /**
+   * Constructs a `LogEntry` from a plain hash with initialization values.
+   *
+   * @param plantDb The `PlantDB` to create the log entry in.
+   * @param dataObject The hash containing the initialization values for the `LogEntry`.
+   * @returns The constructed `LogEntry`.
+   */
   static fromJSObject(plantDb: PlantDB, dataObject: LogEntrySerialized) {
     const logEntry = new LogEntry(
       plantDb,
@@ -246,6 +274,11 @@ export class LogEntry {
     return LogEntry.fromJSObject(plantDb, data);
   }
 
+  /**
+   * Serialize this log entry into a plain JS hash.
+   *
+   * @returns A simple hash with all of this log entry's properties.
+   */
   toJSObject(): LogEntrySerialized {
     return {
       sourceLine: this.#sourceLine,

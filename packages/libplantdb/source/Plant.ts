@@ -317,7 +317,7 @@ export class Plant {
    * Constructs a new `Plant`, given another plant as a template and a hash with additional properties.
    *
    * @param other The `Plant` to copy properties from.
-   * @param initializer A hash containing properties to add to or override.
+   * @param initializer A hash containing properties to add to or override in the template.
    * @returns A new `Plant` with the `other` plant and the initializer properties merged into it.
    */
   static fromPlant(other: Plant, initializer?: Partial<Plant>) {
@@ -400,6 +400,13 @@ export class Plant {
     ];
   }
 
+  /**
+   * Constructs a `Plant` from a plain hash with initialization values.
+   *
+   * @param plantDb The `PlantDB` to create the plant in.
+   * @param dataObject The hash containing the initialization values for the `Plant`.
+   * @returns The constructed `Plant`.
+   */
   static fromJSObject(plantDb: PlantDB, dataObject: PlantSerialized) {
     const plant = new Plant(plantDb, dataObject.id);
     plant.#isArchived = dataObject.isArchived ?? plant.#isArchived;

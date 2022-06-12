@@ -130,7 +130,7 @@ export class PlantDB {
    */
   withNewLogEntry(logEntry: LogEntry) {
     const plants = new Map(this.#plants);
-    const log = [...this.#log, LogEntry.fromLogEntry(logEntry, { plants })];
+    const log = [...this.#log, LogEntry.fromLogEntry(logEntry)];
 
     if (!plants.has(logEntry.plantId)) {
       plants.set(logEntry.plantId, Plant.fromJSObject(this, { id: logEntry.plantId }));
@@ -143,7 +143,7 @@ export class PlantDB {
     const plants = new Map(this.#plants);
     const log = [
       ...this.#log.filter(entry => entry !== oldLogEntry),
-      LogEntry.fromLogEntry(updatedLogEntry, { plants }),
+      LogEntry.fromLogEntry(updatedLogEntry),
     ];
 
     if (!plants.has(updatedLogEntry.plantId)) {
