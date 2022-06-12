@@ -153,22 +153,20 @@ export class PlantDetails extends LitElement {
                 .plant=${this.plant}
               ></pn-plant-dygraph>`
             : undefined}
-          ${this.plant.plantGeekId
+          ${this.plant.plantgeekId
             ? html`<pn-plantgeek-info .plant=${this.plant}></pn-plantgeek-info>`
             : undefined}
         </div>
       </sl-details>
 
-      <sl-details summary=${t("plant.log")} open>
-        <pn-plant-log
-          .plantStore=${this.plantStore}
-          .plantStoreUi=${this.plantStoreUi}
-          .log=${this.plant.log}
-          .headerVisible=${false}
-          @pn-edit-entry=${(event: CustomEvent<LogEntry>) =>
-            this.cx.plantStoreUi.editLogEntry(event.detail)}
-        ></pn-plant-log
-      ></sl-details>`;
+      <pn-plant-log
+        .plantStore=${this.plantStore}
+        .plantStoreUi=${this.plantStoreUi}
+        .log=${this.plant.log}
+        .headerVisible=${false}
+        @pn-edit-entry=${(event: CustomEvent<LogEntry>) =>
+          this.cx.plantStoreUi.editLogEntry(event.detail)}
+      ></pn-plant-log>`;
   }
 }
 
