@@ -142,7 +142,7 @@ export class PlantDB {
   withUpdatedLogEntry(updatedLogEntry: LogEntry, oldLogEntry: LogEntry) {
     const plants = new Map(this.#plants);
     const log = [
-      ...this.#log.filter(entry => entry !== oldLogEntry),
+      ...this.#log.filter(entry => entry.sourceLine !== oldLogEntry.sourceLine),
       LogEntry.fromLogEntry(updatedLogEntry),
     ];
 
@@ -157,7 +157,7 @@ export class PlantDB {
   }
 
   withoutLogEntry(logEntry: LogEntry) {
-    const log = [...this.#log.filter(entry => entry !== logEntry)];
+    const log = [...this.#log.filter(entry => entry.sourceLine !== logEntry.sourceLine)];
     const plants = new Map(this.#plants);
 
     return PlantDB.fromPlantDB(this, { log, plants });
@@ -166,7 +166,7 @@ export class PlantDB {
   withUpdatedPlant(updatedPlant: Plant, oldPlant: Plant) {
     const log = [...this.#log];
     const plants = makePlantMap(
-      [...this.#plants.values(), updatedPlant].filter(subject => subject !== oldPlant)
+      [...this.#plants.values(), updatedPlant].filter(subject => subject.id !== oldPlant.id)
     );
 
     return PlantDB.fromPlantDB(this, { log, plants });
@@ -174,7 +174,9 @@ export class PlantDB {
 
   withoutPlant(plant: Plant) {
     const log = [...this.#log];
-    const plants = makePlantMap([...this.#plants.values()].filter(subject => subject !== plant));
+    const plants = makePlantMap(
+      [...this.#plants.values()].filter(subject => subject.id !== plant.id)
+    );
 
     return PlantDB.fromPlantDB(this, { log, plants });
   }
