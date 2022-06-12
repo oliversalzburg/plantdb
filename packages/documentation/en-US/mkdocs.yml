@@ -5,10 +5,10 @@ edit_uri: /oliversalzburg/plantdb/edit/main/packages/documentation/docs/
 extra:
   alternate:
     - name: English (US)
-      link: /plantdb/docs/en-US/
+      link: /docs/en-US/
       lang: en
     - name: Deutsch (DE)
-      link: /plantdb/docs/de-DE/
+      link: /docs/de-DE/
       lang: de
   social:
     - icon: fontawesome/brands/github

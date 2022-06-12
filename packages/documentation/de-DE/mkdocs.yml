@@ -5,10 +5,10 @@ edit_uri: /oliversalzburg/plantdb/edit/main/packages/documentation/docs/
 extra:
   alternate:
     - name: English (US)
-      link: /plantdb/docs/en-US/
+      link: /docs/en-US/
       lang: en
     - name: Deutsch (DE)
-      link: /plantdb/docs/de-DE/
+      link: /docs/de-DE/
       lang: de
   social:
     - icon: fontawesome/brands/github
@@ -55,7 +55,7 @@ plugins:
 repo_name: oliversalzburg/plantdb
 repo_url: https://github.com/oliversalzburg/plantdb/
 site_name: PlantDB
-site_url: https://github.com/oliversalzburg/plantdb/docs/
+site_url: https://plantdb.net/docs/
 theme:
   favicon: assets/images/favicon.ico
   features:
