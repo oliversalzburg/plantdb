@@ -35,89 +35,95 @@ export type PotColor =
  */
 export type PlantSerialized = {
   /**
-   * The ID of the plant.
+   * @inheritDoc Plant.id
    */
   id: string;
 
   /**
-   * The name of the plant.
+   * @inheritDoc Plant.isArchived
+   */
+  isArchived?: boolean;
+
+  /**
+   * @inheritDoc Plant.name
    */
   name?: string;
 
   /**
-   * The kind(s) of the plant.
+   * @inheritDoc Plant.kind
    */
   kind?: string | Array<string>;
 
   /**
-   * The current substrate(s) the plant is planted in.
+   * @inheritDoc Plant.substrate
    */
   substrate?: string | Array<string>;
 
   /**
-   * The shape of the pot, when viewed from above.
+   * @inheritDoc Plant.potShapeTop
    */
   potShapeTop?: string;
 
   /**
-   * The color of the pot.
+   * @inheritDoc Plant.color
    */
   potColor?: string;
 
   /**
-   * Does the plant current sit on a saucer?
+   * @inheritDoc Plant.onSaucer
    */
   onSaucer?: boolean;
 
   /**
-   * The current location of the plant.
+   * @inheritDoc Plant.location
    */
   location?: string | Array<string>;
 
   /**
-   * The minimum pH value for this plant.
+   * @inheritDoc Plant.phMin
    */
   phMin?: number;
 
   /**
-   * The maximum pH value for this plant.
+   * @inheritDoc Plant.phMax
    */
   phMax?: number;
 
   /**
-   * The minium EC value for this plant.
+   * @inheritDoc Plant.ecMin
    */
   ecMin?: number;
 
   /**
-   * The maximum EC value for this plant.
+   * @inheritDoc Plant.ecMax
    */
   ecMax?: number;
 
   /**
-   * The minimum temperature for this plant.
+   * @inheritDoc Plant.tempMin
    */
   tempMin?: number;
 
   /**
-   * The maximum temperature for this plant.
+   * @inheritDoc Plant.tempMax
    */
   tempMax?: number;
 
   /**
-   * Any notes about this plant.
+   * @inheritDoc Plant.notes
    */
   notes?: string;
 
   /**
-   * ID(s) of plant(s) on plantgeek.co that provide more information about this plant.
+   * @inheritDoc Plant.plantgeekId
    */
-  plantGeekId?: string | Array<string>;
+  plantgeekId?: string | Array<string>;
 };
 
 export class Plant {
   #plantDb: PlantDB;
   #id: string;
+  #isArchived: boolean | undefined;
   #name: string | undefined;
   #kind: string | Array<string> | undefined;
   #location: string | Array<string> | undefined;
@@ -138,97 +144,175 @@ export class Plant {
   #tempMax: number | undefined;
 
   // Externals
-  #plantGeekId: string | Array<string> | undefined;
+  #plantgeekId: string | Array<string> | undefined;
 
   get plantDb() {
     return this.#plantDb;
   }
 
+  /**
+   * The ID of the plant.
+   */
   get id() {
     return this.#id;
   }
 
+  /**
+   * Has this plant been archived?
+   * Archived plants are usually ignored in primary use cases.
+   */
+  get isArchived() {
+    return this.#isArchived;
+  }
+
+  /**
+   * The name of the plant.
+   */
   get name() {
     return this.#name;
   }
 
+  /**
+   * The kind(s) of the plant.
+   */
   get kind() {
     return this.#kind;
   }
 
+  /**
+   * The current substrate(s) the plant is planted in.
+   */
   get substrate() {
     return this.#substrate;
   }
 
+  /**
+   * The shape of the pot, when viewed from above.
+   */
   get potShapeTop() {
     return this.#potShapeTop;
   }
 
+  /**
+   * The color of the pot.
+   */
   get potColor() {
     return this.#potColor;
   }
 
+  /**
+   * Does the plant current sit on a saucer?
+   */
   get onSaucer() {
     return this.#onSaucer;
   }
 
+  /**
+   * The current location of the plant.
+   */
   get location() {
     return this.#location;
   }
 
+  /**
+   * The minimum pH value for this plant.
+   */
   get phMin() {
     return this.#phMin;
   }
+
+  /**
+   * The maximum pH value for this plant.
+   */
   get phMax() {
     return this.#phMax;
   }
 
+  /**
+   * The minium EC value for this plant.
+   */
   get ecMin() {
     return this.#ecMin;
   }
+
+  /**
+   * The maximum EC value for this plant.
+   */
   get ecMax() {
     return this.#ecMax;
   }
 
+  /**
+   * The minimum temperature for this plant.
+   */
   get tempMin() {
     return this.#tempMin;
   }
+
+  /**
+   * The maximum temperature for this plant.
+   */
   get tempMax() {
     return this.#tempMax;
   }
 
+  /**
+   * Any notes about this plant.
+   */
   get notes() {
     return this.#notes;
   }
 
-  get plantGeekId() {
-    return this.#plantGeekId;
+  /**
+   * ID(s) of plant(s) on plantgeek.co that provide more information about this plant.
+   */
+  get plantgeekId() {
+    return this.#plantgeekId;
   }
 
+  /**
+   * The log entries in the PlantDB relating to this plant.
+   */
   get log() {
     return this.#plantDb.log.filter(logEntry => logEntry.plantId === this.id) ?? [];
   }
 
+  /**
+   * Convenience access to first log entry for this plant.
+   */
   get logEntryOldest(): LogEntry | undefined {
     return this.log[0];
   }
+
+  /**
+   * Convenience access to latest log entry for this plant.
+   */
   get logEntryLatest(): LogEntry | undefined {
     return this.log[this.log.length - 1];
   }
 
+  /**
+   * Constructs a new `Plant`.
+   *
+   * @param plantDb The PlantDB this plant should be created in.
+   * @param plantId The ID of this plant.
+   */
   private constructor(plantDb: PlantDB, plantId: string) {
     this.#plantDb = plantDb;
     this.#id = plantId;
   }
 
-  identify() {
+  toString() {
     return `Plant ${this.#name ?? "<unnamed>"} (${this.id}) ${kindSummarize(this.#kind)}`;
   }
 
-  toString() {
-    return this.identify();
-  }
-
+  /**
+   * Constructs a new `Plant`, given another plant as a template and a hash with additional properties.
+   *
+   * @param other The `Plant` to copy properties from.
+   * @param initializer A hash containing properties to add to or override.
+   * @returns A new `Plant` with the `other` plant and the initializer properties merged into it.
+   */
   static fromPlant(other: Plant, initializer?: Partial<Plant>) {
     const plant = new Plant(initializer?.plantDb ?? other.#plantDb, initializer?.id ?? other.id);
     plant.#name = initializer?.name ?? other.#name;
@@ -245,10 +329,17 @@ export class Plant {
     plant.#tempMin = initializer?.tempMin ?? other.#tempMin;
     plant.#tempMax = initializer?.tempMax ?? other.#tempMax;
     plant.#notes = initializer?.notes ?? other.#notes;
-    plant.#plantGeekId = initializer?.plantGeekId ?? other.#plantGeekId;
+    plant.#plantgeekId = initializer?.plantgeekId ?? other.#plantgeekId;
     return plant;
   }
 
+  /**
+   * Constructs a `Plant` from CSV data.
+   *
+   * @param plantDb The `PlantDB` to create the plant in.
+   * @param dataRow The strings that were read from the CSV input.
+   * @returns The constructed `Plant`.
+   */
   static fromCSVData(plantDb: PlantDB, dataRow: Array<string>): Plant {
     const plant = new Plant(plantDb, dataRow[0]);
     plant.#name = dataRow[1] !== "" ? dataRow[1] : undefined;
@@ -265,10 +356,16 @@ export class Plant {
     plant.#tempMin = floatFromCSV(dataRow, 12, plantDb.config);
     plant.#tempMax = floatFromCSV(dataRow, 13, plantDb.config);
     plant.#notes = valueFromCSV(dataRow, 14, false) as string | undefined;
-    plant.#plantGeekId = valueFromCSV(dataRow, 15);
+    plant.#plantgeekId = valueFromCSV(dataRow, 15);
     return plant;
   }
 
+  /**
+   * Serialize the `Plant` so it can be be turned into CSV.
+   *
+   * @param databaseFormat The `DatabaseFormat` to use when serializing values.
+   * @returns The `Plant` ready to be serialized into CSV.
+   */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toCSVData(databaseFormat: DatabaseFormat) {
     const serialized = this.toJSObject();
@@ -288,7 +385,7 @@ export class Plant {
       serialized.tempMin,
       serialized.tempMax,
       serialized.notes,
-      valueToCSV(serialized.plantGeekId),
+      valueToCSV(serialized.plantgeekId),
     ];
   }
 
@@ -308,7 +405,7 @@ export class Plant {
     plant.#tempMin = dataObject.tempMin ?? plant.#tempMin;
     plant.#tempMax = dataObject.tempMax ?? plant.#tempMax;
     plant.#notes = dataObject.notes ?? plant.#notes;
-    plant.#plantGeekId = dataObject.plantGeekId ?? plant.#plantGeekId;
+    plant.#plantgeekId = dataObject.plantgeekId ?? plant.#plantgeekId;
     return plant;
   }
 
@@ -324,6 +421,11 @@ export class Plant {
     return Plant.fromJSObject(plantDb, data);
   }
 
+  /**
+   * Serialize this plant into a plain JS hash.
+   *
+   * @returns A simple hash with all of this plant's properties.
+   */
   toJSObject(): PlantSerialized {
     return {
       id: this.#id,
@@ -341,7 +443,7 @@ export class Plant {
       tempMin: this.#tempMin,
       tempMax: this.#tempMax,
       notes: this.#notes,
-      plantGeekId: this.#plantGeekId,
+      plantgeekId: this.#plantgeekId,
     };
   }
 
