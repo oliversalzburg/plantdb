@@ -251,7 +251,7 @@ export class PlantLogEntry extends LitElement {
                 : undefined}</span
             >
 
-            <cite>${this.linkify(this.logEntry.note)}</cite>
+            <cite>${this.linkify(this.logEntry.notes)}</cite>
           </div>
 
           <sl-tooltip content=${t("log.openEntry")} placement="left">

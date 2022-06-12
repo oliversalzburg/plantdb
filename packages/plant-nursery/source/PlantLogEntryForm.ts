@@ -4,6 +4,7 @@ import { t } from "i18next";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { Typography } from "./ComponentStyles";
+import { MultiValueEditor } from "./MultiValueEditor";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 import { assertExists, isNil, mustExist } from "./tools/Maybe";
@@ -73,9 +74,9 @@ export class PlantLogEntryForm extends LitElement {
   @state()
   private _time = new Date().toISOString().slice(11, 19);
   @state()
-  private _note: string | undefined;
+  private _notes: string | undefined;
   @state()
-  private _productUsed: string | undefined;
+  private _productUsed: string | Array<string> | undefined;
   @state()
   private _ec: number | undefined;
   @state()
@@ -105,7 +106,7 @@ export class PlantLogEntryForm extends LitElement {
       this._time =
         this.logEntry?.timestamp.toISOString().slice(11, 19) ??
         new Date().toISOString().slice(11, 19);
-      this._note = this.logEntry?.note ?? "";
+      this._notes = this.logEntry?.notes ?? "";
       this._productUsed = this.logEntry?.productUsed ?? "";
       this._ec = this.logEntry?.ec ?? undefined;
       this._ph = this.logEntry?.ph ?? undefined;
@@ -143,7 +144,7 @@ export class PlantLogEntryForm extends LitElement {
     );
     // Augment record.
     return LogEntry.fromLogEntry(entry, {
-      note: this._note,
+      notes: this._notes,
       productUsed: this._productUsed,
       ec: this._ec,
       ph: this._ph,
@@ -163,13 +164,6 @@ export class PlantLogEntryForm extends LitElement {
     const foundEntryTypes = [...this.plantStore.plantDb.entryTypes]
       .sort()
       .filter(type => type.toLocaleLowerCase().includes(this._entryType.toLocaleLowerCase()));
-    const foundProducts = [...this.plantStore.plantDb.usedProducts]
-      .sort()
-      .filter(
-        type =>
-          !this._productUsed ||
-          type.toLocaleLowerCase().includes(this._productUsed.toLocaleLowerCase())
-      );
 
     return [
       html`<form id="form">
@@ -275,42 +269,20 @@ export class PlantLogEntryForm extends LitElement {
         <sl-textarea
           label=${t("entryEditor.noteLabel")}
           placeholder=${t("entryEditor.notePlaceholder")}
-          value=${this._note}
-          @sl-change=${(event: MouseEvent) => (this._note = (event.target as SlTextarea).value)}
+          value=${this._notes}
+          @sl-change=${(event: MouseEvent) => (this._notes = (event.target as SlTextarea).value)}
         ></sl-textarea>
         <div class="spacer"></div>
 
         <h4>Details</h4>
-        <sl-input
+        <pn-multi-value-editor
           label=${t("entryEditor.productLabel")}
           placeholder=${t("entryEditor.productPlaceholder")}
-          clearable
-          value=${this._productUsed}
-          @sl-focus=${() => this._productDrowndown?.show()}
-          @sl-input=${(event: MouseEvent) => (this._productUsed = (event.target as SlInput).value)}
-        ></sl-input
-        >${foundProducts.length
-          ? html`<sl-dropdown id="product-dropdown" hoist>
-              <sl-menu>
-                ${[...this.plantStore.plantDb.usedProducts]
-                  .sort()
-                  .filter(
-                    type =>
-                      !this._productUsed ||
-                      type.toLocaleLowerCase().includes(this._productUsed.toLocaleLowerCase())
-                  )
-                  .map(
-                    product =>
-                      html`<sl-menu-item
-                        @click=${() => {
-                          this._productUsed = product;
-                        }}
-                        >${product}</sl-menu-item
-                      >`
-                  )}
-              </sl-menu></sl-dropdown
-            >`
-          : undefined}
+          .suggestions=${[...this.plantStore.plantDb.usedProducts]}
+          .value=${this._productUsed}
+          @pn-changed=${(event: CustomEvent) =>
+            (this._productUsed = (event.target as MultiValueEditor).value)}
+        ></pn-multi-value-editor>
         <div class="spacer"></div>
 
         <div class="row">

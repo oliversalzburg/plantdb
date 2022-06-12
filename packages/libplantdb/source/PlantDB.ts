@@ -411,7 +411,11 @@ export class PlantDB {
       if (!logEntry.productUsed) {
         continue;
       }
-      productsUsed.add(logEntry.productUsed);
+      if (Array.isArray(logEntry.productUsed)) {
+        logEntry.productUsed.forEach(productUsed => productsUsed.add(productUsed));
+      } else {
+        productsUsed.add(logEntry.productUsed);
+      }
     }
     return productsUsed;
   }

@@ -2,7 +2,7 @@ import { DateTime } from "luxon";
 import { DatabaseFormat, EventType } from "./DatabaseFormat";
 import { MATCH_PID } from "./Plant";
 import { PlantDB } from "./PlantDB";
-import { tryParseFloat, tryParseInt } from "./Tools";
+import { floatFromCSV, intFromCSV, valueFromCSV } from "./Tools";
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.
@@ -41,7 +41,7 @@ export type LogEntrySerialized = {
   /**
    * @inheritDoc LogEntry.productUsed
    */
-  productUsed?: string;
+  productUsed?: string | Array<string>;
 
   /**
    * @inheritDoc LogEntry.note
@@ -60,8 +60,8 @@ export class LogEntry {
   #type: string;
   #ec: number | undefined;
   #ph: number | undefined;
-  #productUsed: string | undefined;
-  #note: string | undefined;
+  #productUsed: string | Array<string> | undefined;
+  #notes: string | undefined;
 
   /**
    * The `PlantDB` this log entry is associated with.
@@ -99,10 +99,10 @@ export class LogEntry {
   }
 
   /**
-   * The note that the user recorded with the event.
+   * The notes that the user recorded with the event.
    */
-  get note() {
-    return this.#note;
+  get notes() {
+    return this.#notes;
   }
 
   /**
@@ -182,7 +182,7 @@ export class LogEntry {
     logEntry.#ec = initializer?.ec ? initializer.ec : other.#ec;
     logEntry.#ph = initializer?.ph ? initializer.ph : other.#ph;
     logEntry.#productUsed = initializer?.productUsed ? initializer.productUsed : other.#productUsed;
-    logEntry.#note = initializer?.note ? initializer.note : other.#note;
+    logEntry.#notes = initializer?.notes ? initializer.notes : other.#notes;
     return logEntry;
   }
 
@@ -212,10 +212,12 @@ export class LogEntry {
       DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
       dataRow[2]
     );
-    logEntry.#note = dataRow[3] !== "" ? dataRow[3] : undefined;
-    logEntry.#ec = tryParseInt(dataRow[4], format);
-    logEntry.#ph = tryParseFloat(dataRow[5], format);
-    logEntry.#productUsed = dataRow[6] !== "" ? dataRow[6] : undefined;
+
+    let rowPointer = 3;
+    logEntry.#notes = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
+    logEntry.#ec = intFromCSV(dataRow, rowPointer++, plantDb.config);
+    logEntry.#ph = floatFromCSV(dataRow, rowPointer++, plantDb.config);
+    logEntry.#productUsed = valueFromCSV(dataRow, rowPointer++);
 
     return logEntry;
   }
@@ -257,7 +259,7 @@ export class LogEntry {
     logEntry.#ec = dataObject.ec ?? logEntry.#ec;
     logEntry.#ph = dataObject.ph ?? logEntry.#ph;
     logEntry.#productUsed = dataObject.productUsed ?? logEntry.#productUsed;
-    logEntry.#note = dataObject.note ?? logEntry.#note;
+    logEntry.#notes = dataObject.note ?? logEntry.#notes;
 
     return logEntry;
   }
@@ -288,7 +290,7 @@ export class LogEntry {
       ec: this.#ec,
       ph: this.#ph,
       productUsed: this.#productUsed,
-      note: this.#note,
+      note: this.#notes,
     };
   }
 

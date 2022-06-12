@@ -100,7 +100,7 @@ export class PlantStore extends LitElement {
           sourceLine: logEntry.sourceLine,
           plantId: logEntry.plantId,
           type: logEntry.type,
-          note: logEntry.note,
+          note: logEntry.notes,
           productUsed: logEntry.productUsed,
 
           plantName: logEntry.plant.name,

@@ -57,7 +57,7 @@ describe("log", () => {
     expect(logEntry.plantId).equals("PID-5");
     expect(logEntry.timestamp).eqls(new Date("2022-05-22 10:48:00+02:00"));
     expect(logEntry.type).equals("Messung");
-    expect(logEntry.note).equals(undefined);
+    expect(logEntry.notes).equals(undefined);
     expect(logEntry.ec).equals(950);
     expect(logEntry.ph).equals(5.4);
     expect(logEntry.productUsed).equals(undefined);
