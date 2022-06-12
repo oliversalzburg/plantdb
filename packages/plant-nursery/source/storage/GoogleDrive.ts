@@ -1,15 +1,20 @@
 import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
 import { isNil, mustExist } from "../tools/Maybe";
+import { StorageDriver } from "./StorageDriver";
 
-export class GoogleDrive {
+export class GoogleDrive implements StorageDriver {
   private static _googleDriveConnected = false;
 
-  get connected() {
-    return GoogleDrive._googleDriveConnected;
+  async prepare() {
+    return Promise.all([this._loadGoogleIdentityServices(), this._loadGoogleApi()]);
   }
 
   async connect() {
     return this._connectGoogleDrive();
+  }
+
+  get connected() {
+    return GoogleDrive._googleDriveConnected;
   }
 
   async lastModified() {
@@ -31,7 +36,7 @@ export class GoogleDrive {
     const plants = await this._readFile("plants.csv");
 
     if (isNil(config) || isNil(log) || isNil(plants)) {
-      return null;
+      throw new Error("Incomplete data.");
     }
 
     const databaseFormat = DatabaseFormat.fromJSON(config.body);

@@ -4,6 +4,7 @@ import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
 import { GoogleDrive } from "../storage/GoogleDrive";
 import { LocalStorage } from "../storage/LocalStorage";
+import { executeAsyncContext } from "../tools/Async";
 import { isNil, mustExist } from "../tools/Maybe";
 
 let globalStore: PlantStore | undefined;
@@ -18,29 +19,32 @@ export class PlantStore extends LitElement {
   private _indexLog: Index | undefined;
   private _indexPlants: Index | undefined;
 
+  localStorage = new LocalStorage();
   googleDrive = new GoogleDrive();
 
   connectedCallback(): void {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     globalStore = this;
 
-    const storedDb = LocalStorage.retrievePlantDb();
-    if (storedDb) {
-      console.info("Restored DB from localStorage.");
-      this.plantDb = storedDb;
-      this._updateIndex();
+    executeAsyncContext(async () => {
+      const storedDb = await this.localStorage.retrievePlantDb();
+      if (storedDb) {
+        console.info("Restored DB from localStorage.");
+        this.plantDb = storedDb;
+        this._updateIndex();
 
-      this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
-    }
+        this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
+      }
+    });
   }
 
   disconnectedCallback(): void {
     globalStore = undefined;
   }
 
-  updatePlantDb(plantDb: PlantDB) {
+  async updatePlantDb(plantDb: PlantDB) {
     this.plantDb = plantDb;
-    LocalStorage.persistPlantDb(this.plantDb);
+    await this.localStorage.persistPlantDb(this.plantDb);
     console.info("Stored DB in localStorage.");
     this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
   }
@@ -54,7 +58,7 @@ export class PlantStore extends LitElement {
       return;
     }
 
-    this.updatePlantDb(plantDb);
+    await this.updatePlantDb(plantDb);
   }
   async googleDrivePush() {
     return this.googleDrive.persistPlantDb(this.plantDb);
