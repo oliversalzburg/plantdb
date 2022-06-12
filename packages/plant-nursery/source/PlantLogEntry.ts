@@ -262,11 +262,7 @@ export class PlantLogEntry extends LitElement {
           </div>
 
           <sl-tooltip content=${t("log.openEntry")} placement="left">
-            <sl-icon-button
-              class="edit-button hover-guide"
-              name="pencil"
-              @click=${() => this.dispatchEvent(new CustomEvent("pn-body-click"))}
-            ></sl-icon-button
+            <sl-icon-button class="edit-button hover-guide" name="pencil"></sl-icon-button
           ></sl-tooltip>
         </section>
       </sl-card>`,
