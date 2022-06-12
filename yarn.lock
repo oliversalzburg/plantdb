@@ -2091,6 +2091,7 @@ __metadata:
     i18next: 21.8.9
     i18next-browser-languagedetector: 6.1.4
     i18next-http-backend: 1.4.1
+    idb: 7.0.1
     lit: 2.2.5
     lit-i18n: 3.0.2
     lunr: 2.3.9
@@ -5462,6 +5463,13 @@ __metadata:
   dependencies:
     safer-buffer: ">= 2.1.2 < 3.0.0"
   checksum: 98102bc66b33fcf5ac044099d1257ba0b7ad5e3ccd3221f34dd508ab4070edff183276221684e1e0555b145fce0850c9f7d2b60a9fcac50fbb4ea0d6e845a3b1
+  languageName: node
+  linkType: hard
+
+"idb@npm:7.0.1":
+  version: 7.0.1
+  resolution: "idb@npm:7.0.1"
+  checksum: 240f63358faefb1039a23e9af787005b7d6995f5e2ff4b8eab123a3052889b73483164e35bde1e8e6e04205b481bf1541f9330e91490a4b172608a87d229d742
   languageName: node
   linkType: hard
 

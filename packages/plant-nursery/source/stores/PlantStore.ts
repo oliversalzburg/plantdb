@@ -3,7 +3,9 @@ import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
 import { GoogleDrive } from "../storage/GoogleDrive";
+import { IndexedDb } from "../storage/IndexedDb";
 import { LocalStorage } from "../storage/LocalStorage";
+import { StorageDriver } from "../storage/StorageDriver";
 import { executeAsyncContext } from "../tools/Async";
 import { isNil, mustExist } from "../tools/Maybe";
 
@@ -19,7 +21,8 @@ export class PlantStore extends LitElement {
   private _indexLog: Index | undefined;
   private _indexPlants: Index | undefined;
 
-  localStorage = new LocalStorage();
+  indexedDb = new IndexedDb();
+  localStorage: StorageDriver = new LocalStorage();
   googleDrive = new GoogleDrive();
 
   connectedCallback(): void {
@@ -27,6 +30,10 @@ export class PlantStore extends LitElement {
     globalStore = this;
 
     executeAsyncContext(async () => {
+      await this.indexedDb.prepare();
+      await this.localStorage.prepare();
+      // Google Drive is not prepared until absolutely necessary!
+
       const storedDb = await this.localStorage.retrievePlantDb();
       if (storedDb) {
         console.info("Restored DB from localStorage.");
@@ -46,6 +53,13 @@ export class PlantStore extends LitElement {
     this.plantDb = plantDb;
     await this.localStorage.persistPlantDb(this.plantDb);
     console.info("Stored DB in localStorage.");
+
+    if (!this.indexedDb.connected) {
+      await this.indexedDb.connect();
+    }
+    await this.indexedDb.persistPlantDb(plantDb);
+    console.info("Stored DB in IndexedDB.");
+
     this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
   }
 

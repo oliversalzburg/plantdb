@@ -367,6 +367,7 @@ export class PlantStoreUi extends LitElement {
 
   async editLogEntry(logEntry: LogEntry) {
     assertExists(this.plantStore);
+    console.debug(`Editing log entry ${logEntry.sourceLine}`);
 
     const updatedEntry = await this.showEntryEditor(logEntry);
     if (!updatedEntry) {
@@ -380,9 +381,9 @@ export class PlantStoreUi extends LitElement {
       : this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, logEntry);
 
     if (shouldDelete) {
-      void this.alert(t("log.entryDeleted"), "danger", "x-circle");
+      this.alert(t("log.entryDeleted"), "danger", "x-circle").catch(console.error);
     } else {
-      void this.alert(t("log.entryUpdated"));
+      this.alert(t("log.entryUpdated")).catch(console.error);
     }
 
     return this.plantStore.updatePlantDb(newDb);
