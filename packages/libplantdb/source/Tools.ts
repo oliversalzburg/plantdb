@@ -41,6 +41,18 @@ export const kindFlatten = (plantKind: string | string[] | undefined) => {
   return plantKind;
 };
 
+export const flattenMultiValue = (multiValue: string | string[] | undefined) => {
+  if (multiValue === undefined) {
+    return "";
+  }
+
+  if (Array.isArray(multiValue)) {
+    return multiValue.join(", ");
+  }
+
+  return multiValue;
+};
+
 /**
  * Identify a user-given event type to an internally-known one, based on the information found in a `PlantDB`.
  *

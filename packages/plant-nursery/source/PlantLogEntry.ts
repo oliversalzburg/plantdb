@@ -1,4 +1,11 @@
-import { EventType, identifyLogType, LogEntry, MATCH_PID_ALL, PlantDB } from "@plantdb/libplantdb";
+import {
+  EventType,
+  flattenMultiValue,
+  identifyLogType,
+  LogEntry,
+  MATCH_PID_ALL,
+  PlantDB,
+} from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
@@ -149,7 +156,7 @@ export class PlantLogEntry extends LitElement {
       case "PestControl":
         return {
           icon: "radioactive",
-          details: `${logEntry?.productUsed ? logEntry.productUsed : ""}`,
+          details: `${flattenMultiValue(logEntry?.productUsed)}`,
         };
 
       case "PestInfestation":
