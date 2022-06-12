@@ -196,7 +196,7 @@ export class PlantPropertiesForm extends LitElement {
     this._plantTempMin = this.plant?.tempMin ?? this._plantTempMin;
     this._plantTempMax = this.plant?.tempMax ?? this._plantTempMax;
     this._plantNotes = this.plant?.notes ?? this._plantNotes;
-    this._plantPlantgeekId = this.plant?.plantGeekId ?? this._plantPlantgeekId;
+    this._plantPlantgeekId = this.plant?.plantgeekId ?? this._plantPlantgeekId;
   }
 
   protected updated(
@@ -218,7 +218,7 @@ export class PlantPropertiesForm extends LitElement {
       this._plantTempMin = this.plant?.tempMin ?? undefined;
       this._plantTempMax = this.plant?.tempMax ?? undefined;
       this._plantNotes = this.plant?.notes ?? "";
-      this._plantPlantgeekId = this.plant?.plantGeekId ?? "";
+      this._plantPlantgeekId = this.plant?.plantgeekId ?? "";
     }
   }
 
@@ -251,7 +251,7 @@ export class PlantPropertiesForm extends LitElement {
       onSaucer: this._plantOnSaucer,
       phMax: this._plantPhMax,
       phMin: this._plantPhMin,
-      plantGeekId: this._plantPlantgeekId,
+      plantgeekId: this._plantPlantgeekId,
       potColor: this._plantPotColor,
       potShapeTop: this._plantPotShapeTop,
       substrate: this._plantSubstrate,

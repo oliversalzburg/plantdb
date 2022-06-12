@@ -31,8 +31,8 @@ export class PlantgeekInfo extends LitElement {
     if (isNil(this.plant)) {
       return;
     }
-    return Array.isArray(this.plant.plantGeekId)
-      ? this.plant.plantGeekId.map(
+    return Array.isArray(this.plant.plantgeekId)
+      ? this.plant.plantgeekId.map(
           (plantgeekId, index) =>
             html`<a
               href="https://www.plantgeek.co/plant/${plantgeekId}"
@@ -42,7 +42,7 @@ export class PlantgeekInfo extends LitElement {
             >`
         )
       : html`<a
-          href="https://www.plantgeek.co/plant/${this.plant.plantGeekId}"
+          href="https://www.plantgeek.co/plant/${this.plant.plantgeekId}"
           class="plantgeek-info"
           target="_blank"
           >Visit ${kindFlatten(this.plant.kind)} on Plantgeek</a
