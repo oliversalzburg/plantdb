@@ -24,7 +24,7 @@ The `DatabaseFormat` used to initialize this database.
 
 **Defined in**
 
-[PlantDB.ts:37](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L37)
+[PlantDB.ts:37](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L37)
 
 ---
 
@@ -40,7 +40,7 @@ A cache of all the user-supplied event types in the database.
 
 **Defined in**
 
-[PlantDB.ts:60](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L60)
+[PlantDB.ts:60](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L60)
 
 ---
 
@@ -56,7 +56,7 @@ A cache of all the user-supplied plant kinds in the database.
 
 **Defined in**
 
-[PlantDB.ts:67](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L67)
+[PlantDB.ts:67](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L67)
 
 ---
 
@@ -72,7 +72,7 @@ A cache of all the user-supplied locations in the database.
 
 **Defined in**
 
-[PlantDB.ts:74](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L74)
+[PlantDB.ts:74](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L74)
 
 ---
 
@@ -88,7 +88,7 @@ readonly [`LogEntry`](LogEntry.md)[]
 
 **Defined in**
 
-[PlantDB.ts:53](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L53)
+[PlantDB.ts:53](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L53)
 
 ---
 
@@ -106,7 +106,7 @@ If you only want the plants themselves, use `plants.values()`.
 
 **Defined in**
 
-[PlantDB.ts:46](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L46)
+[PlantDB.ts:46](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L46)
 
 ---
 
@@ -122,7 +122,7 @@ A cache of all the user-supplied pot colors in the database.
 
 **Defined in**
 
-[PlantDB.ts:81](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L81)
+[PlantDB.ts:81](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L81)
 
 ---
 
@@ -138,7 +138,7 @@ A cache of all the user-supplied pot shapes in the database.
 
 **Defined in**
 
-[PlantDB.ts:88](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L88)
+[PlantDB.ts:88](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L88)
 
 ---
 
@@ -154,7 +154,7 @@ A cache of all the user-supplied substrates in the database.
 
 **Defined in**
 
-[PlantDB.ts:95](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L95)
+[PlantDB.ts:95](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L95)
 
 ---
 
@@ -170,7 +170,7 @@ A cache of all the user-supplied products in the database.
 
 **Defined in**
 
-[PlantDB.ts:102](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L102)
+[PlantDB.ts:102](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L102)
 
 ## Methods
 
@@ -196,7 +196,7 @@ The created `LogEntry`.
 
 **Defined in**
 
-[PlantDB.ts:190](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L190)
+[PlantDB.ts:190](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L190)
 
 ---
 
@@ -220,7 +220,7 @@ The created `Plant`.
 
 **Defined in**
 
-[PlantDB.ts:215](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L215)
+[PlantDB.ts:215](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L215)
 
 ---
 
@@ -245,7 +245,7 @@ The created `Plant`.
 
 **Defined in**
 
-[PlantDB.ts:311](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L311)
+[PlantDB.ts:311](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L311)
 
 ---
 
@@ -269,7 +269,7 @@ The new `PlantDB`.
 
 **Defined in**
 
-[PlantDB.ts:119](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L119)
+[PlantDB.ts:119](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L119)
 
 ---
 
@@ -295,7 +295,7 @@ The new `PlantDB`.
 
 **Defined in**
 
-[PlantDB.ts:131](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L131)
+[PlantDB.ts:131](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L131)
 
 ---
 
@@ -316,7 +316,7 @@ The new `PlantDB`.
 
 **Defined in**
 
-[PlantDB.ts:142](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L142)
+[PlantDB.ts:142](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L142)
 
 ---
 
@@ -337,7 +337,7 @@ The new `PlantDB`.
 
 **Defined in**
 
-[PlantDB.ts:166](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L166)
+[PlantDB.ts:166](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L166)
 
 ---
 
@@ -357,7 +357,7 @@ The new `PlantDB`.
 
 **Defined in**
 
-[PlantDB.ts:159](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L159)
+[PlantDB.ts:159](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L159)
 
 ---
 
@@ -377,7 +377,7 @@ The new `PlantDB`.
 
 **Defined in**
 
-[PlantDB.ts:175](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L175)
+[PlantDB.ts:175](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L175)
 
 ---
 
@@ -393,7 +393,7 @@ Returns an empty `PlantDB`.
 
 **Defined in**
 
-[PlantDB.ts:109](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L109)
+[PlantDB.ts:109](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L109)
 
 ---
 
@@ -419,7 +419,7 @@ A new `PlantDB` with the information found in the CSV data.
 
 **Defined in**
 
-[PlantDB.ts:264](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L264)
+[PlantDB.ts:264](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L264)
 
 ---
 
@@ -445,7 +445,7 @@ A new `PlantDB` initialized with the given data.
 
 **Defined in**
 
-[PlantDB.ts:326](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L326)
+[PlantDB.ts:326](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L326)
 
 ---
 
@@ -471,4 +471,4 @@ A new `PlantDB` with the provided arguments merged into it.
 
 **Defined in**
 
-[PlantDB.ts:228](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/PlantDB.ts#L228)
+[PlantDB.ts:228](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/PlantDB.ts#L228)

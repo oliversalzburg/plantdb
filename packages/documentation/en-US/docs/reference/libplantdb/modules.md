@@ -31,7 +31,7 @@ a `DatabaseFormat`.
 
 **Defined in**
 
-[DatabaseFormat.ts:75](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L75)
+[DatabaseFormat.ts:75](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/DatabaseFormat.ts#L75)
 
 ---
 
@@ -43,7 +43,7 @@ All possible values for internally known event types.
 
 **Defined in**
 
-[DatabaseFormat.ts:69](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L69)
+[DatabaseFormat.ts:69](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/DatabaseFormat.ts#L69)
 
 ---
 
@@ -68,7 +68,7 @@ Describes an object containing all the fields required to initialize a `LogEntry
 
 **Defined in**
 
-[LogEntry.ts:10](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/LogEntry.ts#L10)
+[LogEntry.ts:10](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/LogEntry.ts#L10)
 
 ---
 
@@ -94,7 +94,7 @@ Describes an object containing all the fields required to initialize a `Plant`.
 | `phMax?`       | `number`               | The maximum pH value for this plant.                                                    |
 | `phMin?`       | `number`               | The minimum pH value for this plant.                                                    |
 | `plantgeekId?` | `string` \| `string`[] | ID(s) of plant(s) on plantgeek.co that provide more information about this plant.       |
-| `potColor?`    | `string`               | **`inheritdoc`**                                                                        |
+| `potColor?`    | `string`               | The color of the pot.                                                                   |
 | `potShapeTop?` | `string`               | The shape of the pot, when viewed from above.                                           |
 | `substrate?`   | `string` \| `string`[] | The current substrate(s) the plant is planted in.                                       |
 | `tempMax?`     | `number`               | The maximum temperature for this plant.                                                 |
@@ -102,7 +102,7 @@ Describes an object containing all the fields required to initialize a `Plant`.
 
 **Defined in**
 
-[Plant.ts:36](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L36)
+[Plant.ts:36](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L36)
 
 ---
 
@@ -114,7 +114,7 @@ Internally understood pot colors.
 
 **Defined in**
 
-[Plant.ts:24](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L24)
+[Plant.ts:24](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L24)
 
 ---
 
@@ -126,7 +126,7 @@ Internally understood pot shapes.
 
 **Defined in**
 
-[Plant.ts:19](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L19)
+[Plant.ts:19](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L19)
 
 ## Variables
 
@@ -155,7 +155,7 @@ A hash of internally known event types to a human-readable, English version.
 
 **Defined in**
 
-[DatabaseFormat.ts:4](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/DatabaseFormat.ts#L4)
+[DatabaseFormat.ts:4](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/DatabaseFormat.ts#L4)
 
 ---
 
@@ -167,7 +167,7 @@ Matches a Plant ID.
 
 **Defined in**
 
-[Plant.ts:9](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L9)
+[Plant.ts:9](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L9)
 
 ---
 
@@ -179,7 +179,7 @@ Matches all Plant IDs.
 
 **Defined in**
 
-[Plant.ts:14](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L14)
+[Plant.ts:14](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L14)
 
 ## Functions
 
@@ -206,7 +206,7 @@ The correctly parsed CSV value.
 
 **Defined in**
 
-[Tools.ts:141](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L141)
+[Tools.ts:141](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L141)
 
 ---
 
@@ -231,7 +231,7 @@ The internally-known event type for the user-given event type.
 
 **Defined in**
 
-[Tools.ts:51](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L51)
+[Tools.ts:51](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L51)
 
 ---
 
@@ -258,7 +258,7 @@ The correctly parsed CSV value.
 
 **Defined in**
 
-[Tools.ts:164](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L164)
+[Tools.ts:164](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L164)
 
 ---
 
@@ -282,7 +282,7 @@ A string that contains all the kinds the plant.
 
 **Defined in**
 
-[Tools.ts:32](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L32)
+[Tools.ts:32](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L32)
 
 ---
 
@@ -306,7 +306,7 @@ A string that summarizes the kinds in a plant.
 
 **Defined in**
 
-[Tools.ts:14](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L14)
+[Tools.ts:14](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L14)
 
 ---
 
@@ -328,7 +328,7 @@ A string that summarizes the kinds in a plant.
 
 **Defined in**
 
-[Tools.ts:78](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L78)
+[Tools.ts:78](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L78)
 
 ---
 
@@ -349,7 +349,7 @@ A string that summarizes the kinds in a plant.
 
 **Defined in**
 
-[Tools.ts:71](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L71)
+[Tools.ts:71](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L71)
 
 ---
 
@@ -373,7 +373,7 @@ A `Map` that maps plant IDs to their respective plant.
 
 **Defined in**
 
-[Tools.ts:208](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L208)
+[Tools.ts:208](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L208)
 
 ---
 
@@ -395,7 +395,7 @@ A `Map` that maps plant IDs to their respective plant.
 
 **Defined in**
 
-[Tools.ts:96](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L96)
+[Tools.ts:96](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L96)
 
 ---
 
@@ -416,7 +416,7 @@ A `Map` that maps plant IDs to their respective plant.
 
 **Defined in**
 
-[Tools.ts:89](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L89)
+[Tools.ts:89](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L89)
 
 ---
 
@@ -441,7 +441,7 @@ The input number rounded to the given number of digits.
 
 **Defined in**
 
-[Tools.ts:66](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L66)
+[Tools.ts:66](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L66)
 
 ---
 
@@ -465,7 +465,7 @@ A single string if the column contained a single line. An array of strings of th
 
 **Defined in**
 
-[Tools.ts:198](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L198)
+[Tools.ts:198](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L198)
 
 ---
 
@@ -485,7 +485,7 @@ A single string if the column contained a single line. An array of strings of th
 
 **Defined in**
 
-[Tools.ts:212](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L212)
+[Tools.ts:212](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L212)
 
 ---
 
@@ -506,7 +506,7 @@ A single string if the column contained a single line. An array of strings of th
 
 **Defined in**
 
-[Tools.ts:222](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L222)
+[Tools.ts:222](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L222)
 
 ---
 
@@ -527,7 +527,7 @@ A single string if the column contained a single line. An array of strings of th
 
 **Defined in**
 
-[Tools.ts:240](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L240)
+[Tools.ts:240](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L240)
 
 ---
 
@@ -554,7 +554,7 @@ The correctly parsed CSV value.
 
 **Defined in**
 
-[Tools.ts:119](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L119)
+[Tools.ts:119](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L119)
 
 ---
 
@@ -578,4 +578,4 @@ A single string containing all the provided values.
 
 **Defined in**
 
-[Tools.ts:184](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Tools.ts#L184)
+[Tools.ts:184](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Tools.ts#L184)

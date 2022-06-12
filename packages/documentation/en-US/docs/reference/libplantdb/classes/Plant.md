@@ -16,7 +16,7 @@ The maximum EC value for this plant.
 
 **Defined in**
 
-[Plant.ts:241](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L241)
+[Plant.ts:241](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L241)
 
 ---
 
@@ -32,7 +32,7 @@ The minium EC value for this plant.
 
 **Defined in**
 
-[Plant.ts:234](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L234)
+[Plant.ts:234](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L234)
 
 ---
 
@@ -48,7 +48,7 @@ The ID of the plant.
 
 **Defined in**
 
-[Plant.ts:156](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L156)
+[Plant.ts:156](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L156)
 
 ---
 
@@ -65,7 +65,7 @@ Archived plants are usually ignored in primary use cases.
 
 **Defined in**
 
-[Plant.ts:164](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L164)
+[Plant.ts:164](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L164)
 
 ---
 
@@ -81,7 +81,7 @@ The kind(s) of the plant.
 
 **Defined in**
 
-[Plant.ts:178](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L178)
+[Plant.ts:178](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L178)
 
 ---
 
@@ -97,7 +97,7 @@ The current location of the plant.
 
 **Defined in**
 
-[Plant.ts:213](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L213)
+[Plant.ts:213](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L213)
 
 ---
 
@@ -113,7 +113,7 @@ The log entries in the PlantDB relating to this plant.
 
 **Defined in**
 
-[Plant.ts:276](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L276)
+[Plant.ts:276](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L276)
 
 ---
 
@@ -129,7 +129,7 @@ Convenience access to latest log entry for this plant.
 
 **Defined in**
 
-[Plant.ts:290](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L290)
+[Plant.ts:290](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L290)
 
 ---
 
@@ -145,7 +145,7 @@ Convenience access to first log entry for this plant.
 
 **Defined in**
 
-[Plant.ts:283](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L283)
+[Plant.ts:283](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L283)
 
 ---
 
@@ -161,7 +161,7 @@ The name of the plant.
 
 **Defined in**
 
-[Plant.ts:171](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L171)
+[Plant.ts:171](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L171)
 
 ---
 
@@ -177,7 +177,7 @@ Any notes about this plant.
 
 **Defined in**
 
-[Plant.ts:262](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L262)
+[Plant.ts:262](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L262)
 
 ---
 
@@ -193,7 +193,7 @@ Does the plant current sit on a saucer?
 
 **Defined in**
 
-[Plant.ts:206](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L206)
+[Plant.ts:206](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L206)
 
 ---
 
@@ -209,7 +209,7 @@ The maximum pH value for this plant.
 
 **Defined in**
 
-[Plant.ts:227](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L227)
+[Plant.ts:227](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L227)
 
 ---
 
@@ -225,7 +225,7 @@ The minimum pH value for this plant.
 
 **Defined in**
 
-[Plant.ts:220](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L220)
+[Plant.ts:220](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L220)
 
 ---
 
@@ -239,7 +239,7 @@ The minimum pH value for this plant.
 
 **Defined in**
 
-[Plant.ts:149](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L149)
+[Plant.ts:149](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L149)
 
 ---
 
@@ -255,7 +255,7 @@ ID(s) of plant(s) on plantgeek.co that provide more information about this plant
 
 **Defined in**
 
-[Plant.ts:269](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L269)
+[Plant.ts:269](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L269)
 
 ---
 
@@ -271,7 +271,7 @@ The color of the pot.
 
 **Defined in**
 
-[Plant.ts:199](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L199)
+[Plant.ts:199](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L199)
 
 ---
 
@@ -287,7 +287,7 @@ The shape of the pot, when viewed from above.
 
 **Defined in**
 
-[Plant.ts:192](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L192)
+[Plant.ts:192](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L192)
 
 ---
 
@@ -303,7 +303,7 @@ The current substrate(s) the plant is planted in.
 
 **Defined in**
 
-[Plant.ts:185](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L185)
+[Plant.ts:185](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L185)
 
 ---
 
@@ -319,7 +319,7 @@ The maximum temperature for this plant.
 
 **Defined in**
 
-[Plant.ts:255](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L255)
+[Plant.ts:255](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L255)
 
 ---
 
@@ -335,7 +335,7 @@ The minimum temperature for this plant.
 
 **Defined in**
 
-[Plant.ts:248](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L248)
+[Plant.ts:248](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L248)
 
 ## Methods
 
@@ -359,7 +359,7 @@ The `Plant` ready to be serialized into CSV.
 
 **Defined in**
 
-[Plant.ts:370](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L370)
+[Plant.ts:370](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L370)
 
 ---
 
@@ -377,7 +377,7 @@ The `Plant` as JSON-serializable object.
 
 **Defined in**
 
-[Plant.ts:455](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L455)
+[Plant.ts:455](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L455)
 
 ---
 
@@ -395,7 +395,7 @@ A simple hash with all of this plant's properties.
 
 **Defined in**
 
-[Plant.ts:429](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L429)
+[Plant.ts:429](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L429)
 
 ---
 
@@ -409,7 +409,7 @@ A simple hash with all of this plant's properties.
 
 **Defined in**
 
-[Plant.ts:305](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L305)
+[Plant.ts:305](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L305)
 
 ---
 
@@ -434,7 +434,7 @@ The constructed `Plant`.
 
 **Defined in**
 
-[Plant.ts:343](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L343)
+[Plant.ts:343](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L343)
 
 ---
 
@@ -459,7 +459,7 @@ The new `Plant`.
 
 **Defined in**
 
-[Plant.ts:419](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L419)
+[Plant.ts:419](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L419)
 
 ---
 
@@ -480,7 +480,7 @@ The new `Plant`.
 
 **Defined in**
 
-[Plant.ts:392](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L392)
+[Plant.ts:392](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L392)
 
 ---
 
@@ -505,4 +505,4 @@ A new `Plant` with the `other` plant and the initializer properties merged into 
 
 **Defined in**
 
-[Plant.ts:316](https://github.com/oliversalzburg/plantdb/blob/620cdd7/packages/libplantdb/source/Plant.ts#L316)
+[Plant.ts:316](https://github.com/oliversalzburg/plantdb/blob/1c284c0/packages/libplantdb/source/Plant.ts#L316)

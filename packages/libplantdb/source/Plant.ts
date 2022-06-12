@@ -65,7 +65,7 @@ export type PlantSerialized = {
   potShapeTop?: string;
 
   /**
-   * @inheritDoc Plant.color
+   * @inheritDoc Plant.potColor
    */
   potColor?: string;
 
