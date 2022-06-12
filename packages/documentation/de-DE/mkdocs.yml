@@ -55,7 +55,7 @@ plugins:
 repo_name: oliversalzburg/plantdb
 repo_url: https://github.com/oliversalzburg/plantdb/
 site_name: PlantDB
-site_url: https://plantdb.net/docs/
+site_url: https://plantdb.net/docs/de-DE/
 theme:
   favicon: assets/images/favicon.ico
   features:
