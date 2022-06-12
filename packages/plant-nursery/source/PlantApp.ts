@@ -140,6 +140,18 @@ export class PlantApp extends LitElement {
     this.requestUpdate();
   }
 
+  private _onConfigChanged(event: CustomEvent<DatabaseFormat>) {
+    this._plantStoreUi.alert(t("typeMap.updated")).catch(console.error);
+    this._plantStore
+      .updatePlantDb(
+        PlantDB.fromPlantDB(this._plantStore.plantDb, {
+          config: event.detail,
+        })
+      )
+      .catch(console.error);
+    this._plantStoreUi.navigateTo("log");
+  }
+
   render() {
     return [
       this._plantStoreUi.i18nReady
@@ -285,15 +297,8 @@ export class PlantApp extends LitElement {
                     )
                     .filter(Boolean) as Array<[string, EventType]>
                 )}
-                @pn-config-changed=${(event: CustomEvent<DatabaseFormat>) => {
-                  this._plantStoreUi.alert(t("typeMap.updated")).catch(console.error);
-                  this._plantStore.updatePlantDb(
-                    PlantDB.fromPlantDB(this._plantStore.plantDb, {
-                      config: event.detail,
-                    })
-                  );
-                  this._plantStoreUi.navigateTo("log");
-                }}
+                @pn-config-changed=${(event: CustomEvent<DatabaseFormat>) =>
+                  this._onConfigChanged(event)}
               ></pn-type-map-view>
               <pn-import-view
                 class="view"

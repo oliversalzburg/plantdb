@@ -53,7 +53,7 @@ export class PlantDetailsView extends View {
 
     console.debug(logEntry);
     const newDb = this.plantStore.plantDb.withNewLogEntry(logEntry);
-    this.plantStore.updatePlantDb(newDb);
+    return this.plantStore.updatePlantDb(newDb);
   }
 
   render() {

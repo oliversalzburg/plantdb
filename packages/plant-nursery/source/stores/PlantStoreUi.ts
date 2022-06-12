@@ -385,7 +385,7 @@ export class PlantStoreUi extends LitElement {
       void this.alert(t("log.entryUpdate"));
     }
 
-    this.plantStore.updatePlantDb(newDb);
+    return this.plantStore.updatePlantDb(newDb);
   }
 
   async editPlant(plant: Plant) {
@@ -409,6 +409,6 @@ export class PlantStoreUi extends LitElement {
       void this.alert(t("plant.plantUpdated"));
     }
 
-    this.plantStore.updatePlantDb(newDb);
+    return this.plantStore.updatePlantDb(newDb);
   }
 }

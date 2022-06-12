@@ -190,7 +190,7 @@ export class ImportView extends View {
       `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`
     );
 
-    this.plantStore?.updatePlantDb(plantDb);
+    await this.plantStore?.updatePlantDb(plantDb);
     this.plantStoreUi?.navigatePath("/log");
   }
 
