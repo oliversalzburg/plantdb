@@ -13,6 +13,7 @@ export class PlantPropertiesView extends View {
     css`
       #form {
         padding: 0 5vw;
+        flex: 1;
       }
 
       @media (min-width: 1000px) {
