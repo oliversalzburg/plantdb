@@ -23,7 +23,7 @@ export type TaskSerialized = {
   date: Date;
 
   /**
-   * @inheritDoc Task.time
+   * The time of the day at which the task should be triggered.
    */
   time?: Date;
 
