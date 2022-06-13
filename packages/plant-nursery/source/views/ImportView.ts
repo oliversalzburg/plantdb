@@ -204,7 +204,7 @@ export class ImportView extends View {
     const pickerOpts = {
       types: [
         {
-          description: "CSV Files",
+          description: t("import.csvFiles"),
           accept: {
             "text/csv": [".csv"],
           },
@@ -235,7 +235,7 @@ export class ImportView extends View {
       suggestedName: filename,
       types: [
         {
-          description: "CSV Files",
+          description: t("import.csvFiles"),
           accept: {
             "text/csv": [".csv"],
           },

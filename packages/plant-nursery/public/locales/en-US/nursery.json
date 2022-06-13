@@ -74,6 +74,7 @@
   },
   "import": {
     "connectGoogleDrive": "Connect Google Drive",
+    "csvFiles": "CSV Files",
     "dataLoadedHelp": "Check the \"$t(import.text)\" panel to see your loaded data.",
     "export": "Insert current data",
     "filesystem": "File System",
