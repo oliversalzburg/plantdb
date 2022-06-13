@@ -183,7 +183,7 @@ export class PlantDB {
   withoutLogEntry(logEntry: LogEntry) {
     const log = [...this.#log.filter(entry => entry.id !== logEntry.id)];
 
-    return PlantDB.fromPlantDB(this, { log, plants: this.#plants });
+    return PlantDB.fromPlantDB(this, { log });
   }
 
   /**
@@ -195,7 +195,7 @@ export class PlantDB {
   withNewPlant(plant: Plant) {
     const plants = makePlantMap([...this.#plants.values(), Plant.fromPlant(plant)]);
 
-    return PlantDB.fromPlantDB(this, { log: this.#log, plants });
+    return PlantDB.fromPlantDB(this, { plants });
   }
 
   /**
@@ -210,7 +210,7 @@ export class PlantDB {
       [...this.#plants.values(), updatedPlant].filter(subject => subject.id !== oldPlant.id)
     );
 
-    return PlantDB.fromPlantDB(this, { log: this.#log, plants });
+    return PlantDB.fromPlantDB(this, { plants });
   }
 
   /**
@@ -224,7 +224,44 @@ export class PlantDB {
       [...this.#plants.values()].filter(subject => subject.id !== plant.id)
     );
 
-    return PlantDB.fromPlantDB(this, { log: this.#log, plants });
+    return PlantDB.fromPlantDB(this, { plants });
+  }
+
+  /**
+   * Returns a copy of this `PlantDB`, but with a new task added to it.
+   *
+   * @param task The task to add to the database.
+   * @returns The new `PlantDB`.
+   */
+  withNewTask(task: Task) {
+    const tasks = [...this.#tasks, task];
+
+    return PlantDB.fromPlantDB(this, { tasks });
+  }
+
+  /**
+   * Returns a copy of this `PlantDB`, but with a given task replaced by a new one.
+   *
+   * @param updatedTask The new task to add to the database.
+   * @param oldTask The old task to remove from the database.
+   * @returns The new `PlantDB`.
+   */
+  withUpdatedTask(updatedTask: Task, oldTask: Task) {
+    const tasks = [...this.#tasks, updatedTask].filter(subject => subject.id !== oldTask.id);
+
+    return PlantDB.fromPlantDB(this, { tasks });
+  }
+
+  /**
+   * Returns a copy of this `PlantDB`, but without the given task.
+   *
+   * @param task The task to remove from the database.
+   * @returns The new `PlantDB`.
+   */
+  withoutTask(task: Task) {
+    const tasks = [...this.#tasks].filter(subject => subject.id !== task.id);
+
+    return PlantDB.fromPlantDB(this, { tasks });
   }
 
   /**
@@ -260,6 +297,13 @@ export class PlantDB {
     return plant;
   }
 
+  /**
+   * Creates a new task that is to be added to the database.
+   *
+   * @param title The title of the task.
+   * @param date The date at which this task should be triggered.
+   * @returns The created `Task`.
+   */
   makeNewTask(title: string, date: Date) {
     const task = Task.fromJSObject(this, { id: this.#nextTaskId, title, date });
     return task;
@@ -286,6 +330,9 @@ export class PlantDB {
         plantId,
         Plant.fromPlant(plant, { plantDb }),
       ])
+    );
+    plantDb.#tasks = (initializer?.tasks ?? other.#tasks).map(task =>
+      Task.fromTask(task, { plantDb })
     );
 
     plantDb.#_refresh();

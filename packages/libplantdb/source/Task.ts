@@ -65,6 +65,10 @@ export type TaskSerialized = {
 
 /**
  * A task relating to plants in the PlantDB.
+ *
+ * Tasks are something that the user wants to do at a certain point in time.
+ * The user will create tasks with the intention to be reminded about these
+ * future actions.
  */
 export class Task {
   #plantDb: PlantDB;
