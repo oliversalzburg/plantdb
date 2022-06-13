@@ -48,7 +48,7 @@ This is a more in-depth guide to creating your own PlantDB log. If you haven't a
 
     -   **Type** - How you would categorize this event.
 
-        Assigning a specific [event type](../reference/event-types.md) to each recorded event, makes it a lot easier to later use that data. Applications, like the [PlantDB nursery](/plantdb/nursery), use this type to better understand what you have recorded and offer functionality based on that.
+        Assigning a specific [event type](../reference/event-types.md) to each recorded event, makes it a lot easier to later use that data. Applications, like the [PlantDB nursery](/nursery), use this type to better understand what you have recorded and offer functionality based on that.
 
     -   **Note** - Your personal note.
 

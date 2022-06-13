@@ -8,4 +8,5 @@ Today, many inexpensive plant care solutions exist, but users usually do not get
 
 PlantDB is an attempt to solve all of that. Keep you in power of your data, and have some fun with it.
 
-[Get Started](./tutorial/index.md ""){.md-button.md-button--primary} [Try PlantDB in the Nursery](/plantdb/nursery/ ""){.md-button}
+[Get Started](./tutorial/index.md){.md-button .md-button--primary}
+[Try PlantDB in the Nursery](/nursery/){.md-button}
