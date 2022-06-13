@@ -1,8 +1,8 @@
 import { DateTime } from "luxon";
+import { floatFromCSV, intFromCSV, valueFromCSV } from "./csv/Tools";
 import { DatabaseFormat, EventType } from "./DatabaseFormat";
 import { MATCH_PID } from "./Plant";
 import { PlantDB } from "./PlantDB";
-import { floatFromCSV, intFromCSV, valueFromCSV } from "./Tools";
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.

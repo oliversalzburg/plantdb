@@ -1,14 +1,8 @@
+import { boolFromCSV, floatFromCSV, intFromCSV, valueFromCSV, valueToCSV } from "./csv/Tools.js";
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry } from "./LogEntry.js";
 import { PlantDB } from "./PlantDB.js";
-import {
-  boolFromCSV,
-  floatFromCSV,
-  intFromCSV,
-  kindSummarize,
-  valueFromCSV,
-  valueToCSV,
-} from "./Tools.js";
+import { kindSummarize } from "./Tools.js";
 
 /**
  * Matches a Plant ID.
