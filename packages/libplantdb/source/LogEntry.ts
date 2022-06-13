@@ -21,7 +21,7 @@ export type LogEntrySerialized = {
   /**
    * @inheritDoc LogEntry.timestamp
    */
-  timestamp: string;
+  timestamp: Date;
 
   /**
    * @inheritDoc LogEntry.type
@@ -236,7 +236,7 @@ export class LogEntry {
     const serialized = this.toJSObject();
     return [
       serialized.plantId,
-      DateTime.fromISO(serialized.timestamp).toFormat(databaseFormat.dateFormat),
+      DateTime.fromJSDate(serialized.timestamp).toFormat(databaseFormat.dateFormat),
       serialized.type,
       serialized.note,
       serialized.ec,
@@ -289,7 +289,7 @@ export class LogEntry {
     return {
       id: this.#id,
       plantId: this.#plantId,
-      timestamp: this.#timestamp.toISOString(),
+      timestamp: this.#timestamp,
       type: this.#type,
       ec: this.#ec,
       ph: this.#ph,

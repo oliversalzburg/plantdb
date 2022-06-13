@@ -25,6 +25,7 @@ export class PlantDB {
   #tasks = new Array<Task>();
 
   #nextLogEntryId = 0;
+  #nextTaskId = 0;
 
   // Data caches to help construct UI workflows.
   #entryTypes = new Set<string>();
@@ -51,6 +52,9 @@ export class PlantDB {
 
   get nextLogEntryId(): number {
     return this.#nextLogEntryId;
+  }
+  get nextTaskId(): number {
+    return this.#nextTaskId;
   }
 
   /**
@@ -243,7 +247,7 @@ export class PlantDB {
     const entry = LogEntry.fromJSObject(this, {
       id: this.#nextLogEntryId,
       plantId,
-      timestamp: timestamp.toISOString(),
+      timestamp,
       type,
     });
     return entry;
@@ -258,6 +262,11 @@ export class PlantDB {
   makeNewPlant(plantId: string) {
     const plant = Plant.fromJSObject(this, { id: plantId });
     return plant;
+  }
+
+  makeNewTask(title: string, date: Date) {
+    const task = Task.fromJSObject(this, { id: this.#nextTaskId, title, date });
+    return task;
   }
 
   /**
@@ -381,11 +390,14 @@ export class PlantDB {
 
   #_refresh() {
     this.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
+
     this.#nextLogEntryId =
       this.#log.reduce(
         (nextId, logEntry) => Math.max(nextId, logEntry.id),
         this.#databaseFormat.hasHeaderRow ? 1 : 0
       ) + 1;
+
+    this.#nextTaskId = this.#tasks.reduce((nextId, task) => Math.max(nextId, task.id), 0) + 1;
 
     this.#entryTypes = aggregateEventTypes(this.#log);
     this.#kinds = aggregateKinds([...this.#plants.values()]);

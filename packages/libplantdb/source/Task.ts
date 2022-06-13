@@ -20,12 +20,12 @@ export type TaskSerialized = {
   /**
    * @inheritDoc Task.date
    */
-  date: string;
+  date: Date;
 
   /**
    * @inheritDoc Task.time
    */
-  time?: string;
+  time?: Date;
 
   /**
    * @inheritDoc Task.notes
@@ -55,7 +55,7 @@ export type TaskSerialized = {
   /**
    * @inheritDoc Task.endsOn
    */
-  endsOn?: string;
+  endsOn?: Date;
 
   /**
    * @inheritDoc Task.endsAfter
@@ -305,14 +305,14 @@ export class Task {
     return {
       id: this.#id,
       title: this.#title,
-      date: this.#dateTime.toISOString(),
-      time: this.#dateTime.toISOString(),
+      date: this.#dateTime,
+      time: this.#dateTime,
       notes: this.#notes,
       plantId: this.#plantId,
       repeatInterval: this.#repeatInterval,
       repeatUnit: this.#repeatUnit,
       repeatDays: this.#repeatDays,
-      endsOn: this.#endsOn?.toISOString(),
+      endsOn: this.#endsOn,
       endsAfter: this.#endsAfter,
     };
   }
