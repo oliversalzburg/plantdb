@@ -184,6 +184,19 @@ export class PlantDB {
   }
 
   /**
+   * Returns a copy of this `PlantDB`, but with a new plant added to it.
+   *
+   * @param plant The plant to add to the database.
+   * @returns The new `PlantDB`.
+   */
+  withNewPlant(plant: Plant) {
+    const log = [...this.#log];
+    const plants = makePlantMap([...this.#plants.values(), Plant.fromPlant(plant)]);
+
+    return PlantDB.fromPlantDB(this, { log, plants });
+  }
+
+  /**
    * Returns a copy of this `PlantDB`, but with a given plant replaced by a new one.
    *
    * @param updatedPlant The new plant to add to the database.
