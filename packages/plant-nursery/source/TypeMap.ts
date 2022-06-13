@@ -53,7 +53,7 @@ export class TypeMap extends LitElement {
                 <span>${entryType}</span>
                 <sl-select
                   placeholder=${t("typeMap.unmapped")}
-                  value=${this.plantDb.config.typeMap.get(entryType)}
+                  value=${this.plantDb.databaseFormat.typeMap.get(entryType)}
                   clearable
                   @sl-change=${(event: Event) => {
                     const value = (event.target as SlSelect).value;
@@ -82,7 +82,7 @@ export class TypeMap extends LitElement {
               new CustomEvent("pn-config-changed", {
                 bubbles: true,
                 composed: true,
-                detail: this.plantDb.config.withNewTypeMap(this.proposedMapping),
+                detail: this.plantDb.databaseFormat.withNewTypeMap(this.proposedMapping),
               })
             );
           }}

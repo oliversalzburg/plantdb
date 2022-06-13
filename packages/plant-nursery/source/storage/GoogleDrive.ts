@@ -50,7 +50,7 @@ export class GoogleDrive implements StorageDriver {
       throw new Error("Google Drive is not connected!");
     }
 
-    const config = JSON.stringify(plantDb.config);
+    const config = JSON.stringify(plantDb.databaseFormat);
     const log = JSON.stringify(plantDb.log);
     const plants = JSON.stringify([...plantDb.plants.values()]);
 

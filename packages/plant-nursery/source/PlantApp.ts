@@ -145,7 +145,7 @@ export class PlantApp extends LitElement {
     this._plantStore
       .updatePlantDb(
         PlantDB.fromPlantDB(this._plantStore.plantDb, {
-          config: event.detail,
+          databaseFormat: event.detail,
         })
       )
       .catch(console.error);
@@ -291,8 +291,11 @@ export class PlantApp extends LitElement {
                 .proposedMapping=${new Map(
                   [...(this._plantStore.plantDb.entryTypes.values() ?? [])]
                     .map(entryType =>
-                      this._plantStore.plantDb.config.typeMap.has(entryType)
-                        ? [entryType, this._plantStore.plantDb.config.typeMap.get(entryType)]
+                      this._plantStore.plantDb.databaseFormat.typeMap.has(entryType)
+                        ? [
+                            entryType,
+                            this._plantStore.plantDb.databaseFormat.typeMap.get(entryType),
+                          ]
                         : undefined
                     )
                     .filter(Boolean) as Array<[string, EventType]>

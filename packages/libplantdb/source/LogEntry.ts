@@ -217,8 +217,8 @@ export class LogEntry {
 
     let rowPointer = 3;
     logEntry.#notes = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
-    logEntry.#ec = intFromCSV(dataRow, rowPointer++, plantDb.config);
-    logEntry.#ph = floatFromCSV(dataRow, rowPointer++, plantDb.config);
+    logEntry.#ec = intFromCSV(dataRow, rowPointer++, plantDb.databaseFormat);
+    logEntry.#ph = floatFromCSV(dataRow, rowPointer++, plantDb.databaseFormat);
     logEntry.#productUsed = valueFromCSV(dataRow, rowPointer++);
 
     return logEntry;

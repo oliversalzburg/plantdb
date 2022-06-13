@@ -1,26 +1,29 @@
 import { parse } from "csv-parse/browser/esm/sync";
-import { DatabaseFormat, EventTypes } from "./DatabaseFormat.js";
-import { LogEntry, LogEntrySerialized } from "./LogEntry.js";
-import { Plant, PlantSerialized } from "./Plant.js";
-import { logToCSV, makePlantMap, plantsToCSV } from "./Tools.js";
+import { DatabaseFormat, EventTypes } from "./DatabaseFormat";
+import { LogEntry, LogEntrySerialized } from "./LogEntry";
+import { Plant, PlantSerialized } from "./Plant";
+import { Task } from "./Task";
+import {
+  aggregateEventTypes,
+  aggregateKinds,
+  aggregateLocations,
+  aggregatePotColors,
+  aggregatePotShapes,
+  aggregateProductsUsed,
+  aggregateSubstrates,
+  logToCSV,
+  makePlantMap,
+  plantsToCSV,
+} from "./Tools";
 
 /**
  * The main entrypoint of a PlantDB data collection.
  */
 export class PlantDB {
-  /**
-   * The configuration of this database.
-   */
-  #config = new DatabaseFormat();
-
-  /**
-   * The core data structure, our log of entries with plant information.
-   */
+  #databaseFormat = new DatabaseFormat();
   #log = new Array<LogEntry>();
-  /**
-   * Metadata to extend the log. This contains information about the plants themselves.
-   */
   #plants = new Map<string, Plant>();
+  #tasks = new Array<Task>();
 
   // Data caches to help construct UI workflows.
   #entryTypes = new Set<string>();
@@ -34,8 +37,15 @@ export class PlantDB {
   /**
    * The `DatabaseFormat` used to initialize this database.
    */
-  get config() {
-    return this.#config;
+  get databaseFormat() {
+    return this.#databaseFormat;
+  }
+
+  /**
+   * The individual log entries, sorted by their timestamp, starting with the oldest.
+   */
+  get log(): ReadonlyArray<LogEntry> {
+    return this.#log;
   }
 
   /**
@@ -48,10 +58,10 @@ export class PlantDB {
   }
 
   /**
-   * The individual log entries, sorted by their timestamp, starting with the oldest.
+   * Tasks that relate to the plants in this DB.
    */
-  get log(): ReadonlyArray<LogEntry> {
-    return this.#log;
+  get tasks(): ReadonlyArray<Task> {
+    return this.#tasks;
   }
 
   /**
@@ -111,16 +121,6 @@ export class PlantDB {
   }
 
   /**
-   * Returns a copy of this `PlantDB`, but with an entirely new log.
-   *
-   * @param log The new log for the database.
-   * @returns The new `PlantDB`.
-   */
-  withNewLog(log: ReadonlyArray<LogEntry>) {
-    return PlantDB.fromPlantDB(this, { log });
-  }
-
-  /**
    * Returns a copy of this `PlantDB`, but with a new entry added to its log.
    *
    * If the referenced plant does not exist, it will be created in the new database.
@@ -139,6 +139,15 @@ export class PlantDB {
     return PlantDB.fromPlantDB(this, { log, plants });
   }
 
+  /**
+   * Returns a copy of this `PlantDB`, but with a given log entry replaced by a new one.
+   *
+   * If the referenced plant does not exist, it will be created in the new database.
+   *
+   * @param updatedLogEntry The new log entry to add to the database.
+   * @param oldLogEntry The old log entry to remove from the database.
+   * @returns The new `PlantDB`.
+   */
   withUpdatedLogEntry(updatedLogEntry: LogEntry, oldLogEntry: LogEntry) {
     const plants = new Map(this.#plants);
     const log = [
@@ -156,6 +165,12 @@ export class PlantDB {
     return PlantDB.fromPlantDB(this, { log, plants });
   }
 
+  /**
+   * Returns a copy of this `PlantDB`, but without the given log entry.
+   *
+   * @param logEntry The log entry to remove from the database.
+   * @returns The new `PlantDB`.
+   */
   withoutLogEntry(logEntry: LogEntry) {
     const log = [...this.#log.filter(entry => entry.sourceLine !== logEntry.sourceLine)];
     const plants = new Map(this.#plants);
@@ -163,6 +178,13 @@ export class PlantDB {
     return PlantDB.fromPlantDB(this, { log, plants });
   }
 
+  /**
+   * Returns a copy of this `PlantDB`, but with a given plant replaced by a new one.
+   *
+   * @param updatedPlant The new plant to add to the database.
+   * @param oldPlant The old plant to remove from the database.
+   * @returns The new `PlantDB`.
+   */
   withUpdatedPlant(updatedPlant: Plant, oldPlant: Plant) {
     const log = [...this.#log];
     const plants = makePlantMap(
@@ -172,6 +194,12 @@ export class PlantDB {
     return PlantDB.fromPlantDB(this, { log, plants });
   }
 
+  /**
+   * Returns a copy of this `PlantDB`, but without the given plant.
+   *
+   * @param plant The plant to remove from the database.
+   * @returns The new `PlantDB`.
+   */
   withoutPlant(plant: Plant) {
     const log = [...this.#log];
     const plants = makePlantMap(
@@ -198,7 +226,7 @@ export class PlantDB {
       sourceLine:
         0 < this.#log.length
           ? this.#log[this.#log.length - 1].sourceLine + 1
-          : this.#config.hasHeaderRow
+          : this.#databaseFormat.hasHeaderRow
           ? 2
           : 1,
       plantId,
@@ -229,9 +257,9 @@ export class PlantDB {
    */
   static fromPlantDB(other: PlantDB, initializer?: Partial<PlantDB>) {
     const plantDb = new PlantDB();
-    plantDb.#config = initializer?.config
-      ? DatabaseFormat.fromDatabaseFormat(initializer.config)
-      : DatabaseFormat.fromDatabaseFormat(other.#config);
+    plantDb.#databaseFormat = initializer?.databaseFormat
+      ? DatabaseFormat.fromDatabaseFormat(initializer.databaseFormat)
+      : DatabaseFormat.fromDatabaseFormat(other.#databaseFormat);
     plantDb.#log = (initializer?.log ?? other.#log).map(entry =>
       LogEntry.fromLogEntry(entry, { plantDb })
     );
@@ -244,13 +272,13 @@ export class PlantDB {
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
-    plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
-    plantDb.#kinds = PlantDB.aggregateKinds(plantDb);
-    plantDb.#locations = PlantDB.aggregateLocations(plantDb);
-    plantDb.#potColors = PlantDB.aggregatePotColors(plantDb);
-    plantDb.#potShapes = PlantDB.aggregatePotShapes(plantDb);
-    plantDb.#substrates = PlantDB.aggregateSubstrates(plantDb);
-    plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
+    plantDb.#entryTypes = aggregateEventTypes(plantDb.#log);
+    plantDb.#kinds = aggregateKinds([...plantDb.#plants.values()]);
+    plantDb.#locations = aggregateLocations([...plantDb.#plants.values()]);
+    plantDb.#potColors = aggregatePotColors([...plantDb.#plants.values()]);
+    plantDb.#potShapes = aggregatePotShapes([...plantDb.#plants.values()]);
+    plantDb.#substrates = aggregateSubstrates([...plantDb.#plants.values()]);
+    plantDb.#usedProducts = aggregateProductsUsed(plantDb.#log);
 
     return plantDb;
   }
@@ -266,7 +294,7 @@ export class PlantDB {
   static fromCSV(databaseFormat: DatabaseFormat, plantDataRaw: string, plantLogDataRaw: string) {
     const plantDb = new PlantDB();
 
-    plantDb.#config = databaseFormat;
+    plantDb.#databaseFormat = databaseFormat;
 
     const plantLogData = parse(plantLogDataRaw, {
       columns: false,
@@ -299,18 +327,24 @@ export class PlantDB {
       }
     }
 
-    plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
-    plantDb.#kinds = PlantDB.aggregateKinds(plantDb);
-    plantDb.#locations = PlantDB.aggregateLocations(plantDb);
-    plantDb.#potColors = PlantDB.aggregatePotColors(plantDb);
-    plantDb.#potShapes = PlantDB.aggregatePotShapes(plantDb);
-    plantDb.#substrates = PlantDB.aggregateSubstrates(plantDb);
-    plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
+    plantDb.#entryTypes = aggregateEventTypes(plantDb.#log);
+    plantDb.#kinds = aggregateKinds([...plantDb.#plants.values()]);
+    plantDb.#locations = aggregateLocations([...plantDb.#plants.values()]);
+    plantDb.#potColors = aggregatePotColors([...plantDb.#plants.values()]);
+    plantDb.#potShapes = aggregatePotShapes([...plantDb.#plants.values()]);
+    plantDb.#substrates = aggregateSubstrates([...plantDb.#plants.values()]);
+    plantDb.#usedProducts = aggregateProductsUsed(plantDb.#log);
 
     return plantDb;
   }
 
-  toCSV(databaseFormat = this.#config) {
+  /**
+   * Seralize all data in the database to CSV.
+   *
+   * @param databaseFormat The format to use when serializing values.
+   * @returns The data contained in the database serialized as CSV.
+   */
+  toCSV(databaseFormat = this.#databaseFormat) {
     return {
       log: logToCSV(this.#log, databaseFormat),
       plants: plantsToCSV([...this.plants.values()], databaseFormat),
@@ -332,7 +366,7 @@ export class PlantDB {
   ) {
     const plantDb = new PlantDB();
 
-    plantDb.#config = databaseFormat;
+    plantDb.#databaseFormat = databaseFormat;
     plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSObject(plantDb, logEntry));
 
     for (const plant of plants) {
@@ -341,98 +375,14 @@ export class PlantDB {
 
     plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
-    plantDb.#entryTypes = PlantDB.aggregateEventTypes(plantDb);
-    plantDb.#kinds = PlantDB.aggregateKinds(plantDb);
-    plantDb.#locations = PlantDB.aggregateLocations(plantDb);
-    plantDb.#potColors = PlantDB.aggregatePotColors(plantDb);
-    plantDb.#potShapes = PlantDB.aggregatePotShapes(plantDb);
-    plantDb.#substrates = PlantDB.aggregateSubstrates(plantDb);
-    plantDb.#usedProducts = PlantDB.aggregateProductsUsed(plantDb);
+    plantDb.#entryTypes = aggregateEventTypes(plantDb.#log);
+    plantDb.#kinds = aggregateKinds([...plantDb.#plants.values()]);
+    plantDb.#locations = aggregateLocations([...plantDb.#plants.values()]);
+    plantDb.#potColors = aggregatePotColors([...plantDb.#plants.values()]);
+    plantDb.#potShapes = aggregatePotShapes([...plantDb.#plants.values()]);
+    plantDb.#substrates = aggregateSubstrates([...plantDb.#plants.values()]);
+    plantDb.#usedProducts = aggregateProductsUsed(plantDb.#log);
 
     return plantDb;
-  }
-
-  private static aggregateEventTypes(plantDb: PlantDB) {
-    const eventTypes = new Set<string>();
-    for (const logEntry of plantDb.#log) {
-      eventTypes.add(logEntry.type);
-    }
-    return eventTypes;
-  }
-  private static aggregateKinds(plantDb: PlantDB) {
-    const kinds = new Set<string>();
-    for (const plant of plantDb.#plants.values()) {
-      if (!plant.kind) {
-        continue;
-      }
-      if (Array.isArray(plant.kind)) {
-        plant.kind.forEach(kind => kinds.add(kind));
-      } else {
-        kinds.add(plant.kind);
-      }
-    }
-    return kinds;
-  }
-  private static aggregateLocations(plantDb: PlantDB) {
-    const locations = new Set<string>();
-    for (const plant of plantDb.#plants.values()) {
-      if (!plant.location) {
-        continue;
-      }
-      if (Array.isArray(plant.location)) {
-        plant.location.forEach(location => locations.add(location));
-      } else {
-        locations.add(plant.location);
-      }
-    }
-    return locations;
-  }
-  private static aggregatePotColors(plantDb: PlantDB) {
-    const potColors = new Set<string>();
-    for (const plant of plantDb.#plants.values()) {
-      if (!plant.potColor) {
-        continue;
-      }
-      potColors.add(plant.potColor);
-    }
-    return potColors;
-  }
-  private static aggregatePotShapes(plantDb: PlantDB) {
-    const potShapes = new Set<string>();
-    for (const plant of plantDb.#plants.values()) {
-      if (!plant.potShapeTop) {
-        continue;
-      }
-      potShapes.add(plant.potShapeTop);
-    }
-    return potShapes;
-  }
-  private static aggregateProductsUsed(plantDb: PlantDB) {
-    const productsUsed = new Set<string>();
-    for (const logEntry of plantDb.#log) {
-      if (!logEntry.productUsed) {
-        continue;
-      }
-      if (Array.isArray(logEntry.productUsed)) {
-        logEntry.productUsed.forEach(productUsed => productsUsed.add(productUsed));
-      } else {
-        productsUsed.add(logEntry.productUsed);
-      }
-    }
-    return productsUsed;
-  }
-  private static aggregateSubstrates(plantDb: PlantDB) {
-    const substrates = new Set<string>();
-    for (const plant of plantDb.#plants.values()) {
-      if (!plant.substrate) {
-        continue;
-      }
-      if (Array.isArray(plant.substrate)) {
-        plant.substrate.forEach(substrate => substrates.add(substrate));
-      } else {
-        substrates.add(plant.substrate);
-      }
-    }
-    return substrates;
   }
 }

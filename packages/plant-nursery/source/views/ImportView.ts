@@ -154,7 +154,7 @@ export class ImportView extends View {
       decimalSeparator: this.config.decimalSeparator,
       hasHeaderRow: this.config.hasHeaderRow,
       timezone: this.config.timezone,
-      typeMap: Object.fromEntries(this.plantStore.plantDb.config.typeMap),
+      typeMap: Object.fromEntries(this.plantStore.plantDb.databaseFormat.typeMap),
     } as DatabaseFormatSerialized);
 
     // Temporary DB to hold constructed data.
@@ -169,9 +169,9 @@ export class ImportView extends View {
       : [...this.plantStore.plantDb.log];
 
     plantDb = PlantDB.fromPlantDB(plantDb, {
-      plants: makePlantMap(plants),
+      databaseFormat: plantDbConfig,
       log,
-      config: plantDbConfig,
+      plants: makePlantMap(plants),
     });
 
     for (const logRecord of plantDb.log) {
@@ -218,6 +218,7 @@ export class ImportView extends View {
       const [fileHandle] = await window.showOpenFilePicker(pickerOpts);
 
       // get file contents
+
       const fileData = await fileHandle.getFile();
 
       return fileData.text();

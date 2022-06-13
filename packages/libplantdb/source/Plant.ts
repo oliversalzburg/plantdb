@@ -359,12 +359,12 @@ export class Plant {
     plant.#potColor = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
     plant.#onSaucer = boolFromCSV(dataRow, rowPointer++);
     plant.#location = valueFromCSV(dataRow, rowPointer++);
-    plant.#phMin = floatFromCSV(dataRow, rowPointer++, plantDb.config);
-    plant.#phMax = floatFromCSV(dataRow, rowPointer++, plantDb.config);
-    plant.#ecMin = intFromCSV(dataRow, rowPointer++, plantDb.config);
-    plant.#ecMax = intFromCSV(dataRow, rowPointer++, plantDb.config);
-    plant.#tempMin = floatFromCSV(dataRow, rowPointer++, plantDb.config);
-    plant.#tempMax = floatFromCSV(dataRow, rowPointer++, plantDb.config);
+    plant.#phMin = floatFromCSV(dataRow, rowPointer++, plantDb.databaseFormat);
+    plant.#phMax = floatFromCSV(dataRow, rowPointer++, plantDb.databaseFormat);
+    plant.#ecMin = intFromCSV(dataRow, rowPointer++, plantDb.databaseFormat);
+    plant.#ecMax = intFromCSV(dataRow, rowPointer++, plantDb.databaseFormat);
+    plant.#tempMin = floatFromCSV(dataRow, rowPointer++, plantDb.databaseFormat);
+    plant.#tempMax = floatFromCSV(dataRow, rowPointer++, plantDb.databaseFormat);
     plant.#notes = valueFromCSV(dataRow, rowPointer++, false) as string | undefined;
     plant.#plantgeekId = valueFromCSV(dataRow, rowPointer++);
     return plant;

@@ -61,11 +61,11 @@ export const flattenMultiValue = (multiValue: string | string[] | undefined) => 
  * @returns The internally-known event type for the user-given event type.
  */
 export const identifyLogType = (entryType: string, plantDb: PlantDB): EventType | undefined => {
-  if (!plantDb.config.typeMap.has(entryType)) {
+  if (!plantDb.databaseFormat.typeMap.has(entryType)) {
     return undefined;
   }
 
-  return plantDb.config.typeMap.get(entryType) as EventType;
+  return plantDb.databaseFormat.typeMap.get(entryType) as EventType;
 };
 
 /**
@@ -283,4 +283,88 @@ export const tryParseInt = (numberValue: string, databaseFormat = new DatabaseFo
   }
 
   return Number.parseInt(numberValue);
+};
+
+export const aggregateEventTypes = (log: ReadonlyArray<LogEntry>) => {
+  const eventTypes = new Set<string>();
+  for (const logEntry of log) {
+    eventTypes.add(logEntry.type);
+  }
+  return eventTypes;
+};
+export const aggregateKinds = (plants: ReadonlyArray<Plant>) => {
+  const kinds = new Set<string>();
+  for (const plant of plants) {
+    if (!plant.kind) {
+      continue;
+    }
+    if (Array.isArray(plant.kind)) {
+      plant.kind.forEach(kind => kinds.add(kind));
+    } else {
+      kinds.add(plant.kind);
+    }
+  }
+  return kinds;
+};
+export const aggregateLocations = (plants: ReadonlyArray<Plant>) => {
+  const locations = new Set<string>();
+  for (const plant of plants) {
+    if (!plant.location) {
+      continue;
+    }
+    if (Array.isArray(plant.location)) {
+      plant.location.forEach(location => locations.add(location));
+    } else {
+      locations.add(plant.location);
+    }
+  }
+  return locations;
+};
+export const aggregatePotColors = (plants: ReadonlyArray<Plant>) => {
+  const potColors = new Set<string>();
+  for (const plant of plants) {
+    if (!plant.potColor) {
+      continue;
+    }
+    potColors.add(plant.potColor);
+  }
+  return potColors;
+};
+export const aggregatePotShapes = (plants: ReadonlyArray<Plant>) => {
+  const potShapes = new Set<string>();
+  for (const plant of plants) {
+    if (!plant.potShapeTop) {
+      continue;
+    }
+    potShapes.add(plant.potShapeTop);
+  }
+  return potShapes;
+};
+export const aggregateProductsUsed = (log: ReadonlyArray<LogEntry>) => {
+  const productsUsed = new Set<string>();
+  for (const logEntry of log) {
+    if (!logEntry.productUsed) {
+      continue;
+    }
+    if (Array.isArray(logEntry.productUsed)) {
+      logEntry.productUsed.forEach(productUsed => productsUsed.add(productUsed));
+    } else {
+      productsUsed.add(logEntry.productUsed);
+    }
+  }
+  return productsUsed;
+};
+export const aggregateSubstrates = (plants: ReadonlyArray<Plant>) => {
+  const substrates = new Set<string>();
+  for (const plant of plants) {
+    if (!plant.substrate) {
+      continue;
+    }
+    if (Array.isArray(plant.substrate)) {
+      plant.substrate.forEach(substrate => substrates.add(substrate));
+    } else {
+      substrates.add(plant.substrate);
+    }
+  }
+  return substrates;
 };
