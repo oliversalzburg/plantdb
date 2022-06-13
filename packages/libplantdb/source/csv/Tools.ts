@@ -5,6 +5,13 @@ import { LogEntry } from "../LogEntry";
 import { Plant } from "../Plant";
 import { PlantDB } from "../PlantDB";
 
+/**
+ * Serialize a log to CSV.
+ *
+ * @param log The log to serialize
+ * @param databaseFormat The format to use when serializing values.
+ * @returns The log as a CSV string.
+ */
 export const logToCSV = (log: Array<LogEntry>, databaseFormat: DatabaseFormat) => {
   return stringify(
     log.map(logEntry => logEntry.toCSVData(databaseFormat)),
@@ -12,6 +19,14 @@ export const logToCSV = (log: Array<LogEntry>, databaseFormat: DatabaseFormat) =
   );
 };
 
+/**
+ * Deserialize a CSV string into a plant log.
+ *
+ * @param plantDb The `PlantDB` this log should be placed in.
+ * @param logCSV The CSV data to deserialize.
+ * @param databaseFormat The format to use when interpreting values.
+ * @returns An array of log entries.
+ */
 export const logFromCSV = (plantDb: PlantDB, logCSV: string, databaseFormat: DatabaseFormat) => {
   const plantLogData = parse(logCSV, {
     columns: false,
@@ -23,6 +38,13 @@ export const logFromCSV = (plantDb: PlantDB, logCSV: string, databaseFormat: Dat
   );
 };
 
+/**
+ * Serialize plants to CSV.
+ *
+ * @param plants The plants to serialize
+ * @param databaseFormat The format to use when serializing values.
+ * @returns The log as a CSV string.
+ */
 export const plantsToCSV = (plants: Array<Plant>, databaseFormat: DatabaseFormat) => {
   return stringify(
     plants.map(plant => plant.toCSVData(databaseFormat)),
@@ -30,6 +52,14 @@ export const plantsToCSV = (plants: Array<Plant>, databaseFormat: DatabaseFormat
   );
 };
 
+/**
+ * Deserialize a CSV string into a list of plants.
+ *
+ * @param plantDb The `PlantDB` the plants should be placed in.
+ * @param plantCSV The CSV data to deserialize.
+ * @param databaseFormat The format to use when interpreting values.
+ * @returns An array of plants.
+ */
 export const plantsFromCSV = (
   plantDb: PlantDB,
   plantCSV: string,
@@ -154,6 +184,12 @@ export const valueToCSV = (value?: string | Array<string>) => {
   return Array.isArray(value) ? value.join("\n") : value;
 };
 
+/**
+ * Given a string from a CSV source, determine which boolean value it represents.
+ *
+ * @param boolValue A string describing a boolean value.
+ * @returns The boolean meaning of the passed value, or `undefined`.
+ */
 export const tryParseBool = (boolValue: string) => {
   if (boolValue === "TRUE") {
     return true;
@@ -164,6 +200,13 @@ export const tryParseBool = (boolValue: string) => {
   return undefined;
 };
 
+/**
+ * Given a string from a CSV source, determine which float value it represents.
+ *
+ * @param numberValue A string describing a number value.
+ * @param databaseFormat The `DatabaseFormat` to be used to interpret the data.
+ * @returns The float value of the passed value, or `undefined`.
+ */
 export const tryParseFloat = (numberValue: string, databaseFormat = new DatabaseFormat()) => {
   if (numberValue.includes(databaseFormat.decimalSeparator)) {
     const parts = numberValue.split(databaseFormat.decimalSeparator);
@@ -182,6 +225,13 @@ export const tryParseFloat = (numberValue: string, databaseFormat = new Database
   return Number.parseFloat(numberValue);
 };
 
+/**
+ * Given a string from a CSV source, determine which integer value it represents.
+ *
+ * @param numberValue A string describing a number value.
+ * @param databaseFormat The `DatabaseFormat` to be used to interpret the data.
+ * @returns The integer value of the passed value, or `undefined`.
+ */
 export const tryParseInt = (numberValue: string, databaseFormat = new DatabaseFormat()) => {
   if (numberValue.includes(databaseFormat.decimalSeparator)) {
     const parts = numberValue.split(databaseFormat.decimalSeparator);
