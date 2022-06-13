@@ -212,13 +212,4 @@ export class DatabaseFormat {
       typeMap: Object.fromEntries(this.typeMap),
     };
   }
-
-  /**
-   * Pre-serialize the `DatabaseFormat` into an object ready to be turned into a JSON string.
-   *
-   * @returns The `DatabaseFormat` as a JSON-serializable object.
-   */
-  toJSON() {
-    return this.toJSObject();
-  }
 }

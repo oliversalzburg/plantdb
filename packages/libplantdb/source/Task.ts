@@ -320,13 +320,4 @@ export class Task {
       endsAfter: this.#endsAfter,
     };
   }
-
-  /**
-   * Pre-serialize the `Task` into an object ready to be turned into a JSON string.
-   *
-   * @returns The `Task` as JSON-serializable object.
-   */
-  toJSON() {
-    return this.toJSObject();
-  }
 }

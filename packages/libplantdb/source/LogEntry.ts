@@ -297,13 +297,4 @@ export class LogEntry {
       note: this.#notes,
     };
   }
-
-  /**
-   * Pre-serialize the `LogEntry` into an object ready to be turned into a JSON string.
-   *
-   * @returns The `LogEntry` as JSON-serializable object.
-   */
-  toJSON() {
-    return this.toJSObject();
-  }
 }

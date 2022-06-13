@@ -460,13 +460,4 @@ export class Plant {
       plantgeekId: this.#plantgeekId,
     };
   }
-
-  /**
-   * Pre-serialize the `Plant` into an object ready to be turned into a JSON string.
-   *
-   * @returns The `Plant` as JSON-serializable object.
-   */
-  toJSON() {
-    return this.toJSObject();
-  }
 }
