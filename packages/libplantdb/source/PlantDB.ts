@@ -182,9 +182,8 @@ export class PlantDB {
    */
   withoutLogEntry(logEntry: LogEntry) {
     const log = [...this.#log.filter(entry => entry.id !== logEntry.id)];
-    const plants = new Map(this.#plants);
 
-    return PlantDB.fromPlantDB(this, { log, plants });
+    return PlantDB.fromPlantDB(this, { log, plants: this.#plants });
   }
 
   /**
@@ -194,10 +193,9 @@ export class PlantDB {
    * @returns The new `PlantDB`.
    */
   withNewPlant(plant: Plant) {
-    const log = [...this.#log];
     const plants = makePlantMap([...this.#plants.values(), Plant.fromPlant(plant)]);
 
-    return PlantDB.fromPlantDB(this, { log, plants });
+    return PlantDB.fromPlantDB(this, { log: this.#log, plants });
   }
 
   /**
@@ -208,12 +206,11 @@ export class PlantDB {
    * @returns The new `PlantDB`.
    */
   withUpdatedPlant(updatedPlant: Plant, oldPlant: Plant) {
-    const log = [...this.#log];
     const plants = makePlantMap(
       [...this.#plants.values(), updatedPlant].filter(subject => subject.id !== oldPlant.id)
     );
 
-    return PlantDB.fromPlantDB(this, { log, plants });
+    return PlantDB.fromPlantDB(this, { log: this.#log, plants });
   }
 
   /**
@@ -223,12 +220,11 @@ export class PlantDB {
    * @returns The new `PlantDB`.
    */
   withoutPlant(plant: Plant) {
-    const log = [...this.#log];
     const plants = makePlantMap(
       [...this.#plants.values()].filter(subject => subject.id !== plant.id)
     );
 
-    return PlantDB.fromPlantDB(this, { log, plants });
+    return PlantDB.fromPlantDB(this, { log: this.#log, plants });
   }
 
   /**
