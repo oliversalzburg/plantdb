@@ -43,6 +43,7 @@ import "./views/PlantDetailsView";
 import "./views/PlantListView";
 import "./views/PlantLogView";
 import "./views/PlantPropertiesView";
+import "./views/TaskListView";
 import "./views/TypeMapView";
 
 setBasePath(import.meta.env.BASE_URL);

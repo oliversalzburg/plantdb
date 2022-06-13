@@ -120,31 +120,34 @@ export class PlantApp extends LitElement {
   ) {
     switch (page) {
       case "log":
-        document.title = `${t("menu.log")} - PlantDB Nursery`;
+        document.title = `${t("menu.log")} - ${t("app.title")}`;
         break;
       case "log-entry":
-        document.title = `${t("menu.logEntry")} - PlantDB Nursery`;
+        document.title = `${t("menu.logEntry")} - ${t("app.title")}`;
         break;
       case "list":
-        document.title = `${t("menu.plants")} - PlantDB Nursery`;
+        document.title = `${t("menu.plants")} - ${t("app.title")}`;
         break;
       case "plant":
-        document.title = `${pageParams[0]} - PlantDB Nursery`;
+        document.title = `${pageParams[0]} - ${t("app.title")}`;
         break;
       case "plant-properties":
-        document.title = `${pageParams[0]} ${t("menu.properties")} - PlantDB Nursery`;
+        document.title = `${pageParams[0]} ${t("menu.properties")} - ${t("app.title")}`;
+        break;
+      case "tasks":
+        document.title = `${t("menu.tasks")} - ${t("app.title")}`;
         break;
       case "types":
-        document.title = `${t("menu.typeMap")} - PlantDB Nursery`;
+        document.title = `${t("menu.typeMap")} - ${t("app.title")}`;
         break;
       case "import":
-        document.title = `${t("menu.import")} - PlantDB Nursery`;
+        document.title = `${t("menu.import")} - ${t("app.title")}`;
         break;
       case "view404":
-        document.title = "404 - PlantDB Nursery";
+        document.title = `404 - ${t("app.title")}`;
         break;
       default:
-        document.title = "PlantDB Nursery";
+        document.title = t("app.title");
         return this._plantStoreUi?.navigate("view404");
     }
 
@@ -179,6 +182,9 @@ export class PlantApp extends LitElement {
                 >
                 <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/list")}
                   >${t("menu.plants")}</sl-menu-item
+                >
+                <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/tasks")}
+                  >${t("menu.tasks")}</sl-menu-item
                 >
                 <sl-divider></sl-divider>
                 <sl-menu-label>${t("menu.settings")}</sl-menu-label>
@@ -294,6 +300,14 @@ export class PlantApp extends LitElement {
                   this._plantStoreUi.pageParams[0] ?? ""
                 )}
               ></pn-plant-properties-view>
+
+              <pn-task-list-view
+                class="view"
+                ?active=${this._plantStoreUi.page === "tasks"}
+                .plantStore=${this._plantStore}
+                .plantStoreUi=${this._plantStoreUi}
+                .tasks=${[...this._plantStore.plantDb.tasks]}
+              ></pn-task-list-view>
 
               <pn-type-map-view
                 class="view"

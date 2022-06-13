@@ -27,7 +27,8 @@
     "log": "It seems like you have no log entries 😔",
     "or": "or",
     "plant": "The requested plant wasn't found 😟",
-    "plants": "It seems like you have no plants 😔"
+    "plants": "It seems like you have no plants 😔",
+    "tasks": "It seems like there is nothing to do right now."
   },
   "entryEditor": {
     "dateLabel": "Date *",
@@ -126,6 +127,7 @@
     "plants": "Plants",
     "properties": "Properties",
     "settings": "Settings",
+    "tasks": "Tasks",
     "typeMap": "Type mappings"
   },
   "plant": {

@@ -24,6 +24,7 @@ export type KnownViews =
   | "log-entry"
   | "plant"
   | "plant-properties"
+  | "tasks"
   | "types"
   | "view404";
 
