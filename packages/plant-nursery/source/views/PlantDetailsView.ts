@@ -46,7 +46,9 @@ export class PlantDetailsView extends View {
     assertExists(this.plantStore);
     assertExists(this.plantStoreUi);
 
-    const logEntry = await this.plantStoreUi.showEntryEditor();
+    const logEntry = await this.plantStoreUi.showEntryEditor({
+      plantId: this.plant.id,
+    });
     if (!logEntry) {
       return;
     }

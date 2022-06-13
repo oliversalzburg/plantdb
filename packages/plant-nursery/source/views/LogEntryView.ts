@@ -38,6 +38,8 @@ export class LogEntryView extends View {
 
   @property()
   logEntry: LogEntry | undefined;
+  @property()
+  logEntryTemplate: Record<string, string> | undefined;
 
   @query("#form")
   private _form: PlantLogEntryForm | null | undefined;
@@ -87,6 +89,7 @@ export class LogEntryView extends View {
           .plantStore=${this.plantStore}
           .plantStoreUi=${this.plantStoreUi}
           .logEntry=${this.logEntry}
+          .logEntryTemplate=${this.logEntryTemplate}
         ></pn-plant-log-entry-form>
         <section class="footer">
           <sl-button variant="primary" @click=${() => this.save()}

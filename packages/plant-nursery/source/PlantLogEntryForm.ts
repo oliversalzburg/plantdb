@@ -60,6 +60,9 @@ export class PlantLogEntryForm extends LitElement {
   @property({ type: LogEntry })
   logEntry: LogEntry | undefined;
 
+  @property()
+  logEntryTemplate: Record<string, string> | undefined;
+
   @property({ type: Plant })
   plant: Plant | null = null;
 
@@ -92,23 +95,35 @@ export class PlantLogEntryForm extends LitElement {
   @query("#product-dropdown")
   private _productDrowndown: SlDropdown | null | undefined;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this._refreshValues();
+  }
+
   protected updated(
     _changedProperties: PropertyValueMap<PlantLogEntryForm> | Map<PropertyKey, unknown>
   ): void {
     if (_changedProperties.has("logEntry")) {
-      this._plantName = this.logEntry?.plantId ?? "";
-      this._entryType = this.logEntry?.type ?? "";
-      this._date =
-        this.logEntry?.timestamp.toISOString().slice(0, 10) ??
-        new Date().toISOString().slice(0, 10);
-      this._time =
-        this.logEntry?.timestamp.toISOString().slice(11, 19) ??
-        new Date().toISOString().slice(11, 19);
-      this._notes = this.logEntry?.notes ?? "";
-      this._productUsed = this.logEntry?.productUsed ?? "";
-      this._ec = this.logEntry?.ec ?? undefined;
-      this._ph = this.logEntry?.ph ?? undefined;
+      this._refreshValues();
     }
+  }
+
+  private _refreshValues() {
+    this._plantName = this.logEntry?.plantId ?? this.logEntryTemplate?.plantId ?? "";
+    this._entryType = this.logEntry?.type ?? this.logEntryTemplate?.type ?? "";
+    this._date =
+      this.logEntry?.timestamp.toISOString().slice(0, 10) ??
+      this.logEntryTemplate?.x ??
+      new Date().toISOString().slice(0, 10);
+    this._time =
+      this.logEntry?.timestamp.toISOString().slice(11, 19) ??
+      this.logEntryTemplate?.x ??
+      new Date().toISOString().slice(11, 19);
+    this._notes = this.logEntry?.notes ?? this.logEntryTemplate?.notes ?? "";
+    this._productUsed = this.logEntry?.productUsed ?? this.logEntryTemplate?.productUsed ?? "";
+    this._ec = this.logEntry?.ec ?? undefined;
+    this._ph = this.logEntry?.ph ?? undefined;
   }
 
   private _setCurrentDateTime() {

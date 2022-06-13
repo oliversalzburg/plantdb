@@ -71,10 +71,14 @@ export class PlantApp extends LitElement {
     this._plantStoreUi.plantStore = this._plantStore;
 
     this._plantStoreUi.addEventListener("pn-navigate", (event: Event) => {
-      const { page, pageParams } = (
-        event as CustomEvent<{ page: KnownViews; pageParams: Array<string> }>
+      const { page, pageParams, pageQuery } = (
+        event as CustomEvent<{
+          page: KnownViews;
+          pageParams: Array<string>;
+          pageQuery: Record<string, string>;
+        }>
       ).detail;
-      this.handleUserNavigationEvent(page, pageParams);
+      this.handleUserNavigationEvent(page, pageParams, pageQuery);
     });
     this._plantStoreUi.addEventListener("pn-drawer-open", () => this.requestUpdate());
     this._plantStoreUi.addEventListener("pn-theme-changed", () => this.requestUpdate());
@@ -90,7 +94,9 @@ export class PlantApp extends LitElement {
     // Then we are ready to handle the starting location like any later naviation event.
     this._plantStoreUi.addEventListener("pn-i18n-ready", () =>
       installRouter(location =>
-        this._plantStoreUi?.handleUserNavigationEvent(decodeURIComponent(location.pathname))
+        this._plantStoreUi?.handleUserNavigationEvent(
+          decodeURIComponent(location.href.slice(location.origin.length))
+        )
       )
     );
 
@@ -105,8 +111,13 @@ export class PlantApp extends LitElement {
    *
    * @param page The path of the link the user clicked on.
    * @param pageParams The parameters for the page.
+   * @param pageQuery The search/query part provided for this page.
    */
-  handleUserNavigationEvent(page: KnownViews, pageParams: Array<string>) {
+  handleUserNavigationEvent(
+    page: KnownViews,
+    pageParams: Array<string>,
+    pageQuery: Record<string, string>
+  ) {
     switch (page) {
       case "log":
         document.title = `${t("menu.log")} - PlantDB Nursery`;
@@ -255,6 +266,7 @@ export class PlantApp extends LitElement {
                 .logEntry=${this._plantStore.plantDb.log[
                   Number(this._plantStoreUi.pageParams[0] ?? -1)
                 ]}
+                .logEntryTemplate=${this._plantStoreUi.pageQuery}
               ></pn-log-entry-view>
 
               <pn-plant-list-view

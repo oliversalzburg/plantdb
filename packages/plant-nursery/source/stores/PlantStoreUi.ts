@@ -9,7 +9,7 @@ import { LogEntry, Plant } from "packages/libplantdb/typings";
 import { registerSW } from "virtual:pwa-register";
 import { ConfirmDialog } from "../ConfirmDialog";
 import { prepareAsyncContext } from "../tools/Async";
-import { assertExists, mustExist } from "../tools/Maybe";
+import { assertExists } from "../tools/Maybe";
 import { PlantStore } from "./PlantStore";
 
 let globalStore: PlantStoreUi | undefined;
@@ -44,6 +44,8 @@ export class PlantStoreUi extends LitElement {
   page: KnownViews = "list";
   @property({ type: [String] })
   pageParams = new Array<string>();
+  @property()
+  pageQuery: Record<string, string> | undefined;
 
   @property({ type: PlantStore })
   plantStore: PlantStore | null | undefined;
@@ -198,13 +200,14 @@ export class PlantStoreUi extends LitElement {
    * @param href The path of the link the user clicked on.
    */
   handleUserNavigationEvent(href: string) {
-    const { path, pathParameters } = this.parsePath(href);
+    const { path, pathParameters, pathQuery } = this.parsePath(href);
     this.page = path as KnownViews;
     this.pageParams = pathParameters;
+    this.pageQuery = pathQuery;
 
     this.dispatchEvent(
       new CustomEvent("pn-navigate", {
-        detail: { page: this.page, pageParams: this.pageParams },
+        detail: { page: this.page, pageParams: this.pageParams, pageQuery: this.pageQuery },
       })
     );
   }
@@ -215,16 +218,18 @@ export class PlantStoreUi extends LitElement {
    *
    * @param page The view to navigate to.
    * @param pageParams The parameters for the view.
+   * @param pageQuery The search/query part to pass to the view.
    */
-  navigate(page: KnownViews, pageParams = new Array<string>()) {
+  navigate(page: KnownViews, pageParams = new Array<string>(), pageQuery?: Record<string, string>) {
     this.page = page;
     this.pageParams = pageParams;
+    this.pageQuery = pageQuery;
 
     this.drawerClose();
 
     this.dispatchEvent(
       new CustomEvent("pn-navigate", {
-        detail: { page: this.page, pageParams: this.pageParams },
+        detail: { page: this.page, pageParams: this.pageParams, pageQuery: this.pageQuery },
       })
     );
   }
@@ -236,9 +241,10 @@ export class PlantStoreUi extends LitElement {
    *
    * @param page The view to navigate to.
    * @param pageParams The parameters for the view.
+   * @param pageQuery The query part for the URL.
    */
-  navigateTo(page: KnownViews, pageParams = new Array<string>()) {
-    const href = this.makePath(page, pageParams);
+  navigateTo(page: KnownViews, pageParams = new Array<string>(), pageQuery = "") {
+    const href = this.makePath(page, pageParams, pageQuery);
     this.navigatePath(href);
   }
 
@@ -261,19 +267,28 @@ export class PlantStoreUi extends LitElement {
       href = href.slice(import.meta.env.BASE_URL.length - 1);
     }
 
-    const pathString =
-      href === "/" ? assumePathForRoot : href.startsWith("/") ? href.slice(1) : href;
+    const pathString = href === "/" ? assumePathForRoot : href.startsWith("/") ? href : `/${href}`;
 
-    if (pathString.includes("/")) {
-      const pathParts = pathString.split("/");
-      return { path: pathParts[0], pathParameters: pathParts.slice(1) };
+    const url = new URL(`${location.origin}${pathString}`);
+
+    const pathParts = pathString.split("/");
+    if (1 < pathParts.length) {
+      return {
+        path: pathParts[1],
+        pathParameters: pathParts.slice(2),
+        pathQuery: Object.fromEntries(url.searchParams.entries()),
+      };
     }
 
-    return { path: pathString, pathParameters: [] };
+    return {
+      path: pathString,
+      pathParameters: [],
+      pathQuery: Object.fromEntries(url.searchParams.entries()),
+    };
   }
-  makePath(page: KnownViews, pageParams = new Array<string>()) {
+  makePath(page: KnownViews, pageParams = new Array<string>(), pageQuery = "") {
     const params = pageParams.length ? pageParams.join("/") : "";
-    return `${page}/${params}`;
+    return `${page}/${params}${pageQuery ? `?${pageQuery}` : ""}`;
   }
 
   alert(message: string, variant = "primary", icon = "info-circle", duration = 3000) {
@@ -305,13 +320,15 @@ export class PlantStoreUi extends LitElement {
     return confirm.show();
   }
 
-  showEntryEditor(logEntry?: LogEntry) {
-    const index = logEntry
-      ? mustExist(this.plantStore).plantDb.log.indexOf(logEntry).toString()
-      : "new";
+  showEntryEditor(logEntry?: Partial<LogEntry>) {
+    const index = logEntry?.id ? logEntry.id.toString() : "new";
+
+    const template = logEntry
+      ? new URLSearchParams(logEntry as Record<string, string>).toString()
+      : undefined;
 
     return new Promise<LogEntry | null>(resolve => {
-      this.navigateTo("log-entry", [index]);
+      this.navigateTo("log-entry", [index], template);
 
       const onCancel = (event: Event) => {
         event.preventDefault();
