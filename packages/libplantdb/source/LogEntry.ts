@@ -9,9 +9,9 @@ import { PlantDB } from "./PlantDB";
  */
 export type LogEntrySerialized = {
   /**
-   * @inheritDoc LogEntry.sourceLine
+   * @inheritDoc LogEntry.id
    */
-  sourceLine: number;
+  id: number;
 
   /**
    * @inheritDoc LogEntry.plantId
@@ -54,7 +54,7 @@ export type LogEntrySerialized = {
  */
 export class LogEntry {
   #plantDb: PlantDB;
-  #sourceLine: number;
+  #id: number;
   #plantId: string;
   #timestamp: Date;
   #type: string;
@@ -71,10 +71,12 @@ export class LogEntry {
   }
 
   /**
-   * If this log entry was read from a file, this indicates the line in the file it originates from.
+   * A unique ID for this log entry.
+   * If this log entry was read from a file, this ID usually indicates the
+   * line in the file it originates from.
    */
-  get sourceLine() {
-    return this.#sourceLine;
+  get id() {
+    return this.#id;
   }
 
   /**
@@ -145,20 +147,20 @@ export class LogEntry {
    * Constructs a new `LogEntry`.
    *
    * @param plantDb The `PlantDB` this `LogEntry` belongs to.
-   * @param sourceLine The line in the source CSV document this entry originated from.
+   * @param id The ID of the log entry.
    * @param plantId The ID of the plant.
    * @param timestamp The date/time the event was recorded.
    * @param type The type of event.
    */
   private constructor(
     plantDb: PlantDB,
-    sourceLine: number,
+    id: number,
     plantId: string,
     timestamp: Date,
     type: string | EventType
   ) {
     this.#plantDb = plantDb;
-    this.#sourceLine = sourceLine;
+    this.#id = id;
     this.#plantId = plantId;
     this.#timestamp = timestamp;
     this.#type = type;
@@ -174,7 +176,7 @@ export class LogEntry {
   static fromLogEntry(other: LogEntry, initializer?: Partial<LogEntry>) {
     const logEntry = new LogEntry(
       initializer?.plantDb ?? other.#plantDb,
-      initializer?.sourceLine ?? other.#sourceLine,
+      initializer?.id ?? other.#id,
       initializer?.plantId ?? other.#plantId,
       initializer?.timestamp ?? other.#timestamp,
       initializer?.type ?? other.#type
@@ -192,14 +194,14 @@ export class LogEntry {
    * @param plantDb The `PlantDB` to create the log entry in.
    * @param dataRow The strings that were read from the CSV input.
    * @param databaseFormat The `DatabaseFormat` to use when interpreting values.
-   * @param sourceFileLineNumber The line in the source document the values were read from.
+   * @param id The ID to assign to the log entry.
    * @returns The constructed `LogEntry`.
    */
   static fromCSVData(
     plantDb: PlantDB,
     dataRow: Array<string>,
     databaseFormat: DatabaseFormat,
-    sourceFileLineNumber: number
+    id: number
   ): LogEntry {
     if (!MATCH_PID.test(dataRow[0])) {
       throw new Error("Invalid PID");
@@ -207,7 +209,7 @@ export class LogEntry {
 
     const logEntry = new LogEntry(
       plantDb,
-      sourceFileLineNumber,
+      id,
       dataRow[0],
       DateTime.fromFormat(dataRow[1], databaseFormat.dateFormat, {
         zone: databaseFormat.timezone,
@@ -253,7 +255,7 @@ export class LogEntry {
   static fromJSObject(plantDb: PlantDB, dataObject: LogEntrySerialized) {
     const logEntry = new LogEntry(
       plantDb,
-      dataObject.sourceLine,
+      dataObject.id,
       dataObject.plantId,
       new Date(dataObject.timestamp),
       dataObject.type
@@ -285,7 +287,7 @@ export class LogEntry {
    */
   toJSObject(): LogEntrySerialized {
     return {
-      sourceLine: this.#sourceLine,
+      id: this.#id,
       plantId: this.#plantId,
       timestamp: this.#timestamp.toISOString(),
       type: this.#type,

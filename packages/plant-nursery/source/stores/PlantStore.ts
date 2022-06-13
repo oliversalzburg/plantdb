@@ -103,7 +103,7 @@ export class PlantStore extends LitElement {
     return lunr(function () {
       this.pipeline.remove(lunr.stemmer);
 
-      this.ref("sourceLine");
+      this.ref("id");
       this.field("plantId");
       this.field("type");
       this.field("note");
@@ -115,7 +115,7 @@ export class PlantStore extends LitElement {
 
       log.forEach(logEntry => {
         this.add({
-          sourceLine: logEntry.sourceLine,
+          id: logEntry.id,
           plantId: logEntry.plantId,
           type: logEntry.type,
           note: logEntry.notes,

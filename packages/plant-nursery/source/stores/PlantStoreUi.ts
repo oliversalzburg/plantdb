@@ -367,7 +367,7 @@ export class PlantStoreUi extends LitElement {
 
   async editLogEntry(logEntry: LogEntry) {
     assertExists(this.plantStore);
-    console.debug(`Editing log entry ${logEntry.sourceLine}`);
+    console.debug(`Editing log entry ${logEntry.id}`);
 
     const updatedEntry = await this.showEntryEditor(logEntry);
     if (!updatedEntry) {

@@ -24,6 +24,8 @@ export class PlantDB {
   #plants = new Map<string, Plant>();
   #tasks = new Array<Task>();
 
+  #nextLogEntryId = 0;
+
   // Data caches to help construct UI workflows.
   #entryTypes = new Set<string>();
   #kinds = new Set<string>();
@@ -45,6 +47,10 @@ export class PlantDB {
    */
   get log(): ReadonlyArray<LogEntry> {
     return this.#log;
+  }
+
+  get nextLogEntryId(): number {
+    return this.#nextLogEntryId;
   }
 
   /**
@@ -150,7 +156,7 @@ export class PlantDB {
   withUpdatedLogEntry(updatedLogEntry: LogEntry, oldLogEntry: LogEntry) {
     const plants = new Map(this.#plants);
     const log = [
-      ...this.#log.filter(entry => entry.sourceLine !== oldLogEntry.sourceLine),
+      ...this.#log.filter(entry => entry.id !== oldLogEntry.id),
       LogEntry.fromLogEntry(updatedLogEntry),
     ];
 
@@ -171,7 +177,7 @@ export class PlantDB {
    * @returns The new `PlantDB`.
    */
   withoutLogEntry(logEntry: LogEntry) {
-    const log = [...this.#log.filter(entry => entry.sourceLine !== logEntry.sourceLine)];
+    const log = [...this.#log.filter(entry => entry.id !== logEntry.id)];
     const plants = new Map(this.#plants);
 
     return PlantDB.fromPlantDB(this, { log, plants });
@@ -222,12 +228,7 @@ export class PlantDB {
     type: string = EventTypes.Observation
   ) {
     const entry = LogEntry.fromJSObject(this, {
-      sourceLine:
-        0 < this.#log.length
-          ? this.#log[this.#log.length - 1].sourceLine + 1
-          : this.#databaseFormat.hasHeaderRow
-          ? 2
-          : 1,
+      id: this.#nextLogEntryId,
       plantId,
       timestamp: timestamp.toISOString(),
       type,
@@ -269,15 +270,7 @@ export class PlantDB {
       ])
     );
 
-    plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
-
-    plantDb.#entryTypes = aggregateEventTypes(plantDb.#log);
-    plantDb.#kinds = aggregateKinds([...plantDb.#plants.values()]);
-    plantDb.#locations = aggregateLocations([...plantDb.#plants.values()]);
-    plantDb.#potColors = aggregatePotColors([...plantDb.#plants.values()]);
-    plantDb.#potShapes = aggregatePotShapes([...plantDb.#plants.values()]);
-    plantDb.#substrates = aggregateSubstrates([...plantDb.#plants.values()]);
-    plantDb.#usedProducts = aggregateProductsUsed(plantDb.#log);
+    plantDb.#_refresh();
 
     return plantDb;
   }
@@ -300,13 +293,15 @@ export class PlantDB {
       delimiter: databaseFormat.columnSeparator,
       from: databaseFormat.hasHeaderRow ? 2 : 1,
     }) as Array<Array<string>>;
+
+    // For user-supplied data, we identify the log entries by the line number in the source
+    // document. This allows the user to easily find data in their source document when they
+    // view the same data in a PlantDB app.
     const offset = databaseFormat.hasHeaderRow ? 2 : 1;
     for (const [index, logRecord] of plantLogData.entries()) {
       const logEntry = LogEntry.fromCSVData(plantDb, logRecord, databaseFormat, index + offset);
       plantDb.#log.push(logEntry);
     }
-
-    plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
 
     const plantData = parse(plantDataRaw, {
       columns: false,
@@ -326,13 +321,7 @@ export class PlantDB {
       }
     }
 
-    plantDb.#entryTypes = aggregateEventTypes(plantDb.#log);
-    plantDb.#kinds = aggregateKinds([...plantDb.#plants.values()]);
-    plantDb.#locations = aggregateLocations([...plantDb.#plants.values()]);
-    plantDb.#potColors = aggregatePotColors([...plantDb.#plants.values()]);
-    plantDb.#potShapes = aggregatePotShapes([...plantDb.#plants.values()]);
-    plantDb.#substrates = aggregateSubstrates([...plantDb.#plants.values()]);
-    plantDb.#usedProducts = aggregateProductsUsed(plantDb.#log);
+    plantDb.#_refresh();
 
     return plantDb;
   }
@@ -372,16 +361,25 @@ export class PlantDB {
       plantDb.#plants.set(plant.id, Plant.fromJSObject(plantDb, plant));
     }
 
-    plantDb.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
-
-    plantDb.#entryTypes = aggregateEventTypes(plantDb.#log);
-    plantDb.#kinds = aggregateKinds([...plantDb.#plants.values()]);
-    plantDb.#locations = aggregateLocations([...plantDb.#plants.values()]);
-    plantDb.#potColors = aggregatePotColors([...plantDb.#plants.values()]);
-    plantDb.#potShapes = aggregatePotShapes([...plantDb.#plants.values()]);
-    plantDb.#substrates = aggregateSubstrates([...plantDb.#plants.values()]);
-    plantDb.#usedProducts = aggregateProductsUsed(plantDb.#log);
+    plantDb.#_refresh();
 
     return plantDb;
+  }
+
+  #_refresh() {
+    this.#log.sort((a, b) => a.timestamp.valueOf() - b.timestamp.valueOf());
+    this.#nextLogEntryId =
+      this.#log.reduce(
+        (nextId, logEntry) => Math.max(nextId, logEntry.id),
+        this.#databaseFormat.hasHeaderRow ? 1 : 0
+      ) + 1;
+
+    this.#entryTypes = aggregateEventTypes(this.#log);
+    this.#kinds = aggregateKinds([...this.#plants.values()]);
+    this.#locations = aggregateLocations([...this.#plants.values()]);
+    this.#potColors = aggregatePotColors([...this.#plants.values()]);
+    this.#potShapes = aggregatePotShapes([...this.#plants.values()]);
+    this.#substrates = aggregateSubstrates([...this.#plants.values()]);
+    this.#usedProducts = aggregateProductsUsed(this.#log);
   }
 }
