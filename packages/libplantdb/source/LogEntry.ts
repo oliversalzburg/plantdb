@@ -191,14 +191,14 @@ export class LogEntry {
    *
    * @param plantDb The `PlantDB` to create the log entry in.
    * @param dataRow The strings that were read from the CSV input.
-   * @param format The `DatabaseFormat` to use when interpreting values.
+   * @param databaseFormat The `DatabaseFormat` to use when interpreting values.
    * @param sourceFileLineNumber The line in the source document the values were read from.
    * @returns The constructed `LogEntry`.
    */
   static fromCSVData(
     plantDb: PlantDB,
     dataRow: Array<string>,
-    format: DatabaseFormat,
+    databaseFormat: DatabaseFormat,
     sourceFileLineNumber: number
   ): LogEntry {
     if (!MATCH_PID.test(dataRow[0])) {
@@ -209,7 +209,9 @@ export class LogEntry {
       plantDb,
       sourceFileLineNumber,
       dataRow[0],
-      DateTime.fromFormat(dataRow[1], format.dateFormat, { zone: format.timezone }).toJSDate(),
+      DateTime.fromFormat(dataRow[1], databaseFormat.dateFormat, {
+        zone: databaseFormat.timezone,
+      }).toJSDate(),
       dataRow[2]
     );
 

@@ -36,7 +36,7 @@ module.exports = {
           },
         ],
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-unused-vars": ["error", { args: "none" }],
         "@typescript-eslint/no-var-requires": "off",
         "jsdoc/require-param-type": "off",
         "jsdoc/require-returns": ["off", { checkGetters: false }],
