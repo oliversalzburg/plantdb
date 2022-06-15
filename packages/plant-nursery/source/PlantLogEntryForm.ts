@@ -92,9 +92,6 @@ export class PlantLogEntryForm extends LitElement {
   @query("#type-dropdown")
   private _typeDrowndown: SlDropdown | null | undefined;
 
-  @query("#product-dropdown")
-  private _productDrowndown: SlDropdown | null | undefined;
-
   override connectedCallback(): void {
     super.connectedCallback();
 
