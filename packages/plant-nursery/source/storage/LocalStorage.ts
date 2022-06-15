@@ -41,9 +41,9 @@ export class LocalStorage implements StorageDriver {
   }
 
   persistPlantDb(plantDb: PlantDB) {
-    const config = JSON.stringify(plantDb.databaseFormat);
-    const log = JSON.stringify(plantDb.log);
-    const plants = JSON.stringify([...plantDb.plants.values()]);
+    const config = JSON.stringify(plantDb.databaseFormat.toJSObject());
+    const log = JSON.stringify(plantDb.log.map(logEntry => logEntry.toJSObject()));
+    const plants = JSON.stringify([...plantDb.plants.values()].map(plant => plant.toJSObject()));
 
     localStorage.setItem("plantdb.config", config);
     localStorage.setItem("plantdb.log", log);
