@@ -44,7 +44,6 @@ export class PlantLog extends LitElement {
       #entries {
         display: flex;
         flex-direction: column;
-        flex: 1;
         overflow: auto;
         min-height: 0;
         gap: 1rem;
