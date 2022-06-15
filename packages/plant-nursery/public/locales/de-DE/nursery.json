@@ -28,7 +28,7 @@
     "or": "oder",
     "plant": "Die angeforderte Pflanze wurde nicht gefunden 😟",
     "plants": "Es scheint, als hätten Sie keine Pflanzen 😔",
-    "tasks": "It seems like there is nothing to do right now."
+    "tasks": "Es scheint, als gäbe es aktuell nichts zu erledigen."
   },
   "entryEditor": {
     "dateLabel": "Datum *",
@@ -75,7 +75,7 @@
   },
   "import": {
     "connectGoogleDrive": "Google Drive verbinden",
-    "csvFiles": "CSV Files",
+    "csvFiles": "CSV Dateien",
     "dataLoadedHelp": "Klicken Sie auf \"$t(import.text)\", um die geladenen Daten anzuzeigen.",
     "export": "Aktuelle Daten einfügen",
     "filesystem": "Dateisystem",
@@ -125,9 +125,9 @@
     "log": "Protokoll",
     "logEntry": "Protokolleintrag",
     "plants": "Pflanzen",
-    "properties": "Properties",
+    "properties": "Eigenschaften",
     "settings": "Einstellungen",
-    "tasks": "Tasks",
+    "tasks": "Aufgaben",
     "typeMap": "Typ-Zuordnungen"
   },
   "plant": {
