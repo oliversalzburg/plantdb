@@ -101,7 +101,7 @@ export class PlantLogEntryForm extends LitElement {
   protected updated(
     _changedProperties: PropertyValueMap<PlantLogEntryForm> | Map<PropertyKey, unknown>
   ): void {
-    if (_changedProperties.has("logEntry")) {
+    if (_changedProperties.has("logEntry") || _changedProperties.has("logEntryTemplate")) {
       this._refreshValues();
     }
   }
