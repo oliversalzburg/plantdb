@@ -29,10 +29,10 @@ A spreadsheet authoring software. Common solutions are:
     -   PID
     -   Date/Time
     -   Type
-    -   Note
+    -   Notiz
     -   EC
     -   pH
-    -   Product used
+    -   Verwendetes Produkt
 
     !!! danger
 
