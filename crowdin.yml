@@ -1,7 +1,3 @@
 files:
   - source: /packages/plant-nursery/public/locales/en-US/*.json
     translation: /packages/plant-nursery/public/locales/%locale%/%original_file_name%
-  - source: /packages/documentation/en-US/docs/**/*.md
-    ignore:
-      - /packages/documentation/en-US/docs/reference/**/*
-    translation: /packages/documentation/%locale%/docs/**/%original_file_name%
