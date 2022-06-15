@@ -38,6 +38,10 @@ export class PlantLogEntry extends LitElement {
         background-color: var(--sl-color-primary-400);
       }
 
+      #plantId {
+        cursor: pointer;
+      }
+
       #infos {
         display: flex;
         flex-direction: row;
@@ -225,6 +229,7 @@ export class PlantLogEntry extends LitElement {
                     ></sl-tooltip>`
                   : undefined}
                 <sl-badge
+                  id="plantId"
                   variant="neutral"
                   @click=${() => this.dispatchEvent(new CustomEvent("pn-badge-click"))}
                   >${this.logEntry.plant.id}</sl-badge
