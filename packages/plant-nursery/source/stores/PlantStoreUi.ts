@@ -258,9 +258,9 @@ export class PlantStoreUi extends LitElement {
     const newPath = import.meta.env.BASE_URL + (href.startsWith("/") ? href.slice(1) : href);
     history.pushState(null, "", newPath);
 
-    const { path, pathParameters } = this.parsePath(href);
+    const { path, pathParameters, pathQuery } = this.parsePath(href);
 
-    this.navigate(path as KnownViews, pathParameters);
+    this.navigate(path as KnownViews, pathParameters, pathQuery);
   }
 
   parsePath(href: string, assumePathForRoot: KnownViews = "log") {
@@ -271,18 +271,17 @@ export class PlantStoreUi extends LitElement {
     // If the path is / then allow the fallback to take its place.
     // The fallback has no / prefix, as it's the name of a view.
     // If the path is something else, slice off any / prefix.
-    // Then ensure the final thing _does_ have a / prefix.
-    const pathString = `/${
+    const pathString = `${
       href === "/" ? assumePathForRoot : href.startsWith("/") ? href.slice(1) : href
     }`;
 
-    const url = new URL(`${location.origin}${pathString}`);
+    const url = new URL(`${location.origin}/${pathString}`);
 
     const pathParts = pathString.split("/");
     if (1 < pathParts.length) {
       return {
-        path: pathParts[1],
-        pathParameters: pathParts.slice(2),
+        path: pathParts[0],
+        pathParameters: pathParts.slice(1),
         pathQuery: Object.fromEntries(url.searchParams.entries()),
       };
     }
