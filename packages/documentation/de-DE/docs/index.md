@@ -8,4 +8,4 @@ Es gibt bereits viele kostengünstige Software-Lösungen die bei der Pflanzenpfl
 
 PlantDB ist ein Versuch, all das zu lösen. Man verliert nie die Kontrolle über seine Daten und kann trotzdem noch Spaß dabei haben.
 
-[Get Started](./tutorial/index.md){.md-button.md-button--primary} [Try PlantDB in the Nursery](/nursery/){.md-button}
+[Get Started](./tutorial/index.md ""){.md-button.md-button--primary} [Try PlantDB in the Nursery](/nursery/ ""){.md-button}
