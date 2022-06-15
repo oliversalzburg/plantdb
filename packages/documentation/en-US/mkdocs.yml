@@ -3,13 +3,6 @@ dev_addr: 0.0.0.0:8000
 docs_dir: docs
 edit_uri: /oliversalzburg/plantdb/edit/main/packages/documentation/docs/
 extra:
-  alternate:
-    - name: English (US)
-      link: /docs/en-US/
-      lang: en
-    - name: Deutsch (DE)
-      link: /docs/de-DE/
-      lang: de
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/oliversalzburg/
