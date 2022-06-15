@@ -4,7 +4,7 @@ Or "Nursery" for short, is an example application of a plant care app that could
 
 The Nursery runs entirely in your browser and does not send any data anywhere.
 
-[Visit the PlantDB Nursery](/nursery/){.md-button}
+[Visit the PlantDB Nursery](/nursery/ ""){.md-button}
 
 ## Introduction
 

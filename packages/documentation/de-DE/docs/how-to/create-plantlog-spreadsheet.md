@@ -1,4 +1,4 @@
-# PlantDB-Protokolltabelle erstellen
+# Create a PlantDB Log Spreadsheet
 
 This is a more in-depth guide to creating your own PlantDB log. If you haven't already, you might want to check out the [Getting Started for Users](../tutorial/getting-started-user.md) guide.
 
@@ -21,15 +21,15 @@ This is a more in-depth guide to creating your own PlantDB log. If you haven't a
 1.  If you haven't already, create a new workbook in your favorite spreadsheet application.
 
     === "LibreOffice Calc"
-
+   
         ![Empty spreadsheet in LibreOffice Calc](../tutorial/getting-started-user.assets/image-20220511162758319.png)
 
     === "Microsoft Excel"
-
+   
         ![Empty spreadsheet in Microsoft Excel](../tutorial/getting-started-user.assets/image-20220511171553987.png)
 
     === "Google Sheets"
-
+   
         ![Empty spreadsheet in Google Sheets](../tutorial/getting-started-user.assets/image-20220511162932148.png)
 
 1.  If you haven't created the default columns yet, do that now. The default columns are:
@@ -43,7 +43,7 @@ This is a more in-depth guide to creating your own PlantDB log. If you haven't a
         PlantDB does not dictate the format of this value. However, it is important to use some standard format consistently throughout the document. The easiest approach is to just use the convention native to you or what your spreadsheet application inserts when you ask it to insert a date and time.
 
         !!! note
-
+      
             If you're recording older events and don't know the _exact_ time, it doesn't matter. Just be as precise as you can or want to be. When estimating the day, use `12:00` for the time. When estimating the entire year, use `01/01/1980 12:00`.
 
     -   **Type** - How you would categorize this event.

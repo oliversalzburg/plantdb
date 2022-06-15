@@ -27,7 +27,8 @@
     "log": "נראה שאין לך רישומים ביומן 😔",
     "or": "או",
     "plant": "הצמח אותו ביקשת אינו קיים 😟",
-    "plants": "נראה שאין לך צמחים 😔"
+    "plants": "נראה שאין לך צמחים 😔",
+    "tasks": "It seems like there is nothing to do right now."
   },
   "entryEditor": {
     "dateLabel": "תאריך *",
@@ -74,6 +75,7 @@
   },
   "import": {
     "connectGoogleDrive": "חבר ל- Google Drive",
+    "csvFiles": "CSV Files",
     "dataLoadedHelp": "בדוק את \"$t(import.text)\" על מנת לראות את המידע שנטען.",
     "export": "הכנס מידע נוכחי",
     "filesystem": "מערכת קבצים",
@@ -125,6 +127,7 @@
     "plants": "צמחים",
     "properties": "Properties",
     "settings": "הגדרות",
+    "tasks": "Tasks",
     "typeMap": "מיפוי סוגים"
   },
   "plant": {
