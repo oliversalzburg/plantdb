@@ -1,11 +1,11 @@
-# PlantDB Dokumentation
+# PlantDB Documentation
 
-PlantDB ist ein Ansatz, um alles über Pflanzen zu protokollieren und den Nutzen dieser Daten auch ohne PlantDB zu bewahren.
+PlantDB is a way to keep track of everything relating to your plants, and preserving that data to be useful without PlantDB.
 
-Bei PlantDB handelt es sich nicht in erster Linie um eine einzelne Anwendung. Es ist ein Konzept, wie man Daten über Pflanzen aufzeichnen kann, sodass sie auch dann noch nützlich sein können, wenn die ursprünglich Anwendung nicht mehr vernünftig gewartet werden kann.
+PlantDB is not primarily a single application. It is a concept of how to record data about plants so that it can be useful for longer than any single application would be maintainable reasonably.
 
-Es gibt bereits viele kostengünstige Software-Lösungen die bei der Pflanzenpflege unterstützen, aber die Anwender erhalten normalerweise keinen Zugang zu ihren Daten. Jedenfalls nicht in einer Weise, dass diese Daten langfristig nützlich wären.
+Today, many inexpensive plant care solutions exist, but users usually do not get access to their data in a way that would be useful long-term.
 
-PlantDB ist ein Versuch, all das zu lösen. Man verliert nie die Kontrolle über seine Daten und kann trotzdem noch Spaß dabei haben.
+PlantDB is an attempt to solve all of that. Keep you in power of your data, and have some fun with it.
 
 [Get Started](./tutorial/index.md ""){.md-button.md-button--primary} [Try PlantDB in the Nursery](/nursery/ ""){.md-button}
