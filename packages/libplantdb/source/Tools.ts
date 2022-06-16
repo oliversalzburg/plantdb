@@ -88,6 +88,17 @@ export const makePlantMap = (plants: ReadonlyArray<Plant>) => {
   return new Map(plants.map(plant => [plant.id, plant]));
 };
 
+/**
+ * Turn an array of elements with an `id` property into a map that maps their
+ * IDs to the respective entities.
+ *
+ * @param elements The elements to turn into a `Map`.
+ * @returns A `Map` that maps element IDs to their respective element.
+ */
+export const makeIdMap = <TId, TElement extends { id: TId }>(elements: ReadonlyArray<TElement>) => {
+  return new Map<TId, TElement>(elements.map(subject => [subject.id, subject]));
+};
+
 export const aggregateEventTypes = (log: ReadonlyArray<LogEntry>) => {
   const eventTypes = new Set<string>();
   for (const logEntry of log) {

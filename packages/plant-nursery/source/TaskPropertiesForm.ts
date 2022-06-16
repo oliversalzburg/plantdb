@@ -26,54 +26,12 @@ export class TaskPropertiesForm extends LitElement {
         flex-direction: column;
       }
 
-      #scanner,
-      #picker {
-        display: none;
-      }
-
       #form {
         flex: 1;
         display: flex;
         flex-direction: column;
         min-height: 50vh;
-      }
-
-      .properties.properties--scanning #form {
-        display: none;
-      }
-      .properties.properties--scanning #scanner {
-        display: flex;
-      }
-      .properties.properties--scanning #picker {
-        display: none;
-      }
-
-      .properties.properties--picking #form {
-        display: none;
-      }
-      .properties.properties--picking #scanner {
-        display: none;
-      }
-      .properties.properties--picking #picker {
-        display: flex;
-      }
-
-      .spacer {
-        display: block;
-        margin-bottom: 1rem;
-      }
-
-      .button-attached {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        gap: 0.25rem;
-      }
-      .button-attached :first-child {
-        min-width: 0;
-        flex: 1;
-      }
-      .button-attached :last-child {
+        gap: 1rem 0;
       }
 
       .row {
@@ -99,6 +57,10 @@ export class TaskPropertiesForm extends LitElement {
 
       .warning {
         color: var(--sl-color-warning-500);
+      }
+
+      #end-conditions sl-radio {
+        margin-bottom: 1rem;
       }
     `,
   ];
@@ -198,7 +160,7 @@ export class TaskPropertiesForm extends LitElement {
   }
 
   shouldDelete() {
-    return this._title === "";
+    return this.task && this._title === "";
   }
 
   render() {
@@ -238,13 +200,13 @@ export class TaskPropertiesForm extends LitElement {
             value=${this._title}
             @sl-input=${(event: InputEvent) => (this._title = (event.target as SlInput).value)}
             required
-            >${!this.task
-              ? html`<small slot="help-text">${t("taskEditor.titleHelp")}</small>`
-              : this._plantId === ""
-              ? html`<small slot="help-text" class="warning"
-                  >${t("taskEditor.taskHelpDeleteWarn")}</small
-                >`
-              : html`<small slot="help-text">${t("taskEditor.taskHelpDelete")}</small>`}</sl-input
+            >${this.task
+              ? this._plantId === ""
+                ? html`<small slot="help-text" class="warning"
+                    >${t("taskEditor.titleHelpDeleteWarn")}</small
+                  >`
+                : html`<small slot="help-text">${t("taskEditor.titleHelpDelete")}</small>`
+              : undefined}</sl-input
           >
 
           <div class="date-time row">
@@ -321,34 +283,41 @@ export class TaskPropertiesForm extends LitElement {
               hoist
             >
               ${repeatDays.map(
-                unit => html`<sl-menu-item value=${unit}>${t(`taskEditor.${unit}`)}</sl-menu-item>`
+                unit =>
+                  html`<sl-menu-item value=${unit}>${t(`taskEditor.day_${unit}`)}</sl-menu-item>`
               )}
             </sl-select>
           </div>
 
-          <div class="row">
-            <sl-input
-              type="date"
-              label=${t("taskEditor.endsOnLabel")}
-              value=${this._endsOn}
-              @sl-change=${(event: MouseEvent) => {
-                this._endsOn = (event.target as SlInput).valueAsDate ?? undefined;
-              }}
-              clearable
-            ></sl-input>
+          <sl-radio-group id="end-conditions" label=${t("taskEditor.endConditions")} fieldset>
+            <sl-radio>${t("taskEditor.endsNever")}</sl-radio>
+            <sl-radio>
+              <sl-input
+                type="date"
+                label=${t("taskEditor.endsOnLabel")}
+                value=${this._endsOn}
+                @sl-change=${(event: MouseEvent) => {
+                  this._endsOn = (event.target as SlInput).valueAsDate ?? undefined;
+                }}
+                clearable
+              ></sl-input
+            ></sl-radio>
 
-            <sl-input
-              type="number"
-              label=${t("taskEditor.endsAfterLabel")}
-              placeholder=${t("taskEditor.endsAfterPlaceholder")}
-              value=${this._endsAfter}
-              @sl-change=${(event: MouseEvent) => {
-                this._endsAfter = (event.target as SlInput).valueAsNumber;
-              }}
-              step="1"
-              clearable
-            ></sl-input>
-          </div>
+            <sl-radio>
+              <sl-input
+                type="number"
+                label=${t("taskEditor.endsAfterLabel")}
+                placeholder=${t("taskEditor.endsAfterPlaceholder")}
+                value=${this._endsAfter}
+                @sl-change=${(event: MouseEvent) => {
+                  this._endsAfter = (event.target as SlInput).valueAsNumber;
+                }}
+                step="1"
+                clearable
+                ><span slot="suffix">${t("taskEditor.endsAfterOccurences")}</span></sl-input
+              ></sl-radio
+            >
+          </sl-radio-group>
         </form>
       </div>`,
     ];

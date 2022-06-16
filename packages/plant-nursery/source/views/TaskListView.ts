@@ -10,6 +10,16 @@ export class TaskListView extends View {
   static readonly styles = [
     ...View.styles,
     css`
+      #list {
+        flex: 1;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+      }
+
       .empty {
         flex: 1;
       }
@@ -37,11 +47,16 @@ export class TaskListView extends View {
     return [
       0 < (this.plantStore?.plantDb.tasks.length ?? 0)
         ? html`<pn-task-list
-            id="list"
-            .plantStore=${this.plantStore}
-            .plantStoreUi=${this.plantStoreUi}
-            .tasks=${this.tasks}
-          ></pn-task-list>`
+              id="list"
+              .plantStore=${this.plantStore}
+              .plantStoreUi=${this.plantStoreUi}
+              .tasks=${this.tasks}
+            ></pn-task-list>
+            <section class="footer">
+              <sl-button variant="primary" @click=${() => this.createNewTask()}
+                >${t("task.add")}</sl-button
+              >
+            </section>`
         : html`<pn-empty-state class="empty"
             ><p>${t("empty.tasks")}</p>
             <sl-button @click=${() => this.createNewTask()}

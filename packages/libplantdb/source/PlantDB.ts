@@ -3,7 +3,7 @@ import { logToCSV, plantsToCSV } from "./csv/Tools";
 import { DatabaseFormat, EventTypes } from "./DatabaseFormat";
 import { LogEntry, LogEntrySerialized } from "./LogEntry";
 import { Plant, PlantSerialized } from "./Plant";
-import { Task } from "./Task";
+import { Task, TaskSerialized } from "./Task";
 import {
   aggregateEventTypes,
   aggregateKinds,
@@ -129,6 +129,17 @@ export class PlantDB {
     return new PlantDB();
   }
 
+  private constructor() {
+    this.#_refresh();
+  }
+
+  getLogEntry(id: number) {
+    return this.#log.find(logEntry => logEntry.id === id);
+  }
+  getTask(id: number) {
+    return this.#tasks.find(task => task.id === id);
+  }
+
   /**
    * Returns a copy of this `PlantDB`, but with a new entry added to its log.
    *
@@ -248,7 +259,6 @@ export class PlantDB {
    */
   withUpdatedTask(updatedTask: Task, oldTask: Task) {
     const tasks = [...this.#tasks, updatedTask].filter(subject => subject.id !== oldTask.id);
-
     return PlantDB.fromPlantDB(this, { tasks });
   }
 
@@ -410,12 +420,14 @@ export class PlantDB {
    * @param databaseFormat The `DatabaseFormat` to use for the new database.
    * @param plants The plants to put into the database.
    * @param plantLogData The log data to put into the database.
+   * @param tasks The tasks to put into the database.
    * @returns A new `PlantDB` initialized with the given data.
    */
   static fromJSObjects(
     databaseFormat: DatabaseFormat,
     plants: Array<PlantSerialized> = [],
-    plantLogData: Array<LogEntrySerialized> = []
+    plantLogData: Array<LogEntrySerialized> = [],
+    tasks: Array<TaskSerialized> = []
   ) {
     const plantDb = new PlantDB();
 
@@ -425,6 +437,8 @@ export class PlantDB {
     for (const plant of plants) {
       plantDb.#plants.set(plant.id, Plant.fromJSObject(plantDb, plant));
     }
+
+    plantDb.#tasks = tasks.map(task => Task.fromJSObject(plantDb, task));
 
     plantDb.#_refresh();
 

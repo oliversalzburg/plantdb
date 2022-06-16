@@ -10,6 +10,10 @@ export class PlantLogView extends View {
   static readonly styles = [
     ...View.styles,
     css`
+      #log {
+        flex: 1;
+      }
+
       @media (min-width: 1000px) {
         #log {
           padding: 0 15vw;

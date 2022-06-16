@@ -464,4 +464,28 @@ export class PlantStoreUi extends LitElement {
 
     return this.plantStore.updatePlantDb(newDb);
   }
+
+  async editTask(task: Task) {
+    assertExists(this.plantStore);
+
+    console.debug(`Show details dialog for task #${task.id}`);
+    const updatedTask = await this.showTaskEditor(task);
+    if (!updatedTask) {
+      return;
+    }
+
+    const shouldDelete = updatedTask.title === "";
+
+    const newDb = shouldDelete
+      ? this.plantStore.plantDb.withoutTask(task)
+      : this.plantStore.plantDb.withUpdatedTask(updatedTask, task);
+
+    if (shouldDelete) {
+      void this.alert(t("task.taskDeleted"), "danger", "x-circle");
+    } else {
+      void this.alert(t("task.taskUpdated"));
+    }
+
+    return this.plantStore.updatePlantDb(newDb);
+  }
 }

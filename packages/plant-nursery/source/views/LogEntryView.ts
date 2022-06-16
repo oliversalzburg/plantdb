@@ -73,7 +73,6 @@ export class LogEntryView extends View {
       bubbles: true,
       cancelable: true,
       composed: true,
-      detail: this._form?.asLogEntry(),
     });
     this.dispatchEvent(event);
 

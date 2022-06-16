@@ -272,9 +272,9 @@ export class PlantApp extends LitElement {
                 ?active=${this._plantStoreUi.page === "log-entry"}
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
-                .logEntry=${this._plantStore.plantDb.log[
+                .logEntry=${this._plantStore.plantDb.getLogEntry(
                   Number(this._plantStoreUi.pageParams[0] ?? -1)
-                ]}
+                )}
                 .logEntryTemplate=${this._plantStoreUi.pageQuery}
               ></pn-log-entry-view>
 
@@ -316,9 +316,9 @@ export class PlantApp extends LitElement {
                 ?active=${this._plantStoreUi.page === "task-properties"}
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
-                .task=${this._plantStore.plantDb.tasks[
-                  Number(this._plantStoreUi.pageParams[0] ?? -1)
-                ]}
+                .task=${this._plantStore.plantDb.getTask(
+                  Number(this._plantStoreUi.pageParams[1] ?? -1)
+                )}
               ></pn-task-properties-view>
 
               <pn-type-map-view
