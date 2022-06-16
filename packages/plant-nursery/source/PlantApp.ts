@@ -317,7 +317,7 @@ export class PlantApp extends LitElement {
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
                 .task=${this._plantStore.plantDb.getTask(
-                  Number(this._plantStoreUi.pageParams[1] ?? -1)
+                  Number(this._plantStoreUi.pageParams[0] ?? -1)
                 )}
               ></pn-task-properties-view>
 
