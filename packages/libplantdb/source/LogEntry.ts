@@ -44,9 +44,9 @@ export type LogEntrySerialized = {
   productUsed?: string | Array<string>;
 
   /**
-   * @inheritDoc LogEntry.note
+   * @inheritDoc LogEntry.notes
    */
-  note?: string;
+  notes?: string;
 };
 
 /**
@@ -238,7 +238,7 @@ export class LogEntry {
       serialized.plantId,
       DateTime.fromJSDate(serialized.timestamp).toFormat(databaseFormat.dateFormat),
       serialized.type,
-      serialized.note,
+      serialized.notes,
       serialized.ec,
       serialized.ph,
       serialized.productUsed,
@@ -263,7 +263,7 @@ export class LogEntry {
     logEntry.#ec = dataObject.ec ?? logEntry.#ec;
     logEntry.#ph = dataObject.ph ?? logEntry.#ph;
     logEntry.#productUsed = dataObject.productUsed ?? logEntry.#productUsed;
-    logEntry.#notes = dataObject.note ?? logEntry.#notes;
+    logEntry.#notes = dataObject.notes ?? logEntry.#notes;
 
     return logEntry;
   }
@@ -294,7 +294,7 @@ export class LogEntry {
       ec: this.#ec,
       ph: this.#ph,
       productUsed: this.#productUsed,
-      note: this.#notes,
+      notes: this.#notes,
     };
   }
 }
