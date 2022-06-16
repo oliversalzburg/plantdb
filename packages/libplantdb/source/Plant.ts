@@ -429,12 +429,22 @@ export class Plant extends PlantDBEntity {
    * Parse a JSON string and construct a new `Plant` from it.
    *
    * @param plantDb The `PlantDB` this `Plant` belongs to
+   * @param data The JSON-compliant plant.
+   * @returns The new `Plant`.
+   */
+  static fromJSON(plantDb: PlantDB, data: PlantSerialized) {
+    return Plant.fromJSObject(plantDb, data);
+  }
+
+  /**
+   * Parse a JSON string and construct a new `Plant` from it.
+   *
+   * @param plantDb The `PlantDB` this `Plant` belongs to
    * @param dataString The JSON-serialized plant.
    * @returns The new `Plant`.
    */
-  static fromJSON(plantDb: PlantDB, dataString: string) {
-    const data = JSON.parse(dataString) as PlantSerialized;
-    return Plant.fromJSObject(plantDb, data);
+  static fromJSONString(plantDb: PlantDB, dataString: string) {
+    return Plant.fromJSON(plantDb, JSON.parse(dataString) as PlantSerialized);
   }
 
   /**

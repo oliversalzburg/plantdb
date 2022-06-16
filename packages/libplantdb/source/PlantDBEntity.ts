@@ -1,6 +1,6 @@
 export class PlantDBEntity {
   /**
-   * Turn this object into something that can be serialized to JSON.
+   * Turn this object into a subset of itself, which is JSON-compliant
    *
    * @returns A serializable representation of this object.
    */

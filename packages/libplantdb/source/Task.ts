@@ -295,12 +295,22 @@ export class Task extends PlantDBEntity {
    * Parse a JSON string and construct a new `Task` from it.
    *
    * @param plantDb The `PlantDB` this `Task` belongs to.
+   * @param data The JSON-serialized task.
+   * @returns The new `Task`.
+   */
+  static fromJSON(plantDb: PlantDB, data: TaskSerialized) {
+    return Task.fromJSObject(plantDb, data);
+  }
+
+  /**
+   * Parse a JSON string and construct a new `Task` from it.
+   *
+   * @param plantDb The `PlantDB` this `Task` belongs to.
    * @param dataString The JSON-serialized task.
    * @returns The new `Task`.
    */
-  static fromJSON(plantDb: PlantDB, dataString: string) {
-    const data = JSON.parse(dataString) as TaskSerialized;
-    return Task.fromJSObject(plantDb, data);
+  static fromJSONString(plantDb: PlantDB, dataString: string) {
+    return Task.fromJSON(plantDb, JSON.parse(dataString) as TaskSerialized);
   }
 
   /**

@@ -275,12 +275,22 @@ export class LogEntry extends PlantDBEntity {
    * Parse a JSON string and construct a new `LogEntry` from it.
    *
    * @param plantDb The `PlantDB` this `LogEntry` belongs to.
+   * @param data The JSON-compliant log entry.
+   * @returns The new `LogEntry`.
+   */
+  static fromJSON(plantDb: PlantDB, data: LogEntrySerialized) {
+    return LogEntry.fromJSObject(plantDb, data);
+  }
+
+  /**
+   * Parse a JSON string and construct a new `LogEntry` from it.
+   *
+   * @param plantDb The `PlantDB` this `LogEntry` belongs to.
    * @param dataString The JSON-serialized log entry.
    * @returns The new `LogEntry`.
    */
-  static fromJSON(plantDb: PlantDB, dataString: string) {
-    const data = JSON.parse(dataString) as LogEntrySerialized;
-    return LogEntry.fromJSObject(plantDb, data);
+  static fromJSONString(plantDb: PlantDB, dataString: string) {
+    return LogEntry.fromJSON(plantDb, JSON.parse(dataString) as LogEntrySerialized);
   }
 
   /**
