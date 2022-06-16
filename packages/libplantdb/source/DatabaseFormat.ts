@@ -1,3 +1,5 @@
+import { PlantDBEntity } from "./PlantDBEntity";
+
 /**
  * A hash of internally known event types to a human-readable, English version.
  */
@@ -84,7 +86,7 @@ export type DatabaseFormatSerialized = {
 /**
  * Describes the format of records in a PlantDB document.
  */
-export class DatabaseFormat {
+export class DatabaseFormat extends PlantDBEntity {
   #columnSeparator = ",";
   #dateFormat = "yyyy-MM-dd HH:mm";
   #decimalSeparator = ".";
@@ -211,5 +213,10 @@ export class DatabaseFormat {
       timezone: this.timezone,
       typeMap: Object.fromEntries(this.typeMap),
     };
+  }
+
+  /** @inheritDoc */
+  override toJSON() {
+    return this.toJSObject();
   }
 }

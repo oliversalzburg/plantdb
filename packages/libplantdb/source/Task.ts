@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 import { intFromCSV, valueFromCSV } from "./csv/Tools";
 import { DatabaseFormat } from "./DatabaseFormat";
 import { PlantDB } from "./PlantDB";
+import { PlantDBEntity } from "./PlantDBEntity";
 
 /**
  * Describes an object containing all the fields required to initialize a `Task`.
@@ -70,7 +71,7 @@ export type TaskSerialized = {
  * The user will create tasks with the intention to be reminded about these
  * future actions.
  */
-export class Task {
+export class Task extends PlantDBEntity {
   #plantDb: PlantDB;
   #id: number;
   #title: string;
@@ -179,6 +180,8 @@ export class Task {
    * provided `date` value.
    */
   private constructor(plantDb: PlantDB, id: number, title: string, date: Date, time?: Date) {
+    super();
+
     this.#plantDb = plantDb;
     this.#id = id;
     this.#title = title;
@@ -319,5 +322,10 @@ export class Task {
       endsOn: this.#endsOn,
       endsAfter: this.#endsAfter,
     };
+  }
+
+  /** @inheritDoc */
+  override toJSON() {
+    return this.toJSObject();
   }
 }

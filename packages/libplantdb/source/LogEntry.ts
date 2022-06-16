@@ -3,6 +3,7 @@ import { floatFromCSV, intFromCSV, valueFromCSV } from "./csv/Tools";
 import { DatabaseFormat, EventType } from "./DatabaseFormat";
 import { MATCH_PID } from "./Plant";
 import { PlantDB } from "./PlantDB";
+import { PlantDBEntity } from "./PlantDBEntity";
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.
@@ -52,7 +53,7 @@ export type LogEntrySerialized = {
 /**
  * A single entry in a PlantDB log.
  */
-export class LogEntry {
+export class LogEntry extends PlantDBEntity {
   #plantDb: PlantDB;
   #id: number;
   #plantId: string;
@@ -159,6 +160,8 @@ export class LogEntry {
     timestamp: Date,
     type: string | EventType
   ) {
+    super();
+
     this.#plantDb = plantDb;
     this.#id = id;
     this.#plantId = plantId;
@@ -296,5 +299,10 @@ export class LogEntry {
       productUsed: this.#productUsed,
       notes: this.#notes,
     };
+  }
+
+  /** @inheritDoc */
+  override toJSON() {
+    return this.toJSObject();
   }
 }

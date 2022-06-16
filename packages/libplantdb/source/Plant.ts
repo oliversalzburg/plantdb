@@ -2,6 +2,7 @@ import { boolFromCSV, floatFromCSV, intFromCSV, valueFromCSV, valueToCSV } from 
 import { DatabaseFormat } from "./DatabaseFormat.js";
 import { LogEntry } from "./LogEntry.js";
 import { PlantDB } from "./PlantDB.js";
+import { PlantDBEntity } from "./PlantDBEntity.js";
 import { kindSummarize } from "./Tools.js";
 
 /**
@@ -121,7 +122,7 @@ export type PlantSerialized = {
   plantgeekId?: string | Array<string>;
 };
 
-export class Plant {
+export class Plant extends PlantDBEntity {
   #plantDb: PlantDB;
   #id: string;
   #isArchived: boolean | undefined;
@@ -299,6 +300,8 @@ export class Plant {
    * @param plantId The ID of this plant.
    */
   private constructor(plantDb: PlantDB, plantId: string) {
+    super();
+
     this.#plantDb = plantDb;
     this.#id = plantId;
   }
@@ -459,5 +462,10 @@ export class Plant {
       notes: this.#notes,
       plantgeekId: this.#plantgeekId,
     };
+  }
+
+  /** @inheritDoc */
+  override toJSON() {
+    return this.toJSObject();
   }
 }
