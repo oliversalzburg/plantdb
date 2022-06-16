@@ -181,45 +181,34 @@ export class PlantPropertiesForm extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    this._plantId = this.plant?.id ?? this._plantId;
-    this._plantName = this.plant?.name ?? this._plantName;
-    this._plantKind = this.plant?.kind ?? this._plantKind;
-    this._plantSubstrate = this.plant?.substrate ?? this._plantSubstrate;
-    this._plantPotShapeTop = this.plant?.potShapeTop ?? this._plantPotShapeTop;
-    this._plantPotColor = this.plant?.potColor ?? this._plantPotColor;
-    this._plantOnSaucer = this.plant?.onSaucer ?? this._plantOnSaucer;
-    this._plantLocation = this.plant?.location ?? this._plantLocation;
-    this._plantPhMin = this.plant?.phMin ?? this._plantPhMin;
-    this._plantPhMax = this.plant?.phMax ?? this._plantPhMax;
-    this._plantEcMin = this.plant?.ecMin ?? this._plantEcMin;
-    this._plantEcMax = this.plant?.ecMax ?? this._plantEcMax;
-    this._plantTempMin = this.plant?.tempMin ?? this._plantTempMin;
-    this._plantTempMax = this.plant?.tempMax ?? this._plantTempMax;
-    this._plantNotes = this.plant?.notes ?? this._plantNotes;
-    this._plantPlantgeekId = this.plant?.plantgeekId ?? this._plantPlantgeekId;
+    this._refreshValues();
   }
 
   protected updated(
     _changedProperties: PropertyValueMap<PlantPropertiesForm> | Map<PropertyKey, unknown>
   ): void {
     if (_changedProperties.has("plant")) {
-      this._plantId = this.plant?.id ?? "";
-      this._plantName = this.plant?.name ?? "";
-      this._plantKind = this.plant?.kind ?? "";
-      this._plantSubstrate = this.plant?.substrate ?? "";
-      this._plantPotShapeTop = this.plant?.potShapeTop ?? "";
-      this._plantPotColor = this.plant?.potColor ?? "";
-      this._plantOnSaucer = this.plant?.onSaucer ?? undefined;
-      this._plantLocation = this.plant?.location ?? "";
-      this._plantPhMin = this.plant?.phMin ?? undefined;
-      this._plantPhMax = this.plant?.phMax ?? undefined;
-      this._plantEcMin = this.plant?.ecMin ?? undefined;
-      this._plantEcMax = this.plant?.ecMax ?? undefined;
-      this._plantTempMin = this.plant?.tempMin ?? undefined;
-      this._plantTempMax = this.plant?.tempMax ?? undefined;
-      this._plantNotes = this.plant?.notes ?? "";
-      this._plantPlantgeekId = this.plant?.plantgeekId ?? "";
+      this._refreshValues();
     }
+  }
+
+  private _refreshValues() {
+    this._plantId = this.plant?.id ?? "";
+    this._plantName = this.plant?.name ?? undefined;
+    this._plantKind = this.plant?.kind ?? undefined;
+    this._plantSubstrate = this.plant?.substrate ?? undefined;
+    this._plantPotShapeTop = this.plant?.potShapeTop ?? undefined;
+    this._plantPotColor = this.plant?.potColor ?? undefined;
+    this._plantOnSaucer = this.plant?.onSaucer ?? undefined;
+    this._plantLocation = this.plant?.location ?? undefined;
+    this._plantPhMin = this.plant?.phMin ?? undefined;
+    this._plantPhMax = this.plant?.phMax ?? undefined;
+    this._plantEcMin = this.plant?.ecMin ?? undefined;
+    this._plantEcMax = this.plant?.ecMax ?? undefined;
+    this._plantTempMin = this.plant?.tempMin ?? undefined;
+    this._plantTempMax = this.plant?.tempMax ?? undefined;
+    this._plantNotes = this.plant?.notes ?? undefined;
+    this._plantPlantgeekId = this.plant?.plantgeekId ?? undefined;
   }
 
   reportValidity() {

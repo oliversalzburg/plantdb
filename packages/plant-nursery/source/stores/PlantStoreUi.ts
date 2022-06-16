@@ -1,3 +1,4 @@
+import { LogEntry, Plant, Task } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
 import i18next, { t } from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
@@ -5,7 +6,6 @@ import HttpApi from "i18next-http-backend";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
-import { LogEntry, Plant } from "packages/libplantdb/typings";
 import { registerSW } from "virtual:pwa-register";
 import { ConfirmDialog } from "../ConfirmDialog";
 import { prepareAsyncContext } from "../tools/Async";
@@ -25,6 +25,7 @@ export type KnownViews =
   | "plant"
   | "plant-properties"
   | "tasks"
+  | "task-properties"
   | "types"
   | "view404";
 
@@ -385,6 +386,34 @@ export class PlantStoreUi extends LitElement {
 
       document.addEventListener("pn-properties-saved", onSave);
       document.addEventListener("pn-properties-cancelled", onCancel);
+    });
+  }
+
+  showTaskEditor(task?: Task) {
+    return new Promise<Task | null>(resolve => {
+      this.navigateTo("task-properties", [task ? task.id.toString() : "new"]);
+
+      const onCancel = (event: Event) => {
+        event.preventDefault();
+        history.back();
+
+        resolve(null);
+
+        document.removeEventListener("pn-saved", onSave);
+        document.removeEventListener("pn-cancelled", onCancel);
+      };
+      const onSave = (event: Event) => {
+        event.preventDefault();
+        history.back();
+
+        resolve((event as CustomEvent<Task>).detail);
+
+        document.removeEventListener("pn-saved", onSave);
+        document.removeEventListener("pn-cancelled", onCancel);
+      };
+
+      document.addEventListener("pn-saved", onSave);
+      document.addEventListener("pn-cancelled", onCancel);
     });
   }
 

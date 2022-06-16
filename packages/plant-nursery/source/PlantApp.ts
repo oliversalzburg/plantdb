@@ -137,6 +137,9 @@ export class PlantApp extends LitElement {
       case "tasks":
         document.title = `${t("menu.tasks")} - ${t("app.title")}`;
         break;
+      case "task-properties":
+        document.title = `${t("menu.taskProperties")} - ${t("app.title")}`;
+        break;
       case "types":
         document.title = `${t("menu.typeMap")} - ${t("app.title")}`;
         break;
@@ -308,6 +311,15 @@ export class PlantApp extends LitElement {
                 .plantStoreUi=${this._plantStoreUi}
                 .tasks=${[...this._plantStore.plantDb.tasks]}
               ></pn-task-list-view>
+              <pn-task-properties-view
+                class="view"
+                ?active=${this._plantStoreUi.page === "task-properties"}
+                .plantStore=${this._plantStore}
+                .plantStoreUi=${this._plantStoreUi}
+                .task=${this._plantStore.plantDb.tasks[
+                  Number(this._plantStoreUi.pageParams[0] ?? -1)
+                ]}
+              ></pn-task-properties-view>
 
               <pn-type-map-view
                 class="view"

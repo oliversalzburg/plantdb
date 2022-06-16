@@ -35,6 +35,7 @@ import "./PlantPropertiesForm";
 import "./PlantScanner";
 import "./stores/PlantStore";
 import "./stores/PlantStoreUi";
+import "./TaskPropertiesForm";
 import "./TypeMap";
 import "./views/ImportView";
 import "./views/LogEntryView";
@@ -44,6 +45,7 @@ import "./views/PlantListView";
 import "./views/PlantLogView";
 import "./views/PlantPropertiesView";
 import "./views/TaskListView";
+import "./views/TaskPropertiesView";
 import "./views/TypeMapView";
 
 setBasePath(import.meta.env.BASE_URL);
