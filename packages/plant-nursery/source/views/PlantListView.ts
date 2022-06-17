@@ -10,6 +10,16 @@ export class PlantListView extends View {
   static readonly styles = [
     ...View.styles,
     css`
+      #list {
+        flex: 1;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+      }
+
       .empty {
         flex: 1;
       }
@@ -41,11 +51,16 @@ export class PlantListView extends View {
     return [
       0 < (this.plantStore?.plantDb.plants.size ?? 0)
         ? html`<pn-plant-list
-            id="list"
-            .plantStore=${this.plantStore}
-            .plantStoreUi=${this.plantStoreUi}
-            .plants=${this.plants}
-          ></pn-plant-list>`
+              id="list"
+              .plantStore=${this.plantStore}
+              .plantStoreUi=${this.plantStoreUi}
+              .plants=${this.plants}
+            ></pn-plant-list>
+            <section class="footer">
+              <sl-button variant="primary" @click=${() => this.createNewPlant()}
+                >${t("plant.add")}</sl-button
+              >
+            </section>`
         : html`<pn-empty-state class="empty"
             ><p>${t("empty.plants")}</p>
 
