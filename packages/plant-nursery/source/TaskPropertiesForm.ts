@@ -259,7 +259,7 @@ export class TaskPropertiesForm extends LitElement {
               value=${this._repeatInterval}
               @sl-change=${(event: MouseEvent) =>
                 (this._repeatInterval = (event.target as SlInput).valueAsNumber)}
-              min="0"
+              min="1"
               step="1"
             ></sl-input>
 
@@ -316,6 +316,7 @@ export class TaskPropertiesForm extends LitElement {
                   this._endsAfter = (event.target as SlInput).valueAsNumber;
                 }}
                 step="1"
+                min="1"
                 clearable
                 ><span slot="suffix">${t("taskEditor.endsAfterOccurences")}</span></sl-input
               ></sl-radio
