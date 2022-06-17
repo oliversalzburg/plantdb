@@ -89,7 +89,7 @@ export class TaskPropertiesForm extends LitElement {
   @state()
   private _repeatUnit: string | undefined;
   @state()
-  private _repeatDays: Array<string> | undefined;
+  private _repeatDays = new Array<string>();
   @state()
   private _endsOn: Date | undefined;
   @state()
@@ -121,7 +121,7 @@ export class TaskPropertiesForm extends LitElement {
     this._plantId = this.task?.plantId ?? undefined;
     this._repeatInterval = this.task?.repeatInterval ?? undefined;
     this._repeatUnit = this.task?.repeatUnit ?? undefined;
-    this._repeatDays = this.task?.repeatDays ?? undefined;
+    this._repeatDays = this.task?.repeatDays ?? [];
     this._endsOn = this.task?.endsOn ?? undefined;
     this._endsAfter = this.task?.endsAfter ?? undefined;
   }
@@ -279,7 +279,10 @@ export class TaskPropertiesForm extends LitElement {
               placeholder=${t("taskEditor.repeatDaysPlaceholder")}
               clearable
               multiple
-              value=${this._repeatDays}
+              .value=${this._repeatDays}
+              @sl-change=${(event: MouseEvent) => {
+                this._repeatDays = (event.target as SlSelect).value as Array<string>;
+              }}
               hoist
             >
               ${repeatDays.map(
