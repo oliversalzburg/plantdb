@@ -56,7 +56,7 @@ export class PlantPropertiesView extends View {
       }
     }
 
-    const event = new CustomEvent("pn-properties-saved", {
+    const event = new CustomEvent("pn-saved", {
       bubbles: true,
       cancelable: true,
       composed: true,
@@ -70,7 +70,7 @@ export class PlantPropertiesView extends View {
   }
 
   cancel() {
-    const event = new CustomEvent("pn-properties-cancelled", {
+    const event = new CustomEvent("pn-cancelled", {
       bubbles: true,
       cancelable: true,
       composed: true,

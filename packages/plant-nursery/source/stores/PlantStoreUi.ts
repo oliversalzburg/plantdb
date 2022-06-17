@@ -343,8 +343,8 @@ export class PlantStoreUi extends LitElement {
 
         resolve(null);
 
-        document.removeEventListener("pn-log-entry-saved", onSave);
-        document.removeEventListener("pn-log-entry-cancelled", onCancel);
+        document.removeEventListener("pn-saved", onSave);
+        document.removeEventListener("pn-cancelled", onCancel);
       };
       const onSave = (event: Event) => {
         event.preventDefault();
@@ -352,12 +352,12 @@ export class PlantStoreUi extends LitElement {
 
         resolve((event as CustomEvent<LogEntry>).detail);
 
-        document.removeEventListener("pn-log-entry-saved", onSave);
-        document.removeEventListener("pn-log-entry-cancelled", onCancel);
+        document.removeEventListener("pn-saved", onSave);
+        document.removeEventListener("pn-cancelled", onCancel);
       };
 
-      document.addEventListener("pn-log-entry-saved", onSave);
-      document.addEventListener("pn-log-entry-cancelled", onCancel);
+      document.addEventListener("pn-saved", onSave);
+      document.addEventListener("pn-cancelled", onCancel);
     });
   }
 
@@ -371,8 +371,8 @@ export class PlantStoreUi extends LitElement {
 
         resolve(null);
 
-        document.removeEventListener("pn-properties-saved", onSave);
-        document.removeEventListener("pn-properties-cancelled", onCancel);
+        document.removeEventListener("pn-saved", onSave);
+        document.removeEventListener("pn-cancelled", onCancel);
       };
       const onSave = (event: Event) => {
         event.preventDefault();
@@ -380,12 +380,12 @@ export class PlantStoreUi extends LitElement {
 
         resolve((event as CustomEvent<Plant>).detail);
 
-        document.removeEventListener("pn-properties-saved", onSave);
-        document.removeEventListener("pn-properties-cancelled", onCancel);
+        document.removeEventListener("pn-saved", onSave);
+        document.removeEventListener("pn-cancelled", onCancel);
       };
 
-      document.addEventListener("pn-properties-saved", onSave);
-      document.addEventListener("pn-properties-cancelled", onCancel);
+      document.addEventListener("pn-saved", onSave);
+      document.addEventListener("pn-cancelled", onCancel);
     });
   }
 

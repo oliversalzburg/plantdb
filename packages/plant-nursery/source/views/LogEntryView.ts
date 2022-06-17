@@ -55,7 +55,7 @@ export class LogEntryView extends View {
       }
     }
 
-    const event = new CustomEvent("pn-log-entry-saved", {
+    const event = new CustomEvent("pn-saved", {
       bubbles: true,
       cancelable: true,
       composed: true,
@@ -69,7 +69,7 @@ export class LogEntryView extends View {
   }
 
   cancel() {
-    const event = new CustomEvent("pn-log-entry-cancelled", {
+    const event = new CustomEvent("pn-cancelled", {
       bubbles: true,
       cancelable: true,
       composed: true,
