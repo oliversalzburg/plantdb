@@ -1,5 +1,5 @@
 import { Task } from "@plantdb/libplantdb";
-import { SlCheckbox, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
+import { SlCheckbox, SlInput, SlRadio, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
@@ -105,7 +105,7 @@ export class TaskPropertiesForm extends LitElement {
   @state()
   private _repeatDays = new Array<string>();
   @state()
-  private _endsOn: Date | undefined;
+  private _endsOn: string | undefined;
   @state()
   private _endsAfter: number | undefined;
 
@@ -136,7 +136,7 @@ export class TaskPropertiesForm extends LitElement {
     this._repeatInterval = this.task?.repeatInterval ?? undefined;
     this._repeatUnit = this.task?.repeatUnit ?? undefined;
     this._repeatDays = this.task?.repeatDays ?? [];
-    this._endsOn = this.task?.endsOn ?? undefined;
+    this._endsOn = this.task?.endsOn?.toISOString().slice(0, 10) ?? undefined;
     this._endsAfter = this.task?.endsAfter ?? undefined;
   }
 
@@ -168,7 +168,7 @@ export class TaskPropertiesForm extends LitElement {
       repeatInterval: this._repeatInterval,
       repeatUnit: this._repeatUnit,
       repeatDays: this._repeatDays,
-      endsOn: this._endsOn,
+      endsOn: this._endsOn ? new Date(this._endsOn) : undefined,
       endsAfter: this._endsAfter,
     });
   }
@@ -233,7 +233,13 @@ export class TaskPropertiesForm extends LitElement {
               }}
               required
             ></sl-input
-            ><sl-checkbox ?checked=${this._time === undefined}
+            ><sl-checkbox
+              ?checked=${this._time === undefined}
+              @sl-change=${(event: Event) => {
+                this._time = (event.target as SlCheckbox).checked
+                  ? undefined
+                  : new Date().toISOString().slice(11, 19);
+              }}
               >${t("taskEditor.allDay")}</sl-checkbox
             ><sl-input
               type="time"
@@ -281,7 +287,8 @@ export class TaskPropertiesForm extends LitElement {
               label=${t("taskEditor.repeatUnitLabel")}
               placeholder=${t("taskEditor.repeatUnitPlaceholder")}
               clearable
-              value=${this._repeatInterval}
+              ?required=${this._repeatInterval !== undefined}
+              value=${this._repeatUnit}
               @sl-change=${(event: MouseEvent) =>
                 (this._repeatUnit = (event.target as SlSelect).value as string)}
               hoist
@@ -307,25 +314,41 @@ export class TaskPropertiesForm extends LitElement {
           </div>
 
           <sl-radio-group id="end-conditions" label=${t("taskEditor.endConditions")} fieldset>
-            <sl-radio>${t("taskEditor.endsNever")}</sl-radio>
-            <sl-radio>
+            <sl-radio ?checked=${this._endsOn === undefined && this._endsAfter === undefined}
+              >${t("taskEditor.endsNever")}</sl-radio
+            >
+            <sl-radio
+              ?checked=${this._endsOn !== undefined}
+              @sl-change=${(event: Event) => {
+                this._endsOn = (event.target as SlRadio).checked
+                  ? new Date().toISOString().slice(0, 10)
+                  : undefined;
+              }}
+            >
               <sl-input
                 type="date"
                 label=${t("taskEditor.endsOnLabel")}
                 value=${this._endsOn}
+                ?disabled=${this._endsOn === undefined}
                 @sl-change=${(event: MouseEvent) => {
-                  this._endsOn = (event.target as SlInput).valueAsDate ?? undefined;
+                  this._endsOn = (event.target as SlInput).value ?? undefined;
                 }}
                 clearable
               ></sl-input
             ></sl-radio>
 
-            <sl-radio>
+            <sl-radio
+              ?checked=${this._endsAfter !== undefined}
+              @sl-change=${(event: Event) => {
+                this._endsAfter = (event.target as SlRadio).checked ? 1 : undefined;
+              }}
+            >
               <sl-input
                 type="number"
                 label=${t("taskEditor.endsAfterLabel")}
                 placeholder=${t("taskEditor.endsAfterPlaceholder")}
                 value=${this._endsAfter}
+                ?disabled=${this._endsAfter === undefined}
                 @sl-change=${(event: MouseEvent) => {
                   this._endsAfter = (event.target as SlInput).valueAsNumber;
                 }}
