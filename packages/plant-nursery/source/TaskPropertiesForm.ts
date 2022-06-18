@@ -34,6 +34,20 @@ export class TaskPropertiesForm extends LitElement {
         gap: 1rem 0;
       }
 
+      #end-conditions sl-input::part(form-control) {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+      }
+      #end-conditions sl-input::part(form-control-label) {
+        min-width: 4rem;
+      }
+
+      .row.date-time,
+      .row.repeat {
+        align-items: last baseline;
+      }
+
       .row {
         display: flex;
         flex-direction: row;
@@ -250,7 +264,7 @@ export class TaskPropertiesForm extends LitElement {
               (this._plantId = (event.target as MultiValueEditor).value)}
           ></pn-multi-value-editor>
 
-          <div class="row">
+          <div class="repeat row">
             <sl-input
               type="number"
               label=${t("taskEditor.repeatIntervalLabel")}
