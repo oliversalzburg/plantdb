@@ -215,7 +215,7 @@
     "repeatDaysPlaceholder": "Sunday",
     "repeatIntervalLabel": "Repeat every",
     "repeatIntervalPlaceholder": "1",
-    "repeatUnitLabel": " ",
+    "repeatUnitLabel": "",
     "repeatUnitPlaceholder": "week",
     "timeLabel": "Time",
     "titleHelpDelete": "To delete this task, remove the title and save it.",
