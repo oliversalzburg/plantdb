@@ -154,6 +154,7 @@ export class PlantLogEntryForm extends LitElement {
     );
     // Augment record.
     return LogEntry.fromLogEntry(entry, {
+      id: this.logEntry?.id,
       notes: this._notes,
       productUsed: this._productUsed,
       ec: this._ec,

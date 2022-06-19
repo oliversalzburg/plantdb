@@ -217,9 +217,10 @@ export class PlantDB {
    * @returns The new `PlantDB`.
    */
   withUpdatedPlant(updatedPlant: Plant, oldPlant: Plant) {
-    const plants = makePlantMap(
-      [...this.#plants.values(), updatedPlant].filter(subject => subject.id !== oldPlant.id)
-    );
+    const plants = makePlantMap([
+      ...[...this.#plants.values()].filter(subject => subject.id !== oldPlant.id),
+      updatedPlant,
+    ]);
 
     return PlantDB.fromPlantDB(this, { plants });
   }
@@ -258,7 +259,7 @@ export class PlantDB {
    * @returns The new `PlantDB`.
    */
   withUpdatedTask(updatedTask: Task, oldTask: Task) {
-    const tasks = [...this.#tasks, updatedTask].filter(subject => subject.id !== oldTask.id);
+    const tasks = [...this.#tasks.filter(subject => subject.id !== oldTask.id), updatedTask];
     return PlantDB.fromPlantDB(this, { tasks });
   }
 

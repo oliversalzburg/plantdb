@@ -130,7 +130,7 @@ export class TaskPropertiesForm extends LitElement {
     this._title = this.task?.title ?? "";
     this._date =
       this.task?.date.toISOString().slice(0, 10) ?? new Date().toISOString().slice(0, 10);
-    this._time = this.task?.dateTime.toISOString().slice(11, 19) ?? undefined;
+    this._time = this.task?.time?.toISOString().slice(11, 16) ?? undefined;
     this._notes = this.task?.notes ?? undefined;
     this._plantId = this.task?.plantId ?? undefined;
     this._repeatInterval = this.task?.repeatInterval ?? undefined;
@@ -160,9 +160,10 @@ export class TaskPropertiesForm extends LitElement {
   asTask() {
     const task = mustExist(this.plantStore).plantDb.makeNewTask(this._title, new Date(this._date));
     return Task.fromTask(task, {
+      id: this.task?.id,
       title: this._title,
       date: new Date(this._date),
-      dateTime: this._time ? new Date(`${this._date} ${this._time}`) : undefined,
+      time: this._time ? new Date(`${this._date} ${this._time}`) : undefined,
       notes: this._notes,
       plantId: this._plantId,
       repeatInterval: this._repeatInterval,
@@ -238,7 +239,7 @@ export class TaskPropertiesForm extends LitElement {
               @sl-change=${(event: Event) => {
                 this._time = (event.target as SlCheckbox).checked
                   ? undefined
-                  : new Date().toISOString().slice(11, 19);
+                  : new Date().toISOString().slice(11, 16);
               }}
               >${t("taskEditor.allDay")}</sl-checkbox
             ><sl-input

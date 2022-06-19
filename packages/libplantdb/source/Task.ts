@@ -75,7 +75,8 @@ export class Task extends PlantDBEntity {
   #plantDb: PlantDB;
   #id: number;
   #title: string;
-  #dateTime: Date;
+  #date: Date;
+  #time?: Date;
   #notes: string | undefined;
   #plantId: string | Array<string> | undefined;
   #repeatInterval: number | undefined;
@@ -109,14 +110,34 @@ export class Task extends PlantDBEntity {
    * The day at which this task should be triggered.
    */
   get date() {
-    return DateTime.fromJSDate(this.#dateTime).startOf("day").toJSDate();
+    return this.#date;
+  }
+
+  /**
+   * The time of the day at which this task should be triggered.
+   */
+  get time() {
+    return this.#time;
   }
 
   /**
    * The date, including the time of day, at which this task should be triggered.
    */
   get dateTime() {
-    return this.#dateTime;
+    const dateSource = DateTime.fromJSDate(this.#date);
+    if (this.#time) {
+      const timeSource = DateTime.fromJSDate(this.#time);
+      dateSource.set({
+        hour: timeSource.get("hour"),
+        minute: timeSource.get("minute"),
+        second: timeSource.get("second"),
+        millisecond: timeSource.get("millisecond"),
+      });
+    } else {
+      dateSource.startOf("day");
+    }
+
+    return dateSource.toJSDate();
   }
 
   /**
@@ -186,19 +207,8 @@ export class Task extends PlantDBEntity {
     this.#id = id;
     this.#title = title;
 
-    const dateSource = DateTime.fromJSDate(date);
-    if (time) {
-      const timeSource = DateTime.fromJSDate(time);
-      dateSource.set({
-        hour: timeSource.get("hour"),
-        minute: timeSource.get("minute"),
-        second: timeSource.get("second"),
-        millisecond: timeSource.get("millisecond"),
-      });
-    } else {
-      dateSource.startOf("day");
-    }
-    this.#dateTime = dateSource.toJSDate();
+    this.#date = date;
+    this.#time = time;
   }
 
   /**
@@ -213,9 +223,16 @@ export class Task extends PlantDBEntity {
       initializer?.plantDb ?? other.#plantDb,
       initializer?.id ?? other.#id,
       initializer?.title ?? other.#title,
-      initializer?.dateTime ?? other.#dateTime,
-      initializer?.dateTime ?? other.#dateTime
+      initializer?.date ?? other.#date,
+      initializer?.time ?? other.#time
     );
+    task.#notes = initializer?.notes ?? other.#notes;
+    task.#plantId = initializer?.plantId ?? other.#plantId;
+    task.#repeatInterval = initializer?.repeatInterval ?? other.#repeatInterval;
+    task.#repeatUnit = initializer?.repeatUnit ?? other.#repeatUnit;
+    task.#repeatDays = initializer?.repeatDays ?? other.#repeatDays;
+    task.#endsOn = initializer?.endsOn ?? other.#endsOn;
+    task.#endsAfter = initializer?.endsAfter ?? other.#endsAfter;
     return task;
   }
 
@@ -249,7 +266,7 @@ export class Task extends PlantDBEntity {
       throw new Error("Invalid date");
     }
 
-    const logEntry = new Task(
+    const task = new Task(
       plantDb,
       id,
       title,
@@ -258,7 +275,7 @@ export class Task extends PlantDBEntity {
       }).toJSDate()
     );
 
-    return logEntry;
+    return task;
   }
 
   /**
@@ -287,6 +304,13 @@ export class Task extends PlantDBEntity {
       new Date(dataObject.date),
       dataObject.time ? new Date(dataObject.time) : undefined
     );
+    task.#notes = dataObject.notes ?? task.#notes;
+    task.#plantId = dataObject.plantId ?? task.#plantId;
+    task.#repeatInterval = dataObject.repeatInterval ?? task.#repeatInterval;
+    task.#repeatUnit = dataObject.repeatUnit ?? task.#repeatUnit;
+    task.#repeatDays = dataObject.repeatDays ?? task.#repeatDays;
+    task.#endsOn = dataObject.endsOn ?? task.#endsOn;
+    task.#endsAfter = dataObject.endsAfter ?? task.#endsAfter;
 
     return task;
   }
@@ -322,8 +346,8 @@ export class Task extends PlantDBEntity {
     return {
       id: this.#id,
       title: this.#title,
-      date: this.#dateTime,
-      time: this.#dateTime,
+      date: this.#date,
+      time: this.#time,
       notes: this.#notes,
       plantId: this.#plantId,
       repeatInterval: this.#repeatInterval,

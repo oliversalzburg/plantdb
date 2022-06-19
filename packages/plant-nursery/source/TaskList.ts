@@ -19,6 +19,11 @@ export class TaskList extends LitElement {
       #filter-input {
         padding: 1rem;
       }
+
+      #tasks {
+        display: flex;
+        flex-direction: column;
+      }
     `,
   ];
 
