@@ -23,6 +23,7 @@ import "./ConfirmDialog";
 import "./DbConfig";
 import "./EmptyState";
 import "./MultiValueEditor";
+import "./MultiValuePIDEditor";
 import "./PlantApp";
 import "./PlantCard";
 import "./PlantDetails";

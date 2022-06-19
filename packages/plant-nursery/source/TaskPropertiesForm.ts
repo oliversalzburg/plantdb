@@ -261,14 +261,15 @@ export class TaskPropertiesForm extends LitElement {
             @sl-change=${(event: MouseEvent) => (this._notes = (event.target as SlTextarea).value)}
           ></sl-textarea>
 
-          <pn-multi-value-editor
+          <pn-multi-value-pid-editor
             label=${t("taskEditor.plantIdLabel")}
             placeholder=${t("taskEditor.plantIdPlaceholder")}
-            .suggestions=${[...this.plantStore.plantDb.plants.keys()]}
+            .plantStore=${this.plantStore}
+            .plants=${[...this.plantStore.plantDb.plants.values()]}
             .value=${this._plantId}
             @pn-changed=${(event: CustomEvent) =>
               (this._plantId = (event.target as MultiValueEditor).value)}
-          ></pn-multi-value-editor>
+          ></pn-multi-value-pid-editor>
 
           <div class="repeat row">
             <sl-input

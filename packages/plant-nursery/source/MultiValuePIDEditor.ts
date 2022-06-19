@@ -1,69 +1,32 @@
-import { SlDropdown, SlInput } from "@shoelace-style/shoelace";
-import { css, html, LitElement } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { Plant } from "@plantdb/libplantdb";
+import { SlInput } from "@shoelace-style/shoelace";
+import { html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { MultiValueEditor } from "./MultiValueEditor";
+import { PlantStore } from "./stores/PlantStore";
+import { isNil } from "./tools/Maybe";
 
-@customElement("pn-multi-value-editor")
-export class MultiValueEditor extends LitElement {
-  static readonly styles = [
-    css`
-      :host {
-        display: flex;
-        flex-direction: column;
-      }
+@customElement("pn-multi-value-pid-editor")
+export class MultiValuePidEditor extends MultiValueEditor {
+  static readonly styles = [...MultiValueEditor.styles];
 
-      .tags {
-        display: flex;
-        margin-top: 0.1rem;
-        gap: 0.1rem;
-        flex-wrap: wrap;
-      }
-    `,
-  ];
+  @property({ type: PlantStore })
+  plantStore: PlantStore | null = null;
 
-  @property()
-  value: Array<string> | string | undefined;
-  @state()
-  protected _nextValue: string | undefined;
+  @property({ type: [Plant] })
+  plants: Array<Plant> | undefined;
 
-  @property()
-  label: string | undefined;
-
-  @property()
-  placeholder: string | undefined;
-
-  @property({ type: [String] })
-  suggestions: Array<string> | undefined;
-
-  @query("#input")
-  protected _input: SlInput | null | undefined;
-  @query("#dropdown")
-  protected _dropdown: SlDropdown | null | undefined;
-
-  protected _addNextValue() {
-    if (!this._nextValue) {
-      return;
+  override render() {
+    if (isNil(this.plantStore)) {
+      return [];
     }
 
-    if (!Array.isArray(this.value)) {
-      this.value = [];
-    }
+    const foundPlants = [
+      ...this.plantStore.searchPlants(
+        (Array.isArray(this.value) ? this._nextValue : this.value) ?? ""
+      ),
+    ];
 
-    if (!this.value.includes(this._nextValue)) {
-      this.value.push(this._nextValue);
-    }
-
-    this._nextValue = undefined;
-    this._input?.focus();
-    this.requestUpdate();
-
-    this.dispatchEvent(
-      new CustomEvent("pn-changed", {
-        detail: this.value,
-      })
-    );
-  }
-
-  render() {
     return [
       html`<sl-input
           id="input"
@@ -109,7 +72,7 @@ export class MultiValueEditor extends LitElement {
                   this._nextValue = undefined;
                 }}
               ></sl-icon-button>`}</sl-input
-        >${Array.isArray(this.suggestions) && this.suggestions.length
+        >${Array.isArray(foundPlants) && foundPlants.length
           ? html`<sl-dropdown id="dropdown" hoist>
               <sl-menu>
                 ${this._nextValue
@@ -120,36 +83,29 @@ export class MultiValueEditor extends LitElement {
                       ><sl-icon slot="prefix" name="plus"></sl-icon>${this._nextValue}</sl-button
                     >`
                   : undefined}
-                ${(this.suggestions ?? [])
-                  .filter(suggestion => {
+                ${foundPlants
+                  .filter(plant => {
                     // Don't show existing values
-                    if (Array.isArray(this.value) && this.value.includes(suggestion)) {
+                    if (Array.isArray(this.value) && this.value.includes(plant.id)) {
                       return false;
                     }
 
-                    return suggestion
-                      .toLocaleLowerCase()
-                      .includes(
-                        (
-                          this._nextValue ??
-                          (Array.isArray(this.value) ? "" : this.value) ??
-                          ""
-                        ).toLocaleLowerCase()
-                      );
+                    return true;
                   })
-                  .sort()
-                  .slice(0, 10)
+                  .slice(0, 8)
                   .map(
-                    entry =>
+                    plant =>
                       html`<sl-menu-item
                         @click=${() => {
                           if (Array.isArray(this.value)) {
-                            this._nextValue = entry;
+                            this._nextValue = plant.id;
                           } else {
-                            this.value = entry;
+                            this.value = plant.id;
                           }
                         }}
-                        >${entry}</sl-menu-item
+                        >${plant.name}<sl-badge slot="suffix" variant="neutral"
+                          >${plant.id}</sl-badge
+                        ></sl-menu-item
                       >`
                   )}
               </sl-menu>
@@ -191,13 +147,13 @@ export class MultiValueEditor extends LitElement {
                     >`
                 )}
             </div>`
-          : undefined} `,
+          : undefined}`,
     ];
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "pn-multi-value-editor": MultiValueEditor;
+    "pn-multi-value-pid-editor": MultiValuePidEditor;
   }
 }
