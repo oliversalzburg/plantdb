@@ -332,6 +332,7 @@ export class TaskPropertiesForm extends LitElement {
                 ?disabled=${this._endsOn === undefined}
                 @sl-change=${(event: MouseEvent) => {
                   this._endsOn = (event.target as SlInput).value ?? undefined;
+                  event.stopPropagation();
                 }}
                 clearable
               ></sl-input
@@ -351,6 +352,7 @@ export class TaskPropertiesForm extends LitElement {
                 ?disabled=${this._endsAfter === undefined}
                 @sl-change=${(event: MouseEvent) => {
                   this._endsAfter = (event.target as SlInput).valueAsNumber;
+                  event.stopPropagation();
                 }}
                 step="1"
                 min="1"
