@@ -25,7 +25,8 @@
     "lit-i18n": "3.0.2",
     "lunr": "2.3.9",
     "luxon": "2.4.0",
-    "pwa-helpers": "0.9.1"
+    "pwa-helpers": "0.9.1",
+    "rrule": "2.7.0"
   },
   "devDependencies": {
     "@types/dygraphs": "2.1.4",

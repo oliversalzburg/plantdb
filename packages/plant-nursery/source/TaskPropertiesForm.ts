@@ -1,4 +1,4 @@
-import { Task } from "@plantdb/libplantdb";
+import { Task, TaskRepeatDays, TaskRepeatInterval, WeekDay } from "@plantdb/libplantdb";
 import { SlCheckbox, SlInput, SlRadio, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
@@ -99,11 +99,11 @@ export class TaskPropertiesForm extends LitElement {
   @state()
   private _plantId: string | Array<string> | undefined;
   @state()
-  private _repeatInterval: number | undefined;
+  private _repeatFrequency: number | undefined;
   @state()
-  private _repeatUnit: string | undefined;
+  private _repeatInterval: TaskRepeatInterval | undefined;
   @state()
-  private _repeatDays = new Array<string>();
+  private _repeatDays = new Array<TaskRepeatDays>();
   @state()
   private _endsOn: string | undefined;
   @state()
@@ -133,8 +133,8 @@ export class TaskPropertiesForm extends LitElement {
     this._time = this.task?.time?.toISOString().slice(11, 16) ?? undefined;
     this._notes = this.task?.notes ?? undefined;
     this._plantId = this.task?.plantId ?? undefined;
+    this._repeatFrequency = this.task?.repeatFrequency ?? undefined;
     this._repeatInterval = this.task?.repeatInterval ?? undefined;
-    this._repeatUnit = this.task?.repeatUnit ?? undefined;
     this._repeatDays = this.task?.repeatDays ?? [];
     this._endsOn = this.task?.endsOn?.toISOString().slice(0, 10) ?? undefined;
     this._endsAfter = this.task?.endsAfter ?? undefined;
@@ -166,8 +166,8 @@ export class TaskPropertiesForm extends LitElement {
       time: this._time ? new Date(`${this._date} ${this._time}`) : undefined,
       notes: this._notes,
       plantId: this._plantId,
+      repeatFrequency: this._repeatFrequency,
       repeatInterval: this._repeatInterval,
-      repeatUnit: this._repeatUnit,
       repeatDays: this._repeatDays,
       endsOn: this._endsOn ? new Date(this._endsOn) : undefined,
       endsAfter: this._endsAfter,
@@ -184,15 +184,7 @@ export class TaskPropertiesForm extends LitElement {
     }
 
     const repeatUnits = ["day", "week", "month", "year"];
-    const repeatDays = [
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-      "sunday",
-    ];
+    const repeatDays = Object.values(WeekDay);
 
     return [
       html`<div
@@ -278,9 +270,9 @@ export class TaskPropertiesForm extends LitElement {
               label=${t("taskEditor.repeatIntervalLabel")}
               placeholder=${t("taskEditor.repeatIntervalPlaceholder")}
               clearable
-              value=${this._repeatInterval}
+              value=${this._repeatFrequency}
               @sl-change=${(event: MouseEvent) =>
-                (this._repeatInterval = (event.target as SlInput).valueAsNumber)}
+                (this._repeatFrequency = (event.target as SlInput).valueAsNumber)}
               min="1"
               step="1"
             ></sl-input>
@@ -289,10 +281,10 @@ export class TaskPropertiesForm extends LitElement {
               label=${t("taskEditor.repeatUnitLabel")}
               placeholder=${t("taskEditor.repeatUnitPlaceholder")}
               clearable
-              ?required=${this._repeatInterval !== undefined}
-              value=${this._repeatUnit}
+              ?required=${this._repeatFrequency !== undefined}
+              value=${this._repeatInterval}
               @sl-change=${(event: MouseEvent) =>
-                (this._repeatUnit = (event.target as SlSelect).value as string)}
+                (this._repeatInterval = (event.target as SlSelect).value as string)}
               hoist
             >
               ${repeatUnits.map(unit => html`<sl-menu-item value=${unit}>${unit}</sl-menu-item>`)}
@@ -304,13 +296,15 @@ export class TaskPropertiesForm extends LitElement {
               multiple
               .value=${this._repeatDays}
               @sl-change=${(event: MouseEvent) => {
-                this._repeatDays = (event.target as SlSelect).value as Array<string>;
+                this._repeatDays = (event.target as SlSelect).value as Array<TaskRepeatDays>;
               }}
               hoist
             >
               ${repeatDays.map(
                 unit =>
-                  html`<sl-menu-item value=${unit}>${t(`taskEditor.day_${unit}`)}</sl-menu-item>`
+                  html`<sl-menu-item value=${unit}
+                    >${t(`taskEditor.day_${unit.toString()}`)}</sl-menu-item
+                  >`
               )}
             </sl-select>
           </div>

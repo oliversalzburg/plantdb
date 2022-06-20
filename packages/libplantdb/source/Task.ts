@@ -46,12 +46,12 @@ export type TaskSerialized = {
   /**
    * @inheritDoc Task.repeatUnit
    */
-  repeatUnit?: string;
+  repeatUnit?: TaskRepeatInterval;
 
   /**
    * @inheritDoc Task.repeatDays
    */
-  repeatDays?: Array<string>;
+  repeatDays?: Array<TaskRepeatDays>;
 
   /**
    * @inheritDoc Task.endsOn
@@ -63,6 +63,25 @@ export type TaskSerialized = {
    */
   endsAfter?: number;
 };
+
+export const Interval = {
+  Daily: "day",
+  Weekly: "week",
+  Monthly: "month",
+  Yearly: "year",
+};
+export type TaskRepeatInterval = typeof Interval[keyof typeof Interval];
+
+export const WeekDay = {
+  Monday: "monday",
+  Tuesday: "tuesday",
+  Wednesday: "wednesday",
+  Thursday: "thursday",
+  Friday: "friday",
+  Saturday: "saturday",
+  Sunday: "sunday",
+} as const;
+export type TaskRepeatDays = typeof WeekDay[keyof typeof WeekDay];
 
 /**
  * A task relating to plants in the PlantDB.
@@ -79,9 +98,9 @@ export class Task extends PlantDBEntity {
   #time?: Date;
   #notes: string | undefined;
   #plantId: string | Array<string> | undefined;
-  #repeatInterval: number | undefined;
-  #repeatUnit: string | undefined;
-  #repeatDays: Array<string> | undefined;
+  #repeatFrequency: number | undefined;
+  #repeatInterval: TaskRepeatInterval | undefined;
+  #repeatDays: Array<TaskRepeatDays> | undefined;
   #endsOn: Date | undefined;
   #endsAfter: number | undefined;
 
@@ -157,15 +176,15 @@ export class Task extends PlantDBEntity {
   /**
    * At which interval to repeat the task.
    */
-  get repeatInterval() {
-    return this.#repeatInterval;
+  get repeatFrequency() {
+    return this.#repeatFrequency;
   }
 
   /**
    * The time span after which the task should repeat.
    */
-  get repeatUnit() {
-    return this.#repeatUnit;
+  get repeatInterval(): TaskRepeatInterval | undefined {
+    return this.#repeatInterval;
   }
 
   /**
@@ -173,6 +192,16 @@ export class Task extends PlantDBEntity {
    */
   get repeatDays() {
     return this.#repeatDays;
+  }
+
+  /**
+   * `true` if this is a task that should repeat; `false` otherwise.
+   */
+  get repeats() {
+    return (
+      (this.#repeatFrequency && this.#repeatInterval) ||
+      (Array.isArray(this.#repeatDays) && 0 < this.#repeatDays.length)
+    );
   }
 
   /**
@@ -228,8 +257,8 @@ export class Task extends PlantDBEntity {
     );
     task.#notes = initializer?.notes ?? other.#notes;
     task.#plantId = initializer?.plantId ?? other.#plantId;
+    task.#repeatFrequency = initializer?.repeatFrequency ?? other.#repeatFrequency;
     task.#repeatInterval = initializer?.repeatInterval ?? other.#repeatInterval;
-    task.#repeatUnit = initializer?.repeatUnit ?? other.#repeatUnit;
     task.#repeatDays = initializer?.repeatDays ?? other.#repeatDays;
     task.#endsOn = initializer?.endsOn ?? other.#endsOn;
     task.#endsAfter = initializer?.endsAfter ?? other.#endsAfter;
@@ -306,8 +335,8 @@ export class Task extends PlantDBEntity {
     );
     task.#notes = dataObject.notes ?? task.#notes;
     task.#plantId = dataObject.plantId ?? task.#plantId;
-    task.#repeatInterval = dataObject.repeatInterval ?? task.#repeatInterval;
-    task.#repeatUnit = dataObject.repeatUnit ?? task.#repeatUnit;
+    task.#repeatFrequency = dataObject.repeatInterval ?? task.#repeatFrequency;
+    task.#repeatInterval = dataObject.repeatUnit ?? task.#repeatInterval;
     task.#repeatDays = dataObject.repeatDays ?? task.#repeatDays;
     task.#endsOn = dataObject.endsOn ?? task.#endsOn;
     task.#endsAfter = dataObject.endsAfter ?? task.#endsAfter;
@@ -350,8 +379,8 @@ export class Task extends PlantDBEntity {
       time: this.#time,
       notes: this.#notes,
       plantId: this.#plantId,
-      repeatInterval: this.#repeatInterval,
-      repeatUnit: this.#repeatUnit,
+      repeatInterval: this.#repeatFrequency,
+      repeatUnit: this.#repeatInterval,
       repeatDays: this.#repeatDays,
       endsOn: this.#endsOn,
       endsAfter: this.#endsAfter,

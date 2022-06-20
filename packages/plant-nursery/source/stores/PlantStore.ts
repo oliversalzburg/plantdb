@@ -1,4 +1,4 @@
-import { LogEntry, Plant, PlantDB } from "@plantdb/libplantdb";
+import { LogEntry, Plant, PlantDB, Task } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
@@ -8,6 +8,7 @@ import { LocalStorage } from "../storage/LocalStorage";
 import { StorageDriver } from "../storage/StorageDriver";
 import { executeAsyncContext } from "../tools/Async";
 import { isNil, mustExist } from "../tools/Maybe";
+import { rruleFromTask } from "../tools/TaskTools";
 
 let globalStore: PlantStore | undefined;
 
@@ -185,5 +186,22 @@ export class PlantStore extends LitElement {
       .map(result => this.plantDb.plants.get(result.ref))
       .filter(Boolean) as Array<Plant>;
     return logEntries;
+  }
+
+  tasksForDateRange(start: Date, end: Date) {
+    const schedule = new Array<Task>();
+    for (const task of this.plantDb.tasks) {
+      if (!task.repeats) {
+        // TODO: Validate `task.dateTime` against `start`-`end`.
+        schedule.push(task);
+        continue;
+      }
+
+      const rrule = rruleFromTask(task);
+      const occurences = rrule.between(start, end);
+      console.log(occurences);
+    }
+
+    return schedule;
   }
 }
