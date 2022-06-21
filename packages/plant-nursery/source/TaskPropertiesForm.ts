@@ -117,8 +117,9 @@ export class TaskPropertiesForm extends LitElement {
 
   private _refreshValues() {
     this._title = this.task?.title ?? "";
-    this._date =
-      this.task?.date.toISOString().slice(0, 10) ?? new Date().toISOString().slice(0, 10);
+    this._date = this.task?.date
+      ? DateTime.fromJSDate(this.task.date).toFormat("yyyy-MM-dd")
+      : DateTime.fromJSDate(new Date()).toFormat("yyyy-MM-dd");
     this._time = this.task?.time ? DateTime.fromJSDate(this.task.time).toFormat("T") : undefined;
     this._notes = this.task?.notes ?? undefined;
     this._plantId = this.task?.plantId ?? undefined;

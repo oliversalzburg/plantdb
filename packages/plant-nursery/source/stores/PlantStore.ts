@@ -193,14 +193,17 @@ export class PlantStore extends LitElement {
     const schedule = new Array<Task>();
     for (const task of this.plantDb.tasks) {
       if (!task.repeats) {
-        // TODO: Validate `task.dateTime` against `start`-`end`.
-        schedule.push(task);
+        if (
+          start.valueOf() <= task.dateTime.valueOf() &&
+          task.dateTime.valueOf() <= end.valueOf()
+        ) {
+          schedule.push(task);
+        }
         continue;
       }
 
       const rrule = rruleFromTask(task);
       const occurences = rrule.between(start, end);
-      console.log(occurences);
       for (const occurence of occurences) {
         const copy = Task.fromTask(task, {
           date: DateTime.fromObject({
@@ -212,6 +215,8 @@ export class PlantStore extends LitElement {
         schedule.push(copy);
       }
     }
+
+    schedule.sort((a, b) => a.dateTime.valueOf() - b.dateTime.valueOf());
 
     return schedule;
   }

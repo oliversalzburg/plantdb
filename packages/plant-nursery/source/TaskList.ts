@@ -52,7 +52,7 @@ export class TaskList extends LitElement {
   filter = "";
 
   @property({ type: Date })
-  dateStart: Date = new Date();
+  dateStart: Date = DateTime.fromJSDate(new Date()).startOf("day").toJSDate();
   @property({ type: Date })
   dateEnd: Date = DateTime.fromJSDate(new Date()).plus({ months: 1 }).toJSDate();
 
@@ -73,18 +73,22 @@ export class TaskList extends LitElement {
           id="date-start"
           type="date"
           label="Start"
-          value=${this.dateStart?.toISOString().slice(0, 10)}
+          value=${DateTime.fromJSDate(this.dateStart).toFormat("yyyy-MM-dd")}
           @sl-change=${(event: Event) =>
-            (this.dateStart = (event.target as SlInput).valueAsDate ?? new Date())}
+            (this.dateStart =
+              (event.target as SlInput).valueAsDate ??
+              DateTime.fromJSDate(new Date()).startOf("day").toJSDate())}
           required
         ></sl-input
         ><sl-input
           id="date-end"
           type="date"
           label="End"
-          value=${this.dateEnd?.toISOString().slice(0, 10)}
+          value=${DateTime.fromJSDate(this.dateEnd).toFormat("yyyy-MM-dd")}
           @sl-change=${(event: Event) =>
-            (this.dateEnd = (event.target as SlInput).valueAsDate ?? new Date())}
+            (this.dateEnd =
+              (event.target as SlInput).valueAsDate ??
+              DateTime.fromJSDate(new Date()).startOf("day").toJSDate())}
           required
         ></sl-input>
       </div>`,
