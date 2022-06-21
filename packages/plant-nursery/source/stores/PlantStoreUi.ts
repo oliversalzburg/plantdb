@@ -92,6 +92,7 @@ export class PlantStoreUi extends LitElement {
           lookupLocalStorage: "plantdb.i18nextLng",
         },
         fallbackLng: ["en-US"],
+        load: "currentOnly",
         ns: ["common", "nursery"],
         supportedLngs: ["de-DE", "en-US", "he-IL"],
       })

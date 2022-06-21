@@ -44,9 +44,9 @@ export type TaskSerialized = {
   repeatInterval?: number;
 
   /**
-   * @inheritDoc Task.repeatUnit
+   * @inheritDoc Task.repeatFrequency
    */
-  repeatUnit?: TaskRepeatInterval;
+  repeatFrequency?: TaskRepeatFrequency;
 
   /**
    * @inheritDoc Task.repeatDays
@@ -70,7 +70,7 @@ export const Interval = {
   Monthly: "month",
   Yearly: "year",
 };
-export type TaskRepeatInterval = typeof Interval[keyof typeof Interval];
+export type TaskRepeatFrequency = typeof Interval[keyof typeof Interval];
 
 export const WeekDay = {
   Monday: "monday",
@@ -98,8 +98,8 @@ export class Task extends PlantDBEntity {
   #time?: Date;
   #notes: string | undefined;
   #plantId: string | Array<string> | undefined;
-  #repeatFrequency: number | undefined;
-  #repeatInterval: TaskRepeatInterval | undefined;
+  #repeatFrequency: TaskRepeatFrequency | undefined;
+  #repeatInterval: number | undefined;
   #repeatDays: Array<TaskRepeatDays> | undefined;
   #endsOn: Date | undefined;
   #endsAfter: number | undefined;
@@ -174,16 +174,16 @@ export class Task extends PlantDBEntity {
   }
 
   /**
-   * At which interval to repeat the task.
+   * At which frequence to repeat the task (daily, weekly, ...).
    */
-  get repeatFrequency() {
+  get repeatFrequency(): TaskRepeatFrequency | undefined {
     return this.#repeatFrequency;
   }
 
   /**
-   * The time span after which the task should repeat.
+   * The interval after which the task should repeat.
    */
-  get repeatInterval(): TaskRepeatInterval | undefined {
+  get repeatInterval(): number | undefined {
     return this.#repeatInterval;
   }
 
@@ -335,8 +335,8 @@ export class Task extends PlantDBEntity {
     );
     task.#notes = dataObject.notes ?? task.#notes;
     task.#plantId = dataObject.plantId ?? task.#plantId;
-    task.#repeatFrequency = dataObject.repeatInterval ?? task.#repeatFrequency;
-    task.#repeatInterval = dataObject.repeatUnit ?? task.#repeatInterval;
+    task.#repeatFrequency = dataObject.repeatFrequency ?? task.#repeatFrequency;
+    task.#repeatInterval = dataObject.repeatInterval ?? task.#repeatInterval;
     task.#repeatDays = dataObject.repeatDays ?? task.#repeatDays;
     task.#endsOn = dataObject.endsOn ?? task.#endsOn;
     task.#endsAfter = dataObject.endsAfter ?? task.#endsAfter;
@@ -379,8 +379,8 @@ export class Task extends PlantDBEntity {
       time: this.#time,
       notes: this.#notes,
       plantId: this.#plantId,
-      repeatInterval: this.#repeatFrequency,
-      repeatUnit: this.#repeatInterval,
+      repeatFrequency: this.#repeatFrequency,
+      repeatInterval: this.#repeatInterval,
       repeatDays: this.#repeatDays,
       endsOn: this.#endsOn,
       endsAfter: this.#endsAfter,

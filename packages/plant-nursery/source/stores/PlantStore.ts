@@ -200,6 +200,10 @@ export class PlantStore extends LitElement {
       const rrule = rruleFromTask(task);
       const occurences = rrule.between(start, end);
       console.log(occurences);
+      for (const occurence of occurences) {
+        const copy = Task.fromTask(task, { date: occurence });
+        schedule.push(copy);
+      }
     }
 
     return schedule;

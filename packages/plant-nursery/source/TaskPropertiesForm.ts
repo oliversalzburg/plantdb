@@ -1,4 +1,4 @@
-import { Task, TaskRepeatDays, TaskRepeatInterval, WeekDay } from "@plantdb/libplantdb";
+import { Task, TaskRepeatDays, TaskRepeatFrequency, WeekDay } from "@plantdb/libplantdb";
 import { SlCheckbox, SlInput, SlRadio, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
@@ -87,9 +87,9 @@ export class TaskPropertiesForm extends LitElement {
   @state()
   private _plantId: string | Array<string> | undefined;
   @state()
-  private _repeatFrequency: number | undefined;
+  private _repeatFrequency: TaskRepeatFrequency | undefined;
   @state()
-  private _repeatInterval: TaskRepeatInterval | undefined;
+  private _repeatInterval: number | undefined;
   @state()
   private _repeatDays = new Array<TaskRepeatDays>();
   @state()
@@ -258,9 +258,9 @@ export class TaskPropertiesForm extends LitElement {
               label=${t("taskEditor.repeatIntervalLabel")}
               placeholder=${t("taskEditor.repeatIntervalPlaceholder")}
               clearable
-              value=${this._repeatFrequency}
+              value=${this._repeatInterval}
               @sl-change=${(event: MouseEvent) =>
-                (this._repeatFrequency = (event.target as SlInput).valueAsNumber)}
+                (this._repeatInterval = (event.target as SlInput).valueAsNumber)}
               min="1"
               step="1"
             ></sl-input>
@@ -269,10 +269,10 @@ export class TaskPropertiesForm extends LitElement {
               label=${t("taskEditor.repeatUnitLabel")}
               placeholder=${t("taskEditor.repeatUnitPlaceholder")}
               clearable
-              ?required=${this._repeatFrequency !== undefined}
-              value=${this._repeatInterval}
+              ?required=${this._repeatInterval !== undefined}
+              value=${this._repeatFrequency}
               @sl-change=${(event: MouseEvent) =>
-                (this._repeatInterval = (event.target as SlSelect).value as string)}
+                (this._repeatFrequency = (event.target as SlSelect).value as string)}
               hoist
             >
               ${repeatUnits.map(unit => html`<sl-menu-item value=${unit}>${unit}</sl-menu-item>`)}

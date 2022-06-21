@@ -1,10 +1,10 @@
-import { Task, TaskRepeatDays, TaskRepeatInterval, WeekDay } from "@plantdb/libplantdb";
+import { Task, TaskRepeatDays, TaskRepeatFrequency, WeekDay } from "@plantdb/libplantdb";
 import RRule from "rrule";
 
 export const rruleFromTask = (task: Task) => {
   const rule = new RRule({
-    freq: task.repeatFrequency,
-    interval: task.repeatInterval ? convertInterval(task.repeatInterval) : undefined,
+    freq: task.repeatFrequency ? convertFrequency(task.repeatFrequency) : undefined,
+    interval: task.repeatInterval,
     byweekday: task.repeatDays?.map(day => convertDay(day)),
     dtstart: task.dateTime,
     until: task.endsOn,
@@ -12,8 +12,8 @@ export const rruleFromTask = (task: Task) => {
   return rule;
 };
 
-export const convertInterval = (repeatInterval: TaskRepeatInterval) => {
-  switch (repeatInterval) {
+export const convertFrequency = (frequency: TaskRepeatFrequency) => {
+  switch (frequency) {
     case "day":
       return RRule.DAILY;
     case "week":
@@ -23,7 +23,7 @@ export const convertInterval = (repeatInterval: TaskRepeatInterval) => {
     case "year":
       return RRule.YEARLY;
     default:
-      throw new Error("Unknown or unsupported repeat unit.");
+      throw new Error("Unknown or unsupported frequency unit.");
   }
 };
 
