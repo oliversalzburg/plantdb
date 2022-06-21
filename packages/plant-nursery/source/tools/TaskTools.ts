@@ -4,6 +4,7 @@ import { RRule } from "rrule";
 
 export const rruleFromTask = (task: Task) => {
   const rule = new RRule({
+    count: task.endsAfter,
     freq: task.repeatFrequency ? convertFrequency(task.repeatFrequency) : undefined,
     interval: task.repeatInterval,
     byweekday: task.repeatDays?.map(day => convertDay(day)),
