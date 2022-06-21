@@ -72,6 +72,7 @@ export class TaskList extends LitElement {
         ><sl-input
           id="date-start"
           type="date"
+          label="Start"
           value=${this.dateStart?.toISOString().slice(0, 10)}
           @sl-change=${(event: Event) =>
             (this.dateStart = (event.target as SlInput).valueAsDate ?? new Date())}
@@ -80,6 +81,7 @@ export class TaskList extends LitElement {
         ><sl-input
           id="date-end"
           type="date"
+          label="End"
           value=${this.dateEnd?.toISOString().slice(0, 10)}
           @sl-change=${(event: Event) =>
             (this.dateEnd = (event.target as SlInput).valueAsDate ?? new Date())}

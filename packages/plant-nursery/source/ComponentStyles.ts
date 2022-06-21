@@ -12,6 +12,7 @@ export const Forms = [
   css`
     .input-group {
       display: flex;
+      align-items: flex-end;
     }
 
     .input-group sl-input::part(base) {
