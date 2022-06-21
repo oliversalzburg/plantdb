@@ -22,6 +22,7 @@ export class PlantStore extends LitElement {
 
   private _indexLog: Index | undefined;
   private _indexPlants: Index | undefined;
+  private _indexTasks: Index | undefined;
 
   indexedDb = new IndexedDb();
   localStorage: StorageDriver = new LocalStorage();
@@ -82,23 +83,8 @@ export class PlantStore extends LitElement {
 
   private _updateIndex() {
     this._indexLog = this.indexFromLog(this.plantDb.log);
-
-    const plants = [...this.plantDb.plants.values()];
-    this._indexPlants = lunr(function () {
-      this.pipeline.remove(lunr.stemmer);
-
-      this.ref("id");
-      this.field("id");
-      this.field("name");
-      this.field("kind");
-      this.field("substrate");
-      this.field("location");
-      this.field("notes");
-
-      plants.forEach(plant => {
-        this.add(plant);
-      });
-    });
+    this._indexPlants = this.indexFromPlants([...this.plantDb.plants.values()]);
+    this._indexTasks = this.indexFromTasks(this.plantDb.tasks);
   }
 
   indexFromLog(log: ReadonlyArray<LogEntry>) {
@@ -149,6 +135,19 @@ export class PlantStore extends LitElement {
     });
   }
 
+  indexFromTasks(tasks: ReadonlyArray<Task>) {
+    return lunr(function () {
+      this.pipeline.remove(lunr.stemmer);
+
+      this.ref("id");
+      this.field("title");
+
+      tasks.forEach(task => {
+        this.add(task);
+      });
+    });
+  }
+
   /**
    * Take a search term, as given by the user, and transform it so that it:
    *  - performs substring matching
@@ -166,10 +165,18 @@ export class PlantStore extends LitElement {
   }
 
   searchLog(term: string, index = this._indexLog) {
+    if (isNil(index)) {
+      return [];
+    }
+
+    if (term === "") {
+      return this.plantDb.log;
+    }
+
     const formal = this.formalizeLunrSearch(term);
     console.debug(`Performing formal search for: ${formal}`);
 
-    const results = mustExist(index).search(formal);
+    const results = index.search(formal);
     const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
     return logEntries;
   }
@@ -179,14 +186,35 @@ export class PlantStore extends LitElement {
       return [];
     }
 
+    if (term === "") {
+      return [...this.plantDb.plants.values()];
+    }
+
     const formal = this.formalizeLunrSearch(term);
     console.debug(`Performing formal search for: ${formal}`);
 
     const results = index.search(formal);
-    const logEntries = results
+    const plants = results
       .map(result => this.plantDb.plants.get(result.ref))
       .filter(Boolean) as Array<Plant>;
-    return logEntries;
+    return plants;
+  }
+
+  searchTasks(term: string, index = this._indexTasks) {
+    if (isNil(index)) {
+      return [];
+    }
+
+    if (term === "") {
+      return this.plantDb.tasks;
+    }
+
+    const formal = this.formalizeLunrSearch(term);
+    console.debug(`Performing formal search for: ${formal}`);
+
+    const results = mustExist(index).search(formal);
+    const tasks = results.map(result => this.plantDb.tasks[Number(result.ref)]);
+    return tasks;
   }
 
   tasksForDateRange(start: Date, end: Date) {
