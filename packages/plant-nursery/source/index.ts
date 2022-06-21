@@ -38,6 +38,7 @@ import "./PlantPropertiesForm";
 import "./PlantScanner";
 import "./stores/PlantStore";
 import "./stores/PlantStoreUi";
+import "./TaskInstance";
 import "./TaskList";
 import "./TaskPropertiesForm";
 import "./TypeMap";
