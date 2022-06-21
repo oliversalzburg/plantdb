@@ -43,30 +43,18 @@ export class TaskPropertiesForm extends LitElement {
         min-width: 4rem;
       }
 
-      .row.date-time,
-      .row.repeat {
-        align-items: last baseline;
-      }
-
       .row {
         display: flex;
         flex-direction: row;
         column-gap: 1rem;
-        align-items: center;
+        align-items: flex-end;
       }
       .row * {
         flex: 1;
         min-width: 0;
       }
-      .row .control {
-        display: flex;
-        flex-direction: column;
-      }
-      .row .control sl-checkbox {
-        margin-top: 1rem;
-      }
-      .row .control sl-dropdown {
-        flex: 0;
+      .row sl-checkbox {
+        margin-bottom: 0.75rem;
       }
 
       .warning {
