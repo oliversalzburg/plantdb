@@ -152,7 +152,7 @@
     "ecMaxPlaceholder": "2800",
     "ecMinLabel": "EC מינימלי. (µS/cm)",
     "ecMinPlaceholder": "1200",
-    "idLabel": "מזהה צמח",
+    "idLabel": "Plant ID *",
     "idPlaceholder": "PID-12",
     "kindLabel": "סוג",
     "kindPlaceholder": "מונסטרה דליסיוסה",
@@ -193,7 +193,7 @@
   },
   "taskEditor": {
     "allDay": "All day",
-    "dateLabel": "Date",
+    "dateLabel": "תאריך *",
     "day_friday": "Friday",
     "day_monday": "Monday",
     "day_saturday": "Saturday",
@@ -220,7 +220,7 @@
     "timeLabel": "Time",
     "titleHelpDelete": "To delete this task, remove the title and save it.",
     "titleHelpDeleteWarn": "If you save this task, IT WILL BE DELETED!",
-    "titleLabel": "Title",
+    "titleLabel": "Title *",
     "titlePlaceholder": "Give your task a name"
   },
   "typeMap": {
