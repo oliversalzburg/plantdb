@@ -2,6 +2,7 @@ import { LogEntry, Plant, PlantDB, Task } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
+import { DateTime } from "luxon";
 import { GoogleDrive } from "../storage/GoogleDrive";
 import { IndexedDb } from "../storage/IndexedDb";
 import { LocalStorage } from "../storage/LocalStorage";
@@ -201,7 +202,13 @@ export class PlantStore extends LitElement {
       const occurences = rrule.between(start, end);
       console.log(occurences);
       for (const occurence of occurences) {
-        const copy = Task.fromTask(task, { date: occurence });
+        const copy = Task.fromTask(task, {
+          date: DateTime.fromObject({
+            year: occurence.getUTCFullYear(),
+            month: occurence.getUTCMonth() + 1,
+            day: occurence.getUTCDate(),
+          }).toJSDate(),
+        });
         schedule.push(copy);
       }
     }

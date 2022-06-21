@@ -8,6 +8,7 @@ import { t } from "i18next";
 import { css, html, LitElement, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { DateTime } from "luxon";
 import { MultiValueEditor } from "./MultiValueEditor";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
@@ -118,7 +119,7 @@ export class TaskPropertiesForm extends LitElement {
     this._title = this.task?.title ?? "";
     this._date =
       this.task?.date.toISOString().slice(0, 10) ?? new Date().toISOString().slice(0, 10);
-    this._time = this.task?.time?.toISOString().slice(11, 16) ?? undefined;
+    this._time = this.task?.time ? DateTime.fromJSDate(this.task.time).toFormat("T") : undefined;
     this._notes = this.task?.notes ?? undefined;
     this._plantId = this.task?.plantId ?? undefined;
     this._repeatFrequency = this.task?.repeatFrequency ?? undefined;

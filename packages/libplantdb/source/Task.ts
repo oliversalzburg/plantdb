@@ -146,17 +146,17 @@ export class Task extends PlantDBEntity {
     const dateSource = DateTime.fromJSDate(this.#date);
     if (this.#time) {
       const timeSource = DateTime.fromJSDate(this.#time);
-      dateSource.set({
-        hour: timeSource.get("hour"),
-        minute: timeSource.get("minute"),
-        second: timeSource.get("second"),
-        millisecond: timeSource.get("millisecond"),
-      });
-    } else {
-      dateSource.startOf("day");
+      return dateSource
+        .set({
+          hour: timeSource.get("hour"),
+          minute: timeSource.get("minute"),
+          second: timeSource.get("second"),
+          millisecond: timeSource.get("millisecond"),
+        })
+        .toJSDate();
     }
 
-    return dateSource.toJSDate();
+    return dateSource.startOf("day").toJSDate();
   }
 
   /**

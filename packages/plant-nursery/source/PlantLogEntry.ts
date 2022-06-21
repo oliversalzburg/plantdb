@@ -243,10 +243,10 @@ export class PlantLogEntry extends LitElement {
           @click=${() => this.dispatchEvent(new CustomEvent("pn-body-click"))}
         >
           <div class="timestamp">
-            <span>${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toFormat("f")}</span>
+            <span>${DateTime.fromJSDate(this.logEntry.timestamp).toFormat("f")}</span>
             <small class="time-distance"
-              >${DateTime.fromJSDate(new Date(this.logEntry.timestamp)).toRelative()}${this.logEntry
-                .plant?.logEntryOldest === this.logEntry
+              >${DateTime.fromJSDate(this.logEntry.timestamp).toRelative()}${this.logEntry.plant
+                ?.logEntryOldest === this.logEntry
                 ? html`<sl-tooltip content=${t("log.firstEntry")}><span>🌟</span></sl-tooltip>`
                 : undefined}</small
             >

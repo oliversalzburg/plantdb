@@ -1,12 +1,13 @@
 import { Task, TaskRepeatDays, TaskRepeatFrequency, WeekDay } from "@plantdb/libplantdb";
-import RRule from "rrule";
+import { DateTime } from "luxon";
+import { RRule } from "rrule";
 
 export const rruleFromTask = (task: Task) => {
   const rule = new RRule({
     freq: task.repeatFrequency ? convertFrequency(task.repeatFrequency) : undefined,
     interval: task.repeatInterval,
     byweekday: task.repeatDays?.map(day => convertDay(day)),
-    dtstart: task.dateTime,
+    dtstart: DateTime.fromJSDate(task.dateTime).setZone("utc", { keepLocalTime: true }).toJSDate(),
     until: task.endsOn,
   });
   return rule;

@@ -92,7 +92,11 @@ export class TaskList extends LitElement {
         ${taskInstances.map(
           task =>
             html`<sl-card @click=${() => this.plantStoreUi?.editTask(task)}
-              >${task.title}<br /><small>${task.date}</small></sl-card
+              >${task.title}<br /><small
+                >${task.time
+                  ? DateTime.fromJSDate(task.dateTime).toFormat("DDDD t")
+                  : DateTime.fromJSDate(task.date).toFormat("DDDD")}</small
+              ></sl-card
             >`
         )}
       </div>`,
