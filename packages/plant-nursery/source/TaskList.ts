@@ -61,6 +61,13 @@ export class TaskList extends LitElement {
 
     const taskInstances = this.plantStore.tasksForDateRange(this.dateStart, this.dateEnd);
 
+    let filteredTasks = taskInstances;
+    if (this.filter) {
+      const index = this.plantStore.indexFromTasks(taskInstances);
+      const filtered = this.plantStore.searchTasks(this.filter, index).map(task => task.id);
+      filteredTasks = filteredTasks.filter(task => filtered.includes(task.id));
+    }
+
     return [
       html`<div class="filter input-group">
         <sl-input
@@ -93,7 +100,7 @@ export class TaskList extends LitElement {
         ></sl-input>
       </div>`,
       html`<div id="tasks">
-        ${taskInstances.map(
+        ${filteredTasks.map(
           task =>
             html`<sl-card @click=${() => this.plantStoreUi?.editTask(task)}
               >${task.title}<br /><small

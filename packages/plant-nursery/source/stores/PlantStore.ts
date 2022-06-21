@@ -177,7 +177,9 @@ export class PlantStore extends LitElement {
     console.debug(`Performing formal search for: ${formal}`);
 
     const results = index.search(formal);
-    const logEntries = results.map(result => this.plantDb.log[Number(result.ref)]);
+    const logEntries = results.map(result =>
+      mustExist(this.plantDb.getLogEntry(Number(result.ref)))
+    );
     return logEntries;
   }
 
@@ -212,8 +214,8 @@ export class PlantStore extends LitElement {
     const formal = this.formalizeLunrSearch(term);
     console.debug(`Performing formal search for: ${formal}`);
 
-    const results = mustExist(index).search(formal);
-    const tasks = results.map(result => this.plantDb.tasks[Number(result.ref)]);
+    const results = index.search(formal);
+    const tasks = results.map(result => mustExist(this.plantDb.getTask(Number(result.ref))));
     return tasks;
   }
 
