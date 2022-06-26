@@ -40,11 +40,13 @@ export class PlantStore extends LitElement {
       await this.indexedDb.connect();
       const storedDb = await this.indexedDb.retrievePlantDb();
       if (storedDb) {
-        console.info("Restored DB from IndexedDB.");
+        console.info("Using DB provided through IndexedDB.");
         this.plantDb = storedDb;
         this._updateIndex();
 
         this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
+      } else {
+        console.info("Unable to use IndexedDB data.");
       }
     });
   }

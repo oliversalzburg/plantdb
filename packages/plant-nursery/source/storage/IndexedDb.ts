@@ -1,5 +1,6 @@
 import { DatabaseFormat, PlantDB } from "@plantdb/libplantdb";
 import { IDBPDatabase, openDB } from "idb";
+import { coalesceOnError } from "../tools/Async";
 import { isNil, mustExist } from "../tools/Maybe";
 import { StorageDriver } from "./StorageDriver";
 
@@ -23,6 +24,9 @@ export class IndexedDb implements StorageDriver {
 
         const storePlants = db.createObjectStore("plants", { keyPath: "id" });
         storePlants.createIndex("isArchived", "isArchived");
+
+        const storeTasks = db.createObjectStore("tasks", { keyPath: "id" });
+        storeTasks.createIndex("date", "date");
       },
     });
     return Promise.resolve(true);
@@ -37,9 +41,15 @@ export class IndexedDb implements StorageDriver {
   }
 
   async retrievePlantDb() {
-    const log = await mustExist(this._dbPlantDb).getAll("plantlog");
-    const plants = await mustExist(this._dbPlantDb).getAll("plants");
-    return PlantDB.fromJSObjects(this._databaseFormat, plants, log);
+    const log = await coalesceOnError(() => mustExist(this._dbPlantDb).getAll("plantlog"), null);
+    const plants = await coalesceOnError(() => mustExist(this._dbPlantDb).getAll("plants"), null);
+    const tasks = await coalesceOnError(() => mustExist(this._dbPlantDb).getAll("tasks"), null);
+
+    if (isNil(log) || isNil(plants) || isNil(tasks)) {
+      return null;
+    }
+
+    return PlantDB.fromJSObjects(this._databaseFormat, plants, log, tasks);
   }
 
   async persistPlantDb(plantDb: PlantDB) {
@@ -50,6 +60,9 @@ export class IndexedDb implements StorageDriver {
       }
       for (const plant of plantDb.plants.values()) {
         await db.put("plants", plant.toJSObject());
+      }
+      for (const task of plantDb.tasks) {
+        await db.put("tasks", task.toJSObject());
       }
     } catch (error) {
       console.error(error);

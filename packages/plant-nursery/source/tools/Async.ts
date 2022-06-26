@@ -11,3 +11,14 @@ export const executeAsyncContext = (
 export const prepareAsyncContext = (context: () => Promise<unknown>) => {
   return () => executeAsyncContext(context);
 };
+
+export const coalesceOnError = async <TExecutableReturn, T>(
+  executable: (...args: Array<unknown>) => Promise<TExecutableReturn>,
+  to: T
+) => {
+  try {
+    return await executable();
+  } catch (error) {
+    return to;
+  }
+};

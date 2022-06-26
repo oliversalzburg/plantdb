@@ -10,6 +10,6 @@ export interface StorageDriver {
   get connected(): boolean;
 
   getConfiguration(): Promise<DatabaseFormat>;
-  retrievePlantDb(): Promise<PlantDB>;
+  retrievePlantDb(): Promise<PlantDB | null>;
   persistPlantDb(plantDb: PlantDB): Promise<unknown>;
 }
