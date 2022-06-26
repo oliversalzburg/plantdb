@@ -12,7 +12,7 @@ import { IDBPDatabase, openDB } from "idb";
 import { coalesceOnError } from "../tools/Async";
 import { isNil, mustExist } from "../tools/Maybe";
 import { LocalStorage } from "./LocalStorage";
-import { NurseryConfiguration, StorageDriver } from "./StorageDriver";
+import { getConfigurationFromPlantDB, NurseryConfiguration, StorageDriver } from "./StorageDriver";
 
 export class IndexedDb implements StorageDriver {
   /**
@@ -147,10 +147,7 @@ export class IndexedDb implements StorageDriver {
   async persistPlantDb(plantDb: PlantDB) {
     const db = mustExist(this._dbPlantDb);
     try {
-      await this.updateConfiguration({
-        databaseFormat: this._databaseFormat,
-        typeMap: plantDb.getDictionary(DictionaryClassifiers.LogEntryEventType),
-      });
+      await this.updateConfiguration(getConfigurationFromPlantDB(plantDb));
 
       for (const logEntry of plantDb.log) {
         await db.put("plantlog", logEntry.toJSObject());

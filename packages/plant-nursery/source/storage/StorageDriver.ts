@@ -1,6 +1,7 @@
 import {
   DatabaseFormat,
   DictionaryClassifier,
+  DictionaryClassifiers,
   EventType,
   LogEntrySerialized,
   PlantDB,
@@ -12,6 +13,13 @@ import {
 export type NurseryConfiguration = {
   databaseFormat: DatabaseFormat;
   typeMap: UserDictionary<EventType>;
+};
+
+export const getConfigurationFromPlantDB = (plantDb: PlantDB) => {
+  return {
+    databaseFormat: plantDb.databaseFormat,
+    typeMap: plantDb.getDictionary<EventType>(DictionaryClassifiers.LogEntryEventType),
+  };
 };
 
 /**

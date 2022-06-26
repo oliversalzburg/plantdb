@@ -11,7 +11,7 @@ import {
   UserDictionarySerialized,
 } from "@plantdb/libplantdb";
 import { isNil } from "../tools/Maybe";
-import { NurseryConfiguration, StorageDriver } from "./StorageDriver";
+import { getConfigurationFromPlantDB, NurseryConfiguration, StorageDriver } from "./StorageDriver";
 
 export class LocalStorage implements StorageDriver {
   prepare() {
@@ -116,17 +116,17 @@ export class LocalStorage implements StorageDriver {
     );
   }
 
-  persistPlantDb(plantDb: PlantDB) {
-    const databaseFormat = JSON.stringify(plantDb.databaseFormat.toJSObject());
+  async persistPlantDb(plantDb: PlantDB) {
     const log = JSON.stringify(plantDb.log.map(logEntry => logEntry.toJSObject()));
     const plants = JSON.stringify([...plantDb.plants.values()].map(plant => plant.toJSObject()));
     const tasks = JSON.stringify(plantDb.tasks.map(task => task.toJSObject()));
 
-    localStorage.setItem("plantdb.config", databaseFormat);
+    await this.updateConfiguration(getConfigurationFromPlantDB(plantDb));
+
     localStorage.setItem("plantdb.log", log);
     localStorage.setItem("plantdb.plants", plants);
     localStorage.setItem("plantdb.tasks", tasks);
 
-    return Promise.resolve(true);
+    return true;
   }
 }
