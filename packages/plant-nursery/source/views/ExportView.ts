@@ -1,18 +1,21 @@
 import { DatabaseFormat } from "@plantdb/libplantdb";
-import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { mustExist } from "../tools/Maybe";
 import { DataExchangeView } from "./DataExchangeView";
 
-@customElement("pn-import-view")
-export class ImportView extends DataExchangeView {
+@customElement("pn-export-view")
+export class ExportView extends DataExchangeView {
   static readonly styles = [
     ...DataExchangeView.styles,
     css`
       .clipboard sl-button {
-        align-self: flex-end;
+        align-self: flex-start;
+      }
+      .clipboard sl-button:first-child {
+        align-self: center;
       }
     `,
   ];
@@ -22,13 +25,12 @@ export class ImportView extends DataExchangeView {
 
   @property()
   plantLogData = "";
-  @state()
-  private _logAnalysis = "";
-  @state()
-  private _hasFsAccess = "showOpenFilePicker" in window;
 
   @property()
   config = DatabaseFormat.DefaultInterchange();
+
+  @state()
+  private _hasFsAccess = "showSaveFilePicker" in window;
 
   firstUpdated() {
     const storedConfig = localStorage.getItem("plantdb.config");
@@ -37,24 +39,15 @@ export class ImportView extends DataExchangeView {
     }
   }
 
-  private _checkInputData() {
-    const plantLogDataRaw = this.plantLogData;
-    const counts = {
-      comma: (plantLogDataRaw.match(/,/g) || []).length,
-      semicolon: (plantLogDataRaw.match(/;/g) || []).length,
-      tab: (plantLogDataRaw.match(/\t/g) || []).length,
-    };
-    const likelySeparator = (Object.keys(counts) as Array<keyof typeof counts>).reduce((a, b) =>
-      counts[a] > counts[b] ? a : b
-    );
-    this._logAnalysis = t("import.logAnalysis", {
-      counts,
-      likelySeparator,
-    });
+  export() {
+    const { log, plants } = mustExist(this.plantStore).plantDb.toCSV(this.config);
+    this.plantLogData = log;
+    this.plantData = plants;
   }
 
-  private async _openCsvFromFileSystem() {
+  private async _saveCsvToFileSystem(data: string, filename: string) {
     const pickerOpts = {
+      suggestedName: filename,
       types: [
         {
           description: t("import.csvFiles"),
@@ -63,24 +56,10 @@ export class ImportView extends DataExchangeView {
           },
         },
       ],
-      excludeAcceptAllOption: true,
-      multiple: false,
     };
-    try {
-      // open file picker
-      const [fileHandle] = await window.showOpenFilePicker(pickerOpts);
-
-      // get file contents
-
-      const fileData = await fileHandle.getFile();
-
-      return fileData.text();
-    } catch (error) {
-      this.plantStoreUi
-        ?.alert(t("import.fsUnsupported"), "danger", "x-circle")
-        .catch(console.error);
-      throw error;
-    }
+    const fileHandle = await window.showSaveFilePicker(pickerOpts);
+    const writeable = await fileHandle.createWritable();
+    return writeable.write(data);
   }
 
   render() {
@@ -97,9 +76,9 @@ export class ImportView extends DataExchangeView {
           "import--google-busy": this._googleDriveBusy,
         })}
       >
-        <div id="import-section">
+        <div id="export-section">
           <sl-tab-group>
-            <sl-tab slot="nav" panel="clipboard">${t("import.text")}</sl-tab>
+            <sl-tab slot="nav" panel="clipboard">${t("export.text")}</sl-tab>
             <sl-tab slot="nav" panel="google-drive">${t("import.googleDrive")}</sl-tab>
 
             <sl-tab-panel name="google-drive"
@@ -118,11 +97,9 @@ export class ImportView extends DataExchangeView {
                       "import.connectGoogleDrive"
                     )}</sl-button
                   >${this._googleDriveConnected
-                    ? html`<sl-button
-                        ?disabled=${!this._googleDriveHasDb}
-                        @click=${() => this._importFromGoogleDrive()}
-                        ><sl-icon slot="prefix" name="cloud-download"></sl-icon>${t(
-                          "import.googleDriveImport"
+                    ? html`<sl-button @click=${() => this._syncToGoogleDrive()}
+                        ><sl-icon slot="prefix" name="cloud-upload"></sl-icon>${t(
+                          "import.googleDriveSync"
                         )}</sl-button
                       >`
                     : undefined}
@@ -135,7 +112,9 @@ export class ImportView extends DataExchangeView {
 
             <sl-tab-panel name="clipboard"
               ><div class="clipboard">
-                <sl-details summary=${t("dbConfig.title")}>
+                <sl-button id="export" variant="primary" @click="${() => this.export()}"
+                  >${t("export.insert")}</sl-button
+                ><sl-details summary=${t("dbConfig.title")}>
                   <pn-db-config
                     .plantData=${this.plantData}
                     .plantLogData=${this.plantLogData}
@@ -148,64 +127,44 @@ export class ImportView extends DataExchangeView {
                       (this.config = event.detail)}
                   ></pn-db-config
                 ></sl-details>
-
                 <sl-textarea
                   id="log-data"
                   rows="10"
-                  placeholder=${t("import.pastePlantLog")}
                   label=${t("import.plantLog")}
                   .value=${this.plantLogData}
-                  @sl-change=${(event: InputEvent) => {
-                    this.plantLogData = (event.target as SlTextarea).value;
-                    this._checkInputData();
-                  }}
-                >
-                  <small slot="help-text" class="log-analysis"
-                    >${this._logAnalysis}</small
-                  ></sl-textarea
-                >${this._hasFsAccess
-                  ? html` <sl-button
-                      variant=${this.plantLogData !== "" ? "success" : "default"}
+                  readonly
+                ></sl-textarea>
+                ${this._hasFsAccess
+                  ? html`<sl-button
+                      ?disabled=${!this.plantLogData}
                       @click=${async () => {
-                        this.plantLogData = await this._openCsvFromFileSystem();
-                        this._checkInputData();
+                        await this._saveCsvToFileSystem(this.plantLogData, "plantlog.csv");
                         this.requestUpdate();
                       }}
-                      >${t("import.openPlantLogCsv")}</sl-button
+                      >${t("import.savePlantLogCsv")}</sl-button
                     >`
                   : undefined}
 
                 <sl-textarea
                   id="plant-data"
                   rows="10"
-                  placeholder=${t("import.pastePlants")}
                   label=${t("import.plantData")}
                   .value=${this.plantData}
-                  @sl-change="${(event: InputEvent) => {
-                    this.plantData = (event.target as SlTextarea).value;
-                  }}"
-                ></sl-textarea
-                >${this._hasFsAccess
+                  readonly
+                ></sl-textarea>
+                ${this._hasFsAccess
                   ? html`<sl-button
-                      variant=${this.plantData !== "" ? "success" : "default"}
+                      ?disabled=${!this.plantData}
                       @click=${async () => {
-                        this.plantData = await this._openCsvFromFileSystem();
+                        await this._saveCsvToFileSystem(this.plantData, "plants.csv");
                         this.requestUpdate();
                       }}
-                      >${t("import.openPlantsCsv")}</sl-button
+                      >${t("import.savePlantsCsv")}</sl-button
                     >`
                   : undefined}
               </div>
             </sl-tab-panel>
           </sl-tab-group>
-
-          <sl-button
-            id="process"
-            variant="primary"
-            @click="${() => this.processImportRequest(this.plantData, this.plantLogData)}"
-            ?disabled=${!this.plantLogData && !this.plantData}
-            >${t("import.import")}</sl-button
-          >
         </div>
       </div>`,
     ];
@@ -214,6 +173,6 @@ export class ImportView extends DataExchangeView {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "pn-import-view": ImportView;
+    "pn-export-view": ExportView;
   }
 }

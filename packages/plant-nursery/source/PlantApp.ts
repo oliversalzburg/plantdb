@@ -146,6 +146,9 @@ export class PlantApp extends LitElement {
       case "import":
         document.title = `${t("menu.import")} - ${t("app.title")}`;
         break;
+      case "export":
+        document.title = `${t("menu.export")} - ${t("app.title")}`;
+        break;
       case "view404":
         document.title = `404 - ${t("app.title")}`;
         break;
@@ -196,6 +199,9 @@ export class PlantApp extends LitElement {
                 >
                 <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/import")}
                   >${t("menu.import")}</sl-menu-item
+                >
+                <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/export")}
+                  >${t("menu.export")}</sl-menu-item
                 >
                 <div class="footer-elements" slot="footer">
                   <small class="app-version">${__APP_VERSION__}</small>
@@ -342,6 +348,12 @@ export class PlantApp extends LitElement {
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
               ></pn-import-view>
+              <pn-export-view
+                class="view"
+                ?active=${this._plantStoreUi.page === "export"}
+                .plantStore=${this._plantStore}
+                .plantStoreUi=${this._plantStoreUi}
+              ></pn-export-view>
             </div>`
         : undefined,
     ];

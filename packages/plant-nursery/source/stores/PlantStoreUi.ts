@@ -18,6 +18,7 @@ export const retrieveStoreUi = () => globalStore;
 
 export type SupportedLocales = "de-DE" | "en-US" | "he-IL";
 export type KnownViews =
+  | "export"
   | "import"
   | "list"
   | "log"

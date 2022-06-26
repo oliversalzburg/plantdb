@@ -66,6 +66,10 @@
     "Shaping": "Shaping",
     "Watering": "Watering"
   },
+  "export": {
+    "insert": "Insert current data",
+    "text": "$t(import.text)"
+  },
   "idPicker": {
     "family": "Family",
     "genus": "Genus",
@@ -76,9 +80,6 @@
   "import": {
     "connectGoogleDrive": "Connect Google Drive",
     "csvFiles": "CSV Files",
-    "dataLoadedHelp": "Check the \"$t(import.text)\" panel to see your loaded data.",
-    "export": "Insert current data",
-    "filesystem": "File System",
     "fsUnsupported": "File system access is not supported on your device.",
     "googleDrive": "Google Drive",
     "googleDriveBusy": "Communicating with Google Drive...",
@@ -103,8 +104,7 @@
     "plantLog": "Plant log",
     "savePlantLogCsv": "Save plantlog.csv",
     "savePlantsCsv": "Save plants.csv",
-    "text": "Text",
-    "title": "Import Data"
+    "text": "Text/CSV"
   },
   "log": {
     "add": "Add log entry",
@@ -121,7 +121,8 @@
   },
   "menu": {
     "close": "$t(common:close)",
-    "import": "Data transfer",
+    "export": "Export",
+    "import": "Import",
     "log": "Log",
     "logEntry": "Log entry",
     "plants": "Plants",

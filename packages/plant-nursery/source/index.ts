@@ -42,6 +42,7 @@ import "./TaskInstance";
 import "./TaskList";
 import "./TaskPropertiesForm";
 import "./TypeMap";
+import "./views/ExportView";
 import "./views/ImportView";
 import "./views/LogEntryView";
 import "./views/PageNotFoundView";
