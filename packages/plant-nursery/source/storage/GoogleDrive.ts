@@ -26,6 +26,20 @@ export class GoogleDrive implements StorageDriver {
     return config.modifiedTime;
   }
 
+  async getConfiguration(): Promise<DatabaseFormat> {
+    if (!GoogleDrive._googleDriveConnected) {
+      throw new Error("Google Drive is not connected!");
+    }
+
+    const config = await this._readFile("config.json");
+    if (isNil(config)) {
+      return DatabaseFormat.DefaultInterchange();
+    }
+
+    const databaseFormat = DatabaseFormat.fromJSON(config.body);
+    return databaseFormat;
+  }
+
   async retrievePlantDb() {
     if (!GoogleDrive._googleDriveConnected) {
       throw new Error("Google Drive is not connected!");

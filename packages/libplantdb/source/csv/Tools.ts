@@ -207,7 +207,10 @@ export const tryParseBool = (boolValue: string) => {
  * @param databaseFormat The `DatabaseFormat` to be used to interpret the data.
  * @returns The float value of the passed value, or `undefined`.
  */
-export const tryParseFloat = (numberValue: string, databaseFormat = new DatabaseFormat()) => {
+export const tryParseFloat = (
+  numberValue: string,
+  databaseFormat = DatabaseFormat.DefaultInterchange()
+) => {
   if (numberValue.includes(databaseFormat.decimalSeparator)) {
     const parts = numberValue.split(databaseFormat.decimalSeparator);
     if (parts.length !== 2) {
@@ -232,7 +235,10 @@ export const tryParseFloat = (numberValue: string, databaseFormat = new Database
  * @param databaseFormat The `DatabaseFormat` to be used to interpret the data.
  * @returns The integer value of the passed value, or `undefined`.
  */
-export const tryParseInt = (numberValue: string, databaseFormat = new DatabaseFormat()) => {
+export const tryParseInt = (
+  numberValue: string,
+  databaseFormat = DatabaseFormat.DefaultInterchange()
+) => {
   if (numberValue.includes(databaseFormat.decimalSeparator)) {
     const parts = numberValue.split(databaseFormat.decimalSeparator);
     if (parts.length !== 2) {

@@ -35,6 +35,14 @@ export class LocalStorage implements StorageDriver {
     };
   }
 
+  getConfiguration(): Promise<DatabaseFormat> {
+    const storedConfig = localStorage.getItem("plantdb.config");
+    if (isNil(storedConfig)) {
+      return Promise.resolve(DatabaseFormat.DefaultInterchange());
+    }
+    return Promise.resolve(DatabaseFormat.fromJSON(storedConfig));
+  }
+
   retrievePlantDb() {
     const { config, log, plants, tasks } = LocalStorage._getRawData();
 

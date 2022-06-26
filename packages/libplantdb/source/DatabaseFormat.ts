@@ -141,6 +141,20 @@ export class DatabaseFormat extends PlantDBEntity {
     return this.#typeMap;
   }
 
+  private constructor() {
+    super();
+  }
+
+  /**
+   * A safe default database format that should be preferred when dealing with data
+   * that should be exchanged with other PlantDB applications.
+   *
+   * @returns A database format designed for highest possible interoperability.
+   */
+  static DefaultInterchange() {
+    return new DatabaseFormat();
+  }
+
   /**
    * Creates a new `DatabaseFormat`, based on this one, but with a new type map.
    *

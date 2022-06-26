@@ -7,7 +7,7 @@ export class IndexedDb implements StorageDriver {
   /**
    * We always use the default database format to interact with IndexedDB.
    */
-  private _databaseFormat = new DatabaseFormat();
+  private _databaseFormat = DatabaseFormat.DefaultInterchange();
 
   private _dbPlantDb: IDBPDatabase<unknown> | undefined;
 
@@ -30,6 +30,10 @@ export class IndexedDb implements StorageDriver {
 
   get connected() {
     return !isNil(this._dbPlantDb);
+  }
+
+  getConfiguration(): Promise<DatabaseFormat> {
+    return Promise.resolve(this._databaseFormat);
   }
 
   async retrievePlantDb() {

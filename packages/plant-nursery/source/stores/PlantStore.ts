@@ -37,9 +37,10 @@ export class PlantStore extends LitElement {
       await this.localStorage.prepare();
       // Google Drive is not prepared until absolutely necessary!
 
-      const storedDb = await this.localStorage.retrievePlantDb();
+      await this.indexedDb.connect();
+      const storedDb = await this.indexedDb.retrievePlantDb();
       if (storedDb) {
-        console.info("Restored DB from localStorage.");
+        console.info("Restored DB from IndexedDB.");
         this.plantDb = storedDb;
         this._updateIndex();
 
@@ -54,12 +55,7 @@ export class PlantStore extends LitElement {
 
   async updatePlantDb(plantDb: PlantDB) {
     this.plantDb = plantDb;
-    await this.localStorage.persistPlantDb(this.plantDb);
-    console.info("Stored DB in localStorage.");
 
-    if (!this.indexedDb.connected) {
-      await this.indexedDb.connect();
-    }
     await this.indexedDb.persistPlantDb(plantDb);
     console.info("Stored DB in IndexedDB.");
 

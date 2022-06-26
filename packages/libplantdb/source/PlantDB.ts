@@ -19,7 +19,7 @@ import {
  * The main entrypoint of a PlantDB data collection.
  */
 export class PlantDB {
-  #databaseFormat = new DatabaseFormat();
+  #databaseFormat = DatabaseFormat.DefaultInterchange();
   #log = new Array<LogEntry>();
   #plants = new Map<string, Plant>();
   #tasks = new Array<Task>();

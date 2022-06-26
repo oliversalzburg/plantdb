@@ -1,4 +1,4 @@
-import { PlantDB } from "packages/libplantdb/typings";
+import { DatabaseFormat, PlantDB } from "packages/libplantdb/typings";
 
 /**
  * Describes an interface to a storage strategy.
@@ -9,6 +9,7 @@ export interface StorageDriver {
 
   get connected(): boolean;
 
+  getConfiguration(): Promise<DatabaseFormat>;
   retrievePlantDb(): Promise<PlantDB>;
   persistPlantDb(plantDb: PlantDB): Promise<unknown>;
 }
