@@ -66,6 +66,10 @@
     "Shaping": "עיצוב",
     "Watering": "השקייה"
   },
+  "export": {
+    "insert": "Insert current data",
+    "text": "$t(import.text)"
+  },
   "idPicker": {
     "family": "משפחה",
     "genus": "סוג",
@@ -76,9 +80,6 @@
   "import": {
     "connectGoogleDrive": "חבר ל- Google Drive",
     "csvFiles": "CSV Files",
-    "dataLoadedHelp": "בדוק את \"$t(import.text)\" על מנת לראות את המידע שנטען.",
-    "export": "הכנס מידע נוכחי",
-    "filesystem": "מערכת קבצים",
     "fsUnsupported": "גישה למערכת הקבצים אינה נתמכת במכשירך.",
     "googleDrive": "Google Drive",
     "googleDriveBusy": "מתקשר עם Google Drive...",
@@ -103,8 +104,7 @@
     "plantLog": "יומן צמח",
     "savePlantLogCsv": "שמור plantlog.csv",
     "savePlantsCsv": "שמור plants.csv",
-    "text": "טקסט",
-    "title": "יבא מידע"
+    "text": "Text/CSV"
   },
   "log": {
     "add": "הוסף רשומה ליומן",
@@ -121,7 +121,8 @@
   },
   "menu": {
     "close": "$t(common:close)",
-    "import": "העברת מידע",
+    "export": "Export",
+    "import": "יבא",
     "log": "יומן",
     "logEntry": "רשומת יומן",
     "plants": "צמחים",
