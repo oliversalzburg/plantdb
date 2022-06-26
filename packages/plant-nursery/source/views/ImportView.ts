@@ -1,6 +1,7 @@
 import {
   DatabaseFormat,
   DatabaseFormatSerialized,
+  DictionaryClassifiers,
   logFromCSV,
   makePlantMap,
   PlantDB,
@@ -112,7 +113,7 @@ export class ImportView extends View {
   private _googleDriveHelpText = "";
 
   @property()
-  config = new DatabaseFormat();
+  config = DatabaseFormat.DefaultInterchange();
 
   firstUpdated() {
     const storedConfig = localStorage.getItem("plantdb.config");
@@ -154,7 +155,9 @@ export class ImportView extends View {
       decimalSeparator: this.config.decimalSeparator,
       hasHeaderRow: this.config.hasHeaderRow,
       timezone: this.config.timezone,
-      typeMap: Object.fromEntries(this.plantStore.plantDb.databaseFormat.typeMap),
+      typeMap: this.plantStore.plantDb
+        .getDictionary(DictionaryClassifiers.LogEntryEventType)
+        .asRecord(),
     } as DatabaseFormatSerialized);
 
     // Temporary DB to hold constructed data.

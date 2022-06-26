@@ -1,4 +1,4 @@
-import { DatabaseFormat, EventType, PlantDB } from "@plantdb/libplantdb";
+import { DictionaryClassifiers, EventType, UserDictionary } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
@@ -157,19 +157,19 @@ export class PlantApp extends LitElement {
     this.requestUpdate();
   }
 
-  private _onConfigChanged(event: CustomEvent<DatabaseFormat>) {
+  private _onTypeMapChanged(event: CustomEvent<UserDictionary>) {
     this._plantStoreUi.alert(t("typeMap.updated")).catch(console.error);
     this._plantStore
-      .updatePlantDb(
-        PlantDB.fromPlantDB(this._plantStore.plantDb, {
-          databaseFormat: event.detail,
-        })
-      )
+      .updatePlantDb(this._plantStore.plantDb.withNewDictionary(event.detail))
       .catch(console.error);
     this._plantStoreUi.navigateTo("log");
   }
 
   render() {
+    const typeMap = this._plantStore.plantDb
+      .getDictionary(DictionaryClassifiers.LogEntryEventType)
+      .asMap();
+
     return [
       this._plantStoreUi.i18nReady
         ? html`<div id="view-controls">
@@ -329,17 +329,12 @@ export class PlantApp extends LitElement {
                 .proposedMapping=${new Map(
                   [...(this._plantStore.plantDb.entryTypes.values() ?? [])]
                     .map(entryType =>
-                      this._plantStore.plantDb.databaseFormat.typeMap.has(entryType)
-                        ? [
-                            entryType,
-                            this._plantStore.plantDb.databaseFormat.typeMap.get(entryType),
-                          ]
-                        : undefined
+                      typeMap.has(entryType) ? [entryType, typeMap.get(entryType)] : undefined
                     )
                     .filter(Boolean) as Array<[string, EventType]>
                 )}
-                @pn-config-changed=${(event: CustomEvent<DatabaseFormat>) =>
-                  this._onConfigChanged(event)}
+                @pn-config-changed=${(event: CustomEvent<UserDictionary>) =>
+                  this._onTypeMapChanged(event)}
               ></pn-type-map-view>
               <pn-import-view
                 class="view"

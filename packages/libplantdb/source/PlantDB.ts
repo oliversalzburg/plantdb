@@ -1,7 +1,7 @@
 import { parse } from "csv-parse/browser/esm/sync";
 import { logToCSV, plantsToCSV } from "./csv/Tools";
-import { DatabaseFormat, EventTypes } from "./DatabaseFormat";
-import { LogEntry, LogEntrySerialized } from "./LogEntry";
+import { DatabaseFormat } from "./DatabaseFormat";
+import { EventTypes, LogEntry, LogEntrySerialized } from "./LogEntry";
 import { Plant, PlantSerialized } from "./Plant";
 import { Task, TaskSerialized } from "./Task";
 import {
@@ -14,12 +14,20 @@ import {
   aggregateSubstrates,
   makePlantMap,
 } from "./Tools";
+import {
+  DictionaryClassifier,
+  DictionaryClassifiers,
+  UserDictionary,
+  UserDictionarySerialized,
+} from "./UserDictionary";
 
 /**
  * The main entrypoint of a PlantDB data collection.
  */
 export class PlantDB {
   #databaseFormat = DatabaseFormat.DefaultInterchange();
+  #dictionaries = PlantDB.DefaultDictionaries();
+
   #log = new Array<LogEntry>();
   #plants = new Map<string, Plant>();
   #tasks = new Array<Task>();
@@ -36,11 +44,27 @@ export class PlantDB {
   #substrates = new Set<string>();
   #usedProducts = new Set<string>();
 
+  static DefaultDictionaries() {
+    return new Map<DictionaryClassifier, UserDictionary>([
+      [
+        DictionaryClassifiers.LogEntryEventType,
+        new UserDictionary(DictionaryClassifiers.LogEntryEventType, {}),
+      ],
+    ]);
+  }
+
   /**
    * The `DatabaseFormat` used to initialize this database.
    */
   get databaseFormat() {
     return this.#databaseFormat;
+  }
+
+  /**
+   * The `UserDictionary`s used to augment user input in this database.
+   */
+  get dictionaries() {
+    return this.#dictionaries;
   }
 
   /**
@@ -133,11 +157,24 @@ export class PlantDB {
     this.#_refresh();
   }
 
+  getDictionary<TResult extends string = string>(classifier: DictionaryClassifier) {
+    if (!this.#dictionaries.has(classifier)) {
+      throw new Error("Unexpected user dictionary requested.");
+    }
+
+    return this.#dictionaries.get(classifier) as UserDictionary<TResult>;
+  }
   getLogEntry(id: number) {
     return this.#log.find(logEntry => logEntry.id === id);
   }
   getTask(id: number) {
     return this.#tasks.find(task => task.id === id);
+  }
+
+  withNewDictionary(dictionary: UserDictionary) {
+    const dictionaries = new Map(this.#dictionaries);
+    dictionaries.set(dictionary.classifier, dictionary);
+    return PlantDB.fromPlantDB(this, { dictionaries });
   }
 
   /**
@@ -333,6 +370,9 @@ export class PlantDB {
     plantDb.#databaseFormat = initializer?.databaseFormat
       ? DatabaseFormat.fromDatabaseFormat(initializer.databaseFormat)
       : DatabaseFormat.fromDatabaseFormat(other.#databaseFormat);
+    plantDb.#dictionaries = initializer?.dictionaries
+      ? new Map(initializer.dictionaries)
+      : new Map(other.#dictionaries);
     plantDb.#log = (initializer?.log ?? other.#log).map(entry =>
       LogEntry.fromLogEntry(entry, { plantDb })
     );
@@ -419,6 +459,8 @@ export class PlantDB {
    * Constructs a new `PlantDB` based on some plain JavaScript initialization hashes.
    *
    * @param databaseFormat The `DatabaseFormat` to use for the new database.
+   * @param dictionaries User-defined dictionaries to register in the database.
+   * All default dictionaries are still created in the database.
    * @param plants The plants to put into the database.
    * @param plantLogData The log data to put into the database.
    * @param tasks The tasks to put into the database.
@@ -426,6 +468,7 @@ export class PlantDB {
    */
   static fromJSObjects(
     databaseFormat: DatabaseFormat,
+    dictionaries: Array<UserDictionarySerialized> = [],
     plants: Array<PlantSerialized> = [],
     plantLogData: Array<LogEntrySerialized> = [],
     tasks: Array<TaskSerialized> = []
@@ -433,6 +476,9 @@ export class PlantDB {
     const plantDb = new PlantDB();
 
     plantDb.#databaseFormat = databaseFormat;
+    for (const dictionary of dictionaries) {
+      plantDb.#dictionaries.set(dictionary.classifier, UserDictionary.fromJSObject(dictionary));
+    }
     plantDb.#log = plantLogData.map(logEntry => LogEntry.fromJSObject(plantDb, logEntry));
 
     for (const plant of plants) {

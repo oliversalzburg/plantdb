@@ -1,7 +1,7 @@
-import { EventType } from "./DatabaseFormat.js";
-import { LogEntry } from "./LogEntry.js";
+import { EventType, LogEntry } from "./LogEntry.js";
 import { Plant } from "./Plant.js";
 import { PlantDB } from "./PlantDB.js";
+import { DictionaryClassifiers } from "./UserDictionary.js";
 
 /**
  * Summarize the kinds in a plant.
@@ -59,11 +59,9 @@ export const flattenMultiValue = (multiValue: string | string[] | undefined) => 
  * @returns The internally-known event type for the user-given event type.
  */
 export const identifyLogType = (entryType: string, plantDb: PlantDB): EventType | undefined => {
-  if (!plantDb.databaseFormat.typeMap.has(entryType)) {
-    return undefined;
-  }
-
-  return plantDb.databaseFormat.typeMap.get(entryType) as EventType;
+  return plantDb
+    .getDictionary<EventType>(DictionaryClassifiers.LogEntryEventType)
+    .translateUserTerm(entryType);
 };
 
 /**

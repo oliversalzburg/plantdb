@@ -6,7 +6,6 @@ import { DateTime } from "luxon";
 import { GoogleDrive } from "../storage/GoogleDrive";
 import { IndexedDb } from "../storage/IndexedDb";
 import { LocalStorage } from "../storage/LocalStorage";
-import { StorageDriver } from "../storage/StorageDriver";
 import { executeAsyncContext } from "../tools/Async";
 import { isNil, mustExist } from "../tools/Maybe";
 import { rruleFromTask } from "../tools/TaskTools";
@@ -25,7 +24,7 @@ export class PlantStore extends LitElement {
   private _indexTasks: Index | undefined;
 
   indexedDb = new IndexedDb();
-  localStorage: StorageDriver = new LocalStorage();
+  localStorage = new LocalStorage();
   googleDrive = new GoogleDrive();
 
   connectedCallback(): void {

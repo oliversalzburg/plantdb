@@ -1,6 +1,16 @@
-import { DatabaseFormat, LogEntrySerialized, PlantDB, PlantSerialized } from "@plantdb/libplantdb";
+import {
+  DatabaseFormat,
+  DictionaryClassifier,
+  DictionaryClassifiers,
+  EventType,
+  LogEntrySerialized,
+  PlantDB,
+  PlantSerialized,
+  TaskSerialized,
+  UserDictionary,
+} from "@plantdb/libplantdb";
 import { isNil, mustExist } from "../tools/Maybe";
-import { StorageDriver } from "./StorageDriver";
+import { NurseryConfiguration, StorageDriver } from "./StorageDriver";
 
 export class GoogleDrive implements StorageDriver {
   private static _googleDriveConnected = false;
@@ -26,37 +36,111 @@ export class GoogleDrive implements StorageDriver {
     return config.modifiedTime;
   }
 
-  async getConfiguration(): Promise<DatabaseFormat> {
+  async getConfiguration() {
     if (!GoogleDrive._googleDriveConnected) {
       throw new Error("Google Drive is not connected!");
     }
 
     const config = await this._readFile("config.json");
     if (isNil(config)) {
-      return DatabaseFormat.DefaultInterchange();
+      return {
+        databaseFormat: DatabaseFormat.DefaultInterchange(),
+        typeMap: new UserDictionary<EventType>(DictionaryClassifiers.LogEntryEventType, {}),
+      };
     }
 
     const databaseFormat = DatabaseFormat.fromJSON(config.body);
-    return databaseFormat;
+    return {
+      databaseFormat,
+      typeMap: (await this.getUserDictionaries()).get(
+        DictionaryClassifiers.LogEntryEventType
+      ) as UserDictionary<EventType>,
+    };
   }
 
-  async retrievePlantDb() {
+  async getUserDictionaries() {
     if (!GoogleDrive._googleDriveConnected) {
       throw new Error("Google Drive is not connected!");
     }
 
-    const config = await this._readFile("config.json");
-    const log = await this._readFile("plantlog.csv");
-    const plants = await this._readFile("plants.csv");
+    const storedDictionaries = await this._readFile("dicts.json");
+    if (isNil(storedDictionaries)) {
+      return Promise.resolve(new Map<DictionaryClassifier, UserDictionary>());
+    }
+    const dictionaries = JSON.parse(storedDictionaries.body) as Record<
+      DictionaryClassifier,
+      Record<string, string>
+    >;
+    const userDictionaries = Object.entries(dictionaries).reduce(
+      (map, [classifier, dictionary]) => {
+        map.set(
+          classifier as DictionaryClassifier,
+          new UserDictionary(classifier as DictionaryClassifier, dictionary)
+        );
+        return map;
+      },
+      new Map<DictionaryClassifier, UserDictionary>()
+    );
+    return Promise.resolve(userDictionaries);
+  }
 
-    if (isNil(config) || isNil(log) || isNil(plants)) {
+  async updateConfiguration(configuration: NurseryConfiguration): Promise<void> {
+    const databaseFormat = configuration.databaseFormat.toJSObject();
+    const config = {
+      databaseFormat,
+      typeMap: configuration.typeMap.asRecord(),
+    };
+
+    await this._storeFile("config.json", JSON.stringify(config), "application/json");
+  }
+
+  /** @inheritDoc */
+  async getRawLog() {
+    const dataString = await this._readFile("plantlog.csv");
+    if (isNil(dataString)) {
+      return Promise.resolve(null);
+    }
+    const rawData = JSON.parse(dataString.body) as Array<LogEntrySerialized>;
+    return Promise.resolve(rawData);
+  }
+  /** @inheritDoc */
+  async getRawPlants() {
+    const dataString = await this._readFile("plants.csv");
+    if (isNil(dataString)) {
+      return Promise.resolve(null);
+    }
+    const rawData = JSON.parse(dataString.body) as Array<PlantSerialized>;
+    return Promise.resolve(rawData);
+  }
+  /** @inheritDoc */
+  async getRawTasks() {
+    const dataString = await this._readFile("tasks.csv");
+    if (isNil(dataString)) {
+      return Promise.resolve(null);
+    }
+    const rawData = JSON.parse(dataString.body) as Array<TaskSerialized>;
+    return Promise.resolve(rawData);
+  }
+
+  async retrievePlantDb() {
+    const config = await this.getConfiguration();
+    const log = await this.getRawLog();
+    const plants = await this.getRawPlants();
+    const tasks = await this.getRawTasks();
+
+    if (isNil(config) || isNil(log) || isNil(plants) || isNil(tasks)) {
       throw new Error("Incomplete data.");
     }
 
-    const databaseFormat = DatabaseFormat.fromJSON(config.body);
-    const logData = JSON.parse(log.body) as Array<LogEntrySerialized>;
-    const plantData = JSON.parse(plants.body) as Array<PlantSerialized>;
-    return PlantDB.fromJSObjects(databaseFormat, plantData, logData);
+    return Promise.resolve(
+      PlantDB.fromJSObjects(
+        config.databaseFormat,
+        [config.typeMap.toJSObject()],
+        plants,
+        log,
+        tasks
+      )
+    );
   }
 
   async persistPlantDb(plantDb: PlantDB) {
@@ -74,6 +158,10 @@ export class GoogleDrive implements StorageDriver {
   }
 
   private async _readFile(filename: string) {
+    if (!GoogleDrive._googleDriveConnected) {
+      throw new Error("Google Drive is not connected!");
+    }
+
     const listResponse = await gapi.client.drive.files.list({
       q: `name='${filename}'`,
       fields: "files(id, name, modifiedTime)",

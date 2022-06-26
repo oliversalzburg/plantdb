@@ -1,9 +1,79 @@
 import { DateTime } from "luxon";
 import { floatFromCSV, intFromCSV, valueFromCSV } from "./csv/Tools";
-import { DatabaseFormat, EventType } from "./DatabaseFormat";
+import { DatabaseFormat } from "./DatabaseFormat";
 import { MATCH_PID } from "./Plant";
 import { PlantDB } from "./PlantDB";
 import { PlantDBEntity } from "./PlantDBEntity";
+
+/**
+ * A hash of internally known event types to a human-readable, English version.
+ */
+export const EventTypes = {
+  /**
+   * Typically, this marks the first event of a plant, if that plant was acquired (purchased) from a vendor.
+   */
+  Acquisition: "Acquisition",
+
+  /**
+   * A plant was fertilized.
+   */
+  Fertilization: "Fertilization",
+
+  /**
+   * A measurement has been taken from the plant.
+   */
+  Measurement: "Measurement",
+
+  /**
+   * Something not further categorizable has been observed about the plant.
+   */
+  Observation: "Observation",
+
+  /**
+   * A pest situation has been acted on.
+   */
+  PestControl: "Pest control",
+
+  /**
+   * A pest situation has been identified.
+   */
+  PestInfestation: "Pest infestation",
+
+  /**
+   * Branches have been pruned.
+   */
+  Pruning: "Pruning",
+
+  /**
+   * Plant was moved from one location to another one.
+   */
+  Relocation: "Relocation",
+
+  /**
+   * Plant was put into a (new) pot. Usually also marks the first event of a plant that was created from a cutting.
+   */
+  Repotting: "Repotting",
+
+  /**
+   * Roots have been pruned.
+   */
+  RootPruning: "Root pruning",
+
+  /**
+   * The plant was shaped. For example, through wiring branches. Not to be confused with Pruning.
+   */
+  Shaping: "Shaping",
+
+  /**
+   * Any form of irrigation
+   */
+  Watering: "Watering",
+} as const;
+
+/**
+ * All possible values for internally known event types.
+ */
+export type EventType = typeof EventTypes[keyof typeof EventTypes];
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.
@@ -272,7 +342,7 @@ export class LogEntry extends PlantDBEntity {
   }
 
   /**
-   * Parse a JSON string and construct a new `LogEntry` from it.
+   * Parse a JSON object and construct a new `LogEntry` from it.
    *
    * @param plantDb The `PlantDB` this `LogEntry` belongs to.
    * @param data The JSON-compliant log entry.
@@ -286,7 +356,7 @@ export class LogEntry extends PlantDBEntity {
    * Parse a JSON string and construct a new `LogEntry` from it.
    *
    * @param plantDb The `PlantDB` this `LogEntry` belongs to.
-   * @param dataString The JSON-serialized log entry.
+   * @param dataString The JSON-serialized log entry as a string.
    * @returns The new `LogEntry`.
    */
   static fromJSONString(plantDb: PlantDB, dataString: string) {

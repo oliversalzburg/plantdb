@@ -345,7 +345,7 @@ export class Task extends PlantDBEntity {
   }
 
   /**
-   * Parse a JSON string and construct a new `Task` from it.
+   * Parse a JSON object and construct a new `Task` from it.
    *
    * @param plantDb The `PlantDB` this `Task` belongs to.
    * @param data The JSON-serialized task.
@@ -359,7 +359,7 @@ export class Task extends PlantDBEntity {
    * Parse a JSON string and construct a new `Task` from it.
    *
    * @param plantDb The `PlantDB` this `Task` belongs to.
-   * @param dataString The JSON-serialized task.
+   * @param dataString The JSON-serialized task as a string.
    * @returns The new `Task`.
    */
   static fromJSONString(plantDb: PlantDB, dataString: string) {

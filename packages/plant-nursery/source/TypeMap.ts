@@ -1,4 +1,10 @@
-import { EventType, EventTypes, PlantDB } from "@plantdb/libplantdb";
+import {
+  DictionaryClassifiers,
+  EventType,
+  EventTypes,
+  PlantDB,
+  UserDictionary,
+} from "@plantdb/libplantdb";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
@@ -42,6 +48,13 @@ export class TypeMap extends LitElement {
   @property({ type: Map })
   proposedMapping = new Map<string, EventType>();
 
+  asUserDictionary() {
+    return new UserDictionary(
+      DictionaryClassifiers.LogEntryEventType,
+      Object.fromEntries(this.proposedMapping.entries())
+    );
+  }
+
   render() {
     return [
       html`<h2>${t("typeMap.title")}</h2>
@@ -53,7 +66,9 @@ export class TypeMap extends LitElement {
                 <span>${entryType}</span>
                 <sl-select
                   placeholder=${t("typeMap.unmapped")}
-                  value=${this.plantDb.databaseFormat.typeMap.get(entryType)}
+                  value=${this.plantDb
+                    .getDictionary(DictionaryClassifiers.LogEntryEventType)
+                    .translateUserTerm(entryType)}
                   clearable
                   @sl-change=${(event: Event) => {
                     const value = (event.target as SlSelect).value;
@@ -82,7 +97,7 @@ export class TypeMap extends LitElement {
               new CustomEvent("pn-config-changed", {
                 bubbles: true,
                 composed: true,
-                detail: this.plantDb.databaseFormat.withNewTypeMap(this.proposedMapping),
+                detail: this.asUserDictionary(),
               })
             );
           }}
