@@ -174,14 +174,14 @@ export class Task extends PlantDBEntity {
   }
 
   /**
-   * At which frequence to repeat the task (daily, weekly, ...).
+   * How far individual repetitions are spaced apart (daily, weekly, ...).
    */
   get repeatFrequency(): TaskRepeatFrequency | undefined {
     return this.#repeatFrequency;
   }
 
   /**
-   * The interval after which the task should repeat.
+   * Which repetitions out of the given frequency should actually be used.
    */
   get repeatInterval(): number | undefined {
     return this.#repeatInterval;
