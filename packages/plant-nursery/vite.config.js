@@ -102,6 +102,7 @@ export default {
         {
           src: "../../node_modules/@shoelace-style/shoelace/dist/assets/icons",
           dest: "assets",
+          preserveTimestamps: true,
         },
       ],
     }),
