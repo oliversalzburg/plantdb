@@ -49,5 +49,5 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          aws s3 sync /tmp/plant-deploy s3://${{ secrets.AWS_S3_BUCKET_NEXT }} --exclude "*.svg"
-          aws s3 sync /tmp/plant-deploy s3://${{ secrets.AWS_S3_BUCKET_NEXT }} --include "*.svg" --size-only
+          aws s3 sync /tmp/plant-deploy s3://${{ secrets.AWS_S3_BUCKET_NEXT }} --no-progress --exclude "*.svg"
+          aws s3 sync /tmp/plant-deploy s3://${{ secrets.AWS_S3_BUCKET_NEXT }} --no-progress --include "*.svg" --size-only
