@@ -31,7 +31,7 @@
     "tasks": "It seems like there is nothing to do right now."
   },
   "entryEditor": {
-    "dateLabel": "Date *",
+    "dateLabel": "Date",
     "ecLabel": "EC",
     "ecPlaceholder": "1200",
     "noteLabel": "Note",
@@ -41,15 +41,15 @@
     "plantHelp": "If you enter a PID that doesn't exist yet, this plant will be created for you.",
     "plantHelpDelete": "To delete this entry, remove the Plant ID and save it.",
     "plantHelpDeleteWarn": "If you save this entry, IT WILL BE DELETED!",
-    "plantLabel": "Plant *",
+    "plantLabel": "Plant",
     "plantPlaceholder": "Search for a Plant ID here",
     "productLabel": "Product used",
     "productPlaceholder": "Name of a product",
     "setCurrentDateTime": "Set to current date/time",
-    "timeLabel": "Time *",
+    "timeLabel": "Time",
     "typeHelp": "If your event type is not listed, just enter a new term to create that event type.",
     "typeHelpDeleteWarn": "If you save this entry, IT WILL BE DELETED!",
-    "typeLabel": "Event type *",
+    "typeLabel": "Event type",
     "typePlaceholder": "Select event type"
   },
   "eventType": {
@@ -153,7 +153,7 @@
     "ecMaxPlaceholder": "2800",
     "ecMinLabel": "EC min. (µS/cm)",
     "ecMinPlaceholder": "1200",
-    "idLabel": "Plant ID *",
+    "idLabel": "Plant ID",
     "idPlaceholder": "PID-12",
     "kindLabel": "Kind",
     "kindPlaceholder": "Monstera deliciosa",
@@ -194,7 +194,7 @@
   },
   "taskEditor": {
     "allDay": "All day",
-    "dateLabel": "Date *",
+    "dateLabel": "Date",
     "day_friday": "Friday",
     "day_monday": "Monday",
     "day_saturday": "Saturday",
@@ -221,7 +221,7 @@
     "timeLabel": "Time",
     "titleHelpDelete": "To delete this task, remove the title and save it.",
     "titleHelpDeleteWarn": "If you save this task, IT WILL BE DELETED!",
-    "titleLabel": "Title *",
+    "titleLabel": "Title",
     "titlePlaceholder": "Give your task a name"
   },
   "typeMap": {
