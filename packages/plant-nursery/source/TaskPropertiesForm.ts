@@ -43,6 +43,9 @@ export class TaskPropertiesForm extends LitElement {
       #end-conditions sl-input::part(form-control-label) {
         min-width: 4rem;
       }
+      #end-conditions sl-radio::part(base) {
+        align-items: center;
+      }
 
       .row {
         display: flex;
