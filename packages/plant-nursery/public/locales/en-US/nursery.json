@@ -153,7 +153,7 @@
     "ecMaxPlaceholder": "2800",
     "ecMinLabel": "EC min. (µS/cm)",
     "ecMinPlaceholder": "1200",
-    "idLabel": "Plant ID",
+    "idLabel": "Plant ID *",
     "idPlaceholder": "PID-12",
     "kindLabel": "Kind",
     "kindPlaceholder": "Monstera deliciosa",
@@ -194,7 +194,7 @@
   },
   "taskEditor": {
     "allDay": "All day",
-    "dateLabel": "Date",
+    "dateLabel": "Date *",
     "day_friday": "Friday",
     "day_monday": "Monday",
     "day_saturday": "Saturday",
@@ -221,7 +221,7 @@
     "timeLabel": "Time",
     "titleHelpDelete": "To delete this task, remove the title and save it.",
     "titleHelpDeleteWarn": "If you save this task, IT WILL BE DELETED!",
-    "titleLabel": "Title",
+    "titleLabel": "Title *",
     "titlePlaceholder": "Give your task a name"
   },
   "typeMap": {
