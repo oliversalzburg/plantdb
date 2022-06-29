@@ -2249,20 +2249,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pkgr/utils@npm:^2.1.0":
-  version: 2.2.0
-  resolution: "@pkgr/utils@npm:2.2.0"
-  dependencies:
-    cross-spawn: ^7.0.3
-    is-glob: ^4.0.3
-    open: ^8.4.0
-    picocolors: ^1.0.0
-    tiny-glob: ^0.2.9
-    tslib: ^2.4.0
-  checksum: 64ad041c1cc8f092f9e2756d93fc3f6678db7efa1e9fae3dbb05aa23575bbd4168dc332a8ff478f6efc5b2e0ab78a62fad22497ef628fcf3de5d3144101242cc
-  languageName: node
-  linkType: hard
-
 "@plantdb/documentation@workspace:packages/documentation":
   version: 0.0.0-use.local
   resolution: "@plantdb/documentation@workspace:packages/documentation"
@@ -2318,7 +2304,7 @@ __metadata:
   dependencies:
     "@lit-labs/context": 0.1.2
     "@plantdb/libplantdb": "workspace:*"
-    "@shoelace-style/shoelace": 2.0.0-beta.76
+    "@shoelace-style/shoelace": 2.0.0-beta.77
     "@types/dygraphs": 2.1.4
     "@types/gapi": 0.0.42
     "@types/gapi.client": 1.0.5
@@ -2418,9 +2404,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shoelace-style/shoelace@npm:2.0.0-beta.76":
-  version: 2.0.0-beta.76
-  resolution: "@shoelace-style/shoelace@npm:2.0.0-beta.76"
+"@shoelace-style/shoelace@npm:2.0.0-beta.77":
+  version: 2.0.0-beta.77
+  resolution: "@shoelace-style/shoelace@npm:2.0.0-beta.77"
   dependencies:
     "@floating-ui/dom": ^0.5.2
     "@lit-labs/react": ^1.0.4
@@ -2429,7 +2415,7 @@ __metadata:
     color: 4.2
     lit: ^2.2.5
     qr-creator: ^1.0.0
-  checksum: 638769b891563bf1b685af1a7f2a7149f79b71dbe2e65d9323a3e1ea5b0aa5c78868235e1e165d576df41ca9335661afb66a9bfb4eac8062ff5575fea0d6a1df
+  checksum: 1c7f5dbcd7693743971467cd8c13d21f5771e4330ea1ca5bdc35810aec759e733352ec5c068e1effff9091bb9656341d316bd6bbe6114e736007a2cd4bdad930
   languageName: node
   linkType: hard
 
@@ -4053,13 +4039,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"define-lazy-prop@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "define-lazy-prop@npm:2.0.0"
-  checksum: db6c63864a9d3b7dc9def55d52764968a5af296de87c1b2cc71d8be8142e445208071953649e0386a8cc37cfcf9a2067a47207f1eb9ff250c2a269658fdae422
-  languageName: node
-  linkType: hard
-
 "define-properties@npm:^1.1.3, define-properties@npm:^1.1.4":
   version: 1.1.4
   resolution: "define-properties@npm:1.1.4"
@@ -5439,13 +5418,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globalyzer@npm:0.1.0":
-  version: 0.1.0
-  resolution: "globalyzer@npm:0.1.0"
-  checksum: e16e47a5835cbe8a021423d4c7fcd9f5f85815b4190a7f50c1fdb95fc559d72e4fb30be96f106c66a99413f36d72da0f8323d19d27f60a8feec9d936139ec5a8
-  languageName: node
-  linkType: hard
-
 "globby@npm:11.1.0, globby@npm:^11.1.0":
   version: 11.1.0
   resolution: "globby@npm:11.1.0"
@@ -5457,13 +5429,6 @@ __metadata:
     merge2: ^1.4.1
     slash: ^3.0.0
   checksum: b39511b4afe4bd8a7aead3a27c4ade2b9968649abab0a6c28b1a90141b96ca68ca5db1302f7c7bd29eab66bf51e13916b8e0a3d0ac08f75e1e84a39b35691189
-  languageName: node
-  linkType: hard
-
-"globrex@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "globrex@npm:0.1.2"
-  checksum: a54c029520cf58bda1d8884f72bd49b4cd74e977883268d931fd83bcbd1a9eb96d57c7dbd4ad80148fb9247467ebfb9b215630b2ed7563b2a8de02e1ff7f89d1
   languageName: node
   linkType: hard
 
@@ -5926,15 +5891,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-docker@npm:^2.0.0, is-docker@npm:^2.1.1":
-  version: 2.2.1
-  resolution: "is-docker@npm:2.2.1"
-  bin:
-    is-docker: cli.js
-  checksum: e828365958d155f90c409cdbe958f64051d99e8aedc2c8c4cd7c89dcf35329daed42f7b99346f7828df013e27deb8f721cf9408ba878c76eb9e8290235fbcdcc
-  languageName: node
-  linkType: hard
-
 "is-extglob@npm:^2.1.1":
   version: 2.1.1
   resolution: "is-extglob@npm:2.1.1"
@@ -6101,15 +6057,6 @@ __metadata:
   dependencies:
     call-bind: ^1.0.2
   checksum: 1545c5d172cb690c392f2136c23eec07d8d78a7f57d0e41f10078aa4f5daf5d7f57b6513a67514ab4f073275ad00c9822fc8935e00229d0a2089e1c02685d4b1
-  languageName: node
-  linkType: hard
-
-"is-wsl@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "is-wsl@npm:2.2.0"
-  dependencies:
-    is-docker: ^2.0.0
-  checksum: a6fa2d370d21be487c0165c7a440d567274fbba1a817f2f0bfa41cc5e3af25041d84267baa22df66696956038a43973e72fca117918c91431920bdef490fa25e
   languageName: node
   linkType: hard
 
@@ -6946,6 +6893,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mvdan-sh@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "mvdan-sh@npm:0.10.1"
+  checksum: cfdd3c6429aad170014892f7934ff60a4418b32e4c14db10f0d3cfb7743f37385e2a3a8c58c65b7c4fbfe44838d9e8cf8c93897b9763a08224c32957a72621c0
+  languageName: node
+  linkType: hard
+
 "nan@npm:^2.15.0":
   version: 2.16.0
   resolution: "nan@npm:2.16.0"
@@ -7179,17 +7133,6 @@ __metadata:
   dependencies:
     mimic-fn: ^4.0.0
   checksum: 4eef7c6abfef697dd4479345a4100c382d73c149d2d56170a54a07418c50816937ad09500e1ed1e79d235989d073a9bade8557122aee24f0576ecde0f392bb6c
-  languageName: node
-  linkType: hard
-
-"open@npm:^8.4.0":
-  version: 8.4.0
-  resolution: "open@npm:8.4.0"
-  dependencies:
-    define-lazy-prop: ^2.0.0
-    is-docker: ^2.1.1
-    is-wsl: ^2.2.0
-  checksum: 585596580226cbeb7262f36b5acc7eed05211dc26980020a2527f829336b8b07fd79cdc4240f4d995b5615f635e0a59ebb0261c4419fef91edd5d4604c463f18
   languageName: node
   linkType: hard
 
@@ -7454,7 +7397,7 @@ __metadata:
     prettier: 2.7.1
     prettier-package-json: 2.6.4
     prettier-plugin-organize-imports: 3.0.0
-    prettier-plugin-sh: 0.12.3
+    prettier-plugin-sh: 0.12.4
     tslib: 2.4.0
     typescript: 4.7.4
   languageName: unknown
@@ -7521,15 +7464,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sh@npm:0.12.3":
-  version: 0.12.3
-  resolution: "prettier-plugin-sh@npm:0.12.3"
+"prettier-plugin-sh@npm:0.12.4":
+  version: 0.12.4
+  resolution: "prettier-plugin-sh@npm:0.12.4"
   dependencies:
-    sh-syntax: ^0.3.4
-    synckit: ^0.7.1
+    mvdan-sh: ^0.10.1
   peerDependencies:
     prettier: ^2.0.0
-  checksum: a2204cec897aa2cb2e3573e1c74a83df7fb9ce5c39dd9570c30aeecea465649ec1a23c9f44ca0d581b487aaddbc7b8887c3409868353cc77efa0ee3e24d575fa
+  checksum: b1eb523f7cd5b8732af1ffe0de13ae21c32562ffb64d926c8f28f41d1d4f0dc1ca864b58a581dcfe0c9c93f71077926adfbe6873f06636776a526b8cd027a750
   languageName: node
   linkType: hard
 
@@ -8024,15 +7966,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sh-syntax@npm:^0.3.4":
-  version: 0.3.5
-  resolution: "sh-syntax@npm:0.3.5"
-  dependencies:
-    tslib: ^2.4.0
-  checksum: 77258b52476639bf501ccc385061581ef798af9e33910ca733979e4beefa538006ea376bec9dd9745cf243e9c26c85cbbb650b673943de6fbd6d11f59c87d7c0
-  languageName: node
-  linkType: hard
-
 "shebang-command@npm:^2.0.0":
   version: 2.0.0
   resolution: "shebang-command@npm:2.0.0"
@@ -8462,16 +8395,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"synckit@npm:^0.7.1":
-  version: 0.7.1
-  resolution: "synckit@npm:0.7.1"
-  dependencies:
-    "@pkgr/utils": ^2.1.0
-    tslib: ^2.4.0
-  checksum: be1e0134e2d67de5c0cbcbbb21c6e14140930ee628fa49197c7450cd9e580db6925b3414ffe0f1216b658d04d2bc78fd4381500f669a3a6bc3d86b3e9da1864f
-  languageName: node
-  linkType: hard
-
 "tar@npm:^6.1.0, tar@npm:^6.1.11, tar@npm:^6.1.2":
   version: 6.1.11
   resolution: "tar@npm:6.1.11"
@@ -8556,16 +8479,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-glob@npm:^0.2.9":
-  version: 0.2.9
-  resolution: "tiny-glob@npm:0.2.9"
-  dependencies:
-    globalyzer: 0.1.0
-    globrex: ^0.1.2
-  checksum: cbe072f0d213a1395d30aa94845a051d4af18fe8ffb79c8e99ac1787cd25df69083f17791a53997cb65f469f48950cb61426ccc0683cc9df170ac2430e883702
-  languageName: node
-  linkType: hard
-
 "tinycolor2@npm:^1.4.1":
   version: 1.4.2
   resolution: "tinycolor2@npm:1.4.2"
@@ -8641,7 +8554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.0, tslib@npm:^2.1.0, tslib@npm:^2.4.0":
+"tslib@npm:2.4.0, tslib@npm:^2.1.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: eb19bda3ae545b03caea6a244b34593468e23d53b26bf8649fbc20fce43e9b21a71127fd6d2b9662c0fe48ee6ff668ead48fd00d3b88b2b716b1c12edae25b5d
