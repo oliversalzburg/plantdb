@@ -31,7 +31,7 @@
     "tasks": "It seems like there is nothing to do right now."
   },
   "entryEditor": {
-    "dateLabel": "תאריך *",
+    "dateLabel": "Date",
     "ecLabel": "EC",
     "ecPlaceholder": "1200",
     "noteLabel": "הערה",
@@ -41,15 +41,15 @@
     "plantHelp": "לכשתכניס PID שאינו קיים, יווצר עבורך צמח זה.",
     "plantHelpDelete": "על מנת למחוק רשומה זו, הסר את מזהה הצמח ושמור.",
     "plantHelpDeleteWarn": "אם תשמור רשומה זו, היא תמחק!",
-    "plantLabel": "צמח *",
+    "plantLabel": "Plant",
     "plantPlaceholder": "חפש אחר מספר צמח כאן",
     "productLabel": "תכשיר בשימוש",
     "productPlaceholder": "שם תכשיר",
     "setCurrentDateTime": "קבע לזמן/תאריך הנוכחיים",
-    "timeLabel": "זמן *",
+    "timeLabel": "Time",
     "typeHelp": "אם סוג המאורע אינו קיים, פשוט הכנס אחד חדש על מנת ליצור אותו.",
     "typeHelpDeleteWarn": "אם תשמור רשומה זו, היא תמחק!",
-    "typeLabel": "סוג אירוע *",
+    "typeLabel": "Event type",
     "typePlaceholder": "בחר סוג אירוע"
   },
   "eventType": {
@@ -153,7 +153,7 @@
     "ecMaxPlaceholder": "2800",
     "ecMinLabel": "EC מינימלי. (µS/cm)",
     "ecMinPlaceholder": "1200",
-    "idLabel": "Plant ID *",
+    "idLabel": "Plant ID",
     "idPlaceholder": "PID-12",
     "kindLabel": "סוג",
     "kindPlaceholder": "מונסטרה דליסיוסה",
@@ -194,7 +194,7 @@
   },
   "taskEditor": {
     "allDay": "All day",
-    "dateLabel": "תאריך *",
+    "dateLabel": "Date",
     "day_friday": "Friday",
     "day_monday": "Monday",
     "day_saturday": "Saturday",
@@ -221,7 +221,7 @@
     "timeLabel": "Time",
     "titleHelpDelete": "To delete this task, remove the title and save it.",
     "titleHelpDeleteWarn": "If you save this task, IT WILL BE DELETED!",
-    "titleLabel": "Title *",
+    "titleLabel": "Title",
     "titlePlaceholder": "Give your task a name"
   },
   "typeMap": {
