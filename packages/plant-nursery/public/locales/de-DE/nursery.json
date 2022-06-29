@@ -31,7 +31,7 @@
     "tasks": "Es scheint, als gäbe es aktuell nichts zu erledigen."
   },
   "entryEditor": {
-    "dateLabel": "Datum *",
+    "dateLabel": "Date",
     "ecLabel": "EC",
     "ecPlaceholder": "1200",
     "noteLabel": "Notiz",
@@ -41,15 +41,15 @@
     "plantHelp": "Wenn Sie eine PID eingeben, die noch nicht existiert, wird diese Pflanze für Sie angelegt.",
     "plantHelpDelete": "Um diesen Eintrag zu löschen, entfernen Sie die Pflanzen-ID und speichern Sie ihn.",
     "plantHelpDeleteWarn": "Wenn Sie diesen Eintrag speichern, WIRD ER GELÖSCHT!",
-    "plantLabel": "Pflanze *",
+    "plantLabel": "Pflanze",
     "plantPlaceholder": "Suche hier nach einer Pflanzen-ID",
     "productLabel": "Verwendetes Produkt",
     "productPlaceholder": "Name eines Produkts",
     "setCurrentDateTime": "Auf aktuelles Datum/Uhrzeit setzen",
-    "timeLabel": "Uhrzeit *",
+    "timeLabel": "Uhrzeit",
     "typeHelp": "Wenn Ihr Ereignistyp nicht aufgelistet ist, geben Sie einfach einen neuen Begriff ein, um diesen Ereignistyp zu erstellen.",
     "typeHelpDeleteWarn": "Wenn Sie diesen Eintrag speichern, WIRD ER GELÖSCHT!",
-    "typeLabel": "Ereignis-Typ *",
+    "typeLabel": "Event type",
     "typePlaceholder": "Ereignistyp auswählen"
   },
   "eventType": {
@@ -153,7 +153,7 @@
     "ecMaxPlaceholder": "2800",
     "ecMinLabel": "EC Min. (μS/cm)",
     "ecMinPlaceholder": "1200",
-    "idLabel": "Plant ID *",
+    "idLabel": "Plant ID",
     "idPlaceholder": "PID-12",
     "kindLabel": "Art",
     "kindPlaceholder": "Monstera deliciosa",
@@ -194,7 +194,7 @@
   },
   "taskEditor": {
     "allDay": "Ganztätig",
-    "dateLabel": "Datum *",
+    "dateLabel": "Date",
     "day_friday": "Freitag",
     "day_monday": "Montag",
     "day_saturday": "Samstag",
@@ -221,7 +221,7 @@
     "timeLabel": "Uhrzeit",
     "titleHelpDelete": "Um diesen Eintrag zu löschen, entfernen Sie die Pflanzen-ID und speichern Sie ihn.",
     "titleHelpDeleteWarn": "Wenn Sie diesen Eintrag speichern, WIRD ER GELÖSCHT!",
-    "titleLabel": "Title *",
+    "titleLabel": "Title",
     "titlePlaceholder": "Gib deiner Aufgabe einen Namen"
   },
   "typeMap": {
