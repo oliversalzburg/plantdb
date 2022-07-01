@@ -280,7 +280,12 @@ export class TaskPropertiesForm extends LitElement {
                 (this._repeatFrequency = (event.target as SlSelect).value as string)}
               hoist
             >
-              ${repeatUnits.map(unit => html`<sl-menu-item value=${unit}>${unit}</sl-menu-item>`)}
+              ${repeatUnits.map(
+                unit =>
+                  html`<sl-menu-item value=${unit}
+                    >${t(`taskEditor.interval_${unit}`)}</sl-menu-item
+                  >`
+              )}
             </sl-select>
             <sl-select
               label=${t("taskEditor.repeatDaysLabel")}
