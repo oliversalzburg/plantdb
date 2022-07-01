@@ -21,7 +21,7 @@
     "i18next-browser-languagedetector": "6.1.4",
     "i18next-http-backend": "1.4.1",
     "idb": "7.0.2",
-    "lit": "2.2.6",
+    "lit": "2.2.7",
     "lit-i18n": "3.0.2",
     "lunr": "2.3.9",
     "luxon": "2.4.0",
@@ -40,7 +40,7 @@
     "tslib": "2.4.0",
     "typescript": "4.7.4",
     "vite": "2.9.13",
-    "vite-plugin-pwa": "0.12.0",
+    "vite-plugin-pwa": "0.12.2",
     "vite-plugin-static-copy": "0.6.0"
   }
 }
