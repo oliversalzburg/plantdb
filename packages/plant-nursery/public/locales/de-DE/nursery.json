@@ -153,7 +153,7 @@
     "ecMaxPlaceholder": "2800",
     "ecMinLabel": "EC Min. (μS/cm)",
     "ecMinPlaceholder": "1200",
-    "idLabel": "Plant ID *",
+    "idLabel": "Plant ID",
     "idPlaceholder": "PID-12",
     "kindLabel": "Art",
     "kindPlaceholder": "Monstera deliciosa",
@@ -194,7 +194,7 @@
   },
   "taskEditor": {
     "allDay": "Ganztätig",
-    "dateLabel": "Date *",
+    "dateLabel": "Datum",
     "day_friday": "Freitag",
     "day_monday": "Montag",
     "day_saturday": "Samstag",
@@ -221,7 +221,7 @@
     "timeLabel": "Uhrzeit",
     "titleHelpDelete": "Um diese Aufgabe zu löschen, entfernen Sie den Titel und speichern Sie sie.",
     "titleHelpDeleteWarn": "Wenn Sie diese Aufgabe speichern, WIRD SIE GELÖSCHT!",
-    "titleLabel": "Title *",
+    "titleLabel": "Title",
     "titlePlaceholder": "Geben Sie Ihrer Aufgabe einen Namen"
   },
   "typeMap": {
