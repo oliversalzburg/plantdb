@@ -24,6 +24,8 @@ export class TaskList extends LitElement {
         display: flex;
         flex-direction: row;
         padding: 1rem;
+        flex-wrap: wrap;
+        gap: 0.25rem 0;
       }
 
       .filter sl-input:first-child {

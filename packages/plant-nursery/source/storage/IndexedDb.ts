@@ -71,7 +71,7 @@ export class IndexedDb implements StorageDriver {
   }
 
   /** @inheritDoc */
-  async getConfiguration() {
+  async getApplicationConfiguration() {
     return {
       databaseFormat: this._databaseFormat,
       typeMap: (await this._localStorage.getUserDictionaries()).get(
@@ -86,8 +86,8 @@ export class IndexedDb implements StorageDriver {
   }
 
   /** @inheritDoc */
-  updateConfiguration(configuration: NurseryConfiguration) {
-    return this._localStorage.updateConfiguration({
+  updateApplicationConfiguration(configuration: NurseryConfiguration) {
+    return this._localStorage.updateApplicationConfiguration({
       // Ignore passed database format. The format for IndexedDB storage is not mutable.
       databaseFormat: this._databaseFormat,
       typeMap: configuration.typeMap,
@@ -148,7 +148,7 @@ export class IndexedDb implements StorageDriver {
   }
 
   async retrievePlantDb() {
-    const config = await this.getConfiguration();
+    const config = await this.getApplicationConfiguration();
     const log = await this.getRawLog();
     const plants = await this.getRawPlants();
     const tasks = await this.getRawTasks();
@@ -171,7 +171,7 @@ export class IndexedDb implements StorageDriver {
   async persistPlantDb(plantDb: PlantDB) {
     const db = mustExist(this._dbPlantDb);
     try {
-      await this.updateConfiguration(getConfigurationFromPlantDB(plantDb));
+      await this.updateApplicationConfiguration(getConfigurationFromPlantDB(plantDb));
 
       for (const logEntry of plantDb.log) {
         await db.put("plantlog", logEntry.toJSObject());

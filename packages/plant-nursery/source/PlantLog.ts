@@ -4,6 +4,7 @@ import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { Forms } from "./ComponentStyles";
 import { PlantLogEntry } from "./PlantLogEntry";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
@@ -12,6 +13,7 @@ import { mustExist } from "./tools/Maybe";
 @customElement("pn-plant-log")
 export class PlantLog extends LitElement {
   static readonly styles = [
+    Forms,
     css`
       :host {
         display: flex;
@@ -19,15 +21,15 @@ export class PlantLog extends LitElement {
         min-height: 0;
       }
 
-      .filters {
-        margin: 1rem;
+      .filter {
         display: flex;
         flex-direction: row;
+        padding: 1rem;
         flex-wrap: wrap;
         gap: 0.25rem 0;
       }
 
-      .filters * {
+      .filter * {
         flex: 1;
       }
 
@@ -98,7 +100,7 @@ export class PlantLog extends LitElement {
     }
 
     return [
-      html`<div class="filters">
+      html`<div class="filter">
         <sl-input
           placeholder=${t("log.filterPlaceholder")}
           .value=${this.filter}

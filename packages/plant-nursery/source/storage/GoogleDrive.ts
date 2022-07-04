@@ -8,6 +8,7 @@ import {
   PlantSerialized,
   TaskSerialized,
   UserDictionary,
+  UserDictionarySerialized,
 } from "@plantdb/libplantdb";
 import { isNil, mustExist } from "../tools/Maybe";
 import { NurseryConfiguration, StorageDriver } from "./StorageDriver";
@@ -36,7 +37,7 @@ export class GoogleDrive implements StorageDriver {
     return config.modifiedTime;
   }
 
-  async getConfiguration() {
+  async getApplicationConfiguration() {
     if (!GoogleDrive._googleDriveConnected) {
       throw new Error("Google Drive is not connected!");
     }
@@ -63,40 +64,40 @@ export class GoogleDrive implements StorageDriver {
       throw new Error("Google Drive is not connected!");
     }
 
-    const storedDictionaries = await this._readFile("dicts.json");
-    if (isNil(storedDictionaries)) {
-      return Promise.resolve(new Map<DictionaryClassifier, UserDictionary>());
+    const dictionaries = await this.getRawDictionaries();
+    if (isNil(dictionaries)) {
+      return new Map<DictionaryClassifier, UserDictionary>();
     }
-    const dictionaries = JSON.parse(storedDictionaries.body) as Record<
-      DictionaryClassifier,
-      Record<string, string>
-    >;
-    const userDictionaries = Object.entries(dictionaries).reduce(
-      (map, [classifier, dictionary]) => {
-        map.set(
-          classifier as DictionaryClassifier,
-          new UserDictionary(classifier as DictionaryClassifier, dictionary)
-        );
-        return map;
-      },
-      new Map<DictionaryClassifier, UserDictionary>()
-    );
+
+    const userDictionaries = dictionaries.reduce((map, entry) => {
+      map.set(
+        entry.classifier as DictionaryClassifier,
+        new UserDictionary(entry.classifier as DictionaryClassifier, entry.dictionary)
+      );
+      return map;
+    }, new Map<DictionaryClassifier, UserDictionary>());
     return Promise.resolve(userDictionaries);
   }
 
-  async updateConfiguration(configuration: NurseryConfiguration): Promise<void> {
+  async updateApplicationConfiguration(configuration: NurseryConfiguration): Promise<void> {
     const databaseFormat = configuration.databaseFormat.toJSObject();
-    const config = {
-      databaseFormat,
-      typeMap: configuration.typeMap.asRecord(),
-    };
+    const dicts = [configuration.typeMap];
 
-    await this._storeFile("config.json", JSON.stringify(config), "application/json");
+    await this._storeFile("config.json", JSON.stringify(databaseFormat), "application/json");
+    await this._storeFile("dicts.json", JSON.stringify(dicts), "application/json");
   }
 
+  async getRawDictionaries() {
+    const storedDictionaries = await this._readFile("dicts.json");
+    if (isNil(storedDictionaries)) {
+      return Promise.resolve(null);
+    }
+    const dictionaries = JSON.parse(storedDictionaries.body) as Array<UserDictionarySerialized>;
+    return Promise.resolve(dictionaries);
+  }
   /** @inheritDoc */
   async getRawLog() {
-    const dataString = await this._readFile("plantlog.csv");
+    const dataString = await this._readFile("plantlog.json");
     if (isNil(dataString)) {
       return Promise.resolve(null);
     }
@@ -105,7 +106,7 @@ export class GoogleDrive implements StorageDriver {
   }
   /** @inheritDoc */
   async getRawPlants() {
-    const dataString = await this._readFile("plants.csv");
+    const dataString = await this._readFile("plants.json");
     if (isNil(dataString)) {
       return Promise.resolve(null);
     }
@@ -114,7 +115,7 @@ export class GoogleDrive implements StorageDriver {
   }
   /** @inheritDoc */
   async getRawTasks() {
-    const dataString = await this._readFile("tasks.csv");
+    const dataString = await this._readFile("tasks.json");
     if (isNil(dataString)) {
       return Promise.resolve(null);
     }
@@ -123,24 +124,17 @@ export class GoogleDrive implements StorageDriver {
   }
 
   async retrievePlantDb() {
-    const config = await this.getConfiguration();
+    const config = await this.getApplicationConfiguration();
+    const dicts = await this.getRawDictionaries();
     const log = await this.getRawLog();
     const plants = await this.getRawPlants();
     const tasks = await this.getRawTasks();
 
-    if (isNil(config) || isNil(log) || isNil(plants) || isNil(tasks)) {
+    if (isNil(config) || isNil(dicts) || isNil(log) || isNil(plants) || isNil(tasks)) {
       throw new Error("Incomplete data.");
     }
 
-    return Promise.resolve(
-      PlantDB.fromJSObjects(
-        config.databaseFormat,
-        [config.typeMap.toJSObject()],
-        plants,
-        log,
-        tasks
-      )
-    );
+    return Promise.resolve(PlantDB.fromJSObjects(config.databaseFormat, dicts, plants, log, tasks));
   }
 
   async persistPlantDb(plantDb: PlantDB) {
@@ -149,18 +143,24 @@ export class GoogleDrive implements StorageDriver {
     }
 
     const config = JSON.stringify(plantDb.databaseFormat);
+    const dicts = JSON.stringify([...plantDb.dictionaries.values()]);
     const log = JSON.stringify(plantDb.log);
     const plants = JSON.stringify([...plantDb.plants.values()]);
+    const tasks = JSON.stringify(plantDb.tasks);
 
     await this._storeFile("config.json", config, "application/json");
-    await this._storeFile("plantlog.csv", log, "text/csv");
-    await this._storeFile("plants.csv", plants, "text/csv");
+    await this._storeFile("dicts.json", dicts, "application/json");
+    await this._storeFile("plantlog.json", log, "application/json");
+    await this._storeFile("plants.json", plants, "application/json");
+    await this._storeFile("tasks.json", tasks, "application/json");
   }
 
   private async _readFile(filename: string) {
     if (!GoogleDrive._googleDriveConnected) {
       throw new Error("Google Drive is not connected!");
     }
+
+    console.debug(`Reading '${filename}' from Google Drive...`);
 
     const listResponse = await gapi.client.drive.files.list({
       q: `name='${filename}'`,
@@ -192,6 +192,8 @@ export class GoogleDrive implements StorageDriver {
     const form = new FormData();
     form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
     form.append("file", file);
+
+    console.debug(`Persisting '${filename}' to Google Drive...`);
 
     return fetch(
       "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true",

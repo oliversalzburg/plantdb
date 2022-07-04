@@ -76,6 +76,7 @@ export class ImportView extends DataExchangeView {
 
       return fileData.text();
     } catch (error) {
+      console.error(error);
       this.plantStoreUi
         ?.alert(t("import.fsUnsupported"), "danger", "x-circle")
         .catch(console.error);

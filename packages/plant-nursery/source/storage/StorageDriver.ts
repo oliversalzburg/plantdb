@@ -47,7 +47,7 @@ export interface StorageDriver {
   /**
    * Retrieve the configuration for the entire application.
    */
-  getConfiguration(): Promise<NurseryConfiguration>;
+  getApplicationConfiguration(): Promise<NurseryConfiguration>;
   /**
    * Retrieve the user-defined dictionaries.
    */
@@ -58,7 +58,7 @@ export interface StorageDriver {
    *
    * @param configuration The new configuration to persist.
    */
-  updateConfiguration(configuration: NurseryConfiguration): Promise<void>;
+  updateApplicationConfiguration(configuration: NurseryConfiguration): Promise<void>;
 
   /**
    * Retrieves the log in its serialized form.

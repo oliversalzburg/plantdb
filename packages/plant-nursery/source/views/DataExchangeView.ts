@@ -209,8 +209,9 @@ export abstract class DataExchangeView extends View {
       this.plantStoreUi?.alert(t("import.googleDriveImported")).catch(console.error);
       this.requestUpdate();
     } catch (error) {
+      console.error(error);
       this.plantStoreUi
-        ?.alert(unknownToError(error).message, "danger", "x-circle")
+        ?.alert("Unable to use Google Drive data!", "danger", "x-circle")
         .catch(console.error);
     } finally {
       this._googleDriveBusy = false;
@@ -234,6 +235,7 @@ export abstract class DataExchangeView extends View {
       this.plantStoreUi?.alert(t("import.googleDriveSynchronized")).catch(console.error);
       this.requestUpdate();
     } catch (error) {
+      console.error(error);
       this.plantStoreUi
         ?.alert(unknownToError(error).message, "danger", "x-circle")
         .catch(console.error);

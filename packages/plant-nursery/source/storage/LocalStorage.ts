@@ -26,7 +26,7 @@ export class LocalStorage implements StorageDriver {
   }
 
   /** @inheritDoc */
-  async getConfiguration() {
+  async getApplicationConfiguration() {
     const storedConfig = localStorage.getItem("plantdb.config");
     if (isNil(storedConfig)) {
       return Promise.resolve({
@@ -61,7 +61,7 @@ export class LocalStorage implements StorageDriver {
   }
 
   /** @inheritDoc */
-  updateConfiguration(configuration: NurseryConfiguration): Promise<void> {
+  updateApplicationConfiguration(configuration: NurseryConfiguration): Promise<void> {
     localStorage.setItem("plantdb.config", JSON.stringify(configuration.databaseFormat));
     localStorage.setItem("plantdb.dicts", JSON.stringify([configuration.typeMap.toJSObject()]));
     return Promise.resolve();
@@ -96,7 +96,7 @@ export class LocalStorage implements StorageDriver {
   }
 
   async retrievePlantDb() {
-    const config = await this.getConfiguration();
+    const config = await this.getApplicationConfiguration();
     const log = await this.getRawLog();
     const plants = await this.getRawPlants();
     const tasks = await this.getRawTasks();
@@ -121,7 +121,7 @@ export class LocalStorage implements StorageDriver {
     const plants = JSON.stringify([...plantDb.plants.values()].map(plant => plant.toJSObject()));
     const tasks = JSON.stringify(plantDb.tasks.map(task => task.toJSObject()));
 
-    await this.updateConfiguration(getConfigurationFromPlantDB(plantDb));
+    await this.updateApplicationConfiguration(getConfigurationFromPlantDB(plantDb));
 
     localStorage.setItem("plantdb.log", log);
     localStorage.setItem("plantdb.plants", plants);
