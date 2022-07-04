@@ -37,21 +37,31 @@ export class PlantStore extends LitElement {
       // Google Drive is not prepared until absolutely necessary!
 
       await this.indexedDb.connect();
-      const storedDb = await this.indexedDb.retrievePlantDb();
-      if (storedDb) {
-        console.info("Using DB provided through IndexedDB.");
-        this.plantDb = storedDb;
-        this._updateIndex();
-
-        this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
-      } else {
-        console.info("Unable to use IndexedDB data.");
-      }
+      await this.localStorage.connect();
     });
   }
 
   disconnectedCallback(): void {
     globalStore = undefined;
+  }
+
+  async loadFromCache() {
+    this.indexedDb.validate();
+
+    const storedDb = await this.indexedDb.retrievePlantDb();
+    if (storedDb) {
+      console.info("Using DB provided through IndexedDB.");
+      this.plantDb = storedDb;
+      this._updateIndex();
+
+      this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
+    } else {
+      console.info("Unable to use IndexedDB data.");
+    }
+  }
+
+  async resetCache() {
+    await this.indexedDb.recreateStores();
   }
 
   async updatePlantDb(plantDb: PlantDB) {

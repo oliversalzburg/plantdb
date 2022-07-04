@@ -7,6 +7,7 @@ import { installRouter } from "pwa-helpers/router.js";
 import { Typography } from "./ComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi";
+import { executeAsyncContext } from "./tools/Async";
 import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-app")
@@ -92,13 +93,26 @@ export class PlantApp extends LitElement {
     // Then we install the router and expect it to call back with the inital location.
     // We pass this info to the store and expect it invoke the `plant-navigate` event.
     // Then we are ready to handle the starting location like any later naviation event.
-    this._plantStoreUi.addEventListener("pn-i18n-ready", () =>
+    this._plantStoreUi.addEventListener("pn-i18n-ready", () => {
       installRouter(location =>
         this._plantStoreUi?.handleUserNavigationEvent(
           decodeURIComponent(location.href.slice(location.origin.length))
         )
-      )
-    );
+      );
+
+      executeAsyncContext(async () => {
+        try {
+          await this._plantStore.loadFromCache();
+        } catch (error) {
+          const recreate = await this._plantStoreUi.confirm(
+            "Unable to load cached PlantDB data. Reset database?"
+          );
+          if (recreate) {
+            await this._plantStore.resetCache();
+          }
+        }
+      });
+    });
 
     this._plantStore.addEventListener("pn-config-changed", () => this.requestUpdate());
 

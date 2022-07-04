@@ -8,9 +8,9 @@ import {
   TaskSerialized,
   UserDictionary,
 } from "@plantdb/libplantdb";
-import { IDBPDatabase, openDB } from "idb";
+import { deleteDB, IDBPDatabase, openDB } from "idb";
 import { coalesceOnError } from "../tools/Async";
-import { isNil, mustExist } from "../tools/Maybe";
+import { assertExists, isNil, mustExist } from "../tools/Maybe";
 import { LocalStorage } from "./LocalStorage";
 import { getConfigurationFromPlantDB, NurseryConfiguration, StorageDriver } from "./StorageDriver";
 
@@ -34,6 +34,8 @@ export class IndexedDb implements StorageDriver {
     return true;
   }
 
+  static SCHEMA_INDEX = 1;
+
   /**
    * Creates the connection to the IndexedDB instance.
    *
@@ -42,7 +44,7 @@ export class IndexedDb implements StorageDriver {
   async connect() {
     await this._localStorage.connect();
 
-    this._dbPlantDb = await openDB("plantdb", 1, {
+    this._dbPlantDb = await openDB("plantdb", IndexedDb.SCHEMA_INDEX, {
       upgrade(db) {
         const storeLog = db.createObjectStore("plantlog", { keyPath: "id" });
         storeLog.createIndex("timestamp", "timestamp");
@@ -54,7 +56,13 @@ export class IndexedDb implements StorageDriver {
         storeTasks.createIndex("date", "date");
       },
     });
+
     return Promise.resolve(true);
+  }
+
+  async recreateStores() {
+    await deleteDB("plantdb");
+    return this.connect();
   }
 
   /** @inheritDoc */
@@ -121,6 +129,22 @@ export class IndexedDb implements StorageDriver {
     }
     const rawData = dataObject as Array<TaskSerialized>;
     return Promise.resolve(rawData);
+  }
+
+  validate() {
+    assertExists(this._dbPlantDb);
+
+    const storeExistence = [
+      this._dbPlantDb.objectStoreNames.contains("plantlog"),
+      this._dbPlantDb.objectStoreNames.contains("plants"),
+      this._dbPlantDb.objectStoreNames.contains("tasks"),
+    ];
+
+    if (storeExistence.includes(true) && storeExistence.includes(false)) {
+      // Because we currently don't increase the schema index, this is expected
+      // to happen all the time.
+      throw new Error("Stored database does not match expectations.");
+    }
   }
 
   async retrievePlantDb() {
