@@ -165,7 +165,6 @@ export class ImportView extends DataExchangeView {
                   ></sl-textarea
                 >${this._hasFsAccess
                   ? html` <sl-button
-                      variant=${this.plantLogData !== "" ? "success" : "default"}
                       @click=${async () => {
                         this.plantLogData = await this._openCsvFromFileSystem();
                         this._checkInputData();
@@ -187,7 +186,6 @@ export class ImportView extends DataExchangeView {
                 ></sl-textarea
                 >${this._hasFsAccess
                   ? html`<sl-button
-                      variant=${this.plantData !== "" ? "success" : "default"}
                       @click=${async () => {
                         this.plantData = await this._openCsvFromFileSystem();
                         this.requestUpdate();
@@ -195,17 +193,16 @@ export class ImportView extends DataExchangeView {
                       >${t("import.openPlantsCsv")}</sl-button
                     >`
                   : undefined}
+                <sl-button
+                  id="process"
+                  variant="primary"
+                  @click="${() => this.processImportRequest(this.plantData, this.plantLogData)}"
+                  ?disabled=${!this.plantLogData && !this.plantData}
+                  >${t("import.import")}</sl-button
+                >
               </div>
             </sl-tab-panel>
           </sl-tab-group>
-
-          <sl-button
-            id="process"
-            variant="primary"
-            @click="${() => this.processImportRequest(this.plantData, this.plantLogData)}"
-            ?disabled=${!this.plantLogData && !this.plantData}
-            >${t("import.import")}</sl-button
-          >
         </div>
       </div>`,
     ];
