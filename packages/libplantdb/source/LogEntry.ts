@@ -73,7 +73,7 @@ export const EventTypes = {
 /**
  * All possible values for internally known event types.
  */
-export type EventType = typeof EventTypes[keyof typeof EventTypes];
+export type EventType = (typeof EventTypes)[keyof typeof EventTypes];
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.

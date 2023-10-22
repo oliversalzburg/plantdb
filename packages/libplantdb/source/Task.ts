@@ -70,7 +70,7 @@ export const Interval = {
   Monthly: "month",
   Yearly: "year",
 };
-export type TaskRepeatFrequency = typeof Interval[keyof typeof Interval];
+export type TaskRepeatFrequency = (typeof Interval)[keyof typeof Interval];
 
 export const WeekDay = {
   Monday: "monday",
@@ -81,7 +81,7 @@ export const WeekDay = {
   Saturday: "saturday",
   Sunday: "sunday",
 } as const;
-export type TaskRepeatDays = typeof WeekDay[keyof typeof WeekDay];
+export type TaskRepeatDays = (typeof WeekDay)[keyof typeof WeekDay];
 
 /**
  * A task relating to plants in the PlantDB.

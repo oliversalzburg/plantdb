@@ -8,6 +8,7 @@
     "docs:scripts:build": "nsd --docs-location \"packages/documentation/en-US/docs/reference/Repository Scripts/\"",
     "docs:scripts:check": "nsd --docs-location \"packages/documentation/en-US/docs/reference/Repository Scripts/\" --check-only",
     "lint:eslint": "eslint packages/*/source",
+    "lint:prettier": "prettier --check packages/*/source",
     "lint:tsc": "tsc --noEmit"
   },
   "workspaces": [

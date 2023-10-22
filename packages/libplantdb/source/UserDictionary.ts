@@ -4,7 +4,8 @@ export const DictionaryClassifiers = {
   LogEntryEventType: "plantdb.logEntry.type",
 } as const;
 
-export type DictionaryClassifier = typeof DictionaryClassifiers[keyof typeof DictionaryClassifiers];
+export type DictionaryClassifier =
+  (typeof DictionaryClassifiers)[keyof typeof DictionaryClassifiers];
 
 export type UserDictionarySerialized = {
   classifier: DictionaryClassifier;
