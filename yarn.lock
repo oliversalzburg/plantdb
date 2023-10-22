@@ -1939,7 +1939,7 @@ __metadata:
     i18next: 23.6.0
     i18next-browser-languagedetector: 7.1.0
     i18next-http-backend: 2.2.2
-    idb: 7.0.2
+    idb: 7.1.1
     lit: 2.2.7
     lit-i18n: 3.0.3
     lunr: 2.3.9
@@ -4276,14 +4276,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"idb@npm:7.0.2":
-  version: 7.0.2
-  resolution: "idb@npm:7.0.2"
-  checksum: cbb15125f03e0d96393a9eceb805a9caf8f4b04ad28c591b1fbe61c7f45d24ef7d038200a1ef9b0d909cf38b64912a8cf4c858ba7a1a10344871f9b9af4a2ab1
-  languageName: node
-  linkType: hard
-
-"idb@npm:^7.0.1":
+"idb@npm:7.1.1, idb@npm:^7.0.1":
   version: 7.1.1
   resolution: "idb@npm:7.1.1"
   checksum: 72418e4397638797ee2089f97b45fc29f937b830bc0eb4126f4a9889ecf10320ceacf3a177fe5d7ffaf6b4fe38b20bbd210151549bfdc881db8081eed41c870d
