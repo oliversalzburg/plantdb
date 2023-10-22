@@ -2288,7 +2288,7 @@ __metadata:
     "@types/google.accounts": 0.0.13
     "@types/lunr": 2.3.6
     "@types/web": 0.0.118
-    "@types/wicg-file-system-access": 2020.9.8
+    "@types/wicg-file-system-access": 2023.10.2
     dygraphs: 2.1.0
     i18next: 21.10.0
     i18next-browser-languagedetector: 6.1.4
@@ -2799,10 +2799,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wicg-file-system-access@npm:2020.9.8":
-  version: 2020.9.8
-  resolution: "@types/wicg-file-system-access@npm:2020.9.8"
-  checksum: baa8ca664b4ebc89b4d39f8ee98fa81b887009b0dc99008f9e69b35e6ddb286018b6309232ed3970666c543ce85e7f447c9cdd20152d92b1ff810d29d5895a36
+"@types/wicg-file-system-access@npm:2023.10.2":
+  version: 2023.10.2
+  resolution: "@types/wicg-file-system-access@npm:2023.10.2"
+  checksum: 5e72ddb3d64b1aae3e67e90444d0d3ead9a25e40162776388d357464054b0b1fee7add126501864a63e4579db6c6d4f4536a29201dfe900383dbbb564d335655
   languageName: node
   linkType: hard
 
