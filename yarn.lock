@@ -1236,16 +1236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.8.4":
-  version: 7.18.3
-  resolution: "@babel/runtime@npm:7.18.3"
-  dependencies:
-    regenerator-runtime: ^0.13.4
-  checksum: bb218b2ab2f9b28c7b131f466f4b72d87f998481dd475b315c4fc54c0422e697fdd442dcfef4e8e230424d2933cf56a301af67376f2aaa32c08b1a4b5e59d588
-  languageName: node
-  linkType: hard
-
-"@babel/runtime@npm:^7.19.4, @babel/runtime@npm:^7.22.5":
+"@babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.19.4, @babel/runtime@npm:^7.22.5, @babel/runtime@npm:^7.8.4":
   version: 7.23.2
   resolution: "@babel/runtime@npm:7.23.2"
   dependencies:
@@ -1923,7 +1914,7 @@ __metadata:
     i18next: 23.6.0
     i18next-browser-languagedetector: 7.1.0
     i18next-http-backend: 2.2.2
-    idb: 7.0.2
+    idb: 7.1.1
     lit: 2.2.7
     lit-i18n: 3.0.3
     lunr: 2.3.9
@@ -4260,14 +4251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"idb@npm:7.0.2":
-  version: 7.0.2
-  resolution: "idb@npm:7.0.2"
-  checksum: cbb15125f03e0d96393a9eceb805a9caf8f4b04ad28c591b1fbe61c7f45d24ef7d038200a1ef9b0d909cf38b64912a8cf4c858ba7a1a10344871f9b9af4a2ab1
-  languageName: node
-  linkType: hard
-
-"idb@npm:^7.0.1":
+"idb@npm:7.1.1, idb@npm:^7.0.1":
   version: 7.1.1
   resolution: "idb@npm:7.1.1"
   checksum: 72418e4397638797ee2089f97b45fc29f937b830bc0eb4126f4a9889ecf10320ceacf3a177fe5d7ffaf6b4fe38b20bbd210151549bfdc881db8081eed41c870d
@@ -5740,13 +5724,6 @@ __metadata:
   version: 1.4.2
   resolution: "regenerate@npm:1.4.2"
   checksum: f73c9eba5d398c818edc71d1c6979eaa05af7a808682749dd079f8df2a6d91a9b913db216c2c9b03e0a8ba2bba8701244a93f45211afbff691c32c7b275db1b8
-  languageName: node
-  linkType: hard
-
-"regenerator-runtime@npm:^0.13.4":
-  version: 0.13.9
-  resolution: "regenerator-runtime@npm:0.13.9"
-  checksum: b0f26612204f061a84064d2f3361629eae09993939112b9ffc3680bb369ecd125764d6654eace9ef11b36b44282ee52b988dda946ea52d372e7599a30eea73ee
   languageName: node
   linkType: hard
 
