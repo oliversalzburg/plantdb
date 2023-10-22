@@ -39,7 +39,7 @@
     "@types/wicg-file-system-access": "2023.10.2",
     "tslib": "2.6.2",
     "typescript": "5.2.2",
-    "vite": "2.9.16",
+    "vite": "4.5.0",
     "vite-plugin-pwa": "0.12.2",
     "vite-plugin-static-copy": "0.6.0"
   }
