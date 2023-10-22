@@ -2068,7 +2068,7 @@ __metadata:
     "@types/node": 17.0.45
     esbuild: 0.14.48
     luxon: 2.4.0
-    minimist: 1.2.6
+    minimist: 1.2.8
     tslib: 2.4.0
     typescript: 4.7.4
   languageName: unknown
@@ -6311,10 +6311,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:1.2.6, minimist@npm:^1.2.2, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+"minimist@npm:1.2.6":
   version: 1.2.6
   resolution: "minimist@npm:1.2.6"
   checksum: d0b566204044481c4401abbd24cc75814e753b37268e7fe7ccc78612bf3e37bf1e45a6c43fb0b119445ea1c413c000bde013f320b7211974f2f49bcbec1d0dbf
+  languageName: node
+  linkType: hard
+
+"minimist@npm:1.2.8, minimist@npm:^1.2.2, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+  version: 1.2.8
+  resolution: "minimist@npm:1.2.8"
+  checksum: 19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
   languageName: node
   linkType: hard
 
