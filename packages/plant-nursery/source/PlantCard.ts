@@ -63,7 +63,7 @@ export class PlantCard extends LitElement {
     let lastPestInfestation;
     let lastPestControl;
     const logsPestInfestation = this.plant.log.filter(
-      logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestInfestation"
+      logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestInfestation",
     );
     if (0 < logsPestInfestation.length) {
       lastPestInfestation = logsPestInfestation[0];
@@ -72,7 +72,7 @@ export class PlantCard extends LitElement {
       }
     }
     const logsPestControl = this.plant.log.filter(
-      logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestControl"
+      logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestControl",
     );
     if (0 < logsPestControl.length) {
       lastPestControl = logsPestControl[logsPestControl.length - 1];
@@ -87,7 +87,7 @@ export class PlantCard extends LitElement {
           (previousPestControl &&
             DateTime.fromJSDate(lastPestControl.timestamp).diff(
               DateTime.fromJSDate(previousPestControl.timestamp),
-              "days"
+              "days",
             ).days < -14)
         ) {
           hasPendingPestControl = true;

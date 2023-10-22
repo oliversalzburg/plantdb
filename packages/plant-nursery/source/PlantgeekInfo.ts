@@ -39,7 +39,7 @@ export class PlantgeekInfo extends LitElement {
               class="plantgeek-info"
               target="_blank"
               >Visit entry ${index + 1} on Plantgeek</a
-            >`
+            >`,
         )
       : html`<a
           href="https://www.plantgeek.co/plant/${this.plant.plantgeekId}"

@@ -43,7 +43,7 @@ export class ErrorSerializer {
   }
 
   static toSimpleSerializable<TError extends AbstractError = AbstractError>(
-    error: TError
+    error: TError,
   ): SerializedError {
     const serialized: SerializedError = {
       code: error.code,

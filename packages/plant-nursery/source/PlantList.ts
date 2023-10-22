@@ -61,7 +61,7 @@ export class PlantList extends LitElement {
     let filteredPlants = this.plants.sort(
       (a, b) =>
         (a.logEntryOldest?.timestamp?.valueOf() ?? 0) -
-        (b.logEntryOldest?.timestamp?.valueOf() ?? 0)
+        (b.logEntryOldest?.timestamp?.valueOf() ?? 0),
     );
 
     if (this.filter) {
@@ -86,7 +86,7 @@ export class PlantList extends LitElement {
               @click=${() => {
                 retrieveStoreUi()?.navigatePath(`/plant/${plant.id ?? "PID-0"}`);
               }}
-            ></pn-plant-card>`
+            ></pn-plant-card>`,
         )}
       </div>`,
     ];

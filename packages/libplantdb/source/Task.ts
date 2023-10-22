@@ -253,7 +253,7 @@ export class Task extends PlantDBEntity {
       initializer?.id ?? other.#id,
       initializer?.title ?? other.#title,
       initializer?.date ?? other.#date,
-      initializer?.time ?? other.#time
+      initializer?.time ?? other.#time,
     );
     task.#notes = initializer?.notes ?? other.#notes;
     task.#plantId = initializer?.plantId ?? other.#plantId;
@@ -276,7 +276,7 @@ export class Task extends PlantDBEntity {
   static fromCSVData(
     plantDb: PlantDB,
     dataRow: Array<string>,
-    databaseFormat: DatabaseFormat
+    databaseFormat: DatabaseFormat,
   ): Task {
     let rowPointer = 0;
 
@@ -301,7 +301,7 @@ export class Task extends PlantDBEntity {
       title,
       DateTime.fromFormat(date, databaseFormat.dateFormat, {
         zone: databaseFormat.timezone,
-      }).toJSDate()
+      }).toJSDate(),
     );
 
     return task;
@@ -331,7 +331,7 @@ export class Task extends PlantDBEntity {
       dataObject.id,
       dataObject.title,
       new Date(dataObject.date),
-      dataObject.time ? new Date(dataObject.time) : undefined
+      dataObject.time ? new Date(dataObject.time) : undefined,
     );
     task.#notes = dataObject.notes ?? task.#notes;
     task.#plantId = dataObject.plantId ?? task.#plantId;

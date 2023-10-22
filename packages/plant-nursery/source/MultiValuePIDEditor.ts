@@ -23,7 +23,7 @@ export class MultiValuePidEditor extends MultiValueEditor {
 
     const foundPlants = [
       ...this.plantStore.searchPlants(
-        (Array.isArray(this.value) ? this._nextValue : this.value) ?? ""
+        (Array.isArray(this.value) ? this._nextValue : this.value) ?? "",
       ),
     ];
 
@@ -43,7 +43,7 @@ export class MultiValuePidEditor extends MultiValueEditor {
               this.dispatchEvent(
                 new CustomEvent("pn-changed", {
                   detail: this.value,
-                })
+                }),
               );
             }
           }}
@@ -106,7 +106,7 @@ export class MultiValuePidEditor extends MultiValueEditor {
                         >${plant.name}<sl-badge slot="suffix" variant="neutral"
                           >${plant.id}</sl-badge
                         ></sl-menu-item
-                      >`
+                      >`,
                   )}
               </sl-menu>
             </sl-dropdown>`
@@ -139,12 +139,12 @@ export class MultiValuePidEditor extends MultiValueEditor {
                           this.dispatchEvent(
                             new CustomEvent("pn-changed", {
                               detail: this.value,
-                            })
+                            }),
                           );
                         }
                       }}
                       >${element}</sl-tag
-                    >`
+                    >`,
                 )}
             </div>`
           : undefined}`,

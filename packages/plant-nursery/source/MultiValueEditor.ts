@@ -59,7 +59,7 @@ export class MultiValueEditor extends LitElement {
     this.dispatchEvent(
       new CustomEvent("pn-changed", {
         detail: this.value,
-      })
+      }),
     );
   }
 
@@ -80,7 +80,7 @@ export class MultiValueEditor extends LitElement {
               this.dispatchEvent(
                 new CustomEvent("pn-changed", {
                   detail: this.value,
-                })
+                }),
               );
             }
           }}
@@ -134,7 +134,7 @@ export class MultiValueEditor extends LitElement {
                           this._nextValue ??
                           (Array.isArray(this.value) ? "" : this.value) ??
                           ""
-                        ).toLocaleLowerCase()
+                        ).toLocaleLowerCase(),
                       );
                   })
                   .sort()
@@ -150,7 +150,7 @@ export class MultiValueEditor extends LitElement {
                           }
                         }}
                         >${entry}</sl-menu-item
-                      >`
+                      >`,
                   )}
               </sl-menu>
             </sl-dropdown>`
@@ -183,12 +183,12 @@ export class MultiValueEditor extends LitElement {
                           this.dispatchEvent(
                             new CustomEvent("pn-changed", {
                               detail: this.value,
-                            })
+                            }),
                           );
                         }
                       }}
                       >${element}</sl-tag
-                    >`
+                    >`,
                 )}
             </div>`
           : undefined} `,

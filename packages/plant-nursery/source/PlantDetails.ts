@@ -89,7 +89,7 @@ export class PlantDetails extends LitElement {
     const measurements = plant.log.filter(
       entry =>
         identifyLogType(entry.type, mustExist(this.plantStore).plantDb) === "Measurement" &&
-        (entry.ph || entry.ec)
+        (entry.ph || entry.ec),
     );
 
     if (measurements.length === 0) {

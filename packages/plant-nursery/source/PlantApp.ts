@@ -86,7 +86,7 @@ export class PlantApp extends LitElement {
     this._plantStoreUi.addEventListener(
       "pn-i18n-changed",
       // @ts-expect-error wtf?
-      () => (window.location = getBasePath())
+      () => (window.location = getBasePath()),
     );
 
     // We expect the store to load i18n, then signal ready.
@@ -94,10 +94,11 @@ export class PlantApp extends LitElement {
     // We pass this info to the store and expect it invoke the `plant-navigate` event.
     // Then we are ready to handle the starting location like any later naviation event.
     this._plantStoreUi.addEventListener("pn-i18n-ready", () => {
-      installRouter(location =>
-        this._plantStoreUi?.handleUserNavigationEvent(
-          decodeURIComponent(location.href.slice(location.origin.length))
-        )
+      installRouter(
+        location =>
+          this._plantStoreUi?.handleUserNavigationEvent(
+            decodeURIComponent(location.href.slice(location.origin.length)),
+          ),
       );
 
       executeAsyncContext(async () => {
@@ -105,7 +106,7 @@ export class PlantApp extends LitElement {
           await this._plantStore.loadFromCache();
         } catch (error) {
           const recreate = await this._plantStoreUi.confirm(
-            "Unable to load cached PlantDB data. Reset database?"
+            "Unable to load cached PlantDB data. Reset database?",
           );
           if (recreate) {
             await this._plantStore.resetCache();
@@ -130,7 +131,7 @@ export class PlantApp extends LitElement {
   handleUserNavigationEvent(
     page: KnownViews,
     pageParams: Array<string>,
-    pageQuery: Record<string, string>
+    pageQuery: Record<string, string>,
   ) {
     switch (page) {
       case "log":
@@ -293,7 +294,7 @@ export class PlantApp extends LitElement {
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
                 .logEntry=${this._plantStore.plantDb.getLogEntry(
-                  Number(this._plantStoreUi.pageParams[0] ?? -1)
+                  Number(this._plantStoreUi.pageParams[0] ?? -1),
                 )}
                 .logEntryTemplate=${this._plantStoreUi.pageQuery}
               ></pn-log-entry-view>
@@ -311,7 +312,7 @@ export class PlantApp extends LitElement {
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
                 .plant=${this._plantStore.plantDb.plants.get(
-                  this._plantStoreUi.pageParams[0] ?? ""
+                  this._plantStoreUi.pageParams[0] ?? "",
                 )}
               ></pn-plant-details-view>
               <pn-plant-properties-view
@@ -320,7 +321,7 @@ export class PlantApp extends LitElement {
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
                 .plant=${this._plantStore.plantDb.plants.get(
-                  this._plantStoreUi.pageParams[0] ?? ""
+                  this._plantStoreUi.pageParams[0] ?? "",
                 )}
               ></pn-plant-properties-view>
 
@@ -337,7 +338,7 @@ export class PlantApp extends LitElement {
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
                 .task=${this._plantStore.plantDb.getTask(
-                  Number(this._plantStoreUi.pageParams[0] ?? -1)
+                  Number(this._plantStoreUi.pageParams[0] ?? -1),
                 )}
               ></pn-task-properties-view>
 
@@ -349,9 +350,9 @@ export class PlantApp extends LitElement {
                 .proposedMapping=${new Map(
                   [...(this._plantStore.plantDb.entryTypes.values() ?? [])]
                     .map(entryType =>
-                      typeMap.has(entryType) ? [entryType, typeMap.get(entryType)] : undefined
+                      typeMap.has(entryType) ? [entryType, typeMap.get(entryType)] : undefined,
                     )
-                    .filter(Boolean) as Array<[string, EventType]>
+                    .filter(Boolean) as Array<[string, EventType]>,
                 )}
                 @pn-config-changed=${(event: CustomEvent<UserDictionary>) =>
                   this._onTypeMapChanged(event)}

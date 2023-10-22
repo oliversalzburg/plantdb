@@ -89,7 +89,7 @@ export class PlantLog extends LitElement {
       .filter(
         entry =>
           // Filter event type
-          0 === this._filterEventTypes.length || this._filterEventTypes.includes(entry.type)
+          0 === this._filterEventTypes.length || this._filterEventTypes.includes(entry.type),
       )
       .reverse();
 
@@ -129,10 +129,10 @@ export class PlantLog extends LitElement {
                     slot="prefix"
                     name=${PlantLogEntry.extractTypeDetails(
                       undefined,
-                      identifyLogType(entryType, mustExist(this.plantStore).plantDb)
+                      identifyLogType(entryType, mustExist(this.plantStore).plantDb),
                     ).icon}
                   ></sl-icon
-                ></sl-menu-item>`
+                ></sl-menu-item>`,
             )}</sl-select
         >
       </div>`,
@@ -150,7 +150,7 @@ export class PlantLog extends LitElement {
               @pn-body-click=${() => {
                 this.dispatchEvent(new CustomEvent<LogEntry>("pn-edit-entry", { detail: entry }));
               }}
-            ></pn-plant-log-entry>`
+            ></pn-plant-log-entry>`,
         )}${this.maxItems < filteredLog.length
           ? html`<sl-button @click=${() => (this.maxItems += 10)}>${t("log.showMore")}</sl-button>`
           : undefined}

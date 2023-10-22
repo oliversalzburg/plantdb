@@ -54,7 +54,7 @@ export class GoogleDrive implements StorageDriver {
     return {
       databaseFormat,
       typeMap: (await this.getUserDictionaries()).get(
-        DictionaryClassifiers.LogEntryEventType
+        DictionaryClassifiers.LogEntryEventType,
       ) as UserDictionary<EventType>,
     };
   }
@@ -72,7 +72,7 @@ export class GoogleDrive implements StorageDriver {
     const userDictionaries = dictionaries.reduce((map, entry) => {
       map.set(
         entry.classifier as DictionaryClassifier,
-        new UserDictionary(entry.classifier as DictionaryClassifier, entry.dictionary)
+        new UserDictionary(entry.classifier as DictionaryClassifier, entry.dictionary),
       );
       return map;
     }, new Map<DictionaryClassifier, UserDictionary>());
@@ -201,7 +201,7 @@ export class GoogleDrive implements StorageDriver {
         method: "POST",
         headers: new Headers({ Authorization: "Bearer " + accessToken }),
         body: form,
-      }
+      },
     );
   }
 

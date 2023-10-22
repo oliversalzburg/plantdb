@@ -45,7 +45,7 @@ export class ImportView extends DataExchangeView {
       tab: (plantLogDataRaw.match(/\t/g) || []).length,
     };
     const likelySeparator = (Object.keys(counts) as Array<keyof typeof counts>).reduce((a, b) =>
-      counts[a] > counts[b] ? a : b
+      counts[a] > counts[b] ? a : b,
     );
     this._logAnalysis = t("import.logAnalysis", {
       counts,
@@ -116,14 +116,14 @@ export class ImportView extends DataExchangeView {
                     @click=${() => this._connectGoogleDrive()}
                     variant=${this._googleDriveConnected ? "success" : "default"}
                     ><sl-icon slot="prefix" name="google"></sl-icon>${t(
-                      "import.connectGoogleDrive"
+                      "import.connectGoogleDrive",
                     )}</sl-button
                   >${this._googleDriveConnected
                     ? html`<sl-button
                         ?disabled=${!this._googleDriveHasDb}
                         @click=${() => this._importFromGoogleDrive()}
                         ><sl-icon slot="prefix" name="cloud-download"></sl-icon>${t(
-                          "import.googleDriveImport"
+                          "import.googleDriveImport",
                         )}</sl-button
                       >`
                     : undefined}

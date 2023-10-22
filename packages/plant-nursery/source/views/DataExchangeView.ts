@@ -144,13 +144,13 @@ export abstract class DataExchangeView extends View {
       }
       console.info(
         `${plant.name ?? "?"} (${plant.id}) ${DateTime.fromJSDate(
-          logRecord.timestamp
-        ).toLocaleString(DateTime.DATETIME_SHORT)} ${logRecord.type}`
+          logRecord.timestamp,
+        ).toLocaleString(DateTime.DATETIME_SHORT)} ${logRecord.type}`,
       );
     }
 
     console.info(
-      `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`
+      `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`,
     );
 
     await this.plantStore?.updatePlantDb(plantDb);
@@ -175,7 +175,7 @@ export abstract class DataExchangeView extends View {
           this._googleDriveDbLastModified
             ? t("import.googleDriveDbModified", {
                 relative: DateTime.fromJSDate(
-                  new Date(this._googleDriveDbLastModified)
+                  new Date(this._googleDriveDbLastModified),
                 ).toRelative(),
                 when: DateTime.fromJSDate(new Date(this._googleDriveDbLastModified)).toFormat("f"),
               })

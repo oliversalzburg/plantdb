@@ -1,7 +1,7 @@
 export const executeAsyncContext = (
   context: () => Promise<unknown>,
   resolve?: (value: unknown) => void,
-  reject?: (error: Error) => void
+  reject?: (error: Error) => void,
 ) => {
   return void context()
     .then(resolve ?? (() => undefined))
@@ -14,7 +14,7 @@ export const prepareAsyncContext = (context: () => Promise<unknown>) => {
 
 export const coalesceOnError = async <TExecutableReturn, T>(
   executable: (...args: Array<unknown>) => Promise<TExecutableReturn>,
-  to: T
+  to: T,
 ) => {
   try {
     return await executable();

@@ -112,7 +112,7 @@ export class PlantIdentificationPicker extends LitElement {
                 this.dispatchEvent(
                   new CustomEvent<PlantNetResult>("pn-identification-picked", {
                     detail: mustExist(this.response).results[0],
-                  })
+                  }),
                 )}
             >
               <img src=${this.response.results[0].images[0].url.s} />
@@ -136,7 +136,7 @@ export class PlantIdentificationPicker extends LitElement {
                   this.dispatchEvent(
                     new CustomEvent<PlantNetResult>("pn-identification-picked", {
                       detail: result,
-                    })
+                    }),
                   )}
               >
                 <img src=${result.images[0].url.s} />
@@ -146,7 +146,7 @@ export class PlantIdentificationPicker extends LitElement {
                   ${t("idPicker.family")}: ${result.species.family.scientificName}
                 </p>
                 <sl-button>${t("idPicker.pick")}</sl-button>
-              </div>`
+              </div>`,
           )}
         </div>`,
     ];

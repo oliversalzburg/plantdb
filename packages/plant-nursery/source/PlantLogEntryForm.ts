@@ -99,7 +99,7 @@ export class PlantLogEntryForm extends LitElement {
   }
 
   protected updated(
-    _changedProperties: PropertyValueMap<PlantLogEntryForm> | Map<PropertyKey, unknown>
+    _changedProperties: PropertyValueMap<PlantLogEntryForm> | Map<PropertyKey, unknown>,
   ): void {
     if (_changedProperties.has("logEntry") || _changedProperties.has("logEntryTemplate")) {
       this._refreshValues();
@@ -150,7 +150,7 @@ export class PlantLogEntryForm extends LitElement {
     const entry = mustExist(this.plantStore).plantDb.makeNewLogEntry(
       this._plantName,
       new Date(`${this._date} ${this._time}`),
-      this._entryType
+      this._entryType,
     );
     // Augment record.
     return LogEntry.fromLogEntry(entry, {
@@ -208,7 +208,7 @@ export class PlantLogEntryForm extends LitElement {
                       >${plant.name}<sl-badge slot="suffix" variant="neutral"
                         >${plant.id}</sl-badge
                       ></sl-menu-item
-                    >`
+                    >`,
                 )}
               </sl-menu>
             </sl-dropdown>`
@@ -240,7 +240,7 @@ export class PlantLogEntryForm extends LitElement {
                         this._entryType = entry;
                       }}
                       >${entry}</sl-menu-item
-                    >`
+                    >`,
                 )}
               </sl-menu></sl-dropdown
             >`

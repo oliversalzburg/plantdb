@@ -185,7 +185,7 @@ export class PlantPropertiesForm extends LitElement {
   }
 
   protected updated(
-    _changedProperties: PropertyValueMap<PlantPropertiesForm> | Map<PropertyKey, unknown>
+    _changedProperties: PropertyValueMap<PlantPropertiesForm> | Map<PropertyKey, unknown>,
   ): void {
     if (_changedProperties.has("plant")) {
       this._refreshValues();
@@ -275,7 +275,7 @@ export class PlantPropertiesForm extends LitElement {
   private async _identifyPlant(dataUrl: string) {
     const response = await makeIdentificationRequest(
       dataUrl,
-      mustExist(this.plantStoreUi).locale.slice(0, 2)
+      mustExist(this.plantStoreUi).locale.slice(0, 2),
     );
     const json = (await response.json()) as PlantNetResponse | PlantNetErrorResponse;
     if ("error" in json) {
@@ -428,7 +428,7 @@ export class PlantPropertiesForm extends LitElement {
                       .filter(type =>
                         type
                           .toLocaleLowerCase()
-                          .includes(this._plantPotShapeTop?.toLocaleLowerCase() ?? "")
+                          .includes(this._plantPotShapeTop?.toLocaleLowerCase() ?? ""),
                       )
                       .map(
                         entry =>
@@ -437,7 +437,7 @@ export class PlantPropertiesForm extends LitElement {
                               this._plantPotShapeTop = entry;
                             }}
                             >${entry}</sl-menu-item
-                          >`
+                          >`,
                       )}
                   </sl-menu>
                 </sl-dropdown>
@@ -461,7 +461,7 @@ export class PlantPropertiesForm extends LitElement {
                       .filter(type =>
                         type
                           .toLocaleLowerCase()
-                          .includes(this._plantPotColor?.toLocaleLowerCase() ?? "")
+                          .includes(this._plantPotColor?.toLocaleLowerCase() ?? ""),
                       )
                       .map(
                         entry =>
@@ -470,7 +470,7 @@ export class PlantPropertiesForm extends LitElement {
                               this._plantPotColor = entry;
                             }}
                             >${entry}</sl-menu-item
-                          >`
+                          >`,
                       )}
                   </sl-menu>
                 </sl-dropdown>

@@ -94,12 +94,12 @@ export class ExportView extends DataExchangeView {
                     @click=${() => this._connectGoogleDrive()}
                     variant=${this._googleDriveConnected ? "success" : "default"}
                     ><sl-icon slot="prefix" name="google"></sl-icon>${t(
-                      "import.connectGoogleDrive"
+                      "import.connectGoogleDrive",
                     )}</sl-button
                   >${this._googleDriveConnected
                     ? html`<sl-button @click=${() => this._syncToGoogleDrive()}
                         ><sl-icon slot="prefix" name="cloud-upload"></sl-icon>${t(
-                          "import.googleDriveSync"
+                          "import.googleDriveSync",
                         )}</sl-button
                       >`
                     : undefined}
