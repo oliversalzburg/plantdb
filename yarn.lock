@@ -1236,12 +1236,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.8.4":
+"@babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.8.4":
   version: 7.18.3
   resolution: "@babel/runtime@npm:7.18.3"
   dependencies:
     regenerator-runtime: ^0.13.4
   checksum: bb218b2ab2f9b28c7b131f466f4b72d87f998481dd475b315c4fc54c0422e697fdd442dcfef4e8e230424d2933cf56a301af67376f2aaa32c08b1a4b5e59d588
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.19.4, @babel/runtime@npm:^7.22.5":
+  version: 7.23.2
+  resolution: "@babel/runtime@npm:7.23.2"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: 271fcfad8574269d9967b8a1c03f2e1eab108a52ad7c96ed136eee0b11f46156f1186637bd5e79a4207163db9a00413cd70a6428e137b982d0ee8ab85eb9f438
   languageName: node
   linkType: hard
 
@@ -1911,12 +1920,12 @@ __metadata:
     "@types/web": 0.0.118
     "@types/wicg-file-system-access": 2023.10.2
     dygraphs: 2.2.1
-    i18next: 21.10.0
-    i18next-browser-languagedetector: 6.1.4
-    i18next-http-backend: 1.4.1
+    i18next: 23.6.0
+    i18next-browser-languagedetector: 7.1.0
+    i18next-http-backend: 2.2.2
     idb: 7.0.2
     lit: 2.2.7
-    lit-i18n: 3.0.2
+    lit-i18n: 3.0.3
     lunr: 2.3.9
     luxon: 2.4.0
     pwa-helpers: 0.9.1
@@ -3074,12 +3083,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:3.1.5":
-  version: 3.1.5
-  resolution: "cross-fetch@npm:3.1.5"
+"cross-fetch@npm:3.1.6":
+  version: 3.1.6
+  resolution: "cross-fetch@npm:3.1.6"
   dependencies:
-    node-fetch: 2.6.7
-  checksum: 29b457f8df11b46b8388a53c947de80bfe04e6466a59c1628c9870b48505b90ec1d28a05b543a0247416a99f1cfe147d1efe373afdeb46a192334ba5fe91b871
+    node-fetch: ^2.6.11
+  checksum: 39cdd0e16603e43b66fe187bb2a14fb7b4a0b35322ff61d7b08bf48b29a2a7fe835423b27eece46348ab92c45719054e49c4de52de89f279e0935f36a301a5a5
   languageName: node
   linkType: hard
 
@@ -4215,30 +4224,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-browser-languagedetector@npm:6.1.4":
-  version: 6.1.4
-  resolution: "i18next-browser-languagedetector@npm:6.1.4"
+"i18next-browser-languagedetector@npm:7.1.0":
+  version: 7.1.0
+  resolution: "i18next-browser-languagedetector@npm:7.1.0"
   dependencies:
-    "@babel/runtime": ^7.14.6
-  checksum: 192d54fedc0bb545a208082620d943b7d8af13e4f33acdfab00e5a2983c24c98515cbb37f3d4c01afb9bee97313665b54a0b52c508da4830015262295762d8c2
+    "@babel/runtime": ^7.19.4
+  checksum: d7cd0ea0ad6047e786de665d67b41cbb0940a2983eb2c53dd85a5d71f88e170550bba8de45728470a2b5f88060bed2c79f330aff9806dd50ef58ade0ec7b8ca3
   languageName: node
   linkType: hard
 
-"i18next-http-backend@npm:1.4.1":
-  version: 1.4.1
-  resolution: "i18next-http-backend@npm:1.4.1"
+"i18next-http-backend@npm:2.2.2":
+  version: 2.2.2
+  resolution: "i18next-http-backend@npm:2.2.2"
   dependencies:
-    cross-fetch: 3.1.5
-  checksum: 31d46d8fbe48a1fe0b81199633738e57e8a9b1ebf1a327a90a6a935d05ebfcdbc4830c175e51cf48a804b1bcb3baef023a60b5580ba4aae4dbf43fea58cc0349
+    cross-fetch: 3.1.6
+  checksum: fa9cab6d8f7db09736ffdb346a2b6e22c585c5581f8c74e919504e0b484f909189b3d48a2b91af8b1285eb48386b4984bc8ba4dd7bcf88ab5049c8ab1324817d
   languageName: node
   linkType: hard
 
-"i18next@npm:21.10.0":
-  version: 21.10.0
-  resolution: "i18next@npm:21.10.0"
+"i18next@npm:23.6.0":
+  version: 23.6.0
+  resolution: "i18next@npm:23.6.0"
   dependencies:
-    "@babel/runtime": ^7.17.2
-  checksum: 2a674739aab219704d5a0bf62d03bed20ad2bceff9579efb4da61c4946c883fc172062ba7405a26bf795995860f2ab15826b05271f4c457bf7eb19e852f6006d
+    "@babel/runtime": ^7.22.5
+  checksum: 292055897c01dd7720b3c6ab1321bd2b3b1f89e36702da9da90493f2a9e931e6a1f762a5b40d8e91c72803a8e80102ba9b64a4ffc0174acb91805f969072437c
   languageName: node
   linkType: hard
 
@@ -4806,14 +4815,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-i18n@npm:3.0.2":
-  version: 3.0.2
-  resolution: "lit-i18n@npm:3.0.2"
+"lit-i18n@npm:3.0.3":
+  version: 3.0.3
+  resolution: "lit-i18n@npm:3.0.3"
   dependencies:
     lit-html: ^2.0.1
   peerDependencies:
     i18next: ^21.3.3
-  checksum: 76abfb5cff4b241a15ebc1d895317fc92a94d73a09529764f81c366733043a63a8d6db8f276a3eacdbf0020425c8d8e7102c35b55888f3952ab26c22148c04f5
+  checksum: 7eb68656d43146a5dbc1b220f16c7f570657d511ba3ea9d351a3288aedeb493f8ca3604d4cdc582c020cd9d80d1290b0341b631f45e895d8ebc3f06e8f212b3e
   languageName: node
   linkType: hard
 
@@ -5239,9 +5248,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7":
-  version: 2.6.7
-  resolution: "node-fetch@npm:2.6.7"
+"node-fetch@npm:^2.6.11":
+  version: 2.7.0
+  resolution: "node-fetch@npm:2.7.0"
   dependencies:
     whatwg-url: ^5.0.0
   peerDependencies:
@@ -5249,7 +5258,7 @@ __metadata:
   peerDependenciesMeta:
     encoding:
       optional: true
-  checksum: fcae80f5ac52fbf5012f5e19df2bd3915e67d3b3ad51cb5942943df2238d32ba15890fecabd0e166876a9f98a581ab50f3f10eb942b09405c49ef8da36b826c7
+  checksum: b55786b6028208e6fbe594ccccc213cab67a72899c9234eb59dba51062a299ea853210fcf526998eaa2867b0963ad72338824450905679ff0fa304b8c5093ae8
   languageName: node
   linkType: hard
 
@@ -5738,6 +5747,13 @@ __metadata:
   version: 0.13.9
   resolution: "regenerator-runtime@npm:0.13.9"
   checksum: b0f26612204f061a84064d2f3361629eae09993939112b9ffc3680bb369ecd125764d6654eace9ef11b36b44282ee52b988dda946ea52d372e7599a30eea73ee
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "regenerator-runtime@npm:0.14.0"
+  checksum: e25f062c1a183f81c99681691a342760e65c55e8d3a4d4fe347ebe72433b123754b942b70b622959894e11f8a9131dc549bd3c9a5234677db06a4af42add8d12
   languageName: node
   linkType: hard
 
