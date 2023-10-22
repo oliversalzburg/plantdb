@@ -2084,7 +2084,7 @@ __metadata:
     i18next-http-backend: 1.4.1
     idb: 7.0.2
     lit: 2.2.7
-    lit-i18n: 3.0.2
+    lit-i18n: 3.0.3
     lunr: 2.3.9
     luxon: 2.4.0
     pwa-helpers: 0.9.1
@@ -5961,14 +5961,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-i18n@npm:3.0.2":
-  version: 3.0.2
-  resolution: "lit-i18n@npm:3.0.2"
+"lit-i18n@npm:3.0.3":
+  version: 3.0.3
+  resolution: "lit-i18n@npm:3.0.3"
   dependencies:
     lit-html: ^2.0.1
   peerDependencies:
     i18next: ^21.3.3
-  checksum: 76abfb5cff4b241a15ebc1d895317fc92a94d73a09529764f81c366733043a63a8d6db8f276a3eacdbf0020425c8d8e7102c35b55888f3952ab26c22148c04f5
+  checksum: 7eb68656d43146a5dbc1b220f16c7f570657d511ba3ea9d351a3288aedeb493f8ca3604d4cdc582c020cd9d80d1290b0341b631f45e895d8ebc3f06e8f212b3e
   languageName: node
   linkType: hard
 

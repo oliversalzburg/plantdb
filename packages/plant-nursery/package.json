@@ -22,7 +22,7 @@
     "i18next-http-backend": "1.4.1",
     "idb": "7.0.2",
     "lit": "2.2.7",
-    "lit-i18n": "3.0.2",
+    "lit-i18n": "3.0.3",
     "lunr": "2.3.9",
     "luxon": "2.4.0",
     "pwa-helpers": "0.9.1",
