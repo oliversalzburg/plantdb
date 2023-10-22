@@ -228,7 +228,7 @@ export class LogEntry extends PlantDBEntity {
     id: number,
     plantId: string,
     timestamp: Date,
-    type: string | EventType
+    type: string
   ) {
     super();
 

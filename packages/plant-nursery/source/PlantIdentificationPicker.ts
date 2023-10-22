@@ -44,10 +44,10 @@ export type PlantNetResponse = {
   query: {
     project: string;
     images: Array<string>;
-    organs: Array<"auto" | string>;
+    organs: Array<string>;
     includeRelatedImages: boolean;
   };
-  language: "en" | string;
+  language: string;
   preferedReferential: string;
   bestMatch: string;
   results: Array<PlantNetResult>;

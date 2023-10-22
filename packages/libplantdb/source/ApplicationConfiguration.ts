@@ -11,7 +11,7 @@ export class ApplicationConfiguration extends PlantDBEntity {
   #databaseFormat = DatabaseFormat.DefaultInterchange();
   #typeMap = new Map<string, EventType>();
 
-  /** @inheritDoc {PlantDB.databaseFormat} */
+  /** @inheritDoc {import("./PlantDB.js").PlantDB.databaseFormat} */
   get databaseFormat() {
     return this.#databaseFormat;
   }

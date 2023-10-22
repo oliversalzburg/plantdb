@@ -133,8 +133,8 @@ export class Plant extends PlantDBEntity {
 
   // Pot
   #substrate: string | Array<string> | undefined;
-  #potShapeTop: PotShapeTop | string | undefined;
-  #potColor: PotColor | string | undefined;
+  #potShapeTop: string | undefined;
+  #potColor: string | undefined;
   #onSaucer: boolean | undefined;
 
   // Diagnostics
