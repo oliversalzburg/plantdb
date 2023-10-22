@@ -13,6 +13,6 @@
     "serve": ".scripts/serve.sh"
   },
   "engines": {
-    "node": "^16"
+    "node": "^18.0.0"
   }
 }
