@@ -23,7 +23,7 @@
     "@types/luxon": "2.4.0",
     "@types/mocha": "9.1.1",
     "@types/source-map-support": "0.5.9",
-    "chai": "4.3.6",
+    "chai": "4.3.10",
     "mocha": "10.0.0",
     "source-map-support": "0.5.21",
     "tslib": "2.4.0",
