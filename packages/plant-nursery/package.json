@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/dygraphs": "2.1.4",
-    "@types/gapi": "0.0.42",
+    "@types/gapi": "0.0.46",
     "@types/gapi.client": "1.0.5",
     "@types/gapi.client.drive": "3.0.13",
     "@types/google.accounts": "0.0.2",
