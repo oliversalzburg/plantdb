@@ -9,7 +9,8 @@
     "docs:scripts:check": "nsd --docs-location \"packages/documentation/en-US/docs/reference/Repository Scripts/\" --check-only",
     "lint:eslint": "eslint packages/*/source",
     "lint:prettier": "prettier --check packages/*/source \\*.cjs \\*.js",
-    "lint:tsc": "tsc --noEmit"
+    "lint:tsc": "tsc --noEmit",
+    "nursery:serve": "yarn workspace @plantdb/plant-nursery run serve"
   },
   "workspaces": [
     "packages/*"
