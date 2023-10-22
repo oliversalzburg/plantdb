@@ -17,7 +17,7 @@
     "@plantdb/libplantdb": "workspace:*",
     "@shoelace-style/shoelace": "2.0.0-beta.77",
     "dygraphs": "2.2.1",
-    "i18next": "21.10.0",
+    "i18next": "23.6.0",
     "i18next-browser-languagedetector": "6.1.4",
     "i18next-http-backend": "1.4.1",
     "idb": "7.0.2",
