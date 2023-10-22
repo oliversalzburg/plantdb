@@ -2072,7 +2072,7 @@ __metadata:
     "@shoelace-style/shoelace": 2.0.0-beta.77
     "@types/dygraphs": 2.1.4
     "@types/gapi": 0.0.46
-    "@types/gapi.client": 1.0.5
+    "@types/gapi.client": 1.0.7
     "@types/gapi.client.drive": 3.0.13
     "@types/google.accounts": 0.0.2
     "@types/lunr": 2.3.4
@@ -2350,10 +2350,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/gapi.client@npm:*, @types/gapi.client@npm:1.0.5":
-  version: 1.0.5
-  resolution: "@types/gapi.client@npm:1.0.5"
-  checksum: dbd6b26dda8dc343f19fbe32a555b39c6af3a8158d4387fc8a1c7204ed9229aa86de86087189f2b807e9f1548e76483d75dd6bb316c162d58bac86871b12d4e7
+"@types/gapi.client@npm:*, @types/gapi.client@npm:1.0.7":
+  version: 1.0.7
+  resolution: "@types/gapi.client@npm:1.0.7"
+  checksum: 93f2e766091b4fc26c309594e142ba4e22873d39054aee979766f771951c40954b6ebe2a56f293c2e4be27a426539fc25f9c7849afd654d64585fbb20e45abdb
   languageName: node
   linkType: hard
 
