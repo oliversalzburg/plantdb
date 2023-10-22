@@ -26,7 +26,7 @@
     "lunr": "2.3.9",
     "luxon": "2.4.0",
     "pwa-helpers": "0.9.1",
-    "rrule": "2.7.0"
+    "rrule": "2.7.2"
   },
   "devDependencies": {
     "@types/dygraphs": "2.1.6",
