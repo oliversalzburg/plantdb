@@ -1958,12 +1958,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@maxim_mazurok/gapi.client.drive@npm:latest":
-  version: 3.0.20220613
-  resolution: "@maxim_mazurok/gapi.client.drive@npm:3.0.20220613"
+"@maxim_mazurok/gapi.client.discovery-v1@npm:latest":
+  version: 0.1.20200806
+  resolution: "@maxim_mazurok/gapi.client.discovery-v1@npm:0.1.20200806"
   dependencies:
     "@types/gapi.client": "*"
-  checksum: 6a24cf9bf85cccdaccb5ec4c071c0f3d31a4e8732698678a5d3f2ae9c5f0e9195d9b08fe04cfe5c8cd014eeee0d7a9324af3c9dea2528c2f98024f3f29a3ab06
+    "@types/gapi.client.discovery-v1": "*"
+  checksum: 5c01df9bd9baaa0f94760d40033868111721da86bef3e4d77e7de64cdf28fc1a513c5daf9b270aa63d2208f20b43cd172a84d5c88a627bb452e7a93400e9488e
+  languageName: node
+  linkType: hard
+
+"@maxim_mazurok/gapi.client.drive-v3@npm:latest":
+  version: 0.0.20231017
+  resolution: "@maxim_mazurok/gapi.client.drive-v3@npm:0.0.20231017"
+  dependencies:
+    "@types/gapi.client": "*"
+    "@types/gapi.client.discovery-v1": "*"
+  checksum: 2b73da057d83894856af14f4b00177e77189b215c47faf24bd796f5a9bbdd3e5796acd6074313b512a38be4b32d848c17460d93c256c140cb0ba3da4a9edb8db
   languageName: node
   linkType: hard
 
@@ -2073,7 +2084,7 @@ __metadata:
     "@types/dygraphs": 2.1.4
     "@types/gapi": 0.0.46
     "@types/gapi.client": 1.0.5
-    "@types/gapi.client.drive": 3.0.13
+    "@types/gapi.client.drive": 3.0.15
     "@types/google.accounts": 0.0.2
     "@types/lunr": 2.3.4
     "@types/web": 0.0.68
@@ -2341,12 +2352,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/gapi.client.drive@npm:3.0.13":
-  version: 3.0.13
-  resolution: "@types/gapi.client.drive@npm:3.0.13"
+"@types/gapi.client.discovery-v1@npm:*":
+  version: 0.0.3
+  resolution: "@types/gapi.client.discovery-v1@npm:0.0.3"
   dependencies:
-    "@maxim_mazurok/gapi.client.drive": latest
-  checksum: 2d313aa63d1903bbb5fa600fc53660ee1c054d73f1b51ea1004d40de28d41b08dcfb75e5d8c3841d48151b61a44ee3e6f3edee0c25331ba9bd5009df67b62de2
+    "@maxim_mazurok/gapi.client.discovery-v1": latest
+  checksum: d3a8c0fa1b3ab45541f747356bf11283a6498d63d19c2a22a8b52bcfcdfb53ce0098a30787533551d157dcfb70f9157681eb3d3f504be0813bb688859419a133
+  languageName: node
+  linkType: hard
+
+"@types/gapi.client.drive@npm:3.0.15":
+  version: 3.0.15
+  resolution: "@types/gapi.client.drive@npm:3.0.15"
+  dependencies:
+    "@maxim_mazurok/gapi.client.drive-v3": latest
+  checksum: d7597f1b94bf6bf48a9be37eef1c4f98cd058cd9d000bf0e67769ed66e611f181ac9accc3d13ef682ac26c00ef4e7e432f3799d74053bb782266fae6da6ce61d
   languageName: node
   linkType: hard
 
