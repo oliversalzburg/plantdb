@@ -1958,12 +1958,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@maxim_mazurok/gapi.client.drive@npm:latest":
-  version: 3.0.20220613
-  resolution: "@maxim_mazurok/gapi.client.drive@npm:3.0.20220613"
+"@maxim_mazurok/gapi.client.discovery-v1@npm:latest":
+  version: 0.1.20200806
+  resolution: "@maxim_mazurok/gapi.client.discovery-v1@npm:0.1.20200806"
   dependencies:
     "@types/gapi.client": "*"
-  checksum: 6a24cf9bf85cccdaccb5ec4c071c0f3d31a4e8732698678a5d3f2ae9c5f0e9195d9b08fe04cfe5c8cd014eeee0d7a9324af3c9dea2528c2f98024f3f29a3ab06
+    "@types/gapi.client.discovery-v1": "*"
+  checksum: 5c01df9bd9baaa0f94760d40033868111721da86bef3e4d77e7de64cdf28fc1a513c5daf9b270aa63d2208f20b43cd172a84d5c88a627bb452e7a93400e9488e
+  languageName: node
+  linkType: hard
+
+"@maxim_mazurok/gapi.client.drive-v3@npm:latest":
+  version: 0.0.20231017
+  resolution: "@maxim_mazurok/gapi.client.drive-v3@npm:0.0.20231017"
+  dependencies:
+    "@types/gapi.client": "*"
+    "@types/gapi.client.discovery-v1": "*"
+  checksum: 2b73da057d83894856af14f4b00177e77189b215c47faf24bd796f5a9bbdd3e5796acd6074313b512a38be4b32d848c17460d93c256c140cb0ba3da4a9edb8db
   languageName: node
   linkType: hard
 
@@ -2030,10 +2041,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@plantdb/libplantdb@workspace:packages/libplantdb"
   dependencies:
-    "@types/chai": 4.3.1
-    "@types/luxon": 2.3.2
+    "@types/chai": 4.3.9
+    "@types/luxon": 2.4.0
     "@types/mocha": 9.1.1
-    "@types/source-map-support": 0.5.4
+    "@types/source-map-support": 0.5.9
     chai: 4.3.6
     csv-parse: 5.2.2
     csv-stringify: 6.1.3
@@ -2052,8 +2063,8 @@ __metadata:
   resolution: "@plantdb/plant-cli@workspace:packages/plant-cli"
   dependencies:
     "@plantdb/libplantdb": "workspace:*"
-    "@types/luxon": 2.3.2
-    "@types/minimist": 1.2.2
+    "@types/luxon": 2.4.0
+    "@types/minimist": 1.2.4
     "@types/node": 17.0.45
     esbuild: 0.14.48
     luxon: 2.4.0
@@ -2070,14 +2081,14 @@ __metadata:
     "@lit-labs/context": 0.1.2
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.77
-    "@types/dygraphs": 2.1.4
+    "@types/dygraphs": 2.1.6
     "@types/gapi": 0.0.46
-    "@types/gapi.client": 1.0.5
-    "@types/gapi.client.drive": 3.0.13
-    "@types/google.accounts": 0.0.2
-    "@types/lunr": 2.3.4
-    "@types/web": 0.0.68
-    "@types/wicg-file-system-access": 2020.9.5
+    "@types/gapi.client": 1.0.7
+    "@types/gapi.client.drive": 3.0.15
+    "@types/google.accounts": 0.0.13
+    "@types/lunr": 2.3.6
+    "@types/web": 0.0.118
+    "@types/wicg-file-system-access": 2020.9.8
     dygraphs: 2.1.0
     i18next: 21.8.11
     i18next-browser-languagedetector: 6.1.4
@@ -2251,10 +2262,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai@npm:4.3.1":
-  version: 4.3.1
-  resolution: "@types/chai@npm:4.3.1"
-  checksum: 1735099ea33e22ee18885de48d6961e9d030adea046a07b8a89f5e02a364c85ab0519fde9aeb81e49b7edfbcf8d7534db8fbff59e2e45643b83ea520a7d2c390
+"@types/chai@npm:4.3.9":
+  version: 4.3.9
+  resolution: "@types/chai@npm:4.3.9"
+  checksum: 3c20a208840dfc15df15c555074bec14d8be7ed2c825f139250f99f944cf8f75b47e9741877688be8baa68d41c197c44e72baebcaa808fe81ae1234264b5f86e
   languageName: node
   linkType: hard
 
@@ -2292,22 +2303,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/dygraphs@npm:2.1.4":
-  version: 2.1.4
-  resolution: "@types/dygraphs@npm:2.1.4"
+"@types/dygraphs@npm:2.1.6":
+  version: 2.1.6
+  resolution: "@types/dygraphs@npm:2.1.6"
   dependencies:
     "@types/google.visualization": "*"
-  checksum: 5a99f7de1e58a93d4752b038ca2f5f56426b9c8da30ae978d0d22120353f2a90782712b2280568bed326492f3f48b0b803ea832881f549f1028280daed96242a
+  checksum: 05ba2a938e9aa3a1fceefe0609dd0c24dc4f6b8185616a840261b38a1e737aba77d5673686b9aae1554530da72af9186e34f16e69ba43ad790cbecbc49f6de93
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.4.5":
-  version: 8.4.5
-  resolution: "@types/eslint@npm:8.4.5"
+"@types/eslint@npm:8.44.6":
+  version: 8.44.6
+  resolution: "@types/eslint@npm:8.44.6"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
-  checksum: 81d4f9920d0ef0f694555fefe8c8b5f81cd0dfe52f4455afdc63eb724bbb0e033fc19a8bc580fb5674b6fbc8be2a2a516c370f020bbd3dd0d309cb716b1c70d6
+  checksum: fc449107eb186bdc5d30149bbcb4e673af8530afdeacca3b89f14deefcbfc67463157d6a81b42cd9df92ddeafda5351853d13310ff7ac6ab0d9769ac7cc0cc3a
   languageName: node
   linkType: hard
 
@@ -2341,19 +2352,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/gapi.client.drive@npm:3.0.13":
-  version: 3.0.13
-  resolution: "@types/gapi.client.drive@npm:3.0.13"
+"@types/gapi.client.discovery-v1@npm:*":
+  version: 0.0.3
+  resolution: "@types/gapi.client.discovery-v1@npm:0.0.3"
   dependencies:
-    "@maxim_mazurok/gapi.client.drive": latest
-  checksum: 2d313aa63d1903bbb5fa600fc53660ee1c054d73f1b51ea1004d40de28d41b08dcfb75e5d8c3841d48151b61a44ee3e6f3edee0c25331ba9bd5009df67b62de2
+    "@maxim_mazurok/gapi.client.discovery-v1": latest
+  checksum: d3a8c0fa1b3ab45541f747356bf11283a6498d63d19c2a22a8b52bcfcdfb53ce0098a30787533551d157dcfb70f9157681eb3d3f504be0813bb688859419a133
   languageName: node
   linkType: hard
 
-"@types/gapi.client@npm:*, @types/gapi.client@npm:1.0.5":
+"@types/gapi.client.drive@npm:3.0.15":
+  version: 3.0.15
+  resolution: "@types/gapi.client.drive@npm:3.0.15"
+  dependencies:
+    "@maxim_mazurok/gapi.client.drive-v3": latest
+  checksum: d7597f1b94bf6bf48a9be37eef1c4f98cd058cd9d000bf0e67769ed66e611f181ac9accc3d13ef682ac26c00ef4e7e432f3799d74053bb782266fae6da6ce61d
+  languageName: node
+  linkType: hard
+
+"@types/gapi.client@npm:*":
   version: 1.0.5
   resolution: "@types/gapi.client@npm:1.0.5"
   checksum: dbd6b26dda8dc343f19fbe32a555b39c6af3a8158d4387fc8a1c7204ed9229aa86de86087189f2b807e9f1548e76483d75dd6bb316c162d58bac86871b12d4e7
+  languageName: node
+  linkType: hard
+
+"@types/gapi.client@npm:1.0.7":
+  version: 1.0.7
+  resolution: "@types/gapi.client@npm:1.0.7"
+  checksum: 93f2e766091b4fc26c309594e142ba4e22873d39054aee979766f771951c40954b6ebe2a56f293c2e4be27a426539fc25f9c7849afd654d64585fbb20e45abdb
   languageName: node
   linkType: hard
 
@@ -2364,10 +2391,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/google.accounts@npm:0.0.2":
-  version: 0.0.2
-  resolution: "@types/google.accounts@npm:0.0.2"
-  checksum: 36b94d3b469605172da68048bc3319de4ebd7edd709147f925bd83a1b43ecf1982a500be74731921e5c13a3d755c0ff065340df30e7c366ae3235039c24c837a
+"@types/google.accounts@npm:0.0.13":
+  version: 0.0.13
+  resolution: "@types/google.accounts@npm:0.0.13"
+  checksum: 0e374ffd6b19069343444125624fd38da5a702fe8fe5a4ac4469adf75cf0791f3fb1e58271a33d07060dffa9234ad63d459cca398d54a7ea7888a06638a707f6
   languageName: node
   linkType: hard
 
@@ -2411,17 +2438,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lunr@npm:2.3.4":
-  version: 2.3.4
-  resolution: "@types/lunr@npm:2.3.4"
-  checksum: 2017dbf4afabed5fe6d5462070fce060043fb56b90a151a5c92b342f05ab889a83db87ff39898d7e93d53bfffc70adb1855d855c70f8817bf556a71656724073
+"@types/lunr@npm:2.3.6":
+  version: 2.3.6
+  resolution: "@types/lunr@npm:2.3.6"
+  checksum: 29aee32c6d1f134c85109798bf33d3ffbfcd85beac4fcd5af6938ea7b29f67e9952d2cbc2f09dd6f01ed1046de22fd75c43f0a671733b4cd3f028fc737347763
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:2.3.2":
-  version: 2.3.2
-  resolution: "@types/luxon@npm:2.3.2"
-  checksum: a099fb5b0d3a0c1682756400bed1edd451f2feb221c8eed3e95ef7d344550a1d38d3acbb037f177adcaa8abf93fb00a448e4e751685496b6a8c279592cc48425
+"@types/luxon@npm:2.4.0":
+  version: 2.4.0
+  resolution: "@types/luxon@npm:2.4.0"
+  checksum: 2686d03827a3799f0374923323148f4d0d07f9e4321551389b2ae285e5085e178cfe908806041ab32bf66534497702b4ae8459d1b4190258af133818d4b846c9
   languageName: node
   linkType: hard
 
@@ -2432,7 +2459,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/minimist@npm:1.2.2, @types/minimist@npm:^1.2.0":
+"@types/minimist@npm:1.2.4":
+  version: 1.2.4
+  resolution: "@types/minimist@npm:1.2.4"
+  checksum: 01403652c09de17b8c6d7d9959cb7a244deccf31e9e7a1a7011fba73fa2724c14fe935718e0fdc48dcd30403fd76a916cb991d4c0ddf229748ccc6c4920c3371
+  languageName: node
+  linkType: hard
+
+"@types/minimist@npm:^1.2.0":
   version: 1.2.2
   resolution: "@types/minimist@npm:1.2.2"
   checksum: f220f57f682bbc3793dab4518f8e2180faa79d8e2589c79614fd777d7182be203ba399020c3a056a115064f5d57a065004a32b522b2737246407621681b24137
@@ -2530,12 +2564,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-map-support@npm:0.5.4":
-  version: 0.5.4
-  resolution: "@types/source-map-support@npm:0.5.4"
+"@types/source-map-support@npm:0.5.9":
+  version: 0.5.9
+  resolution: "@types/source-map-support@npm:0.5.9"
   dependencies:
     source-map: ^0.6.0
-  checksum: 3aa6e5b48f0663f41fc3042b89f576782b064af9b0023f8f500943783ac99c0a8e2abccd724ee9b3d6620e206045018e97c3c55f02a8bf677a5b8c64adbc2787
+  checksum: cfd8c2b366e86f4e9f551c90e79e5b1e6cf4f80e0ed533b761022b8f463f5204e11e5cbfe0092cf1a8ab209c4551b2967b00309de3c2d7633e04bd64efcd0bb8
   languageName: node
   linkType: hard
 
@@ -2579,17 +2613,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.68":
-  version: 0.0.68
-  resolution: "@types/web@npm:0.0.68"
-  checksum: a728461fb25b1994b68748763c5f6c1ee4af13e73194f9c4837c4473a4a4b14195c7646909af9383b06ae77a31641bb337b8b88ae8957b517a62c95bdc078a7b
+"@types/web@npm:0.0.118":
+  version: 0.0.118
+  resolution: "@types/web@npm:0.0.118"
+  checksum: 6c1bba42acba9ef881b04927b73ad23e867797281089cf373a22ba8a533560fcd0ec138a62ec233d4eadb3a786cbbe37bd1baacad3f63d45085ed832e5e61113
   languageName: node
   linkType: hard
 
-"@types/wicg-file-system-access@npm:2020.9.5":
-  version: 2020.9.5
-  resolution: "@types/wicg-file-system-access@npm:2020.9.5"
-  checksum: a5442f60cef0e99d687a4fb83fd4f4a522361747dbbca03bf4dd15b4883d22e0867e1c6577fb99b4918f77c3e3f67b649303c84885678d71c1b4050183c65751
+"@types/wicg-file-system-access@npm:2020.9.8":
+  version: 2020.9.8
+  resolution: "@types/wicg-file-system-access@npm:2020.9.8"
+  checksum: baa8ca664b4ebc89b4d39f8ee98fa81b887009b0dc99008f9e69b35e6ddb286018b6309232ed3970666c543ce85e7f447c9cdd20152d92b1ff810d29d5895a36
   languageName: node
   linkType: hard
 
@@ -6940,8 +6974,8 @@ __metadata:
     "@babel/plugin-syntax-import-assertions": 7.18.6
     "@bubblewrap/cli": 1.17.2
     "@types/babel__core": 7.1.19
-    "@types/eslint": 8.4.5
-    "@types/web": 0.0.68
+    "@types/eslint": 8.44.6
+    "@types/web": 0.0.118
     "@typescript-eslint/eslint-plugin": 5.30.3
     "@typescript-eslint/parser": 5.30.3
     eslint: 8.18.0
