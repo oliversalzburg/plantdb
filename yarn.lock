@@ -2289,7 +2289,7 @@ __metadata:
     "@types/lunr": 2.3.6
     "@types/web": 0.0.118
     "@types/wicg-file-system-access": 2023.10.2
-    dygraphs: 2.1.0
+    dygraphs: 2.2.1
     i18next: 21.10.0
     i18next-browser-languagedetector: 6.1.4
     i18next-http-backend: 1.4.1
@@ -4122,10 +4122,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dygraphs@npm:2.1.0":
-  version: 2.1.0
-  resolution: "dygraphs@npm:2.1.0"
-  checksum: 4f057819e9f6a6ef6d11974504652181c46ed06e09462cb766ae0fceadbe5388b5f149f03f678e37bf73990e4149e798bd709fd23edda24de8494e020809bfe2
+"dygraphs@npm:2.2.1":
+  version: 2.2.1
+  resolution: "dygraphs@npm:2.2.1"
+  checksum: 68b06cd60679390c52f4a2ff5ea876fd869dee4c3f301c1233f14d022577f3c899352caa8fc709e061bd31a78d08b6d80aa09ffea75981c45780309136f75bb7
   languageName: node
   linkType: hard
 
