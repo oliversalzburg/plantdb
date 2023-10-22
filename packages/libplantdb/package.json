@@ -24,7 +24,7 @@
   },
   "types": "./typings/index.d.ts",
   "dependencies": {
-    "csv-parse": "5.2.2",
+    "csv-parse": "5.5.2",
     "csv-stringify": "6.4.4",
     "luxon": "2.4.0"
   },
