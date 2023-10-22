@@ -15,7 +15,7 @@
   "dependencies": {
     "@lit-labs/context": "0.5.0",
     "@plantdb/libplantdb": "workspace:*",
-    "@shoelace-style/shoelace": "2.0.0-beta.77",
+    "@shoelace-style/shoelace": "2.11.0",
     "dygraphs": "2.2.1",
     "i18next": "23.6.0",
     "i18next-browser-languagedetector": "7.1.0",
