@@ -22,7 +22,7 @@
     "@types/chai": "4.3.1",
     "@types/luxon": "2.3.2",
     "@types/mocha": "9.1.1",
-    "@types/source-map-support": "0.5.4",
+    "@types/source-map-support": "0.5.9",
     "chai": "4.3.6",
     "mocha": "10.0.0",
     "source-map-support": "0.5.21",
