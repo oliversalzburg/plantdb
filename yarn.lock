@@ -2068,7 +2068,7 @@ __metadata:
     "@types/node": 17.0.45
     esbuild: 0.14.48
     luxon: 2.4.0
-    minimist: 1.2.6
+    minimist: 1.2.8
     tslib: 2.4.0
     typescript: 4.7.4
   languageName: unknown
@@ -2370,14 +2370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/gapi.client@npm:*":
-  version: 1.0.5
-  resolution: "@types/gapi.client@npm:1.0.5"
-  checksum: dbd6b26dda8dc343f19fbe32a555b39c6af3a8158d4387fc8a1c7204ed9229aa86de86087189f2b807e9f1548e76483d75dd6bb316c162d58bac86871b12d4e7
-  languageName: node
-  linkType: hard
-
-"@types/gapi.client@npm:1.0.7":
+"@types/gapi.client@npm:*, @types/gapi.client@npm:1.0.7":
   version: 1.0.7
   resolution: "@types/gapi.client@npm:1.0.7"
   checksum: 93f2e766091b4fc26c309594e142ba4e22873d39054aee979766f771951c40954b6ebe2a56f293c2e4be27a426539fc25f9c7849afd654d64585fbb20e45abdb
@@ -2459,17 +2452,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/minimist@npm:1.2.4":
+"@types/minimist@npm:1.2.4, @types/minimist@npm:^1.2.0":
   version: 1.2.4
   resolution: "@types/minimist@npm:1.2.4"
   checksum: 01403652c09de17b8c6d7d9959cb7a244deccf31e9e7a1a7011fba73fa2724c14fe935718e0fdc48dcd30403fd76a916cb991d4c0ddf229748ccc6c4920c3371
-  languageName: node
-  linkType: hard
-
-"@types/minimist@npm:^1.2.0":
-  version: 1.2.2
-  resolution: "@types/minimist@npm:1.2.2"
-  checksum: f220f57f682bbc3793dab4518f8e2180faa79d8e2589c79614fd777d7182be203ba399020c3a056a115064f5d57a065004a32b522b2737246407621681b24137
   languageName: node
   linkType: hard
 
@@ -6323,10 +6309,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:1.2.6, minimist@npm:^1.2.2, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+"minimist@npm:1.2.6":
   version: 1.2.6
   resolution: "minimist@npm:1.2.6"
   checksum: d0b566204044481c4401abbd24cc75814e753b37268e7fe7ccc78612bf3e37bf1e45a6c43fb0b119445ea1c413c000bde013f320b7211974f2f49bcbec1d0dbf
+  languageName: node
+  linkType: hard
+
+"minimist@npm:1.2.8, minimist@npm:^1.2.2, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+  version: 1.2.8
+  resolution: "minimist@npm:1.2.8"
+  checksum: 19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
   languageName: node
   linkType: hard
 
