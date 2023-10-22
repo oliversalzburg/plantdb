@@ -2071,7 +2071,7 @@ __metadata:
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": 2.0.0-beta.77
     "@types/dygraphs": 2.1.4
-    "@types/gapi": 0.0.42
+    "@types/gapi": 0.0.46
     "@types/gapi.client": 1.0.5
     "@types/gapi.client.drive": 3.0.13
     "@types/google.accounts": 0.0.2
@@ -2357,10 +2357,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/gapi@npm:0.0.42":
-  version: 0.0.42
-  resolution: "@types/gapi@npm:0.0.42"
-  checksum: 0a25eb4860646e5cd4002e36870a8c0f0b064201f7b5d6fa3e8d3b3e443f5d6c62f53c4059a055975f9c228dfd13ce8bf23a3fdb53fb8fdd61329371cfa99dd8
+"@types/gapi@npm:0.0.46":
+  version: 0.0.46
+  resolution: "@types/gapi@npm:0.0.46"
+  checksum: c06fd69dd8a15f3e3d12f517219cfc83e46458dca2450e18de7329cc095e04beb57a588fd56de986e31c8e9500a5b2a8436eef4d2c0d0dca53f4cfecbe594162
   languageName: node
   linkType: hard
 
