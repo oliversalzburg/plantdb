@@ -107,6 +107,9 @@ export default {
       ],
     }),
   ],
+  server: {
+    port: 3000,
+  },
 };
 
 function configureBasePlugin() {

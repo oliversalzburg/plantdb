@@ -11,6 +11,7 @@
     "lint:eslint": "eslint packages/*/source",
     "lint:prettier": "prettier --check packages/*/source \\*.cjs \\*.js",
     "lint:tsc": "tsc --noEmit",
+    "nursery:build": "yarn workspace @plantdb/plant-nursery run build",
     "nursery:serve": "yarn workspace @plantdb/plant-nursery run serve"
   },
   "workspaces": [
