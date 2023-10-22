@@ -26,7 +26,7 @@
     "@types/web": "0.0.118",
     "@typescript-eslint/eslint-plugin": "5.30.3",
     "@typescript-eslint/parser": "5.30.3",
-    "eslint": "8.18.0",
+    "eslint": "8.52.0",
     "eslint-plugin-jsdoc": "39.3.3",
     "lint-staged": "13.0.3",
     "node-scripts-docs": "0.0.14",
