@@ -2253,7 +2253,7 @@ __metadata:
     source-map-support: 0.5.21
     tslib: 2.6.2
     typedoc: 0.23.2
-    typedoc-plugin-markdown: 3.13.2
+    typedoc-plugin-markdown: 3.16.0
     typescript: 5.2.2
   languageName: unknown
   linkType: soft
@@ -8539,14 +8539,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-plugin-markdown@npm:3.13.2":
-  version: 3.13.2
-  resolution: "typedoc-plugin-markdown@npm:3.13.2"
+"typedoc-plugin-markdown@npm:3.16.0":
+  version: 3.16.0
+  resolution: "typedoc-plugin-markdown@npm:3.16.0"
   dependencies:
     handlebars: ^4.7.7
   peerDependencies:
-    typedoc: ">=0.23.0"
-  checksum: 887aaccd7145fbf8d61bdf8973ebc4d6678676522b09bc9de5a76531f70ace97dd340d5d5712c3fe973566377da1a746928d48c6413647baee53bb8dfeea9df7
+    typedoc: ">=0.24.0"
+  checksum: 0daa8290e7b8f03e9e1e79efdd564a61db3dbb8f20eb15ef89cc3bce0c14ff2061b7f35452b06e2c31644f33f0cc53c06570c9c1a20245f7458b1f88a3438588
   languageName: node
   linkType: hard
 
