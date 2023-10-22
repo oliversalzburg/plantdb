@@ -23,7 +23,6 @@
     "@babel/core": "7.23.2",
     "@babel/eslint-parser": "7.22.15",
     "@babel/plugin-syntax-import-assertions": "7.22.5",
-    "@bubblewrap/cli": "1.17.2",
     "@types/babel__core": "7.20.3",
     "@types/eslint": "8.44.6",
     "@types/web": "0.0.118",
