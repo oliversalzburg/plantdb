@@ -75,7 +75,7 @@ export class IndexedDb implements StorageDriver {
     return {
       databaseFormat: this._databaseFormat,
       typeMap: (await this._localStorage.getUserDictionaries()).get(
-        DictionaryClassifiers.LogEntryEventType
+        DictionaryClassifiers.LogEntryEventType,
       ) as UserDictionary<EventType>,
     };
   }
@@ -98,7 +98,7 @@ export class IndexedDb implements StorageDriver {
   async getRawLog() {
     const dataObject = await coalesceOnError(
       () => mustExist(this._dbPlantDb).getAll("plantlog"),
-      null
+      null,
     );
     if (isNil(dataObject)) {
       return Promise.resolve(null);
@@ -110,7 +110,7 @@ export class IndexedDb implements StorageDriver {
   async getRawPlants() {
     const dataObject = await coalesceOnError(
       () => mustExist(this._dbPlantDb).getAll("plants"),
-      null
+      null,
     );
     if (isNil(dataObject)) {
       return Promise.resolve(null);
@@ -122,7 +122,7 @@ export class IndexedDb implements StorageDriver {
   async getRawTasks() {
     const dataObject = await coalesceOnError(
       () => mustExist(this._dbPlantDb).getAll("tasks"),
-      null
+      null,
     );
     if (isNil(dataObject)) {
       return Promise.resolve(null);
@@ -163,8 +163,8 @@ export class IndexedDb implements StorageDriver {
         [config.typeMap.toJSObject()],
         plants,
         log,
-        tasks
-      )
+        tasks,
+      ),
     );
   }
 

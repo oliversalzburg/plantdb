@@ -51,7 +51,7 @@ export class TypeMap extends LitElement {
   asUserDictionary() {
     return new UserDictionary(
       DictionaryClassifiers.LogEntryEventType,
-      Object.fromEntries(this.proposedMapping.entries())
+      Object.fromEntries(this.proposedMapping.entries()),
     );
   }
 
@@ -84,10 +84,10 @@ export class TypeMap extends LitElement {
                       type =>
                         html`<sl-menu-item .value="${type}"
                           >${t(`eventType.${type}`)}</sl-menu-item
-                        >`
+                        >`,
                     )}</sl-select
                 >
-              </div>`
+              </div>`,
           )}
         </div>
         <sl-button
@@ -98,7 +98,7 @@ export class TypeMap extends LitElement {
                 bubbles: true,
                 composed: true,
                 detail: this.asUserDictionary(),
-              })
+              }),
             );
           }}
           >${t("typeMap.save")}</sl-button

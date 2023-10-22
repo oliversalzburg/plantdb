@@ -171,7 +171,7 @@ export class PlantDygraph extends LitElement {
   }
 
   protected updated(
-    _changedProperties: PropertyValueMap<PlantDygraph> | Map<PropertyKey, unknown>
+    _changedProperties: PropertyValueMap<PlantDygraph> | Map<PropertyKey, unknown>,
   ): void {
     if (_changedProperties.has("data")) {
       this.renderGraph();
@@ -216,7 +216,7 @@ export class PlantDygraph extends LitElement {
         },
         ylabel: "EC µS/cm",
         y2label: "pH",
-      }
+      },
     );
   }
 

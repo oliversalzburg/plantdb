@@ -24,13 +24,13 @@ const main = async () => {
     }
     console.info(
       `${plant.name ?? "?"} (${plant.id}) ${DateTime.fromJSDate(logRecord.timestamp).toLocaleString(
-        DateTime.DATETIME_SHORT
-      )} ${logRecord.type}`
+        DateTime.DATETIME_SHORT,
+      )} ${logRecord.type}`,
     );
   }
 
   console.info(
-    `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`
+    `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`,
   );
 };
 

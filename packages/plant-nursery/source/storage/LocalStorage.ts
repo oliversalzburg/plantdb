@@ -38,7 +38,7 @@ export class LocalStorage implements StorageDriver {
     return Promise.resolve({
       databaseFormat: DatabaseFormat.fromJSON(storedConfig),
       typeMap: (await this.getUserDictionaries()).get(
-        DictionaryClassifiers.LogEntryEventType
+        DictionaryClassifiers.LogEntryEventType,
       ) as UserDictionary<EventType>,
     });
   }
@@ -53,7 +53,7 @@ export class LocalStorage implements StorageDriver {
     const userDictionaries = dictionaries.reduce((map, { classifier, dictionary }) => {
       map.set(
         classifier as DictionaryClassifier,
-        new UserDictionary(classifier as DictionaryClassifier, dictionary)
+        new UserDictionary(classifier as DictionaryClassifier, dictionary),
       );
       return map;
     }, new Map<DictionaryClassifier, UserDictionary>());
@@ -111,8 +111,8 @@ export class LocalStorage implements StorageDriver {
         [config.typeMap.toJSObject()],
         plants,
         log,
-        tasks
-      )
+        tasks,
+      ),
     );
   }
 

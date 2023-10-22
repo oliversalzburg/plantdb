@@ -65,7 +65,7 @@ export class DbConfig extends LitElement {
           @sl-change=${(event: MouseEvent) => {
             this.hasHeaderRow = (event.target as SlCheckbox).checked;
             this.dispatchEvent(
-              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) }),
             );
           }}
           >${t("dbConfig.hasHeaderRow")}</sl-checkbox
@@ -79,7 +79,7 @@ export class DbConfig extends LitElement {
           @sl-change=${(event: MouseEvent) => {
             this.columnSeparator = (event.target as SlSelect).value as string;
             this.dispatchEvent(
-              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) }),
             );
           }}
         >
@@ -96,7 +96,7 @@ export class DbConfig extends LitElement {
           @sl-change=${(event: MouseEvent) => {
             this.decimalSeparator = (event.target as SlSelect).value as string;
             this.dispatchEvent(
-              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) }),
             );
           }}
         >
@@ -112,25 +112,27 @@ export class DbConfig extends LitElement {
           @sl-change=${(event: MouseEvent) => {
             this.dateFormat = (event.target as SlSelect).value as string;
             this.dispatchEvent(
-              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) }),
             );
           }}
         >
           <sl-menu-label>${t("dbConfig.withoutSeconds")}</sl-menu-label>
           ${dateFormats.map(
-            dateFormat => html`<sl-menu-item value=${dateFormat}
-              >${dateFormat}<small slot="suffix"
-                >${DateTime.fromJSDate(now).toFormat(dateFormat)}</small
-              ></sl-menu-item
-            >`
+            dateFormat =>
+              html`<sl-menu-item value=${dateFormat}
+                >${dateFormat}<small slot="suffix"
+                  >${DateTime.fromJSDate(now).toFormat(dateFormat)}</small
+                ></sl-menu-item
+              >`,
           )}
           <sl-divider></sl-divider
           ><sl-menu-label>${t("dbConfig.withSeconds")}</sl-menu-label>${dateFormatsSeconds.map(
-            dateFormat => html`<sl-menu-item value=${dateFormat}
-              >${dateFormat}<small slot="suffix"
-                >${DateTime.fromJSDate(now).toFormat(dateFormat)}</small
-              ></sl-menu-item
-            >`
+            dateFormat =>
+              html`<sl-menu-item value=${dateFormat}
+                >${dateFormat}<small slot="suffix"
+                  >${DateTime.fromJSDate(now).toFormat(dateFormat)}</small
+                ></sl-menu-item
+              >`,
           )}</sl-select
         >
 
@@ -142,7 +144,7 @@ export class DbConfig extends LitElement {
           @sl-change=${(event: MouseEvent) => {
             this.timezone = (event.target as SlSelect).value as string;
             this.dispatchEvent(
-              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) })
+              new CustomEvent("pn-config-changed", { detail: DatabaseFormat.fromJSObject(this) }),
             );
           }}
         >

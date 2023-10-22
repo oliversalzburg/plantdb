@@ -15,7 +15,7 @@ import { PlantDB } from "../PlantDB";
 export const logToCSV = (log: Array<LogEntry>, databaseFormat: DatabaseFormat) => {
   return stringify(
     log.map(logEntry => logEntry.toCSVData(databaseFormat)),
-    { delimiter: databaseFormat.columnSeparator }
+    { delimiter: databaseFormat.columnSeparator },
   );
 };
 
@@ -34,7 +34,7 @@ export const logFromCSV = (plantDb: PlantDB, logCSV: string, databaseFormat: Dat
     from: databaseFormat.hasHeaderRow ? 2 : 1,
   }) as Array<Array<string>>;
   return plantLogData.map((logEntry, index) =>
-    LogEntry.fromCSVData(plantDb, logEntry, databaseFormat, index)
+    LogEntry.fromCSVData(plantDb, logEntry, databaseFormat, index),
   );
 };
 
@@ -48,7 +48,7 @@ export const logFromCSV = (plantDb: PlantDB, logCSV: string, databaseFormat: Dat
 export const plantsToCSV = (plants: Array<Plant>, databaseFormat: DatabaseFormat) => {
   return stringify(
     plants.map(plant => plant.toCSVData(databaseFormat)),
-    { delimiter: databaseFormat.columnSeparator }
+    { delimiter: databaseFormat.columnSeparator },
   );
 };
 
@@ -63,7 +63,7 @@ export const plantsToCSV = (plants: Array<Plant>, databaseFormat: DatabaseFormat
 export const plantsFromCSV = (
   plantDb: PlantDB,
   plantCSV: string,
-  databaseFormat: DatabaseFormat
+  databaseFormat: DatabaseFormat,
 ) => {
   const plantData = parse(plantCSV, {
     columns: false,
@@ -96,7 +96,7 @@ export const splitMultiValue = (multiValue: string) => {
 export const valueFromCSV = (
   csvData: ReadonlyArray<string>,
   column: number,
-  expectMultiValue = true
+  expectMultiValue = true,
 ) => {
   // Falsey check covers empty string, null, undefined.
   if (!csvData[column]) {
@@ -118,7 +118,7 @@ export const valueFromCSV = (
 export const floatFromCSV = (
   csvData: ReadonlyArray<string>,
   column: number,
-  databaseFormat: DatabaseFormat
+  databaseFormat: DatabaseFormat,
 ) => {
   const value = valueFromCSV(csvData, column, false) as string;
   if (value === undefined) {
@@ -141,7 +141,7 @@ export const floatFromCSV = (
 export const intFromCSV = (
   csvData: ReadonlyArray<string>,
   column: number,
-  databaseFormat: DatabaseFormat
+  databaseFormat: DatabaseFormat,
 ) => {
   const value = valueFromCSV(csvData, column, false) as string;
   if (value === undefined) {
@@ -209,7 +209,7 @@ export const tryParseBool = (boolValue: string) => {
  */
 export const tryParseFloat = (
   numberValue: string,
-  databaseFormat = DatabaseFormat.DefaultInterchange()
+  databaseFormat = DatabaseFormat.DefaultInterchange(),
 ) => {
   if (numberValue.includes(databaseFormat.decimalSeparator)) {
     const parts = numberValue.split(databaseFormat.decimalSeparator);
@@ -237,7 +237,7 @@ export const tryParseFloat = (
  */
 export const tryParseInt = (
   numberValue: string,
-  databaseFormat = DatabaseFormat.DefaultInterchange()
+  databaseFormat = DatabaseFormat.DefaultInterchange(),
 ) => {
   if (numberValue.includes(databaseFormat.decimalSeparator)) {
     const parts = numberValue.split(databaseFormat.decimalSeparator);

@@ -215,7 +215,7 @@ export class PlantDB {
     if (!plants.has(updatedLogEntry.plantId)) {
       plants.set(
         updatedLogEntry.plantId,
-        Plant.fromJSObject(this, { id: updatedLogEntry.plantId })
+        Plant.fromJSObject(this, { id: updatedLogEntry.plantId }),
       );
     }
 
@@ -270,7 +270,7 @@ export class PlantDB {
    */
   withoutPlant(plant: Plant) {
     const plants = makePlantMap(
-      [...this.#plants.values()].filter(subject => subject.id !== plant.id)
+      [...this.#plants.values()].filter(subject => subject.id !== plant.id),
     );
 
     return PlantDB.fromPlantDB(this, { plants });
@@ -323,7 +323,7 @@ export class PlantDB {
   makeNewLogEntry(
     plantId: string,
     timestamp: Date = new Date(),
-    type: string = EventTypes.Observation
+    type: string = EventTypes.Observation,
   ) {
     const entry = LogEntry.fromJSObject(this, {
       id: this.#nextLogEntryId,
@@ -374,16 +374,16 @@ export class PlantDB {
       ? new Map(initializer.dictionaries)
       : new Map(other.#dictionaries);
     plantDb.#log = (initializer?.log ?? other.#log).map(entry =>
-      LogEntry.fromLogEntry(entry, { plantDb })
+      LogEntry.fromLogEntry(entry, { plantDb }),
     );
     plantDb.#plants = new Map(
       [...(initializer?.plants ?? other.#plants).entries()].map(([plantId, plant]) => [
         plantId,
         Plant.fromPlant(plant, { plantDb }),
-      ])
+      ]),
     );
     plantDb.#tasks = (initializer?.tasks ?? other.#tasks).map(task =>
-      Task.fromTask(task, { plantDb })
+      Task.fromTask(task, { plantDb }),
     );
 
     plantDb.#_refresh();
@@ -471,7 +471,7 @@ export class PlantDB {
     dictionaries: Array<UserDictionarySerialized> = [],
     plants: Array<PlantSerialized> = [],
     plantLogData: Array<LogEntrySerialized> = [],
-    tasks: Array<TaskSerialized> = []
+    tasks: Array<TaskSerialized> = [],
   ) {
     const plantDb = new PlantDB();
 
@@ -498,7 +498,7 @@ export class PlantDB {
     this.#nextLogEntryId =
       this.#log.reduce(
         (nextId, logEntry) => Math.max(nextId, logEntry.id),
-        this.#databaseFormat.hasHeaderRow ? 1 : 0
+        this.#databaseFormat.hasHeaderRow ? 1 : 0,
       ) + 1;
 
     this.#nextTaskId = this.#tasks.reduce((nextId, task) => Math.max(nextId, task.id), 0) + 1;

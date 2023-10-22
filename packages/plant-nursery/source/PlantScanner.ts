@@ -130,7 +130,7 @@ export class PlantScanner extends LitElement {
         width: this.clientWidth,
         height: this.clientHeight,
       },
-    }
+    },
   ): Promise<MediaStream> {
     let mediaStream;
     try {
@@ -204,18 +204,18 @@ export class PlantScanner extends LitElement {
         </div>
         <div class="controls">
           <sl-button id="pick-image" variant="success" @click=${() => this._pick()}>${t(
-        "scanner.pickImage"
-      )}<sl-icon slot="prefix" name="check"></sl-button>
+            "scanner.pickImage",
+          )}<sl-icon slot="prefix" name="check"></sl-button>
           <sl-button id="click-photo" variant="primary" @click=${() =>
             this._capture()}><sl-icon slot="prefix" name="camera"></sl-icon>${t(
-        "scanner.captureImage"
-      )}</sl-button>
+            "scanner.captureImage",
+          )}</sl-button>
           <sl-button id="retry" @click=${() => this._retry()}>${t("retry", {
-        ns: "common",
-      })}<sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon></sl-button>
+            ns: "common",
+          })}<sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon></sl-button>
           <sl-button id="abort" @click=${() => this._abort()}>${t("cancel", {
-        ns: "common",
-      })}<sl-icon slot="suffix" name="x"></sl-icon></sl-button>
+            ns: "common",
+          })}<sl-icon slot="suffix" name="x"></sl-icon></sl-button>
         </div>
       </div>`,
     ];

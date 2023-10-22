@@ -108,7 +108,7 @@ export class TaskList extends LitElement {
               .plantStore=${this.plantStore}
               .plantStoreUi=${this.plantStoreUi}
               .task=${task}
-            ></pn-task-instance>`
+            ></pn-task-instance>`,
         )}
       </div>`,
     ];

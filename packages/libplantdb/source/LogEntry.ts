@@ -208,7 +208,7 @@ export class LogEntry extends PlantDBEntity {
       throw new Error(
         `Unable to find plant '${
           this.#plantId
-        }' in plant cache. Ensure PlantDB has been initialized with PlantDB.fromCSV()!`
+        }' in plant cache. Ensure PlantDB has been initialized with PlantDB.fromCSV()!`,
       );
     }
     return plant;
@@ -228,7 +228,7 @@ export class LogEntry extends PlantDBEntity {
     id: number,
     plantId: string,
     timestamp: Date,
-    type: string
+    type: string,
   ) {
     super();
 
@@ -252,7 +252,7 @@ export class LogEntry extends PlantDBEntity {
       initializer?.id ?? other.#id,
       initializer?.plantId ?? other.#plantId,
       initializer?.timestamp ?? other.#timestamp,
-      initializer?.type ?? other.#type
+      initializer?.type ?? other.#type,
     );
     logEntry.#ec = initializer?.ec ? initializer.ec : other.#ec;
     logEntry.#ph = initializer?.ph ? initializer.ph : other.#ph;
@@ -274,7 +274,7 @@ export class LogEntry extends PlantDBEntity {
     plantDb: PlantDB,
     dataRow: Array<string>,
     databaseFormat: DatabaseFormat,
-    id: number
+    id: number,
   ): LogEntry {
     if (!MATCH_PID.test(dataRow[0])) {
       throw new Error("Invalid PID");
@@ -287,7 +287,7 @@ export class LogEntry extends PlantDBEntity {
       DateTime.fromFormat(dataRow[1], databaseFormat.dateFormat, {
         zone: databaseFormat.timezone,
       }).toJSDate(),
-      dataRow[2]
+      dataRow[2],
     );
 
     let rowPointer = 3;
@@ -331,7 +331,7 @@ export class LogEntry extends PlantDBEntity {
       dataObject.id,
       dataObject.plantId,
       new Date(dataObject.timestamp),
-      dataObject.type
+      dataObject.type,
     );
     logEntry.#ec = dataObject.ec ?? logEntry.#ec;
     logEntry.#ph = dataObject.ph ?? logEntry.#ph;

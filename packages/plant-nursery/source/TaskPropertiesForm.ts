@@ -111,7 +111,7 @@ export class TaskPropertiesForm extends LitElement {
   }
 
   protected updated(
-    _changedProperties: PropertyValueMap<TaskPropertiesForm> | Map<PropertyKey, unknown>
+    _changedProperties: PropertyValueMap<TaskPropertiesForm> | Map<PropertyKey, unknown>,
   ): void {
     if (_changedProperties.has("task")) {
       this._refreshValues();
@@ -284,7 +284,7 @@ export class TaskPropertiesForm extends LitElement {
                 unit =>
                   html`<sl-menu-item value=${unit}
                     >${t(`taskEditor.interval_${unit}`)}</sl-menu-item
-                  >`
+                  >`,
               )}
             </sl-select>
             <sl-select
@@ -302,7 +302,7 @@ export class TaskPropertiesForm extends LitElement {
                 unit =>
                   html`<sl-menu-item value=${unit}
                     >${t(`taskEditor.day_${unit.toString()}`)}</sl-menu-item
-                  >`
+                  >`,
               )}
             </sl-select>
           </div>

@@ -31,7 +31,7 @@ export class ConfirmDialog extends LitElement {
   show(
     message = this.message,
     labelConfirm = t("confirm", { ns: "common" }),
-    labelCancel = t("cancel", { ns: "common" })
+    labelCancel = t("cancel", { ns: "common" }),
   ) {
     this.message = message;
     this.labelConfirm = labelConfirm;

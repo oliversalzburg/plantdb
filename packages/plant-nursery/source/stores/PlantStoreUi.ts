@@ -212,7 +212,7 @@ export class PlantStoreUi extends LitElement {
     this.dispatchEvent(
       new CustomEvent("pn-navigate", {
         detail: { page: this.page, pageParams: this.pageParams, pageQuery: this.pageQuery },
-      })
+      }),
     );
   }
 
@@ -234,7 +234,7 @@ export class PlantStoreUi extends LitElement {
     this.dispatchEvent(
       new CustomEvent("pn-navigate", {
         detail: { page: this.page, pageParams: this.pageParams, pageQuery: this.pageQuery },
-      })
+      }),
     );
   }
 
