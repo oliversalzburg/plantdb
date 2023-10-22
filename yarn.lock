@@ -2075,7 +2075,7 @@ __metadata:
     "@types/gapi.client": 1.0.5
     "@types/gapi.client.drive": 3.0.13
     "@types/google.accounts": 0.0.2
-    "@types/lunr": 2.3.4
+    "@types/lunr": 2.3.6
     "@types/web": 0.0.68
     "@types/wicg-file-system-access": 2020.9.5
     dygraphs: 2.1.0
@@ -2411,10 +2411,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lunr@npm:2.3.4":
-  version: 2.3.4
-  resolution: "@types/lunr@npm:2.3.4"
-  checksum: 2017dbf4afabed5fe6d5462070fce060043fb56b90a151a5c92b342f05ab889a83db87ff39898d7e93d53bfffc70adb1855d855c70f8817bf556a71656724073
+"@types/lunr@npm:2.3.6":
+  version: 2.3.6
+  resolution: "@types/lunr@npm:2.3.6"
+  checksum: 29aee32c6d1f134c85109798bf33d3ffbfcd85beac4fcd5af6938ea7b29f67e9952d2cbc2f09dd6f01ed1046de22fd75c43f0a671733b4cd3f028fc737347763
   languageName: node
   linkType: hard
 
