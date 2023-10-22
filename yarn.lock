@@ -2251,10 +2251,10 @@ __metadata:
     luxon: 2.4.0
     mocha: 10.2.0
     source-map-support: 0.5.21
-    tslib: 2.4.0
+    tslib: 2.6.2
     typedoc: 0.23.2
     typedoc-plugin-markdown: 3.13.2
-    typescript: 4.7.4
+    typescript: 5.2.2
   languageName: unknown
   linkType: soft
 
@@ -2269,8 +2269,8 @@ __metadata:
     esbuild: 0.19.5
     luxon: 2.4.0
     minimist: 1.2.8
-    tslib: 2.4.0
-    typescript: 4.7.4
+    tslib: 2.6.2
+    typescript: 5.2.2
   languageName: unknown
   linkType: soft
 
@@ -2300,8 +2300,8 @@ __metadata:
     luxon: 2.4.0
     pwa-helpers: 0.9.1
     rrule: 2.7.0
-    tslib: 2.4.0
-    typescript: 4.7.4
+    tslib: 2.6.2
+    typescript: 5.2.2
     vite: 2.9.16
     vite-plugin-pwa: 0.12.2
     vite-plugin-static-copy: 0.6.0
@@ -7297,8 +7297,8 @@ __metadata:
     prettier-package-json: 2.8.0
     prettier-plugin-organize-imports: 3.2.3
     prettier-plugin-sh: 0.13.1
-    tslib: 2.4.0
-    typescript: 4.7.4
+    tslib: 2.6.2
+    typescript: 5.2.2
   languageName: unknown
   linkType: soft
 
@@ -8465,13 +8465,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.0":
-  version: 2.4.0
-  resolution: "tslib@npm:2.4.0"
-  checksum: eb19bda3ae545b03caea6a244b34593468e23d53b26bf8649fbc20fce43e9b21a71127fd6d2b9662c0fe48ee6ff668ead48fd00d3b88b2b716b1c12edae25b5d
-  languageName: node
-  linkType: hard
-
 "tslib@npm:2.6.2, tslib@npm:^2.6.0":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
@@ -8573,23 +8566,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.7.4":
-  version: 4.7.4
-  resolution: "typescript@npm:4.7.4"
+"typescript@npm:5.2.2":
+  version: 5.2.2
+  resolution: "typescript@npm:5.2.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 8c1c4007b6ce5b24c49f0e89173ab9e82687cc6ae54418d1140bb63b82d6598d085ac0f993fe3d3d1fbf87a2c76f1f81d394dc76315bc72c7a9f8561c5d8d205
+  checksum: 91ae3e6193d0ddb8656d4c418a033f0f75dec5e077ebbc2bd6d76439b93f35683936ee1bdc0e9cf94ec76863aa49f27159b5788219b50e1cd0cd6d110aa34b07
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.7.4#~builtin<compat/typescript>":
-  version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=7ad353"
+"typescript@patch:typescript@5.2.2#~builtin<compat/typescript>":
+  version: 5.2.2
+  resolution: "typescript@patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=7ad353"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 2eb6e31b04fabec84a4d07b5d567deb5ef0a2971d89d9adb16895f148f7d8508adfb12074abc2efc6966805d3664e68ab67925060e5b0ebd8da616db4b151906
+  checksum: 303979762f9b8932c53f8149e866521a1265168b5c0fde8cc8ad83ac3d0e8ede8096cb02dff5f2de048e7f118a6f61902f81da12d5972c7fb582f09f2f18d169
   languageName: node
   linkType: hard
 

@@ -5,10 +5,9 @@ import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
 import { t } from "i18next";
-import { css, html, LitElement, PropertyValueMap } from "lit";
+import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { makeIdentificationRequest } from "./identification/Tools";
 import { MultiValueEditor } from "./MultiValueEditor";
 import {
   PlantIdentificationPicker,
@@ -17,6 +16,7 @@ import {
   PlantNetResult,
 } from "./PlantIdentificationPicker";
 import { PlantScanner } from "./PlantScanner";
+import { makeIdentificationRequest } from "./identification/Tools";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
 import { assertExists, isNil, mustExist } from "./tools/Maybe";

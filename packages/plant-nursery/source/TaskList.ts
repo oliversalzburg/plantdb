@@ -1,7 +1,7 @@
 import { Plant, Task } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { t } from "i18next";
-import { css, html, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { Forms } from "./ComponentStyles";

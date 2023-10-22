@@ -1,6 +1,6 @@
 import { Plant, roundTo } from "@plantdb/libplantdb";
 import Dygraph from "dygraphs";
-import { css, html, LitElement, PropertyValueMap } from "lit";
+import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
 import { mustExist } from "./tools/Maybe";

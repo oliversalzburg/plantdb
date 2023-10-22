@@ -1,8 +1,8 @@
 import { DateTime } from "luxon";
-import { intFromCSV, valueFromCSV } from "./csv/Tools";
 import { DatabaseFormat } from "./DatabaseFormat";
 import { PlantDB } from "./PlantDB";
 import { PlantDBEntity } from "./PlantDBEntity";
+import { intFromCSV, valueFromCSV } from "./csv/Tools";
 
 /**
  * Describes an object containing all the fields required to initialize a `Task`.

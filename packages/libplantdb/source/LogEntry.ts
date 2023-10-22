@@ -1,9 +1,9 @@
 import { DateTime } from "luxon";
-import { floatFromCSV, intFromCSV, valueFromCSV } from "./csv/Tools";
 import { DatabaseFormat } from "./DatabaseFormat";
 import { MATCH_PID } from "./Plant";
 import { PlantDB } from "./PlantDB";
 import { PlantDBEntity } from "./PlantDBEntity";
+import { floatFromCSV, intFromCSV, valueFromCSV } from "./csv/Tools";
 
 /**
  * A hash of internally known event types to a human-readable, English version.

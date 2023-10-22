@@ -8,8 +8,8 @@
     "build": "node build.cjs",
     "clean": "rm -rf tsconfig.tsbuildinfo output typings",
     "cli:run": "yarn build && node output/main.cjs --cwd=\"$INIT_CWD\"",
-    "predebug": "tsc",
-    "lint": "eslint source && tsc --noEmit"
+    "lint": "eslint source && tsc --noEmit",
+    "predebug": "tsc"
   },
   "dependencies": {
     "@plantdb/libplantdb": "workspace:*",
@@ -21,7 +21,7 @@
     "@types/minimist": "1.2.4",
     "@types/node": "18.18.6",
     "esbuild": "0.19.5",
-    "tslib": "2.4.0",
-    "typescript": "4.7.4"
+    "tslib": "2.6.2",
+    "typescript": "5.2.2"
   }
 }

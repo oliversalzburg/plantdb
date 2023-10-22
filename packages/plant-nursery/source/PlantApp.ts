@@ -1,7 +1,7 @@
 import { DictionaryClassifiers, EventType, UserDictionary } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
 import { t } from "i18next";
-import { css, html, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
 import { Typography } from "./ComponentStyles";

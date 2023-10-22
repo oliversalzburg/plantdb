@@ -4,6 +4,16 @@
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./output/index.js",
+      "types": "./typings/index.d.ts"
+    },
+    "./*": {
+      "import": "./output/*.js",
+      "types": "./typings/*.d.ts"
+    }
+  },
   "module": "./output/index.js",
   "scripts": {
     "build": "tsc",
@@ -26,19 +36,9 @@
     "chai": "4.3.10",
     "mocha": "10.2.0",
     "source-map-support": "0.5.21",
-    "tslib": "2.4.0",
+    "tslib": "2.6.2",
     "typedoc": "0.23.2",
     "typedoc-plugin-markdown": "3.13.2",
-    "typescript": "4.7.4"
-  },
-  "exports": {
-    ".": {
-      "import": "./output/index.js",
-      "types": "./typings/index.d.ts"
-    },
-    "./*": {
-      "import": "./output/*.js",
-      "types": "./typings/*.d.ts"
-    }
+    "typescript": "5.2.2"
   }
 }

@@ -1,5 +1,4 @@
 import { parse } from "csv-parse/browser/esm/sync";
-import { logToCSV, plantsToCSV } from "./csv/Tools";
 import { DatabaseFormat } from "./DatabaseFormat";
 import { EventTypes, LogEntry, LogEntrySerialized } from "./LogEntry";
 import { Plant, PlantSerialized } from "./Plant";
@@ -20,6 +19,7 @@ import {
   UserDictionary,
   UserDictionarySerialized,
 } from "./UserDictionary";
+import { logToCSV, plantsToCSV } from "./csv/Tools";
 
 /**
  * The main entrypoint of a PlantDB data collection.

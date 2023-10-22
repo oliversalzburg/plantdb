@@ -11,7 +11,7 @@ import {
   UserDictionarySerialized,
 } from "@plantdb/libplantdb";
 import { isNil } from "../tools/Maybe";
-import { getConfigurationFromPlantDB, NurseryConfiguration, StorageDriver } from "./StorageDriver";
+import { NurseryConfiguration, StorageDriver, getConfigurationFromPlantDB } from "./StorageDriver";
 
 export class LocalStorage implements StorageDriver {
   prepare() {

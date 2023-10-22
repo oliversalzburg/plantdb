@@ -1,7 +1,7 @@
 import { LogEntry, Plant } from "@plantdb/libplantdb";
 import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import { t } from "i18next";
-import { css, html, LitElement, PropertyValueMap } from "lit";
+import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { Typography } from "./ComponentStyles";
 import { MultiValueEditor } from "./MultiValueEditor";

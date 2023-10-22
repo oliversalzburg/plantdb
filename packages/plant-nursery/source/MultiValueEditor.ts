@@ -1,5 +1,5 @@
 import { SlDropdown, SlInput } from "@shoelace-style/shoelace";
-import { css, html, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 
 @customElement("pn-multi-value-editor")

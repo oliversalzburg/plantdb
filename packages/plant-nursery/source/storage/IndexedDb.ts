@@ -8,11 +8,11 @@ import {
   TaskSerialized,
   UserDictionary,
 } from "@plantdb/libplantdb";
-import { deleteDB, IDBPDatabase, openDB } from "idb";
+import { IDBPDatabase, deleteDB, openDB } from "idb";
 import { coalesceOnError } from "../tools/Async";
 import { assertExists, isNil, mustExist } from "../tools/Maybe";
 import { LocalStorage } from "./LocalStorage";
-import { getConfigurationFromPlantDB, NurseryConfiguration, StorageDriver } from "./StorageDriver";
+import { NurseryConfiguration, StorageDriver, getConfigurationFromPlantDB } from "./StorageDriver";
 
 export class IndexedDb implements StorageDriver {
   /**

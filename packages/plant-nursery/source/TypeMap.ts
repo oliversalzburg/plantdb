@@ -7,7 +7,7 @@ import {
 } from "@plantdb/libplantdb";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
 import { t } from "i18next";
-import { css, html, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 @customElement("pn-type-map")
