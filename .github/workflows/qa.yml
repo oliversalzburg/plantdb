@@ -19,7 +19,7 @@ jobs:
       - name: Select NodeJS version
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3
         with:
-          node-version: lts/*
+          node-version: 18
 
       - name: Install dependencies
         run: yarn install
