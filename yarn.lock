@@ -7279,7 +7279,7 @@ __metadata:
     prettier: 2.8.8
     prettier-package-json: 2.6.4
     prettier-plugin-organize-imports: 3.2.3
-    prettier-plugin-sh: 0.12.4
+    prettier-plugin-sh: 0.13.1
     tslib: 2.4.0
     typescript: 4.7.4
   languageName: unknown
@@ -7353,14 +7353,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sh@npm:0.12.4":
-  version: 0.12.4
-  resolution: "prettier-plugin-sh@npm:0.12.4"
+"prettier-plugin-sh@npm:0.13.1":
+  version: 0.13.1
+  resolution: "prettier-plugin-sh@npm:0.13.1"
   dependencies:
     mvdan-sh: ^0.10.1
+    sh-syntax: ^0.4.1
   peerDependencies:
-    prettier: ^2.0.0
-  checksum: b1eb523f7cd5b8732af1ffe0de13ae21c32562ffb64d926c8f28f41d1d4f0dc1ca864b58a581dcfe0c9c93f71077926adfbe6873f06636776a526b8cd027a750
+    prettier: ^3.0.0
+  checksum: 8aff04d85885252d1430529b3dd129fc4ce2e9d0e42302030114d05e0bc0986619ac79cbf4c509b4b02296e156ca7622df546453ca7dd16e23f45e451fe9231b
   languageName: node
   linkType: hard
 
@@ -7853,6 +7854,15 @@ __metadata:
   version: 2.0.0
   resolution: "set-blocking@npm:2.0.0"
   checksum: 9f8c1b2d800800d0b589de1477c753492de5c1548d4ade52f57f1d1f5e04af5481554d75ce5e5c43d4004b80a3eb714398d6907027dc0534177b7539119f4454
+  languageName: node
+  linkType: hard
+
+"sh-syntax@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "sh-syntax@npm:0.4.1"
+  dependencies:
+    tslib: ^2.6.0
+  checksum: 0390c794a1c499198377af4e43960520254fa4bf10504067aea0fa6476f0003cb377f341bcc51a2fa8ce398498d8f5c99deeb47a0d3a4187b8fc176b77d43f68
   languageName: node
   linkType: hard
 
@@ -8440,6 +8450,13 @@ __metadata:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: 69ae09c49eea644bc5ebe1bca4fa4cc2c82b7b3e02f43b84bd891504edf66dbc6b2ec0eef31a957042de2269139e4acff911e6d186a258fb14069cd7f6febce2
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.6.0":
+  version: 2.6.2
+  resolution: "tslib@npm:2.6.2"
+  checksum: e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
   languageName: node
   linkType: hard
 
