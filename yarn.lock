@@ -1894,7 +1894,7 @@ __metadata:
     chai: 4.3.10
     csv-parse: 5.5.2
     csv-stringify: 6.4.4
-    luxon: 2.5.2
+    luxon: 3.4.3
     mocha: 10.2.0
     source-map-support: 0.5.21
     tslib: 2.6.2
@@ -1913,7 +1913,7 @@ __metadata:
     "@types/minimist": 1.2.4
     "@types/node": 18.18.6
     esbuild: 0.19.5
-    luxon: 2.5.2
+    luxon: 3.4.3
     minimist: 1.2.8
     tslib: 2.6.2
     typescript: 5.2.2
@@ -1943,7 +1943,7 @@ __metadata:
     lit: 2.2.7
     lit-i18n: 3.0.3
     lunr: 2.3.9
-    luxon: 2.5.2
+    luxon: 3.4.3
     pwa-helpers: 0.9.1
     rrule: 2.7.2
     tslib: 2.6.2
@@ -4978,10 +4978,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxon@npm:2.5.2":
-  version: 2.5.2
-  resolution: "luxon@npm:2.5.2"
-  checksum: c93b71c4ae74c440982f39832159b9311eca6db1e55d032d30a3f9354e6ceb16d576158c5dc9f847eb15c481557063bd61defdb96ee0953f8df2c57cd91e0b13
+"luxon@npm:3.4.3":
+  version: 3.4.3
+  resolution: "luxon@npm:3.4.3"
+  checksum: 65ad727684d367af9c8fcbde05ad7989ef2436a4496b62d993059baaa641e90a5fa74e98f34ee2ff29f7af7f2b27238ca78b87834f9068624e4133d786f87bc7
   languageName: node
   linkType: hard
 
