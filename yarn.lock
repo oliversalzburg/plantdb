@@ -2082,13 +2082,13 @@ __metadata:
   dependencies:
     "@types/chai": 4.3.9
     "@types/luxon": 2.4.0
-    "@types/mocha": 9.1.1
+    "@types/mocha": 10.0.3
     "@types/source-map-support": 0.5.9
     chai: 4.3.10
     csv-parse: 5.2.2
     csv-stringify: 6.1.3
     luxon: 2.4.0
-    mocha: 10.0.0
+    mocha: 10.2.0
     source-map-support: 0.5.21
     tslib: 2.4.0
     typedoc: 0.23.2
@@ -2507,10 +2507,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mocha@npm:9.1.1":
-  version: 9.1.1
-  resolution: "@types/mocha@npm:9.1.1"
-  checksum: d033742ce0c92b917815b6e515165ee396866d0db0c0bbe0c301e49402abe3a61bd51e5bb1df7577f1fac60c99ee505fa744f515b476cc934ecb57f709f327e9
+"@types/mocha@npm:10.0.3":
+  version: 10.0.3
+  resolution: "@types/mocha@npm:10.0.3"
+  checksum: 842235a90ec401d42b10bbdd1e4b040e529f96b6e4dc745ff44739f25e39f6dfb1c193660e139b3ba44b5d61b3b48891776ea776aed4506df0557a434151fde0
   languageName: node
   linkType: hard
 
@@ -2766,13 +2766,6 @@ __metadata:
     "@typescript-eslint/types": 5.30.3
     eslint-visitor-keys: ^3.3.0
   checksum: ea9a211605d1852221ec27c12cc72bb32754e05265a1df197d8c743a017aa29c7dfee39930db37c9fe8c0dad2eee36d55ecd8ade50fdf10ad81cc990156bd53c
-  languageName: node
-  linkType: hard
-
-"@ungap/promise-all-settled@npm:1.1.2":
-  version: 1.1.2
-  resolution: "@ungap/promise-all-settled@npm:1.1.2"
-  checksum: 7f9862bae3b6ce30675783428933be1738dca278901a6bcb55c29b8f54c08863ec8e6a7c884119877d90336501c33b7cfda36355ec7af4d703f65f54cb768913
   languageName: node
   linkType: hard
 
@@ -6478,11 +6471,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha@npm:10.0.0":
-  version: 10.0.0
-  resolution: "mocha@npm:10.0.0"
+"mocha@npm:10.2.0":
+  version: 10.2.0
+  resolution: "mocha@npm:10.2.0"
   dependencies:
-    "@ungap/promise-all-settled": 1.1.2
     ansi-colors: 4.1.1
     browser-stdout: 1.3.1
     chokidar: 3.5.3
@@ -6507,7 +6499,7 @@ __metadata:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
-  checksum: 45728af7cd5a640bd964e4c1d1c9e5318499e9ba3494493a4bd05b3f03ca55bc51397323e160baab29407a56e7a7223cbb23f03e95a69317b44660099521038f
+  checksum: 145185435535ec7766932e9fa3def1520ffb895e7fa341e8592829844c4c9dd9fcb35db139d448c228b5ad3c2bedce50423ce760827b3054fafe6d47ef014937
   languageName: node
   linkType: hard
 
