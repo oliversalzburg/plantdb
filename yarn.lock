@@ -2074,7 +2074,7 @@ __metadata:
     "@types/gapi": 0.0.46
     "@types/gapi.client": 1.0.5
     "@types/gapi.client.drive": 3.0.13
-    "@types/google.accounts": 0.0.2
+    "@types/google.accounts": 0.0.13
     "@types/lunr": 2.3.4
     "@types/web": 0.0.68
     "@types/wicg-file-system-access": 2020.9.5
@@ -2364,10 +2364,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/google.accounts@npm:0.0.2":
-  version: 0.0.2
-  resolution: "@types/google.accounts@npm:0.0.2"
-  checksum: 36b94d3b469605172da68048bc3319de4ebd7edd709147f925bd83a1b43ecf1982a500be74731921e5c13a3d755c0ff065340df30e7c366ae3235039c24c837a
+"@types/google.accounts@npm:0.0.13":
+  version: 0.0.13
+  resolution: "@types/google.accounts@npm:0.0.13"
+  checksum: 0e374ffd6b19069343444125624fd38da5a702fe8fe5a4ac4469adf75cf0791f3fb1e58271a33d07060dffa9234ad63d459cca398d54a7ea7888a06638a707f6
   languageName: node
   linkType: hard
 
