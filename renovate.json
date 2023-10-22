@@ -15,7 +15,7 @@
   ],
   "pinDigests": true,
   "postUpdateOptions": ["yarnDedupeHighest"],
-  "prConcurrentLimit": 0,
-  "prHourlyLimit": 0,
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 5,
   "rangeStrategy": "pin"
 }
