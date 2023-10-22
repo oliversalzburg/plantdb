@@ -13,7 +13,7 @@
     "watch": "vite build --watch"
   },
   "dependencies": {
-    "@lit-labs/context": "0.1.2",
+    "@lit-labs/context": "0.5.0",
     "@plantdb/libplantdb": "workspace:*",
     "@shoelace-style/shoelace": "2.0.0-beta.77",
     "dygraphs": "2.2.1",
