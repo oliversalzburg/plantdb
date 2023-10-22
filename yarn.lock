@@ -2251,7 +2251,7 @@ __metadata:
     luxon: 2.4.0
     mocha: 10.2.0
     source-map-support: 0.5.21
-    tslib: 2.4.0
+    tslib: 2.6.2
     typedoc: 0.23.2
     typedoc-plugin-markdown: 3.13.2
     typescript: 4.7.4
@@ -2269,7 +2269,7 @@ __metadata:
     esbuild: 0.19.5
     luxon: 2.4.0
     minimist: 1.2.8
-    tslib: 2.4.0
+    tslib: 2.6.2
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -2300,7 +2300,7 @@ __metadata:
     luxon: 2.4.0
     pwa-helpers: 0.9.1
     rrule: 2.7.0
-    tslib: 2.4.0
+    tslib: 2.6.2
     typescript: 4.7.4
     vite: 2.9.16
     vite-plugin-pwa: 0.12.2
@@ -7297,7 +7297,7 @@ __metadata:
     prettier-package-json: 2.8.0
     prettier-plugin-organize-imports: 3.2.3
     prettier-plugin-sh: 0.13.1
-    tslib: 2.4.0
+    tslib: 2.6.2
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -8462,13 +8462,6 @@ __metadata:
   peerDependencies:
     typescript: ">=4.2.0"
   checksum: 9408338819c3aca2a709f0bc54e3f874227901506cacb1163612a6c8a43df224174feb965a5eafdae16f66fc68fd7bfee8d3275d0fa73fbb8699e03ed26520c9
-  languageName: node
-  linkType: hard
-
-"tslib@npm:2.4.0":
-  version: 2.4.0
-  resolution: "tslib@npm:2.4.0"
-  checksum: eb19bda3ae545b03caea6a244b34593468e23d53b26bf8649fbc20fce43e9b21a71127fd6d2b9662c0fe48ee6ff668ead48fd00d3b88b2b716b1c12edae25b5d
   languageName: node
   linkType: hard
 
