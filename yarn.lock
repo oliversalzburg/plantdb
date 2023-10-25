@@ -2009,7 +2009,7 @@ __metadata:
     dygraphs: "npm:2.2.1"
     i18next: "npm:23.6.0"
     i18next-browser-languagedetector: "npm:7.1.0"
-    i18next-http-backend: "npm:2.2.2"
+    i18next-http-backend: "npm:2.3.0"
     idb: "npm:7.1.1"
     lit: "npm:3.0.0"
     lit-i18n: "npm:3.0.3"
@@ -3175,12 +3175,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:3.1.6":
-  version: 3.1.6
-  resolution: "cross-fetch@npm:3.1.6"
+"cross-fetch@npm:4.0.0":
+  version: 4.0.0
+  resolution: "cross-fetch@npm:4.0.0"
   dependencies:
-    node-fetch: "npm:^2.6.11"
-  checksum: 39cdd0e16603e43b66fe187bb2a14fb7b4a0b35322ff61d7b08bf48b29a2a7fe835423b27eece46348ab92c45719054e49c4de52de89f279e0935f36a301a5a5
+    node-fetch: "npm:^2.6.12"
+  checksum: 386727dc4c6b044746086aced959ff21101abb85c43df5e1d151547ccb6f338f86dec3f28b9dbddfa8ff5b9ec8662ed2263ad4607a93b2dc354fb7fe3bbb898a
   languageName: node
   linkType: hard
 
@@ -4421,12 +4421,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-http-backend@npm:2.2.2":
-  version: 2.2.2
-  resolution: "i18next-http-backend@npm:2.2.2"
+"i18next-http-backend@npm:2.3.0":
+  version: 2.3.0
+  resolution: "i18next-http-backend@npm:2.3.0"
   dependencies:
-    cross-fetch: "npm:3.1.6"
-  checksum: fa9cab6d8f7db09736ffdb346a2b6e22c585c5581f8c74e919504e0b484f909189b3d48a2b91af8b1285eb48386b4984bc8ba4dd7bcf88ab5049c8ab1324817d
+    cross-fetch: "npm:4.0.0"
+  checksum: afa6f38ceebfcacbad3a91cdc181a4f9d9bdd28e468aae96a67513921055fb6e3bfba098e7b6fe3dd1e374f6058a89f53f4b2fa4737adb0d7861b28d79f3e8eb
   languageName: node
   linkType: hard
 
@@ -5501,7 +5501,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.6.11":
+"node-fetch@npm:^2.6.12":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
   dependencies:
