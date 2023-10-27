@@ -2020,7 +2020,7 @@ __metadata:
     tslib: "npm:2.6.2"
     typescript: "npm:5.2.2"
     vite: "npm:4.5.0"
-    vite-plugin-pwa: "npm:0.16.5"
+    vite-plugin-pwa: "npm:0.16.6"
     vite-plugin-static-copy: "npm:0.17.0"
   languageName: unknown
   linkType: soft
@@ -7042,9 +7042,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-pwa@npm:0.16.5":
-  version: 0.16.5
-  resolution: "vite-plugin-pwa@npm:0.16.5"
+"vite-plugin-pwa@npm:0.16.6":
+  version: 0.16.6
+  resolution: "vite-plugin-pwa@npm:0.16.6"
   dependencies:
     debug: "npm:^4.3.4"
     fast-glob: "npm:^3.3.1"
@@ -7052,10 +7052,10 @@ __metadata:
     workbox-build: "npm:^7.0.0"
     workbox-window: "npm:^7.0.0"
   peerDependencies:
-    vite: ^3.1.0 || ^4.0.0
+    vite: ^3.1.0 || ^4.0.0 || ^5.0.0-0
     workbox-build: ^7.0.0
     workbox-window: ^7.0.0
-  checksum: 387ee7ed449aff31589facf79e2a2e252ae47d469fdb71c9083d82d80e38e1ddcfbe9e05a4ef150371612415dd5e808ce33352dd4dca5e800a3df1eb24045143
+  checksum: 9d6d051e044f2a2b5b8adc34ae10a849eb6b1e98d3a3cdd5630e9043ab12b46edd0d9e410d9733ad30af2b0fbfa62a4f739a3b021d09f26e1cefc79a632d9454
   languageName: node
   linkType: hard
 
