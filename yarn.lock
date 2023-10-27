@@ -4222,6 +4222,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"globby@npm:13.2.2":
+  version: 13.2.2
+  resolution: "globby@npm:13.2.2"
+  dependencies:
+    dir-glob: "npm:^3.0.1"
+    fast-glob: "npm:^3.3.0"
+    ignore: "npm:^5.2.4"
+    merge2: "npm:^1.4.1"
+    slash: "npm:^4.0.0"
+  checksum: a8d7cc7cbe5e1b2d0f81d467bbc5bc2eac35f74eaded3a6c85fc26d7acc8e6de22d396159db8a2fc340b8a342e74cac58de8f4aee74146d3d146921a76062664
+  languageName: node
+  linkType: hard
+
 "globby@npm:^11.1.0":
   version: 11.1.0
   resolution: "globby@npm:11.1.0"
@@ -4233,19 +4246,6 @@ __metadata:
     merge2: "npm:^1.4.1"
     slash: "npm:^3.0.0"
   checksum: b39511b4afe4bd8a7aead3a27c4ade2b9968649abab0a6c28b1a90141b96ca68ca5db1302f7c7bd29eab66bf51e13916b8e0a3d0ac08f75e1e84a39b35691189
-  languageName: node
-  linkType: hard
-
-"globby@npm:^13.2.2":
-  version: 13.2.2
-  resolution: "globby@npm:13.2.2"
-  dependencies:
-    dir-glob: "npm:^3.0.1"
-    fast-glob: "npm:^3.3.0"
-    ignore: "npm:^5.2.4"
-    merge2: "npm:^1.4.1"
-    slash: "npm:^4.0.0"
-  checksum: a8d7cc7cbe5e1b2d0f81d467bbc5bc2eac35f74eaded3a6c85fc26d7acc8e6de22d396159db8a2fc340b8a342e74cac58de8f4aee74146d3d146921a76062664
   languageName: node
   linkType: hard
 
@@ -5543,18 +5543,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-scripts-docs@npm:0.2.0":
-  version: 0.2.0
-  resolution: "node-scripts-docs@npm:0.2.0"
+"node-scripts-docs@npm:1.0.0":
+  version: 1.0.0
+  resolution: "node-scripts-docs@npm:1.0.0"
   dependencies:
     elapsed-time: "npm:0.0.1"
-    globby: "npm:^13.2.2"
+    globby: "npm:13.2.2"
     marked: "npm:9.1.2"
     minimist: "npm:1.2.8"
     tslib: "npm:2.6.2"
   bin:
     nsd: output/node-scripts-docs.js
-  checksum: 5f8f5e697a08ed8dc35fef092a219adf480ca9ef14ce0f0176ac253420c89494962261868d51afa7609153cac731b4ac8ae293cacd30eceea0d68270d895885b
+  checksum: 89ca426b785d2339fd3c8a5bfbbfafedb6f888f93c5fef7e5e29eb7460f1b040c9c8bdb089d9b35d81ffbea241c9dcc94afdf2accb22786db75d8f86da0c25f1
   languageName: node
   linkType: hard
 
@@ -5818,7 +5818,7 @@ __metadata:
     eslint: "npm:8.52.0"
     eslint-plugin-jsdoc: "npm:46.8.2"
     lint-staged: "npm:15.0.2"
-    node-scripts-docs: "npm:0.2.0"
+    node-scripts-docs: "npm:1.0.0"
     prettier: "npm:3.0.3"
     prettier-package-json: "npm:2.8.0"
     prettier-plugin-organize-imports: "npm:3.2.3"
