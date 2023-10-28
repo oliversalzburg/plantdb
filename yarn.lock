@@ -1826,12 +1826,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/context@npm:0.5.0":
-  version: 0.5.0
-  resolution: "@lit-labs/context@npm:0.5.0"
+"@lit-labs/context@npm:0.5.1":
+  version: 0.5.1
+  resolution: "@lit-labs/context@npm:0.5.1"
   dependencies:
-    "@lit/context": "npm:1.0.0"
-  checksum: 2ad1ac6be70a64de0a25afe13a1bd444e45263e0fdc67247985ec395e04546a241fe9129095545ae487c087cd96812033c54567425a3b1e7dd53dffb8b940643
+    "@lit/context": "npm:^1.0.0"
+  checksum: e0165fb06f3fd278fef97e97b3f859f19b546cd36090931b815c49073765fd35e8ad6bc0a1695f93834bea30da12ee99d0b4d4e2d81381811e4065f2c5775b8d
   languageName: node
   linkType: hard
 
@@ -1842,13 +1842,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit/context@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@lit/context@npm:1.0.0"
+"@lit/context@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "@lit/context@npm:1.0.1"
   dependencies:
     "@lit/reactive-element": "npm:^1.6.2 || ^2.0.0"
-    lit: "npm:^2.7.5 || ^3.0.0"
-  checksum: 01efda7c0fa2e5f9c26c9377f11f03e54dc4c86003d287e61ce2b88f7a771a7027cbd387e5efdb77d7ddaa53058f79ebe1abd29b541be42a4c4ef558ef70abc9
+  checksum: 31bc7be7adb74db1425d1b2963401bc7510cc1894475fc14754a8c5522338c7ca3028b420d4bf7856fdb6cb4c41fe8c1dcad5617d06c72946a49babbea8991c7
   languageName: node
   linkType: hard
 
@@ -1995,7 +1994,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@plantdb/plant-nursery@workspace:packages/plant-nursery"
   dependencies:
-    "@lit-labs/context": "npm:0.5.0"
+    "@lit-labs/context": "npm:0.5.1"
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": "npm:2.11.2"
     "@types/dygraphs": "npm:2.1.7"
@@ -5059,7 +5058,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:3.0.1, lit@npm:^2.7.5 || ^3.0.0, lit@npm:^3.0.0":
+"lit@npm:3.0.1, lit@npm:^3.0.0":
   version: 3.0.1
   resolution: "lit@npm:3.0.1"
   dependencies:
