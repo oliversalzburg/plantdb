@@ -21,7 +21,7 @@
     "i18next-browser-languagedetector": "7.1.0",
     "i18next-http-backend": "2.3.1",
     "idb": "7.1.1",
-    "lit": "3.0.1",
+    "lit": "3.0.2",
     "lit-i18n": "3.0.3",
     "lunr": "2.3.9",
     "luxon": "3.4.3",
