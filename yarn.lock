@@ -2010,7 +2010,7 @@ __metadata:
     "@lit-labs/context": "npm:0.5.1"
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": "npm:2.11.2"
-    "@types/dygraphs": "npm:2.1.7"
+    "@types/dygraphs": "npm:2.1.8"
     "@types/gapi": "npm:0.0.46"
     "@types/gapi.client": "npm:1.0.7"
     "@types/gapi.client.drive": "npm:3.0.15"
@@ -2185,12 +2185,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/dygraphs@npm:2.1.7":
-  version: 2.1.7
-  resolution: "@types/dygraphs@npm:2.1.7"
+"@types/dygraphs@npm:2.1.8":
+  version: 2.1.8
+  resolution: "@types/dygraphs@npm:2.1.8"
   dependencies:
     "@types/google.visualization": "npm:*"
-  checksum: 65e0e93730d87cc6b99b8b53857de3603134f85fbcbf658fa7dce5b8cb58a573b41aa3dd4ab0d85b05a4e1f624201a6b40fbb1d2fcea8502ad93f2fc309139df
+  checksum: 04609c402cf4935c833af3b7c3d51bbb98ebde75f0d9bafda0d1aea527239a99b6473fd23b1fba14a4a545c86b80e5adc8847ff0eb50fa357087b74afc4a85c5
   languageName: node
   linkType: hard
 
