@@ -2015,7 +2015,7 @@ __metadata:
     "@types/gapi.client": "npm:1.0.8"
     "@types/gapi.client.drive": "npm:3.0.15"
     "@types/google.accounts": "npm:0.0.14"
-    "@types/lunr": "npm:2.3.6"
+    "@types/lunr": "npm:2.3.7"
     "@types/web": "npm:0.0.119"
     "@types/wicg-file-system-access": "npm:2023.10.2"
     dygraphs: "npm:2.2.1"
@@ -2271,10 +2271,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lunr@npm:2.3.6":
-  version: 2.3.6
-  resolution: "@types/lunr@npm:2.3.6"
-  checksum: 29aee32c6d1f134c85109798bf33d3ffbfcd85beac4fcd5af6938ea7b29f67e9952d2cbc2f09dd6f01ed1046de22fd75c43f0a671733b4cd3f028fc737347763
+"@types/lunr@npm:2.3.7":
+  version: 2.3.7
+  resolution: "@types/lunr@npm:2.3.7"
+  checksum: 6f075a1c2d33b77e2976dedc58b768e86884d78b5d103294b28eba73acc221053ee3e9284eca5171d0966b3d9d02bb696e32f3001ed4bf7f398a1fb0a3065b47
   languageName: node
   linkType: hard
 
