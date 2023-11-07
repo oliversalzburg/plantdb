@@ -33,7 +33,7 @@
     "@types/gapi": "0.0.47",
     "@types/gapi.client": "1.0.8",
     "@types/gapi.client.drive": "3.0.15",
-    "@types/google.accounts": "0.0.13",
+    "@types/google.accounts": "0.0.14",
     "@types/lunr": "2.3.6",
     "@types/web": "0.0.119",
     "@types/wicg-file-system-access": "2023.10.2",
