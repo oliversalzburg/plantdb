@@ -25,7 +25,7 @@
     "@babel/core": "7.23.2",
     "@babel/eslint-parser": "7.22.15",
     "@babel/plugin-syntax-import-assertions": "7.22.5",
-    "@types/babel__core": "7.20.3",
+    "@types/babel__core": "7.20.4",
     "@types/eslint": "8.44.6",
     "@types/web": "0.0.119",
     "@typescript-eslint/eslint-plugin": "6.10.0",
