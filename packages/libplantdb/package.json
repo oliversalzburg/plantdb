@@ -29,7 +29,7 @@
     "luxon": "3.4.3"
   },
   "devDependencies": {
-    "@types/chai": "4.3.9",
+    "@types/chai": "4.3.10",
     "@types/luxon": "3.3.3",
     "@types/mocha": "10.0.3",
     "@types/source-map-support": "0.5.9",
