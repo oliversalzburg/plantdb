@@ -17,7 +17,7 @@
     "minimist": "1.2.8"
   },
   "devDependencies": {
-    "@types/luxon": "3.3.3",
+    "@types/luxon": "3.3.4",
     "@types/minimist": "1.2.4",
     "@types/node": "20.8.10",
     "esbuild": "0.19.5",
