@@ -2017,7 +2017,7 @@ __metadata:
     "@types/google.accounts": "npm:0.0.14"
     "@types/lunr": "npm:2.3.7"
     "@types/web": "npm:0.0.119"
-    "@types/wicg-file-system-access": "npm:2023.10.2"
+    "@types/wicg-file-system-access": "npm:2023.10.3"
     dygraphs: "npm:2.2.1"
     i18next: "npm:23.6.0"
     i18next-browser-languagedetector: "npm:7.1.0"
@@ -2361,10 +2361,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wicg-file-system-access@npm:2023.10.2":
-  version: 2023.10.2
-  resolution: "@types/wicg-file-system-access@npm:2023.10.2"
-  checksum: 5e72ddb3d64b1aae3e67e90444d0d3ead9a25e40162776388d357464054b0b1fee7add126501864a63e4579db6c6d4f4536a29201dfe900383dbbb564d335655
+"@types/wicg-file-system-access@npm:2023.10.3":
+  version: 2023.10.3
+  resolution: "@types/wicg-file-system-access@npm:2023.10.3"
+  checksum: 4367d61e3aa9db2b731c8624ed095710d9411db80a211d44ca10a979b809566fe07dbab655c58d96604fb97fb3b1777922df2af25aeda3f599afa29f1e1ba613
   languageName: node
   linkType: hard
 
