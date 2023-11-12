@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.23.3",
-    "@babel/eslint-parser": "7.22.15",
+    "@babel/eslint-parser": "7.23.3",
     "@babel/plugin-syntax-import-assertions": "7.23.3",
     "@types/babel__core": "7.20.4",
     "@types/eslint": "8.44.7",
@@ -31,7 +31,7 @@
     "@typescript-eslint/eslint-plugin": "6.10.0",
     "@typescript-eslint/parser": "6.10.0",
     "eslint": "8.53.0",
-    "eslint-plugin-jsdoc": "46.8.2",
+    "eslint-plugin-jsdoc": "46.9.0",
     "lint-staged": "15.1.0",
     "node-scripts-docs": "1.0.0",
     "prettier": "3.0.3",
