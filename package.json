@@ -36,7 +36,7 @@
     "node-scripts-docs": "1.0.0",
     "prettier": "3.0.3",
     "prettier-package-json": "2.8.0",
-    "prettier-plugin-organize-imports": "3.2.3",
+    "prettier-plugin-organize-imports": "3.2.4",
     "prettier-plugin-sh": "0.13.1",
     "tslib": "2.6.2",
     "typescript": "5.2.2"
