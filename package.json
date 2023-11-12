@@ -32,7 +32,7 @@
     "@typescript-eslint/parser": "6.10.0",
     "eslint": "8.53.0",
     "eslint-plugin-jsdoc": "46.8.2",
-    "lint-staged": "15.0.2",
+    "lint-staged": "15.1.0",
     "node-scripts-docs": "1.0.0",
     "prettier": "3.0.3",
     "prettier-package-json": "2.8.0",
