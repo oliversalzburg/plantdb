@@ -1973,7 +1973,7 @@ __metadata:
     "@types/chai": "npm:4.3.10"
     "@types/luxon": "npm:3.3.4"
     "@types/mocha": "npm:10.0.4"
-    "@types/source-map-support": "npm:0.5.9"
+    "@types/source-map-support": "npm:0.5.10"
     chai: "npm:4.3.10"
     csv-parse: "npm:5.5.2"
     csv-stringify: "npm:6.4.4"
@@ -2338,12 +2338,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-map-support@npm:0.5.9":
-  version: 0.5.9
-  resolution: "@types/source-map-support@npm:0.5.9"
+"@types/source-map-support@npm:0.5.10":
+  version: 0.5.10
+  resolution: "@types/source-map-support@npm:0.5.10"
   dependencies:
     source-map: "npm:^0.6.0"
-  checksum: cfd8c2b366e86f4e9f551c90e79e5b1e6cf4f80e0ed533b761022b8f463f5204e11e5cbfe0092cf1a8ab209c4551b2967b00309de3c2d7633e04bd64efcd0bb8
+  checksum: 48aacf32e1b5a4301407123fb69001b6a79386860d19c756a76ef3b034f71375a843846fa2af2d2461a765411dfbbcb21069b0935761b3c81f8b722b1d9d581f
   languageName: node
   linkType: hard
 

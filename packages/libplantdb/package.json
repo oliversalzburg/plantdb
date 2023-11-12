@@ -32,7 +32,7 @@
     "@types/chai": "4.3.10",
     "@types/luxon": "3.3.4",
     "@types/mocha": "10.0.4",
-    "@types/source-map-support": "0.5.9",
+    "@types/source-map-support": "0.5.10",
     "chai": "4.3.10",
     "mocha": "10.2.0",
     "source-map-support": "0.5.21",
