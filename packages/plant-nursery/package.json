@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@lit-labs/context": "0.5.1",
-    "@oliversalzburg/lit-i18n": "4.0.0",
+    "@oliversalzburg/lit-i18n": "4.0.1",
     "@plantdb/libplantdb": "workspace:*",
     "@shoelace-style/shoelace": "2.11.2",
     "dygraphs": "2.2.1",
