@@ -192,10 +192,10 @@ export class PlantLogEntryForm extends LitElement {
           >${!this.logEntry
             ? html`<small slot="help-text">${t("entryEditor.plantHelp")}</small>`
             : this._plantName === ""
-            ? html`<small slot="help-text" class="warning"
-                >${t("entryEditor.plantHelpDeleteWarn")}</small
-              >`
-            : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
+              ? html`<small slot="help-text" class="warning"
+                  >${t("entryEditor.plantHelpDeleteWarn")}</small
+                >`
+              : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
         >${foundPlants.length
           ? html`<sl-dropdown id="plant-dropdown" hoist>
               <sl-menu>
@@ -226,10 +226,10 @@ export class PlantLogEntryForm extends LitElement {
           >${!this.logEntry
             ? html`<small slot="help-text">${t("entryEditor.typeHelp")}</small>`
             : this._entryType === ""
-            ? html`<small slot="help-text" class="warning"
-                >${t("entryEditor.typeHelpDeleteWarn")}</small
-              >`
-            : undefined}</sl-input
+              ? html`<small slot="help-text" class="warning"
+                  >${t("entryEditor.typeHelpDeleteWarn")}</small
+                >`
+              : undefined}</sl-input
         >${foundEntryTypes.length
           ? html`<sl-dropdown id="type-dropdown" hoist>
               <sl-menu>

@@ -345,10 +345,12 @@ export class PlantPropertiesForm extends LitElement {
             >${!this.plant
               ? html`<small slot="help-text">${t("entryEditor.plantHelp")}</small>`
               : this._plantId === ""
-              ? html`<small slot="help-text" class="warning"
-                  >${t("entryEditor.plantHelpDeleteWarn")}</small
-                >`
-              : html`<small slot="help-text">${t("entryEditor.plantHelpDelete")}</small>`}</sl-input
+                ? html`<small slot="help-text" class="warning"
+                    >${t("entryEditor.plantHelpDeleteWarn")}</small
+                  >`
+                : html`<small slot="help-text"
+                    >${t("entryEditor.plantHelpDelete")}</small
+                  >`}</sl-input
           >
           <div class="spacer"></div>
 

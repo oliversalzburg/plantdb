@@ -206,9 +206,7 @@ export class LogEntry extends PlantDBEntity {
     const plant = this.#plantDb?.plants.get(this.#plantId);
     if (!plant) {
       throw new Error(
-        `Unable to find plant '${
-          this.#plantId
-        }' in plant cache. Ensure PlantDB has been initialized with PlantDB.fromCSV()!`,
+        `Unable to find plant '${this.#plantId}' in plant cache. Ensure PlantDB has been initialized with PlantDB.fromCSV()!`,
       );
     }
     return plant;
