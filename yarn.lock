@@ -1947,14 +1947,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oliversalzburg/lit-i18n@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@oliversalzburg/lit-i18n@npm:4.0.0"
+"@oliversalzburg/lit-i18n@npm:4.0.1":
+  version: 4.0.1
+  resolution: "@oliversalzburg/lit-i18n@npm:4.0.1"
   dependencies:
     lit-html: "npm:3.0.2"
   peerDependencies:
     i18next: ^21.3.3 || ^23.0.0
-  checksum: 86625a5e860c9e7829eabdefbf2dc01ca6815484a1742755dfe471cf9959b23ce41124b34218000e7e5a59ffe6503f28a635c1e06be5786b77ce4c2b2dabc10b
+  checksum: 61ff72902fcff87500ffb7426f0f8efddc359acf8b436544eabdaa4b7479c52736bd709224d51af916c9c8202c68ea7f788f813c5211615f1613e777e68d7865
   languageName: node
   linkType: hard
 
@@ -2019,7 +2019,7 @@ __metadata:
   resolution: "@plantdb/plant-nursery@workspace:packages/plant-nursery"
   dependencies:
     "@lit-labs/context": "npm:0.5.1"
-    "@oliversalzburg/lit-i18n": "npm:4.0.0"
+    "@oliversalzburg/lit-i18n": "npm:4.0.1"
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": "npm:2.11.2"
     "@types/dygraphs": "npm:2.1.8"
