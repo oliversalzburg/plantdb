@@ -120,8 +120,8 @@ export class PlantCard extends LitElement {
           variant=${hasPendingPestControl
             ? "danger"
             : hasPendingPestInfestation
-            ? "warning"
-            : "neutral"}
+              ? "warning"
+              : "neutral"}
           >${this.plant.id}</sl-badge
         >
       </div>
