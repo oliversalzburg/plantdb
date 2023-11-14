@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@plantdb/libplantdb": "workspace:*",
-    "luxon": "3.4.3",
+    "luxon": "3.4.4",
     "minimist": "1.2.8"
   },
   "devDependencies": {

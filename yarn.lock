@@ -1977,7 +1977,7 @@ __metadata:
     chai: "npm:4.3.10"
     csv-parse: "npm:5.5.2"
     csv-stringify: "npm:6.4.4"
-    luxon: "npm:3.4.3"
+    luxon: "npm:3.4.4"
     mocha: "npm:10.2.0"
     source-map-support: "npm:0.5.21"
     tslib: "npm:2.6.2"
@@ -1996,7 +1996,7 @@ __metadata:
     "@types/minimist": "npm:1.2.5"
     "@types/node": "npm:20.9.0"
     esbuild: "npm:0.19.5"
-    luxon: "npm:3.4.3"
+    luxon: "npm:3.4.4"
     minimist: "npm:1.2.8"
     tslib: "npm:2.6.2"
     typescript: "npm:5.2.2"
@@ -2026,7 +2026,7 @@ __metadata:
     lit: "npm:3.0.2"
     lit-i18n: "npm:3.0.3"
     lunr: "npm:2.3.9"
-    luxon: "npm:3.4.3"
+    luxon: "npm:3.4.4"
     pwa-helpers: "npm:0.9.1"
     rrule: "npm:2.8.1"
     tslib: "npm:2.6.2"
@@ -5101,10 +5101,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxon@npm:3.4.3":
-  version: 3.4.3
-  resolution: "luxon@npm:3.4.3"
-  checksum: 65ad727684d367af9c8fcbde05ad7989ef2436a4496b62d993059baaa641e90a5fa74e98f34ee2ff29f7af7f2b27238ca78b87834f9068624e4133d786f87bc7
+"luxon@npm:3.4.4":
+  version: 3.4.4
+  resolution: "luxon@npm:3.4.4"
+  checksum: 02e26a0b039c11fd5b75e1d734c8f0332c95510f6a514a9a0991023e43fb233884da02d7f966823ffb230632a733fc86d4a4b1e63c3fbe00058b8ee0f8c728af
   languageName: node
   linkType: hard
 
