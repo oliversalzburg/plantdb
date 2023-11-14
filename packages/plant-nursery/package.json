@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@lit-labs/context": "0.5.1",
+    "@oliversalzburg/lit-i18n": "4.0.0",
     "@plantdb/libplantdb": "workspace:*",
     "@shoelace-style/shoelace": "2.11.2",
     "dygraphs": "2.2.1",
@@ -22,7 +23,6 @@
     "i18next-http-backend": "2.4.1",
     "idb": "7.1.1",
     "lit": "3.0.2",
-    "lit-i18n": "3.0.3",
     "lunr": "2.3.9",
     "luxon": "3.4.4",
     "pwa-helpers": "0.9.1",
