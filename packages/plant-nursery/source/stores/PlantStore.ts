@@ -1,3 +1,4 @@
+import { isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { LogEntry, Plant, PlantDB, Task } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
@@ -7,16 +8,16 @@ import { GoogleDrive } from "../storage/GoogleDrive";
 import { IndexedDb } from "../storage/IndexedDb";
 import { LocalStorage } from "../storage/LocalStorage";
 import { executeAsyncContext } from "../tools/Async";
-import { isNil, mustExist } from "../tools/Maybe";
 import { rruleFromTask } from "../tools/TaskTools";
 
+// eslint-disable-next-line no-use-before-define
 let globalStore: PlantStore | undefined;
 
 export const retrieveStore = () => globalStore;
 
 @customElement("pn-plant-store")
 export class PlantStore extends LitElement {
-  @property({ type: PlantDB })
+  @property({ attribute: false })
   plantDb = PlantDB.Empty();
 
   private _indexLog: Index | undefined;
@@ -49,15 +50,11 @@ export class PlantStore extends LitElement {
     this.indexedDb.validate();
 
     const storedDb = await this.indexedDb.retrievePlantDb();
-    if (storedDb) {
-      console.info("Using DB provided through IndexedDB.");
-      this.plantDb = storedDb;
-      this._updateIndex();
+    console.info("Using DB provided through IndexedDB.");
+    this.plantDb = storedDb;
+    this._updateIndex();
 
-      this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
-    } else {
-      console.info("Unable to use IndexedDB data.");
-    }
+    this.dispatchEvent(new CustomEvent("pn-config-changed", { detail: this.plantDb }));
   }
 
   async resetCache() {
@@ -78,10 +75,6 @@ export class PlantStore extends LitElement {
   }
   async googleDrivePull() {
     const plantDb = await this.googleDrive.retrievePlantDb();
-    if (!plantDb) {
-      return;
-    }
-
     await this.updatePlantDb(plantDb);
   }
   async googleDrivePush() {

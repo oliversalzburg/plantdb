@@ -1,9 +1,9 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { Plant, roundTo } from "@plantdb/libplantdb";
 import Dygraph from "dygraphs";
 import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
-import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-dygraph")
 export class PlantDygraph extends LitElement {
@@ -90,15 +90,6 @@ export class PlantDygraph extends LitElement {
         color: white;
       }
 
-      .dygraph-axis-label-x {
-      }
-
-      .dygraph-axis-label-y {
-      }
-
-      .dygraph-axis-label-y2 {
-      }
-
       .dygraph-title {
         font-weight: bold;
         z-index: 10;
@@ -126,7 +117,7 @@ export class PlantDygraph extends LitElement {
   @property()
   data = "";
 
-  @property({ type: Plant })
+  @property({ attribute: false })
   plant: Plant | undefined;
 
   @property({ type: Boolean })
@@ -194,7 +185,8 @@ export class PlantDygraph extends LitElement {
 
     new Dygraph(
       // containing div
-      this.shadowRoot?.querySelector(".graph") as HTMLDivElement,
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+      mustExist(this.shadowRoot?.querySelector(".graph")) as HTMLDivElement,
 
       this.data,
       {

@@ -1,5 +1,17 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig.json",
   "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": [
+      "@types/gapi",
+      "@types/gapi.client",
+      "@types/gapi.client.drive",
+      "@types/google.accounts",
+      "@types/web",
+      "@types/wicg-file-system-access",
+      "vite/client",
+      "vite-plugin-pwa/client"
+    ]
+  },
   "include": ["packages/libplantdb", "packages/plant-cli", "packages/plant-nursery"]
 }

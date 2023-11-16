@@ -1,9 +1,9 @@
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
 import { Task } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { TaskPropertiesForm } from "../TaskPropertiesForm";
-import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-task-properties-view")
@@ -39,7 +39,7 @@ export class TaskPropertiesView extends View {
     `,
   ];
 
-  @property()
+  @property({ attribute: false })
   task: Task | undefined;
 
   @query("#form")
@@ -60,7 +60,7 @@ export class TaskPropertiesView extends View {
       bubbles: true,
       cancelable: true,
       composed: true,
-      detail: this._form?.asTask(),
+      detail: this._form.asTask(),
     });
     this.dispatchEvent(event);
 
@@ -92,9 +92,18 @@ export class TaskPropertiesView extends View {
           .task=${this.task}
         ></pn-task-properties-form>
         <section class="footer">
-          <sl-button variant="primary" @click=${() => this.save()}
+          <sl-button
+            variant="primary"
+            @click=${() => {
+              this.save();
+            }}
             >${t("save", { ns: "common" })}</sl-button
-          ><sl-button @click=${() => this.cancel()}>${t("cancel", { ns: "common" })}</sl-button>
+          ><sl-button
+            @click=${() => {
+              this.cancel();
+            }}
+            >${t("cancel", { ns: "common" })}</sl-button
+          >
         </section>`,
     ];
   }

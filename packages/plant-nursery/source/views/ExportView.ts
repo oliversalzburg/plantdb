@@ -1,9 +1,9 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { DatabaseFormat } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { mustExist } from "../tools/Maybe";
 import { DataExchangeView } from "./DataExchangeView";
 
 @customElement("pn-export-view")
@@ -26,7 +26,7 @@ export class ExportView extends DataExchangeView {
   @property()
   plantLogData = "";
 
-  @property()
+  @property({ attribute: false })
   config = DatabaseFormat.DefaultInterchange();
 
   @state()
@@ -46,7 +46,7 @@ export class ExportView extends DataExchangeView {
   }
 
   private async _saveCsvToFileSystem(data: string, filename: string) {
-    const pickerOpts = {
+    const pickerOpts: SaveFilePickerOptions = {
       suggestedName: filename,
       types: [
         {
@@ -63,10 +63,6 @@ export class ExportView extends DataExchangeView {
   }
 
   render() {
-    if (!this.config) {
-      return;
-    }
-
     return [
       html`<div
         part="base"
@@ -85,7 +81,11 @@ export class ExportView extends DataExchangeView {
               ><div class="google-drive">
                 <div class="google-drive-busy">
                   <sl-spinner></sl-spinner> ${t("import.googleDriveBusy")}
-                  <sl-button size="small" @click=${() => this._cancelGoogleDrive()}
+                  <sl-button
+                    size="small"
+                    @click=${() => {
+                      this._cancelGoogleDrive();
+                    }}
                     >${t("cancel", { ns: "common" })}</sl-button
                   >
                 </div>
@@ -112,7 +112,12 @@ export class ExportView extends DataExchangeView {
 
             <sl-tab-panel name="clipboard"
               ><div class="clipboard">
-                <sl-button id="export" variant="primary" @click="${() => this.export()}"
+                <sl-button
+                  id="export"
+                  variant="primary"
+                  @click="${() => {
+                    this.export();
+                  }}"
                   >${t("export.insert")}</sl-button
                 ><sl-details summary=${t("dbConfig.title")}>
                   <pn-db-config

@@ -1,13 +1,14 @@
+import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { LogEntry, Plant } from "@plantdb/libplantdb";
 import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 import { Typography } from "./ComponentStyles";
 import { MultiValueEditor } from "./MultiValueEditor";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
-import { assertExists, isNil, mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-log-entry-form")
 export class PlantLogEntryForm extends LitElement {
@@ -51,19 +52,19 @@ export class PlantLogEntryForm extends LitElement {
     `,
   ];
 
-  @property({ type: PlantStore })
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property({ type: PlantStoreUi })
+  @property({ attribute: false })
   plantStoreUi: PlantStoreUi | null = null;
 
-  @property({ type: LogEntry })
+  @property({ attribute: false })
   logEntry: LogEntry | undefined;
 
   @property()
   logEntryTemplate: Record<string, string> | undefined;
 
-  @property({ type: Plant })
+  @property({ attribute: false })
   plant: Plant | null = null;
 
   @state()
@@ -168,7 +169,7 @@ export class PlantLogEntryForm extends LitElement {
 
   render() {
     if (isNil(this.plantStore)) {
-      return;
+      return undefined;
     }
 
     const foundPlants = [...this.plantStore.searchPlants(this._plantName)];
@@ -271,7 +272,9 @@ export class PlantLogEntryForm extends LitElement {
             <sl-icon-button
               name="clock"
               label=${t("entryEditor.setCurrentDateTime")}
-              @click=${() => this._setCurrentDateTime()}
+              @click=${() => {
+                this._setCurrentDateTime();
+              }}
             ></sl-icon-button
           ></sl-tooltip>
         </div>
@@ -280,7 +283,7 @@ export class PlantLogEntryForm extends LitElement {
         <sl-textarea
           label=${t("entryEditor.noteLabel")}
           placeholder=${t("entryEditor.notePlaceholder")}
-          value=${this._notes}
+          value=${ifDefined(this._notes)}
           @sl-change=${(event: MouseEvent) => (this._notes = (event.target as SlTextarea).value)}
         ></sl-textarea>
         <div class="spacer"></div>
@@ -302,7 +305,7 @@ export class PlantLogEntryForm extends LitElement {
             label=${t("entryEditor.ecLabel")}
             placeholder=${t("entryEditor.ecPlaceholder")}
             clearable
-            value=${this._ec}
+            value=${ifDefined(this._ec)}
             @sl-change=${(event: MouseEvent) =>
               (this._ec = (event.target as SlInput).valueAsNumber)}
             min="0"
@@ -313,7 +316,7 @@ export class PlantLogEntryForm extends LitElement {
             label=${t("entryEditor.phLabel")}
             placeholder=${t("entryEditor.phPlaceholder")}
             clearable
-            value=${this._ph}
+            value=${ifDefined(this._ph)}
             @sl-change=${(event: MouseEvent) =>
               (this._ph = (event.target as SlInput).valueAsNumber)}
             min="0"

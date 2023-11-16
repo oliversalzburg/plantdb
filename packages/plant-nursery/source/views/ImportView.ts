@@ -27,7 +27,7 @@ export class ImportView extends DataExchangeView {
   @state()
   private _hasFsAccess = "showOpenFilePicker" in window;
 
-  @property()
+  @property({ attribute: false })
   config = DatabaseFormat.DefaultInterchange();
 
   firstUpdated() {
@@ -40,9 +40,9 @@ export class ImportView extends DataExchangeView {
   private _checkInputData() {
     const plantLogDataRaw = this.plantLogData;
     const counts = {
-      comma: (plantLogDataRaw.match(/,/g) || []).length,
-      semicolon: (plantLogDataRaw.match(/;/g) || []).length,
-      tab: (plantLogDataRaw.match(/\t/g) || []).length,
+      comma: (plantLogDataRaw.match(/,/g) ?? []).length,
+      semicolon: (plantLogDataRaw.match(/;/g) ?? []).length,
+      tab: (plantLogDataRaw.match(/\t/g) ?? []).length,
     };
     const likelySeparator = (Object.keys(counts) as Array<keyof typeof counts>).reduce((a, b) =>
       counts[a] > counts[b] ? a : b,
@@ -54,7 +54,7 @@ export class ImportView extends DataExchangeView {
   }
 
   private async _openCsvFromFileSystem() {
-    const pickerOpts = {
+    const pickerOpts: OpenFilePickerOptions = {
       types: [
         {
           description: t("import.csvFiles"),
@@ -85,10 +85,6 @@ export class ImportView extends DataExchangeView {
   }
 
   render() {
-    if (!this.config) {
-      return;
-    }
-
     return [
       html`<div
         part="base"
@@ -107,7 +103,11 @@ export class ImportView extends DataExchangeView {
               ><div class="google-drive">
                 <div class="google-drive-busy">
                   <sl-spinner></sl-spinner> ${t("import.googleDriveBusy")}
-                  <sl-button size="small" @click=${() => this._cancelGoogleDrive()}
+                  <sl-button
+                    size="small"
+                    @click=${() => {
+                      this._cancelGoogleDrive();
+                    }}
                     >${t("cancel", { ns: "common" })}</sl-button
                   >
                 </div>

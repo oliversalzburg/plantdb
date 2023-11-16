@@ -1,3 +1,4 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { Plant } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { t } from "i18next";
@@ -5,7 +6,6 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
-import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-list")
 export class PlantList extends LitElement {
@@ -44,13 +44,13 @@ export class PlantList extends LitElement {
     `,
   ];
 
-  @property({ type: PlantStore })
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property({ type: PlantStoreUi })
+  @property({ attribute: false })
   plantStoreUi: PlantStoreUi | null = null;
 
-  @property({ type: [Plant] })
+  @property({ attribute: false })
   plants = new Array<Plant>();
 
   @property()
@@ -60,8 +60,7 @@ export class PlantList extends LitElement {
     // Initial state is plants sorted according to their oldest log entry (their "birth").
     let filteredPlants = this.plants.sort(
       (a, b) =>
-        (a.logEntryOldest?.timestamp?.valueOf() ?? 0) -
-        (b.logEntryOldest?.timestamp?.valueOf() ?? 0),
+        (a.logEntryOldest?.timestamp.valueOf() ?? 0) - (b.logEntryOldest?.timestamp.valueOf() ?? 0),
     );
 
     if (this.filter) {
@@ -84,7 +83,7 @@ export class PlantList extends LitElement {
               .plant=${plant}
               .plantDb=${this.plantStore?.plantDb}
               @click=${() => {
-                retrieveStoreUi()?.navigatePath(`/plant/${plant.id ?? "PID-0"}`);
+                retrieveStoreUi()?.navigatePath(`/plant/${plant.id}`);
               }}
             ></pn-plant-card>`,
         )}

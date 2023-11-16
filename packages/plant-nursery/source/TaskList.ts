@@ -1,4 +1,5 @@
-import { Plant, Task } from "@plantdb/libplantdb";
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
+import { Task } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { t } from "i18next";
 import { LitElement, css, html } from "lit";
@@ -7,7 +8,6 @@ import { DateTime } from "luxon";
 import { Forms } from "./ComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
-import { assertExists } from "./tools/Maybe";
 
 @customElement("pn-task-list")
 export class TaskList extends LitElement {
@@ -41,21 +41,21 @@ export class TaskList extends LitElement {
     `,
   ];
 
-  @property({ type: PlantStore })
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property({ type: PlantStoreUi })
+  @property({ attribute: false })
   plantStoreUi: PlantStoreUi | null = null;
 
-  @property({ type: [Plant] })
+  @property({ attribute: false })
   tasks = new Array<Task>();
 
   @property()
   filter = "";
 
-  @property({ type: Date })
+  @property({ attribute: false })
   dateStart: Date = DateTime.fromJSDate(new Date()).startOf("day").toJSDate();
-  @property({ type: Date })
+  @property({ attribute: false })
   dateEnd: Date = DateTime.fromJSDate(new Date()).plus({ months: 1 }).toJSDate();
 
   render() {

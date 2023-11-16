@@ -12,7 +12,6 @@ markdown_extensions:
   - attr_list
   - def_list
   - footnotes
-  - meta
   - pymdownx.critic
   - pymdownx.caret
   - pymdownx.details

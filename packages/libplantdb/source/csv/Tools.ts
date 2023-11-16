@@ -120,12 +120,13 @@ export const floatFromCSV = (
   column: number,
   databaseFormat: DatabaseFormat,
 ) => {
-  const value = valueFromCSV(csvData, column, false) as string;
+  const value = valueFromCSV(csvData, column, false);
   if (value === undefined) {
     return undefined;
   }
 
-  const float = tryParseFloat(value, databaseFormat);
+  // eslint-disable-next-line no-use-before-define
+  const float = tryParseFloat(Array.isArray(value) ? value[0] : value, databaseFormat);
   return float;
 };
 
@@ -143,12 +144,13 @@ export const intFromCSV = (
   column: number,
   databaseFormat: DatabaseFormat,
 ) => {
-  const value = valueFromCSV(csvData, column, false) as string;
+  const value = valueFromCSV(csvData, column, false);
   if (value === undefined) {
     return undefined;
   }
 
-  const float = tryParseInt(value, databaseFormat);
+  // eslint-disable-next-line no-use-before-define
+  const float = tryParseInt(Array.isArray(value) ? value[0] : value, databaseFormat);
   return float;
 };
 
@@ -161,12 +163,13 @@ export const intFromCSV = (
  * @returns The correctly parsed CSV value.
  */
 export const boolFromCSV = (csvData: ReadonlyArray<string>, column: number) => {
-  const value = valueFromCSV(csvData, column, false) as string;
+  const value = valueFromCSV(csvData, column, false);
   if (value === undefined) {
     return undefined;
   }
 
-  const bool = tryParseBool(value);
+  // eslint-disable-next-line no-use-before-define
+  const bool = tryParseBool(Array.isArray(value) ? value[0] : value);
   return bool;
 };
 

@@ -1,3 +1,5 @@
+import { prepareAsyncContext } from "@oliversalzburg/js-utils/lib/async";
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
 import { LogEntry, Plant, Task } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
 import i18next, { t } from "i18next";
@@ -8,10 +10,9 @@ import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { registerSW } from "virtual:pwa-register";
 import { ConfirmDialog } from "../ConfirmDialog";
-import { prepareAsyncContext } from "../tools/Async";
-import { assertExists } from "../tools/Maybe";
 import { PlantStore } from "./PlantStore";
 
+// eslint-disable-next-line no-use-before-define
 let globalStore: PlantStoreUi | undefined;
 
 export const retrieveStoreUi = () => globalStore;
@@ -45,12 +46,12 @@ export class PlantStoreUi extends LitElement {
 
   @property({ type: String })
   page: KnownViews = "list";
-  @property({ type: [String] })
+  @property({ attribute: false })
   pageParams = new Array<string>();
   @property()
   pageQuery: Record<string, string> | undefined;
 
-  @property({ type: PlantStore })
+  @property({ attribute: false })
   plantStore: PlantStore | null | undefined;
 
   private _onSchemePreferenceChanged: ((event: MediaQueryListEvent) => void) | undefined;
@@ -64,19 +65,17 @@ export class PlantStoreUi extends LitElement {
     const userConfiguredTheme = localStorage.getItem("plant-theme") as "light" | "dark" | null;
 
     // Watch for global theme preference change. If this happens, it overrides everything.
-    if (window.matchMedia) {
-      this._onSchemePreferenceChanged = (event: MediaQueryListEvent) => {
-        const newColorScheme = event.matches ? "dark" : "light";
-        if (newColorScheme === "dark") {
-          this.darkModeEnter();
-        } else {
-          this.darkModeLeave();
-        }
-      };
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", this._onSchemePreferenceChanged);
-    }
+    this._onSchemePreferenceChanged = (event: MediaQueryListEvent) => {
+      const newColorScheme = event.matches ? "dark" : "light";
+      if (newColorScheme === "dark") {
+        this.darkModeEnter();
+      } else {
+        this.darkModeLeave();
+      }
+    };
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", this._onSchemePreferenceChanged);
 
     i18next
       .use(LanguageDetector)
@@ -118,11 +117,7 @@ export class PlantStoreUi extends LitElement {
       },
     });
 
-    if (
-      !userConfiguredTheme &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
+    if (!userConfiguredTheme && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       this.darkModeEnter();
       return;
     }
@@ -345,6 +340,7 @@ export class PlantStoreUi extends LitElement {
 
         resolve(null);
 
+        // eslint-disable-next-line no-use-before-define
         document.removeEventListener("pn-saved", onSave);
         document.removeEventListener("pn-cancelled", onCancel);
       };
@@ -373,6 +369,7 @@ export class PlantStoreUi extends LitElement {
 
         resolve(null);
 
+        // eslint-disable-next-line no-use-before-define
         document.removeEventListener("pn-saved", onSave);
         document.removeEventListener("pn-cancelled", onCancel);
       };
@@ -401,6 +398,7 @@ export class PlantStoreUi extends LitElement {
 
         resolve(null);
 
+        // eslint-disable-next-line no-use-before-define
         document.removeEventListener("pn-saved", onSave);
         document.removeEventListener("pn-cancelled", onCancel);
       };
@@ -425,7 +423,7 @@ export class PlantStoreUi extends LitElement {
 
     const updatedEntry = await this.showEntryEditor(logEntry);
     if (!updatedEntry) {
-      return;
+      return Promise.resolve(undefined);
     }
 
     const shouldDelete = updatedEntry.plantId === "" || updatedEntry.type === "";
@@ -449,7 +447,7 @@ export class PlantStoreUi extends LitElement {
     console.debug(`Show details dialog for plant #${plant.id}`);
     const updatedPlant = await this.showPlantEditor(plant);
     if (!updatedPlant) {
-      return;
+      return Promise.resolve(undefined);
     }
 
     const shouldDelete = updatedPlant.id === "";
@@ -473,7 +471,7 @@ export class PlantStoreUi extends LitElement {
     console.debug(`Show details dialog for task #${task.id}`);
     const updatedTask = await this.showTaskEditor(task);
     if (!updatedTask) {
-      return;
+      return Promise.resolve(undefined);
     }
 
     const shouldDelete = updatedTask.title === "";

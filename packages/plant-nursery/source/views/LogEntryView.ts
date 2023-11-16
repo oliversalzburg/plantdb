@@ -1,9 +1,9 @@
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { LogEntry } from "packages/libplantdb/typings";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";
-import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-log-entry-view")
@@ -36,7 +36,7 @@ export class LogEntryView extends View {
     `,
   ];
 
-  @property()
+  @property({ attribute: false })
   logEntry: LogEntry | undefined;
   @property()
   logEntryTemplate: Record<string, string> | undefined;
@@ -59,7 +59,7 @@ export class LogEntryView extends View {
       bubbles: true,
       cancelable: true,
       composed: true,
-      detail: this._form?.asLogEntry(),
+      detail: this._form.asLogEntry(),
     });
     this.dispatchEvent(event);
 
@@ -91,9 +91,18 @@ export class LogEntryView extends View {
           .logEntryTemplate=${this.logEntryTemplate}
         ></pn-plant-log-entry-form>
         <section class="footer">
-          <sl-button variant="primary" @click=${() => this.save()}
+          <sl-button
+            variant="primary"
+            @click=${() => {
+              this.save();
+            }}
             >${t("save", { ns: "common" })}</sl-button
-          ><sl-button @click=${() => this.cancel()}>${t("cancel", { ns: "common" })}</sl-button>
+          ><sl-button
+            @click=${() => {
+              this.cancel();
+            }}
+            >${t("cancel", { ns: "common" })}</sl-button
+          >
         </section>`,
     ];
   }

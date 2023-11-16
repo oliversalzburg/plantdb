@@ -1,19 +1,20 @@
+import { isNil } from "@oliversalzburg/js-utils/lib/nil";
 import { Plant } from "@plantdb/libplantdb";
 import { SlInput } from "@shoelace-style/shoelace";
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 import { MultiValueEditor } from "./MultiValueEditor";
 import { PlantStore } from "./stores/PlantStore";
-import { isNil } from "./tools/Maybe";
 
 @customElement("pn-multi-value-pid-editor")
 export class MultiValuePidEditor extends MultiValueEditor {
   static readonly styles = [...MultiValueEditor.styles];
 
-  @property({ type: PlantStore })
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property({ type: [Plant] })
+  @property({ attribute: false })
   plants: Array<Plant> | undefined;
 
   override render() {
@@ -30,10 +31,12 @@ export class MultiValuePidEditor extends MultiValueEditor {
     return [
       html`<sl-input
           id="input"
-          label=${this.label}
-          placeholder=${Array.isArray(this.value) ? this.value.sort().join(", ") : this.placeholder}
+          label=${ifDefined(this.label)}
+          placeholder=${ifDefined(
+            Array.isArray(this.value) ? this.value.sort().join(", ") : this.placeholder,
+          )}
           clearable
-          value=${Array.isArray(this.value) ? this._nextValue : this.value}
+          value=${ifDefined(Array.isArray(this.value) ? this._nextValue : this.value)}
           @sl-focus=${() => this._dropdown?.show()}
           @sl-input=${(event: InputEvent) => {
             if (Array.isArray(this.value)) {
@@ -79,7 +82,9 @@ export class MultiValuePidEditor extends MultiValueEditor {
                   ? html`<sl-button
                       size="small"
                       variant="primary"
-                      @click=${() => this._addNextValue()}
+                      @click=${() => {
+                        this._addNextValue();
+                      }}
                       ><sl-icon slot="prefix" name="plus"></sl-icon>${this._nextValue}</sl-button
                     >`
                   : undefined}
@@ -117,7 +122,9 @@ export class MultiValuePidEditor extends MultiValueEditor {
                 ? html`<sl-button
                     size="small"
                     variant="primary"
-                    @click=${() => this._addNextValue()}
+                    @click=${() => {
+                      this._addNextValue();
+                    }}
                     ><sl-icon slot="prefix" name="plus"></sl-icon>${this._nextValue}</sl-button
                   >`
                 : undefined}

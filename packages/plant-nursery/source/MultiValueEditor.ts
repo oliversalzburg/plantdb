@@ -1,6 +1,7 @@
 import { SlDropdown, SlInput } from "@shoelace-style/shoelace";
 import { LitElement, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 
 @customElement("pn-multi-value-editor")
 export class MultiValueEditor extends LitElement {
@@ -31,7 +32,7 @@ export class MultiValueEditor extends LitElement {
   @property()
   placeholder: string | undefined;
 
-  @property({ type: [String] })
+  @property({ attribute: false })
   suggestions: Array<string> | undefined;
 
   @query("#input")
@@ -67,10 +68,12 @@ export class MultiValueEditor extends LitElement {
     return [
       html`<sl-input
           id="input"
-          label=${this.label}
-          placeholder=${Array.isArray(this.value) ? this.value.sort().join(", ") : this.placeholder}
+          label=${ifDefined(this.label)}
+          placeholder=${ifDefined(
+            Array.isArray(this.value) ? this.value.sort().join(", ") : this.placeholder,
+          )}
           clearable
-          value=${Array.isArray(this.value) ? this._nextValue : this.value}
+          value=${ifDefined(Array.isArray(this.value) ? this._nextValue : this.value)}
           @sl-focus=${() => this._dropdown?.show()}
           @sl-input=${(event: InputEvent) => {
             if (Array.isArray(this.value)) {
@@ -116,11 +119,13 @@ export class MultiValueEditor extends LitElement {
                   ? html`<sl-button
                       size="small"
                       variant="primary"
-                      @click=${() => this._addNextValue()}
+                      @click=${() => {
+                        this._addNextValue();
+                      }}
                       ><sl-icon slot="prefix" name="plus"></sl-icon>${this._nextValue}</sl-button
                     >`
                   : undefined}
-                ${(this.suggestions ?? [])
+                ${this.suggestions
                   .filter(suggestion => {
                     // Don't show existing values
                     if (Array.isArray(this.value) && this.value.includes(suggestion)) {
@@ -161,7 +166,9 @@ export class MultiValueEditor extends LitElement {
                 ? html`<sl-button
                     size="small"
                     variant="primary"
-                    @click=${() => this._addNextValue()}
+                    @click=${() => {
+                      this._addNextValue();
+                    }}
                     ><sl-icon slot="prefix" name="plus"></sl-icon>${this._nextValue}</sl-button
                   >`
                 : undefined}

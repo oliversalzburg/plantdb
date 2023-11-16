@@ -1,3 +1,4 @@
+import { isNil } from "@oliversalzburg/js-utils/lib/nil";
 import {
   DatabaseFormat,
   DictionaryClassifier,
@@ -10,7 +11,6 @@ import {
   UserDictionary,
   UserDictionarySerialized,
 } from "@plantdb/libplantdb";
-import { isNil } from "../tools/Maybe";
 import { NurseryConfiguration, StorageDriver, getConfigurationFromPlantDB } from "./StorageDriver";
 
 export class LocalStorage implements StorageDriver {
@@ -21,9 +21,7 @@ export class LocalStorage implements StorageDriver {
     return Promise.resolve(true);
   }
 
-  get connected() {
-    return true;
-  }
+  readonly connected = true;
 
   /** @inheritDoc */
   async getApplicationConfiguration() {

@@ -1,9 +1,9 @@
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
 import { Plant } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { PlantPropertiesForm } from "../PlantPropertiesForm";
-import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-plant-properties-view")
@@ -39,7 +39,7 @@ export class PlantPropertiesView extends View {
     `,
   ];
 
-  @property()
+  @property({ attribute: false })
   plant: Plant | undefined;
 
   @query("#form")
@@ -60,7 +60,7 @@ export class PlantPropertiesView extends View {
       bubbles: true,
       cancelable: true,
       composed: true,
-      detail: this._form?.asPlant(),
+      detail: this._form.asPlant(),
     });
     this.dispatchEvent(event);
 
@@ -98,9 +98,18 @@ export class PlantPropertiesView extends View {
           }}
         ></pn-plant-properties-form>
         <section class="footer">
-          <sl-button variant="primary" @click=${() => this.save()}
+          <sl-button
+            variant="primary"
+            @click=${() => {
+              this.save();
+            }}
             >${t("save", { ns: "common" })}</sl-button
-          ><sl-button @click=${() => this.cancel()}>${t("cancel", { ns: "common" })}</sl-button>
+          ><sl-button
+            @click=${() => {
+              this.cancel();
+            }}
+            >${t("cancel", { ns: "common" })}</sl-button
+          >
         </section>`,
     ];
   }

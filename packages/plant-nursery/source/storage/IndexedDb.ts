@@ -1,3 +1,5 @@
+import { coalesceOnRejection } from "@oliversalzburg/js-utils";
+import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import {
   DatabaseFormat,
   DictionaryClassifiers,
@@ -9,8 +11,6 @@ import {
   UserDictionary,
 } from "@plantdb/libplantdb";
 import { IDBPDatabase, deleteDB, openDB } from "idb";
-import { coalesceOnError } from "../tools/Async";
-import { assertExists, isNil, mustExist } from "../tools/Maybe";
 import { LocalStorage } from "./LocalStorage";
 import { NurseryConfiguration, StorageDriver, getConfigurationFromPlantDB } from "./StorageDriver";
 
@@ -20,7 +20,7 @@ export class IndexedDb implements StorageDriver {
    */
   private _databaseFormat = DatabaseFormat.DefaultInterchange();
 
-  private _dbPlantDb: IDBPDatabase<unknown> | undefined;
+  private _dbPlantDb: IDBPDatabase | undefined;
 
   /**
    * We only persist tabular data into IndexedDB. Hierarchical data, like
@@ -96,7 +96,7 @@ export class IndexedDb implements StorageDriver {
 
   /** @inheritDoc */
   async getRawLog() {
-    const dataObject = await coalesceOnError(
+    const dataObject = await coalesceOnRejection(
       () => mustExist(this._dbPlantDb).getAll("plantlog"),
       null,
     );
@@ -108,7 +108,7 @@ export class IndexedDb implements StorageDriver {
   }
   /** @inheritDoc */
   async getRawPlants() {
-    const dataObject = await coalesceOnError(
+    const dataObject = await coalesceOnRejection(
       () => mustExist(this._dbPlantDb).getAll("plants"),
       null,
     );
@@ -120,7 +120,7 @@ export class IndexedDb implements StorageDriver {
   }
   /** @inheritDoc */
   async getRawTasks() {
-    const dataObject = await coalesceOnError(
+    const dataObject = await coalesceOnRejection(
       () => mustExist(this._dbPlantDb).getAll("tasks"),
       null,
     );

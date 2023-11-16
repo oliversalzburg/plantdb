@@ -1,8 +1,8 @@
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
 import { Task } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-task-list-view")
@@ -26,7 +26,7 @@ export class TaskListView extends View {
     `,
   ];
 
-  @property({ type: [Task] })
+  @property({ attribute: false })
   tasks = new Array<Task>();
 
   async createNewTask() {
@@ -35,7 +35,7 @@ export class TaskListView extends View {
 
     const task = await this.plantStoreUi.showTaskEditor();
     if (!task) {
-      return;
+      return Promise.resolve(undefined);
     }
 
     console.debug(task);

@@ -1,8 +1,8 @@
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
 import { Plant } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-plant-details-view")
@@ -38,10 +38,10 @@ export class PlantDetailsView extends View {
     `,
   ];
 
-  @property()
+  @property({ attribute: false })
   plant: Plant | undefined;
 
-  async createNewLogEntry() {
+  async createNewLogEntry(): Promise<void> {
     assertExists(this.plant);
     assertExists(this.plantStore);
     assertExists(this.plantStoreUi);
@@ -50,7 +50,7 @@ export class PlantDetailsView extends View {
       plantId: this.plant.id,
     });
     if (!logEntry) {
-      return;
+      return Promise.resolve(undefined);
     }
 
     console.debug(logEntry);

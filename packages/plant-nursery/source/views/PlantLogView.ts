@@ -1,8 +1,8 @@
+import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { LogEntry } from "packages/libplantdb/typings";
-import { assertExists, isNil, mustExist } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-plant-log-view")
@@ -43,7 +43,9 @@ export class PlantLogView extends View {
 
   connectedCallback(): void {
     super.connectedCallback();
-    mustExist(this.plantStore).addEventListener("pn-config-changed", () => this.requestUpdate());
+    mustExist(this.plantStore).addEventListener("pn-config-changed", () => {
+      this.requestUpdate();
+    });
   }
 
   async createNewLogEntry() {
@@ -52,7 +54,7 @@ export class PlantLogView extends View {
 
     const logEntry = await this.plantStoreUi.showEntryEditor();
     if (!logEntry) {
-      return;
+      return Promise.resolve(undefined);
     }
 
     console.debug(logEntry);
@@ -62,11 +64,11 @@ export class PlantLogView extends View {
 
   render() {
     if (isNil(this.plantStore)) {
-      return;
+      return undefined;
     }
 
     return [
-      0 < (this.plantStore?.plantDb.log.length ?? 0)
+      0 < this.plantStore.plantDb.log.length
         ? [
             html`<pn-plant-log
                 id="log"

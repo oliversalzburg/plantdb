@@ -2,10 +2,10 @@ import { DatabaseFormat, DatabaseFormatSerialized } from "./DatabaseFormat";
 import { EventType } from "./LogEntry";
 import { PlantDBEntity } from "./PlantDBEntity";
 
-export type ApplicationConfigurationSerialized = {
+export interface ApplicationConfigurationSerialized {
   databaseFormat: DatabaseFormatSerialized;
   typeMap: Record<string, EventType>;
-};
+}
 
 export class ApplicationConfiguration extends PlantDBEntity {
   #databaseFormat = DatabaseFormat.DefaultInterchange();

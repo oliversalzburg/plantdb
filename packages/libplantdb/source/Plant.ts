@@ -35,7 +35,7 @@ export type PotColor =
 /**
  * Describes an object containing all the fields required to initialize a `Plant`.
  */
-export type PlantSerialized = {
+export interface PlantSerialized {
   /**
    * @inheritDoc Plant.id
    */
@@ -120,7 +120,7 @@ export type PlantSerialized = {
    * @inheritDoc Plant.plantgeekId
    */
   plantgeekId?: string | Array<string>;
-};
+}
 
 export class Plant extends PlantDBEntity {
   #plantDb: PlantDB;
@@ -276,7 +276,7 @@ export class Plant extends PlantDBEntity {
    * The log entries in the PlantDB relating to this plant.
    */
   get log() {
-    return this.#plantDb.log.filter(logEntry => logEntry.plantId === this.id) ?? [];
+    return this.#plantDb.log.filter(logEntry => logEntry.plantId === this.id);
   }
 
   /**

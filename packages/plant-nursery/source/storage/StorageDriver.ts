@@ -10,10 +10,10 @@ import {
   UserDictionary,
 } from "@plantdb/libplantdb";
 
-export type NurseryConfiguration = {
+export interface NurseryConfiguration {
   databaseFormat: DatabaseFormat;
   typeMap: UserDictionary<EventType>;
-};
+}
 
 export const getConfigurationFromPlantDB = (plantDb: PlantDB) => {
   return {

@@ -1,10 +1,10 @@
+import { assertExists, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { Task } from "@plantdb/libplantdb";
-import { css, html, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
-import { assertExists, mustExist } from "./tools/Maybe";
 
 @customElement("pn-task-instance")
 export class TaskInstance extends LitElement {
@@ -18,13 +18,13 @@ export class TaskInstance extends LitElement {
     `,
   ];
 
-  @property({ type: PlantStore })
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property({ type: PlantStoreUi })
+  @property({ attribute: false })
   plantStoreUi: PlantStoreUi | null = null;
 
-  @property({ type: Task })
+  @property({ attribute: false })
   task: Task | undefined;
 
   render() {

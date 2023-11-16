@@ -1,4 +1,5 @@
-import { identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb";
+import { isNil } from "@oliversalzburg/js-utils/lib/nil";
+import { EventTypes, identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
@@ -6,7 +7,6 @@ import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { isNil } from "./tools/Maybe";
 
 @customElement("pn-plant-card")
 export class PlantCard extends LitElement {
@@ -47,15 +47,15 @@ export class PlantCard extends LitElement {
     `,
   ];
 
-  @property({ type: Plant })
+  @property({ attribute: false })
   plant: Plant | null | undefined;
 
-  @property({ type: PlantDB })
+  @property({ attribute: false })
   plantDb = PlantDB.Empty();
 
   render() {
     if (isNil(this.plant)) {
-      return;
+      return undefined;
     }
 
     let hasPendingPestInfestation = false;
@@ -63,7 +63,7 @@ export class PlantCard extends LitElement {
     let lastPestInfestation;
     let lastPestControl;
     const logsPestInfestation = this.plant.log.filter(
-      logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestInfestation",
+      logEntry => identifyLogType(logEntry.type, this.plantDb) === EventTypes.PestInfestation,
     );
     if (0 < logsPestInfestation.length) {
       lastPestInfestation = logsPestInfestation[0];
@@ -72,7 +72,7 @@ export class PlantCard extends LitElement {
       }
     }
     const logsPestControl = this.plant.log.filter(
-      logEntry => identifyLogType(logEntry.type, this.plantDb) === "PestControl",
+      logEntry => identifyLogType(logEntry.type, this.plantDb) === EventTypes.PestControl,
     );
     if (0 < logsPestControl.length) {
       lastPestControl = logsPestControl[logsPestControl.length - 1];
@@ -84,11 +84,10 @@ export class PlantCard extends LitElement {
         // was already the reapplication and there is no pest control pending.
         if (
           !previousPestControl ||
-          (previousPestControl &&
-            DateTime.fromJSDate(lastPestControl.timestamp).diff(
-              DateTime.fromJSDate(previousPestControl.timestamp),
-              "days",
-            ).days < -14)
+          DateTime.fromJSDate(lastPestControl.timestamp).diff(
+            DateTime.fromJSDate(previousPestControl.timestamp),
+            "days",
+          ).days < -14
         ) {
           hasPendingPestControl = true;
         }

@@ -1,3 +1,4 @@
+import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { Task, TaskRepeatDays, TaskRepeatFrequency, WeekDay } from "@plantdb/libplantdb";
 import { SlCheckbox, SlInput, SlRadio, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
@@ -8,11 +9,11 @@ import { t } from "i18next";
 import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 import { DateTime } from "luxon";
 import { MultiValueEditor } from "./MultiValueEditor";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
-import { assertExists, isNil, mustExist } from "./tools/Maybe";
 
 @customElement("pn-task-properties-form")
 export class TaskPropertiesForm extends LitElement {
@@ -71,13 +72,13 @@ export class TaskPropertiesForm extends LitElement {
     `,
   ];
 
-  @property()
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property()
+  @property({ attribute: false })
   plantStoreUi: PlantStoreUi | null = null;
 
-  @property({ type: Task })
+  @property({ attribute: false })
   task: Task | undefined;
 
   @state()
@@ -173,7 +174,7 @@ export class TaskPropertiesForm extends LitElement {
 
   render() {
     if (isNil(this.plantStore)) {
-      return;
+      return undefined;
     }
 
     const repeatUnits = ["day", "week", "month", "year"];
@@ -231,7 +232,7 @@ export class TaskPropertiesForm extends LitElement {
               type="time"
               ?disabled=${this._time === undefined}
               label=${t("taskEditor.timeLabel")}
-              value=${this._time}
+              value=${ifDefined(this._time)}
               step="60"
               @sl-change=${(event: MouseEvent) => {
                 this._time = (event.target as SlInput).value;
@@ -243,7 +244,7 @@ export class TaskPropertiesForm extends LitElement {
           <sl-textarea
             label=${t("taskEditor.notesLabel")}
             placeholder=${t("taskEditor.notesPlaceholder")}
-            value=${this._notes}
+            value=${ifDefined(this._notes)}
             @sl-change=${(event: MouseEvent) => (this._notes = (event.target as SlTextarea).value)}
           ></sl-textarea>
 
@@ -263,7 +264,7 @@ export class TaskPropertiesForm extends LitElement {
               label=${t("taskEditor.repeatIntervalLabel")}
               placeholder=${t("taskEditor.repeatIntervalPlaceholder")}
               clearable
-              value=${this._repeatInterval}
+              value=${ifDefined(this._repeatInterval)}
               @sl-change=${(event: MouseEvent) =>
                 (this._repeatInterval = (event.target as SlInput).valueAsNumber)}
               min="1"
@@ -275,7 +276,7 @@ export class TaskPropertiesForm extends LitElement {
               placeholder=${t("taskEditor.repeatUnitPlaceholder")}
               clearable
               ?required=${this._repeatInterval !== undefined}
-              value=${this._repeatFrequency}
+              value=${ifDefined(this._repeatFrequency)}
               @sl-change=${(event: MouseEvent) =>
                 (this._repeatFrequency = (event.target as SlSelect).value as string)}
               hoist
@@ -322,10 +323,10 @@ export class TaskPropertiesForm extends LitElement {
               <sl-input
                 type="date"
                 label=${t("taskEditor.endsOnLabel")}
-                value=${this._endsOn}
+                value=${ifDefined(this._endsOn)}
                 ?disabled=${this._endsOn === undefined}
                 @sl-change=${(event: MouseEvent) => {
-                  this._endsOn = (event.target as SlInput).value ?? undefined;
+                  this._endsOn = (event.target as SlInput).value;
                   event.stopPropagation();
                 }}
                 clearable
@@ -342,7 +343,7 @@ export class TaskPropertiesForm extends LitElement {
                 type="number"
                 label=${t("taskEditor.endsAfterLabel")}
                 placeholder=${t("taskEditor.endsAfterPlaceholder")}
-                value=${this._endsAfter}
+                value=${ifDefined(this._endsAfter)}
                 ?disabled=${this._endsAfter === undefined}
                 @sl-change=${(event: MouseEvent) => {
                   this._endsAfter = (event.target as SlInput).valueAsNumber;

@@ -1,3 +1,4 @@
+import { isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import {
   DatabaseFormat,
   DictionaryClassifier,
@@ -10,7 +11,6 @@ import {
   UserDictionary,
   UserDictionarySerialized,
 } from "@plantdb/libplantdb";
-import { isNil, mustExist } from "../tools/Maybe";
 import { NurseryConfiguration, StorageDriver } from "./StorageDriver";
 
 export class GoogleDrive implements StorageDriver {
@@ -243,7 +243,7 @@ export class GoogleDrive implements StorageDriver {
           scope: SCOPES.join(" "),
           prompt: "consent",
           callback: response => {
-            if (response.error !== undefined) {
+            if (response.error !== "") {
               reject(response);
             }
 
@@ -271,7 +271,9 @@ export class GoogleDrive implements StorageDriver {
         async: true,
         defer: true,
         src: "https://accounts.google.com/gsi/client",
-        onload: () => resolve(null),
+        onload: () => {
+          resolve(null);
+        },
       });
       domTarget.appendChild(GoogleDrive._scriptGoogleIdentityServices);
     });
@@ -288,7 +290,9 @@ export class GoogleDrive implements StorageDriver {
         async: true,
         defer: true,
         src: "https://apis.google.com/js/api.js",
-        onload: () => resolve(window.gapi),
+        onload: () => {
+          resolve(window.gapi);
+        },
       });
       document.body.appendChild(GoogleDrive._scriptGoogleDriveApi);
     });

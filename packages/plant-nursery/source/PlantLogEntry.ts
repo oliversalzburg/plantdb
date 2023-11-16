@@ -1,5 +1,6 @@
 import {
   EventType,
+  EventTypes,
   flattenMultiValue,
   identifyLogType,
   LogEntry,
@@ -118,10 +119,10 @@ export class PlantLogEntry extends LitElement {
     `,
   ];
 
-  @property({ type: PlantDB })
+  @property({ attribute: false })
   plantDb = PlantDB.Empty();
 
-  @property({ type: LogEntry })
+  @property({ attribute: false })
   logEntry: LogEntry | undefined;
 
   @property({ type: Boolean, attribute: true, reflect: true })
@@ -157,13 +158,13 @@ export class PlantLogEntry extends LitElement {
       case "Observation":
         return { icon: "eye" };
 
-      case "PestControl":
+      case EventTypes.PestControl:
         return {
           icon: "radioactive",
           details: `${flattenMultiValue(logEntry?.productUsed)}`,
         };
 
-      case "PestInfestation":
+      case EventTypes.PestInfestation:
         return { icon: "bug" };
 
       case "Pruning":
@@ -175,7 +176,7 @@ export class PlantLogEntry extends LitElement {
       case "Repotting":
         return { icon: "trash2" };
 
-      case "RootPruning":
+      case EventTypes.RootPruning:
         return { icon: "scissors" };
 
       case "Shaping":
@@ -205,14 +206,14 @@ export class PlantLogEntry extends LitElement {
   }
 
   render() {
-    if (!this.plantDb || !this.logEntry) {
-      return;
+    if (!this.logEntry) {
+      return undefined;
     }
 
     const identifiedType = identifyLogType(this.logEntry.type, this.plantDb);
     return [
       html`<sl-card>
-        ${this.headerVisible && this.logEntry.plant
+        ${this.headerVisible
           ? html`<div slot="header">
               <div>
                 ${this.logEntry.plant.name}
@@ -224,7 +225,7 @@ export class PlantLogEntry extends LitElement {
                   >${t("log.goToDetails")}</a
                 ><span class="navigation-guide"> →</span>
                 ${this.logEntry.plant.location
-                  ? html`<sl-tooltip content=${this.logEntry.plant.location}
+                  ? html`<sl-tooltip content=${this.logEntry.plant.location.toString()}
                       ><sl-icon name="geo-alt"></sl-icon
                     ></sl-tooltip>`
                   : undefined}
@@ -246,7 +247,7 @@ export class PlantLogEntry extends LitElement {
             <span>${DateTime.fromJSDate(this.logEntry.timestamp).toFormat("f")}</span>
             <small class="time-distance"
               >${DateTime.fromJSDate(this.logEntry.timestamp).toRelative()}${this.logEntry.plant
-                ?.logEntryOldest === this.logEntry
+                .logEntryOldest === this.logEntry
                 ? html`<sl-tooltip content=${t("log.firstEntry")}><span>🌟</span></sl-tooltip>`
                 : undefined}</small
             >

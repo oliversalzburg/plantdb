@@ -1,3 +1,4 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { identifyLogType, LogEntry } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
@@ -8,7 +9,6 @@ import { Forms } from "./ComponentStyles";
 import { PlantLogEntry } from "./PlantLogEntry";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
-import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-log")
 export class PlantLog extends LitElement {
@@ -57,13 +57,13 @@ export class PlantLog extends LitElement {
     `,
   ];
 
-  @property({ type: PlantStore })
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property({ type: PlantStoreUi })
+  @property({ attribute: false })
   plantStoreUi: PlantStoreUi | null = null;
 
-  @property({ type: [LogEntry] })
+  @property({ attribute: false })
   log = new Array<LogEntry>();
 
   @property({ type: Number })
@@ -80,7 +80,9 @@ export class PlantLog extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    mustExist(this.plantStore).addEventListener("pn-config-changed", () => this.requestUpdate());
+    mustExist(this.plantStore).addEventListener("pn-config-changed", () => {
+      this.requestUpdate();
+    });
   }
 
   render() {
@@ -116,7 +118,7 @@ export class PlantLog extends LitElement {
           clearable
           .value=${this._filterEventTypes}
           @sl-change=${(event: Event) => {
-            const value = (event.target as SlSelect).value as string[];
+            const value = (event.target as SlSelect).value as Array<string>;
             this._filterEventTypes = value;
             this.maxItems = 10;
           }}

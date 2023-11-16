@@ -1,8 +1,8 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { EventType } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { mustExist } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-type-map-view")
@@ -38,7 +38,7 @@ export class TypeMapView extends View {
     `,
   ];
 
-  @property({ type: Map })
+  @property({ attribute: false })
   proposedMapping = new Map<string, EventType>();
 
   render() {

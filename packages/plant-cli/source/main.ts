@@ -6,7 +6,7 @@ import path from "node:path";
 
 const argv = minimist(process.argv.slice(2));
 
-const cwd: string = (argv.cwd as string) ?? process.cwd();
+const cwd: string = (argv.cwd as string | undefined) ?? process.cwd();
 
 const main = async () => {
   const plantDbConfigRaw = await fs.readFile(path.resolve(cwd, "plantdb.json"), "utf-8");

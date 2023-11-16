@@ -1,13 +1,13 @@
+import { isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
 import { t } from "i18next";
-import { css, html, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isNil, mustExist } from "./tools/Maybe";
 
-export type PlantNetResult = {
+export interface PlantNetResult {
   score: number;
   species: {
     scientificNameWithoutAuthor: string;
@@ -38,9 +38,9 @@ export type PlantNetResult = {
     citation: string;
   }>;
   gbif: { id: string };
-};
+}
 
-export type PlantNetResponse = {
+export interface PlantNetResponse {
   query: {
     project: string;
     images: Array<string>;
@@ -53,12 +53,12 @@ export type PlantNetResponse = {
   results: Array<PlantNetResult>;
   version: string;
   remainingIdentificationRequests: number;
-};
-export type PlantNetErrorResponse = {
+}
+export interface PlantNetErrorResponse {
   statusCode: number;
   error: string;
   message: string;
-};
+}
 
 @customElement("pn-plant-identification-picker")
 export class PlantIdentificationPicker extends LitElement {
@@ -95,12 +95,12 @@ export class PlantIdentificationPicker extends LitElement {
     `,
   ];
 
-  @property()
+  @property({ attribute: false })
   response: PlantNetResponse | undefined;
 
   render() {
     if (isNil(this.response) || !Array.isArray(this.response.results)) {
-      return;
+      return undefined;
     }
 
     return [

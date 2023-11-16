@@ -7,10 +7,10 @@ export const DictionaryClassifiers = {
 export type DictionaryClassifier =
   (typeof DictionaryClassifiers)[keyof typeof DictionaryClassifiers];
 
-export type UserDictionarySerialized = {
+export interface UserDictionarySerialized {
   classifier: DictionaryClassifier;
   dictionary: Record<string, string>;
-};
+}
 
 export class UserDictionary<TResult extends string = string> extends PlantDBEntity {
   #dictionary: Map<string, TResult>;

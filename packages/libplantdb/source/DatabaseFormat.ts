@@ -4,13 +4,13 @@ import { PlantDBEntity } from "./PlantDBEntity";
  * Describes a plain JS object, containing all the properties required to initialize
  * a `DatabaseFormat`.
  */
-export type DatabaseFormatSerialized = {
+export interface DatabaseFormatSerialized {
   columnSeparator: string;
   dateFormat: string;
   decimalSeparator: string;
   hasHeaderRow: boolean;
   timezone: string;
-};
+}
 
 /**
  * Describes the format of records in a PlantDB document.

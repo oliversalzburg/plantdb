@@ -7,7 +7,7 @@ import { intFromCSV, valueFromCSV } from "./csv/Tools";
 /**
  * Describes an object containing all the fields required to initialize a `Task`.
  */
-export type TaskSerialized = {
+export interface TaskSerialized {
   /**
    * @inheritDoc Task.id
    */
@@ -46,11 +46,13 @@ export type TaskSerialized = {
   /**
    * @inheritDoc Task.repeatFrequency
    */
+  // eslint-disable-next-line no-use-before-define
   repeatFrequency?: TaskRepeatFrequency;
 
   /**
    * @inheritDoc Task.repeatDays
    */
+  // eslint-disable-next-line no-use-before-define
   repeatDays?: Array<TaskRepeatDays>;
 
   /**
@@ -62,7 +64,7 @@ export type TaskSerialized = {
    * @inheritDoc Task.endsAfter
    */
   endsAfter?: number;
-};
+}
 
 export const Interval = {
   Daily: "day",
@@ -199,7 +201,7 @@ export class Task extends PlantDBEntity {
    */
   get repeats() {
     return (
-      (this.#repeatFrequency && this.#repeatInterval) ||
+      (this.#repeatFrequency && this.#repeatInterval) ??
       (Array.isArray(this.#repeatDays) && 0 < this.#repeatDays.length)
     );
   }

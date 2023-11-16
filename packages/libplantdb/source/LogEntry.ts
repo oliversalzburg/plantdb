@@ -73,12 +73,12 @@ export const EventTypes = {
 /**
  * All possible values for internally known event types.
  */
-export type EventType = (typeof EventTypes)[keyof typeof EventTypes];
+export type EventType = keyof typeof EventTypes;
 
 /**
  * Describes an object containing all the fields required to initialize a `LogEntry`.
  */
-export type LogEntrySerialized = {
+export interface LogEntrySerialized {
   /**
    * @inheritDoc LogEntry.id
    */
@@ -118,7 +118,7 @@ export type LogEntrySerialized = {
    * @inheritDoc LogEntry.notes
    */
   notes?: string;
-};
+}
 
 /**
  * A single entry in a PlantDB log.
@@ -203,7 +203,7 @@ export class LogEntry extends PlantDBEntity {
    * The plant this record refers to.
    */
   get plant() {
-    const plant = this.#plantDb?.plants.get(this.#plantId);
+    const plant = this.#plantDb.plants.get(this.#plantId);
     if (!plant) {
       throw new Error(
         `Unable to find plant '${this.#plantId}' in plant cache. Ensure PlantDB has been initialized with PlantDB.fromCSV()!`,

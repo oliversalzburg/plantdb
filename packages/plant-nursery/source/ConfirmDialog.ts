@@ -1,8 +1,8 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { SlDialog } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
-import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-confirm-dialog")
 export class ConfirmDialog extends LitElement {

@@ -9,7 +9,7 @@ import { DictionaryClassifiers } from "./UserDictionary.js";
  * @param plantKind A `kind` of a `Plant`
  * @returns A string that summarizes the kinds in a plant.
  */
-export const kindSummarize = (plantKind: string | string[] | undefined) => {
+export const kindSummarize = (plantKind: string | Array<string> | undefined) => {
   if (plantKind === undefined) {
     return "<unknown kind>";
   }
@@ -27,7 +27,7 @@ export const kindSummarize = (plantKind: string | string[] | undefined) => {
  * @param plantKind A `kind` if a `Plant`.
  * @returns A string that contains all the kinds the plant.
  */
-export const kindFlatten = (plantKind: string | string[] | undefined) => {
+export const kindFlatten = (plantKind: string | Array<string> | undefined) => {
   if (plantKind === undefined) {
     return "<unknown kind>";
   }
@@ -39,7 +39,7 @@ export const kindFlatten = (plantKind: string | string[] | undefined) => {
   return plantKind;
 };
 
-export const flattenMultiValue = (multiValue: string | string[] | undefined) => {
+export const flattenMultiValue = (multiValue: string | Array<string> | undefined) => {
   if (multiValue === undefined) {
     return "";
   }

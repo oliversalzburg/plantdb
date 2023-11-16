@@ -1,3 +1,4 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { identifyLogType, LogEntry, Plant } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
@@ -9,7 +10,6 @@ import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
-import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-details")
 export class PlantDetails extends LitElement {
@@ -68,13 +68,13 @@ export class PlantDetails extends LitElement {
     `,
   ];
 
-  @property()
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property()
+  @property({ attribute: false })
   plantStoreUi: PlantStoreUi | null = null;
 
-  @property({ type: Plant })
+  @property({ attribute: false })
   plant: Plant | undefined;
 
   get cx() {
@@ -89,7 +89,7 @@ export class PlantDetails extends LitElement {
     const measurements = plant.log.filter(
       entry =>
         identifyLogType(entry.type, mustExist(this.plantStore).plantDb) === "Measurement" &&
-        (entry.ph || entry.ec),
+        (entry.ph ?? entry.ec),
     );
 
     if (measurements.length === 0) {
@@ -106,7 +106,7 @@ export class PlantDetails extends LitElement {
 
   render() {
     if (!this.plant) {
-      return;
+      return undefined;
     }
 
     const plantDataCsv = this.plantDataAsGraphCSV(this.plant);
@@ -116,7 +116,7 @@ export class PlantDetails extends LitElement {
           <sl-card @click=${() => this.cx.plantStoreUi.editPlant(this.cx.plant)}>
             <div slot="header">
               ${this.plant.location
-                ? html`<sl-tooltip content=${this.plant.location}
+                ? html`<sl-tooltip content=${this.plant.location.toString()}
                     ><sl-icon name="geo-alt"></sl-icon
                   ></sl-tooltip>`
                 : undefined}

@@ -1,8 +1,8 @@
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
 import { Plant } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 @customElement("pn-plant-list-view")
@@ -30,7 +30,7 @@ export class PlantListView extends View {
     `,
   ];
 
-  @property({ type: [Plant] })
+  @property({ attribute: false })
   plants = new Array<Plant>();
 
   async createNewPlant() {
@@ -39,7 +39,7 @@ export class PlantListView extends View {
 
     const plant = await this.plantStoreUi.showPlantEditor();
     if (!plant) {
-      return;
+      return Promise.resolve(undefined);
     }
 
     console.debug(plant);

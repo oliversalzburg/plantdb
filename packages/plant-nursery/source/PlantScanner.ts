@@ -1,8 +1,8 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-scanner")
 export class PlantScanner extends LitElement {
@@ -93,7 +93,9 @@ export class PlantScanner extends LitElement {
   stop(): void {
     mustExist(this._video).pause();
 
-    this._mediaStream?.getTracks().forEach(track => track.stop());
+    this._mediaStream?.getTracks().forEach(track => {
+      track.stop();
+    });
   }
 
   async start() {
@@ -200,20 +202,25 @@ export class PlantScanner extends LitElement {
         })}>
         <div class="top">
           <sl-spinner id="spinner" style="font-size: 3rem;"></sl-spinner>
-          <video id="video" @click=${() => this._capture()}></video><canvas id="canvas"></canvas>
+          <video id="video" @click=${() => {
+            this._capture();
+          }}></video><canvas id="canvas"></canvas>
         </div>
         <div class="controls">
-          <sl-button id="pick-image" variant="success" @click=${() => this._pick()}>${t(
-            "scanner.pickImage",
-          )}<sl-icon slot="prefix" name="check"></sl-button>
-          <sl-button id="click-photo" variant="primary" @click=${() =>
-            this._capture()}><sl-icon slot="prefix" name="camera"></sl-icon>${t(
-            "scanner.captureImage",
-          )}</sl-button>
-          <sl-button id="retry" @click=${() => this._retry()}>${t("retry", {
+          <sl-button id="pick-image" variant="success" @click=${() => {
+            this._pick();
+          }}>${t("scanner.pickImage")}<sl-icon slot="prefix" name="check"></sl-button>
+          <sl-button id="click-photo" variant="primary" @click=${() => {
+            this._capture();
+          }}><sl-icon slot="prefix" name="camera"></sl-icon>${t("scanner.captureImage")}</sl-button>
+          <sl-button id="retry" @click=${() => {
+            this._retry();
+          }}>${t("retry", {
             ns: "common",
           })}<sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon></sl-button>
-          <sl-button id="abort" @click=${() => this._abort()}>${t("cancel", {
+          <sl-button id="abort" @click=${() => {
+            this._abort();
+          }}>${t("cancel", {
             ns: "common",
           })}<sl-icon slot="suffix" name="x"></sl-icon></sl-button>
         </div>

@@ -1,3 +1,5 @@
+import { unknownToError } from "@oliversalzburg/js-utils/lib/error-serializer";
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
 import {
   DatabaseFormat,
   DatabaseFormatSerialized,
@@ -11,8 +13,6 @@ import { t } from "i18next";
 import { css } from "lit";
 import { property, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { unknownToError } from "../tools/ErrorSerializer";
-import { assertExists } from "../tools/Maybe";
 import { View } from "./View";
 
 export abstract class DataExchangeView extends View {
@@ -90,7 +90,7 @@ export abstract class DataExchangeView extends View {
   @state()
   protected _googleDriveHelpText = "";
 
-  @property()
+  @property({ attribute: false })
   config = DatabaseFormat.DefaultInterchange();
 
   firstUpdated() {
@@ -153,7 +153,7 @@ export abstract class DataExchangeView extends View {
       `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`,
     );
 
-    await this.plantStore?.updatePlantDb(plantDb);
+    await this.plantStore.updatePlantDb(plantDb);
     this.plantStoreUi?.navigatePath("/log");
   }
 

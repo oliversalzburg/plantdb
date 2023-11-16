@@ -2,18 +2,6 @@ import { Task, TaskRepeatDays, TaskRepeatFrequency, WeekDay } from "@plantdb/lib
 import { DateTime } from "luxon";
 import { RRule } from "rrule";
 
-export const rruleFromTask = (task: Task) => {
-  const rule = new RRule({
-    count: task.endsAfter,
-    freq: task.repeatFrequency ? convertFrequency(task.repeatFrequency) : undefined,
-    interval: task.repeatInterval,
-    byweekday: task.repeatDays?.map(day => convertDay(day)),
-    dtstart: DateTime.fromJSDate(task.dateTime).setZone("utc", { keepLocalTime: true }).toJSDate(),
-    until: task.endsOn,
-  });
-  return rule;
-};
-
 export const convertFrequency = (frequency: TaskRepeatFrequency) => {
   switch (frequency) {
     case "day":
@@ -48,4 +36,16 @@ export const convertDay = (repeatDay: TaskRepeatDays) => {
     default:
       throw new Error("Unknown or unsupported repeat day.");
   }
+};
+
+export const rruleFromTask = (task: Task) => {
+  const rule = new RRule({
+    count: task.endsAfter,
+    freq: task.repeatFrequency ? convertFrequency(task.repeatFrequency) : undefined,
+    interval: task.repeatInterval,
+    byweekday: task.repeatDays?.map(day => convertDay(day)),
+    dtstart: DateTime.fromJSDate(task.dateTime).setZone("utc", { keepLocalTime: true }).toJSDate(),
+    until: task.endsOn,
+  });
+  return rule;
 };

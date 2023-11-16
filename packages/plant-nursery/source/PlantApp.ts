@@ -1,3 +1,4 @@
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { DictionaryClassifiers, EventType, UserDictionary } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
 import { t } from "i18next";
@@ -8,7 +9,6 @@ import { Typography } from "./ComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi";
 import { executeAsyncContext } from "./tools/Async";
-import { mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-app")
 export class PlantApp extends LitElement {
@@ -81,8 +81,12 @@ export class PlantApp extends LitElement {
       ).detail;
       this.handleUserNavigationEvent(page, pageParams, pageQuery);
     });
-    this._plantStoreUi.addEventListener("pn-drawer-open", () => this.requestUpdate());
-    this._plantStoreUi.addEventListener("pn-theme-changed", () => this.requestUpdate());
+    this._plantStoreUi.addEventListener("pn-drawer-open", () => {
+      this.requestUpdate();
+    });
+    this._plantStoreUi.addEventListener("pn-theme-changed", () => {
+      this.requestUpdate();
+    });
     this._plantStoreUi.addEventListener(
       "pn-i18n-changed",
       // @ts-expect-error wtf?
@@ -94,12 +98,11 @@ export class PlantApp extends LitElement {
     // We pass this info to the store and expect it invoke the `plant-navigate` event.
     // Then we are ready to handle the starting location like any later naviation event.
     this._plantStoreUi.addEventListener("pn-i18n-ready", () => {
-      installRouter(
-        location =>
-          this._plantStoreUi?.handleUserNavigationEvent(
-            decodeURIComponent(location.href.slice(location.origin.length)),
-          ),
-      );
+      installRouter(location => {
+        this._plantStoreUi.handleUserNavigationEvent(
+          decodeURIComponent(location.href.slice(location.origin.length)),
+        );
+      });
 
       executeAsyncContext(async () => {
         try {
@@ -115,7 +118,9 @@ export class PlantApp extends LitElement {
       });
     });
 
-    this._plantStore.addEventListener("pn-config-changed", () => this.requestUpdate());
+    this._plantStore.addEventListener("pn-config-changed", () => {
+      this.requestUpdate();
+    });
 
     this.appendChild(this._plantStore);
     this.appendChild(this._plantStoreUi);
@@ -169,7 +174,7 @@ export class PlantApp extends LitElement {
         break;
       default:
         document.title = t("app.title");
-        return this._plantStoreUi?.navigate("view404");
+        this._plantStoreUi.navigate("view404");
     }
 
     this.requestUpdate();
@@ -196,26 +201,46 @@ export class PlantApp extends LitElement {
                 placement="start"
                 class="drawer-placement-start"
                 ?open=${this._plantStoreUi.drawerIsOpen}
-                @sl-after-hide=${() => mustExist(this._plantStoreUi).drawerClose()}
+                @sl-after-hide=${() => {
+                  mustExist(this._plantStoreUi).drawerClose();
+                }}
               >
-                <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/")}
+                <sl-menu-item
+                  @click=${() => {
+                    this._plantStoreUi.navigatePath("/");
+                  }}
                   >${t("menu.log")}</sl-menu-item
                 >
-                <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/list")}
+                <sl-menu-item
+                  @click=${() => {
+                    this._plantStoreUi.navigatePath("/list");
+                  }}
                   >${t("menu.plants")}</sl-menu-item
                 >
-                <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/tasks")}
+                <sl-menu-item
+                  @click=${() => {
+                    this._plantStoreUi.navigatePath("/tasks");
+                  }}
                   >${t("menu.tasks")}</sl-menu-item
                 >
                 <sl-divider></sl-divider>
                 <sl-menu-label>${t("menu.settings")}</sl-menu-label>
-                <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/types")}
+                <sl-menu-item
+                  @click=${() => {
+                    this._plantStoreUi.navigatePath("/types");
+                  }}
                   >${t("menu.typeMap")}</sl-menu-item
                 >
-                <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/import")}
+                <sl-menu-item
+                  @click=${() => {
+                    this._plantStoreUi.navigatePath("/import");
+                  }}
                   >${t("menu.import")}</sl-menu-item
                 >
-                <sl-menu-item @click=${() => this._plantStoreUi.navigatePath("/export")}
+                <sl-menu-item
+                  @click=${() => {
+                    this._plantStoreUi.navigatePath("/export");
+                  }}
                   >${t("menu.export")}</sl-menu-item
                 >
                 <div class="footer-elements" slot="footer">
@@ -243,11 +268,15 @@ export class PlantApp extends LitElement {
                 ${this._plantStoreUi.darkMode
                   ? html`<sl-icon-button
                       name="sun"
-                      @click=${() => this._plantStoreUi.darkModeLeave()}
+                      @click=${() => {
+                        this._plantStoreUi.darkModeLeave();
+                      }}
                     ></sl-icon-button>`
                   : html`<sl-icon-button
                       name="moon"
-                      @click=${() => this._plantStoreUi.darkModeEnter()}
+                      @click=${() => {
+                        this._plantStoreUi.darkModeEnter();
+                      }}
                     ></sl-icon-button>`}
 
                 <sl-dropdown>
@@ -304,7 +333,7 @@ export class PlantApp extends LitElement {
                 ?active=${this._plantStoreUi.page === "list"}
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
-                .plants=${[...(this._plantStore.plantDb.plants.values() ?? [])]}
+                .plants=${[...this._plantStore.plantDb.plants.values()]}
               ></pn-plant-list-view>
               <pn-plant-details-view
                 class="view"
@@ -344,18 +373,19 @@ export class PlantApp extends LitElement {
 
               <pn-type-map-view
                 class="view"
-                ?active=${this._plantStoreUi?.page === "types"}
+                ?active=${this._plantStoreUi.page === "types"}
                 .plantStore=${this._plantStore}
                 .plantStoreUi=${this._plantStoreUi}
                 .proposedMapping=${new Map(
-                  [...(this._plantStore.plantDb.entryTypes.values() ?? [])]
+                  [...this._plantStore.plantDb.entryTypes.values()]
                     .map(entryType =>
                       typeMap.has(entryType) ? [entryType, typeMap.get(entryType)] : undefined,
                     )
                     .filter(Boolean) as Array<[string, EventType]>,
                 )}
-                @pn-config-changed=${(event: CustomEvent<UserDictionary>) =>
-                  this._onTypeMapChanged(event)}
+                @pn-config-changed=${(event: CustomEvent<UserDictionary>) => {
+                  this._onTypeMapChanged(event);
+                }}
               ></pn-type-map-view>
               <pn-import-view
                 class="view"

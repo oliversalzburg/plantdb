@@ -1,3 +1,4 @@
+import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
 import { Plant } from "@plantdb/libplantdb";
 import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
@@ -8,6 +9,7 @@ import { t } from "i18next";
 import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 import { MultiValueEditor } from "./MultiValueEditor";
 import {
   PlantIdentificationPicker,
@@ -19,7 +21,6 @@ import { PlantScanner } from "./PlantScanner";
 import { makeIdentificationRequest } from "./identification/Tools";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi } from "./stores/PlantStoreUi";
-import { assertExists, isNil, mustExist } from "./tools/Maybe";
 
 @customElement("pn-plant-properties-form")
 export class PlantPropertiesForm extends LitElement {
@@ -81,8 +82,6 @@ export class PlantPropertiesForm extends LitElement {
         min-width: 0;
         flex: 1;
       }
-      .button-attached :last-child {
-      }
 
       .row {
         display: flex;
@@ -111,13 +110,13 @@ export class PlantPropertiesForm extends LitElement {
     `,
   ];
 
-  @property()
+  @property({ attribute: false })
   plantStore: PlantStore | null = null;
 
-  @property()
+  @property({ attribute: false })
   plantStoreUi: PlantStoreUi | null = null;
 
-  @property({ type: Plant })
+  @property({ attribute: false })
   plant: Plant | undefined;
 
   @state()
@@ -302,7 +301,7 @@ export class PlantPropertiesForm extends LitElement {
 
   render() {
     if (isNil(this.plantStore)) {
-      return;
+      return undefined;
     }
 
     return [
@@ -317,15 +316,22 @@ export class PlantPropertiesForm extends LitElement {
       >
         <pn-plant-scanner
           id="scanner"
-          @pn-aborted=${() => this._plantScanned(null)}
-          @pn-scanned=${(event: CustomEvent<string>) => this._plantScanned(event.detail)}
+          @pn-aborted=${() => {
+            this._plantScanned(null);
+          }}
+          @pn-scanned=${(event: CustomEvent<string>) => {
+            this._plantScanned(event.detail);
+          }}
         ></pn-plant-scanner>
         <pn-plant-identification-picker
           id="picker"
           .response=${this._identificationResponse}
-          @pn-identification-cancelled=${() => this._cancelPlantIdentify()}
-          @pn-identification-picked=${(event: Event) =>
-            this._identifyPlantPick((event as CustomEvent<PlantNetResult>).detail)}
+          @pn-identification-cancelled=${() => {
+            this._cancelPlantIdentify();
+          }}
+          @pn-identification-picked=${(event: Event) => {
+            this._identifyPlantPick((event as CustomEvent<PlantNetResult>).detail);
+          }}
         ></pn-plant-identification-picker>
         <form
           id="form"
@@ -359,7 +365,7 @@ export class PlantPropertiesForm extends LitElement {
             label=${t("plantEditor.nameLabel")}
             placeholder=${t("plantEditor.namePlaceholder")}
             clearable
-            value=${this._plantName}
+            value=${ifDefined(this._plantName)}
             @sl-input=${(event: InputEvent) => (this._plantName = (event.target as SlInput).value)}
           ></sl-input>
           <div class="spacer"></div>
@@ -374,7 +380,12 @@ export class PlantPropertiesForm extends LitElement {
               @pn-changed=${(event: CustomEvent) =>
                 (this._plantKind = (event.target as MultiValueEditor).value)}
             ></pn-multi-value-editor
-            ><sl-button @click=${() => this._scanPlant()}>${t("plantEditor.scan")}</sl-button>
+            ><sl-button
+              @click=${() => {
+                this._scanPlant();
+              }}
+              >${t("plantEditor.scan")}</sl-button
+            >
           </div>
           <div class="spacer"></div>
 
@@ -393,7 +404,7 @@ export class PlantPropertiesForm extends LitElement {
             id="notes-input"
             label=${t("plantEditor.notesLabel")}
             placeholder=${t("plantEditor.notesPlaceholder")}
-            value=${this._plantNotes}
+            value=${ifDefined(this._plantNotes)}
             @sl-change=${(event: InputEvent) =>
               (this._plantNotes = (event.target as SlTextarea).value)}
           ></sl-textarea>
@@ -418,7 +429,7 @@ export class PlantPropertiesForm extends LitElement {
                   label=${t("plantEditor.potShapeTopLabel")}
                   placeholder=${t("plantEditor.potShapeTopPlaceholder")}
                   clearable
-                  value=${this._plantPotShapeTop}
+                  value=${ifDefined(this._plantPotShapeTop)}
                   @sl-focus=${() => this._potShapeTopDropdown?.show()}
                   @sl-input=${(event: InputEvent) =>
                     (this._plantPotShapeTop = (event.target as SlInput).value)}
@@ -451,7 +462,7 @@ export class PlantPropertiesForm extends LitElement {
                   label=${t("plantEditor.potColorLabel")}
                   placeholder=${t("plantEditor.potColorPlaceholder")}
                   clearable
-                  value=${this._plantPotColor}
+                  value=${ifDefined(this._plantPotColor)}
                   @sl-focus=${() => this._potColorDropdown?.show()}
                   @sl-input=${(event: InputEvent) =>
                     (this._plantPotColor = (event.target as SlInput).value)}
@@ -501,7 +512,7 @@ export class PlantPropertiesForm extends LitElement {
                 label=${t("plantEditor.phMinLabel")}
                 placeholder=${t("plantEditor.phMinPlaceholder")}
                 clearable
-                value=${this._plantPhMin}
+                value=${ifDefined(this._plantPhMin)}
                 @sl-input=${(event: InputEvent) =>
                   (this._plantPhMin = (event.target as SlInput).valueAsNumber)}
               ></sl-input>
@@ -511,7 +522,7 @@ export class PlantPropertiesForm extends LitElement {
                 label=${t("plantEditor.phMaxLabel")}
                 placeholder=${t("plantEditor.phMaxPlaceholder")}
                 clearable
-                value=${this._plantPhMax}
+                value=${ifDefined(this._plantPhMax)}
                 @sl-input=${(event: InputEvent) =>
                   (this._plantPhMax = (event.target as SlInput).valueAsNumber)}
               ></sl-input>
@@ -522,7 +533,7 @@ export class PlantPropertiesForm extends LitElement {
                 label=${t("plantEditor.ecMinLabel")}
                 placeholder=${t("plantEditor.ecMinPlaceholder")}
                 clearable
-                value=${this._plantEcMin}
+                value=${ifDefined(this._plantEcMin)}
                 @sl-input=${(event: InputEvent) =>
                   (this._plantEcMin = (event.target as SlInput).valueAsNumber)}
               ></sl-input>
@@ -532,7 +543,7 @@ export class PlantPropertiesForm extends LitElement {
                 label=${t("plantEditor.ecMaxLabel")}
                 placeholder=${t("plantEditor.ecMaxPlaceholder")}
                 clearable
-                value=${this._plantEcMax}
+                value=${ifDefined(this._plantEcMax)}
                 @sl-input=${(event: InputEvent) =>
                   (this._plantEcMax = (event.target as SlInput).valueAsNumber)}
               ></sl-input>
@@ -546,7 +557,7 @@ export class PlantPropertiesForm extends LitElement {
                 label=${t("plantEditor.tempMinLabel")}
                 placeholder=${t("plantEditor.tempMinPlaceholder")}
                 clearable
-                value=${this._plantTempMin}
+                value=${ifDefined(this._plantTempMin)}
                 @sl-input=${(event: InputEvent) =>
                   (this._plantTempMin = (event.target as SlInput).valueAsNumber)}
               ></sl-input
@@ -556,7 +567,7 @@ export class PlantPropertiesForm extends LitElement {
                 label=${t("plantEditor.tempMaxLabel")}
                 placeholder=${t("plantEditor.tempMaxPlaceholder")}
                 clearable
-                value=${this._plantTempMax}
+                value=${ifDefined(this._plantTempMax)}
                 @sl-input=${(event: InputEvent) =>
                   (this._plantTempMax = (event.target as SlInput).valueAsNumber)}
               ></sl-input></div
