@@ -2043,7 +2043,7 @@ __metadata:
     i18next-browser-languagedetector: "npm:7.2.0"
     i18next-http-backend: "npm:2.4.1"
     idb: "npm:7.1.1"
-    lit: "npm:3.0.2"
+    lit: "npm:3.1.0"
     lunr: "npm:2.3.9"
     luxon: "npm:3.4.4"
     pwa-helpers: "npm:0.9.1"
@@ -4979,7 +4979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:3.0.2, lit-html@npm:^3.0.0":
+"lit-html@npm:3.0.2":
   version: 3.0.2
   resolution: "lit-html@npm:3.0.2"
   dependencies:
@@ -4988,14 +4988,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:3.0.2, lit@npm:^3.0.0":
-  version: 3.0.2
-  resolution: "lit@npm:3.0.2"
+"lit-html@npm:^3.0.0, lit-html@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "lit-html@npm:3.1.0"
+  dependencies:
+    "@types/trusted-types": "npm:^2.0.2"
+  checksum: ecd6d0c97715cc92092d14f329acd04eea37886a947a07f32bd96dd89d44253689a9e4e9c787412e184657c2af5547332ba07f2cfcabda8d4c0db36863a93cc0
+  languageName: node
+  linkType: hard
+
+"lit@npm:3.1.0, lit@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "lit@npm:3.1.0"
   dependencies:
     "@lit/reactive-element": "npm:^2.0.0"
     lit-element: "npm:^4.0.0"
-    lit-html: "npm:^3.0.0"
-  checksum: 855b46287c5fab7c8b94571300aa0749adca4c391351eea093fca25aa2bc399eb0218c101da4eedd91f11c7181288cc07ec2c75e45cde44fa057963258f359d4
+    lit-html: "npm:^3.1.0"
+  checksum: 7ca12c1b1593373d16b51b2220677d8936b4061de4f278ef2a85f15726bb4365a8eed89a0294816a10d6124dca81f02e83b5dfed9a6031e135a7bc68924eea6b
   languageName: node
   linkType: hard
 
