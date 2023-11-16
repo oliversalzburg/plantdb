@@ -1,7 +1,8 @@
-module.exports = {
+/** @type {import("prettier").Config} */
+export default {
   printWidth: 100,
   arrowParens: "avoid",
-  plugins: [require.resolve("prettier-plugin-organize-imports")],
+  plugins: ["prettier-plugin-organize-imports", "prettier-plugin-sh"],
   overrides: [
     {
       files: "*.md",

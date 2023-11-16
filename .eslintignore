@@ -1,0 +1,12 @@
+_site/
+.yarn/
+coverage/
+lib/
+output/
+public/
+node_modules/
+
+packages/documentation/docs/reference/libplantdb/
+packages/documentation/public/
+packages/documentation/site/
+packages/libplantdb/typings/

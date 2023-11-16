@@ -5,4 +5,4 @@ basedir=$(dirname "$self")
 
 cd ${basedir}/../../..
 
-docker run --rm -v ${PWD}:/docs --user="${UID}" ghcr.io/oliversalzburg/mkdocs-material-ex:main build --config-file packages/documentation/en-US/mkdocs.yml --site-dir=../public/en-US
+podman run --rm -v ${PWD}:/docs docker.io/squidfunk/mkdocs-material build --config-file packages/documentation/en-US/mkdocs.yml --site-dir=../public/en-US
