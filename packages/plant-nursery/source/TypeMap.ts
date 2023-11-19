@@ -5,10 +5,11 @@ import {
   PlantDB,
   UserDictionary,
 } from "@plantdb/libplantdb";
-import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
+import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 import { t } from "i18next";
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 
 @customElement("pn-type-map")
 export class TypeMap extends LitElement {
@@ -42,10 +43,10 @@ export class TypeMap extends LitElement {
     `,
   ];
 
-  @property({ type: PlantDB })
+  @property({ attribute: false })
   plantDb = PlantDB.Empty();
 
-  @property({ type: Map })
+  @property({ attribute: false })
   proposedMapping = new Map<string, EventType>();
 
   asUserDictionary() {
@@ -66,9 +67,11 @@ export class TypeMap extends LitElement {
                 <span>${entryType}</span>
                 <sl-select
                   placeholder=${t("typeMap.unmapped")}
-                  value=${this.plantDb
-                    .getDictionary(DictionaryClassifiers.LogEntryEventType)
-                    .translateUserTerm(entryType)}
+                  value=${ifDefined(
+                    this.plantDb
+                      .getDictionary(DictionaryClassifiers.LogEntryEventType)
+                      .translateUserTerm(entryType),
+                  )}
                   clearable
                   @sl-change=${(event: Event) => {
                     const value = (event.target as SlSelect).value;
@@ -82,9 +85,7 @@ export class TypeMap extends LitElement {
                     .sort((a, b) => t(`eventType.${a}`).localeCompare(t(`eventType.${b}`)))
                     .map(
                       type =>
-                        html`<sl-menu-item .value="${type}"
-                          >${t(`eventType.${type}`)}</sl-menu-item
-                        >`,
+                        html`<sl-option .value="${type}">${t(`eventType.${type}`)}</sl-option>`,
                     )}</sl-select
                 >
               </div>`,

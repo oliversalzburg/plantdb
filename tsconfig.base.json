@@ -14,6 +14,16 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "outDir": "output",
+    "plugins": [
+      {
+        "name": "ts-lit-plugin",
+        "strict": true,
+        "rules": {
+          "no-unknown-tag-name": "off",
+          "no-unknown-event": "warn"
+        }
+      }
+    ],
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,

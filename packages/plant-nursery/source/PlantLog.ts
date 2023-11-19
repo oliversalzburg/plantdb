@@ -126,7 +126,7 @@ export class PlantLog extends LitElement {
             .sort()
             .map(
               entryType =>
-                html`<sl-menu-item value="${entryType}"
+                html`<sl-option value="${entryType}"
                   >${entryType}<sl-icon
                     slot="prefix"
                     name=${PlantLogEntry.extractTypeDetails(
@@ -134,7 +134,7 @@ export class PlantLog extends LitElement {
                       identifyLogType(entryType, mustExist(this.plantStore).plantDb),
                     ).icon}
                   ></sl-icon
-                ></sl-menu-item>`,
+                ></sl-option>`,
             )}</sl-select
         >
       </div>`,

@@ -283,18 +283,21 @@ export class PlantApp extends LitElement {
                   <sl-button slot="trigger" caret><sl-icon name="globe2"></sl-icon></sl-button>
                   <sl-menu>
                     <sl-menu-item
+                      type="checkbox"
                       value="de-DE"
                       ?checked=${this._plantStoreUi.locale === "de-DE"}
                       @click=${() => this._plantStoreUi.changeLocale("de-DE")}
                       >DE</sl-menu-item
                     >
                     <sl-menu-item
+                      type="checkbox"
                       value="en-US"
                       ?checked=${this._plantStoreUi.locale === "en-US"}
                       @click=${() => this._plantStoreUi.changeLocale("en-US")}
                       >EN</sl-menu-item
                     >
                     <sl-menu-item
+                      type="checkbox"
                       value="he-IL"
                       ?checked=${this._plantStoreUi.locale === "he-IL"}
                       @click=${() => this._plantStoreUi.changeLocale("he-IL")}

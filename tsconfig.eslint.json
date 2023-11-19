@@ -13,5 +13,5 @@
       "vite-plugin-pwa/client"
     ]
   },
-  "include": ["packages/libplantdb", "packages/plant-cli", "packages/plant-nursery"]
+  "include": ["@types", "packages/libplantdb", "packages/plant-cli", "packages/plant-nursery"]
 }

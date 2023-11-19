@@ -283,9 +283,7 @@ export class TaskPropertiesForm extends LitElement {
             >
               ${repeatUnits.map(
                 unit =>
-                  html`<sl-menu-item value=${unit}
-                    >${t(`taskEditor.interval_${unit}`)}</sl-menu-item
-                  >`,
+                  html`<sl-option value=${unit}>${t(`taskEditor.interval_${unit}`)}</sl-option>`,
               )}
             </sl-select>
             <sl-select
@@ -301,8 +299,8 @@ export class TaskPropertiesForm extends LitElement {
             >
               ${repeatDays.map(
                 unit =>
-                  html`<sl-menu-item value=${unit}
-                    >${t(`taskEditor.day_${unit.toString()}`)}</sl-menu-item
+                  html`<sl-option value=${unit}
+                    >${t(`taskEditor.day_${unit.toString()}`)}</sl-option
                   >`,
               )}
             </sl-select>

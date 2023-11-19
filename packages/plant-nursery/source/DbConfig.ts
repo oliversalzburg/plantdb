@@ -83,9 +83,9 @@ export class DbConfig extends LitElement {
             );
           }}
         >
-          <sl-menu-item value=",">${t("dbConfig.comma")}</sl-menu-item>
-          <sl-menu-item value=";">${t("dbConfig.semicolon")}</sl-menu-item>
-          <sl-menu-item value="&#9;">${t("dbConfig.tab")}</sl-menu-item></sl-select
+          <sl-option value=",">${t("dbConfig.comma")}</sl-option>
+          <sl-option value=";">${t("dbConfig.semicolon")}</sl-option>
+          <sl-option value="&#9;">${t("dbConfig.tab")}</sl-option></sl-select
         >
 
         <sl-select
@@ -100,8 +100,8 @@ export class DbConfig extends LitElement {
             );
           }}
         >
-          <sl-menu-item value=",">${t("dbConfig.comma")}</sl-menu-item>
-          <sl-menu-item value=".">${t("dbConfig.period")}</sl-menu-item>
+          <sl-option value=",">${t("dbConfig.comma")}</sl-option>
+          <sl-option value=".">${t("dbConfig.period")}</sl-option>
         </sl-select>
 
         <sl-select
@@ -116,22 +116,22 @@ export class DbConfig extends LitElement {
             );
           }}
         >
-          <sl-menu-label>${t("dbConfig.withoutSeconds")}</sl-menu-label>
+          <small>${t("dbConfig.withoutSeconds")}</small>
           ${dateFormats.map(
             dateFormat =>
-              html`<sl-menu-item value=${dateFormat}
+              html`<sl-option value=${dateFormat}
                 >${dateFormat}<small slot="suffix"
                   >${DateTime.fromJSDate(now).toFormat(dateFormat)}</small
-                ></sl-menu-item
+                ></sl-option
               >`,
           )}
           <sl-divider></sl-divider
-          ><sl-menu-label>${t("dbConfig.withSeconds")}</sl-menu-label>${dateFormatsSeconds.map(
+          ><small>${t("dbConfig.withSeconds")}</small>${dateFormatsSeconds.map(
             dateFormat =>
-              html`<sl-menu-item value=${dateFormat}
+              html`<sl-option value=${dateFormat}
                 >${dateFormat}<small slot="suffix"
                   >${DateTime.fromJSDate(now).toFormat(dateFormat)}</small
-                ></sl-menu-item
+                ></sl-option
               >`,
           )}</sl-select
         >
@@ -148,9 +148,9 @@ export class DbConfig extends LitElement {
             );
           }}
         >
-          <sl-menu-item value="Asia/Jerusalem">Asia/Jerusalem</sl-menu-item>
-          <sl-menu-item value="Europe/Berlin">Europe/Berlin</sl-menu-item>
-          <sl-menu-item value="utc">UTC</sl-menu-item>
+          <sl-option value="Asia/Jerusalem">Asia/Jerusalem</sl-option>
+          <sl-option value="Europe/Berlin">Europe/Berlin</sl-option>
+          <sl-option value="utc">UTC</sl-option>
         </sl-select>`,
     ];
   }
