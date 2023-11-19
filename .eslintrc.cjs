@@ -20,7 +20,12 @@ module.exports = {
     {
       files: ["*.js", "*.mjs"],
       extends: ["eslint:recommended"],
+      parser: "@babel/eslint-parser",
       parserOptions: {
+        babelOptions: {
+          plugins: ["@babel/plugin-syntax-import-assertions"],
+        },
+        requireConfigFile: false,
         sourceType: "module",
       },
     },

@@ -27,6 +27,32 @@ const getBuildInfo = () => {
   ].join("\n");
 };
 
+function configureBasePlugin() {
+  return {
+    name: "configure-base",
+    config(config) {
+      base = config.base;
+    },
+    transformIndexHtml: {
+      order: "pre",
+      // eslint-disable-next-line quotes
+      handler: html => html.replace('<base href="/" />', `<base href="${base}" />`),
+    },
+  };
+}
+
+function addBuildInfoPlugin() {
+  return {
+    name: "build-info",
+    transformIndexHtml: {
+      order: "pre",
+
+      // eslint-disable-next-line quotes
+      handler: html => html.replace("__BUILD_INFO__", getBuildInfo()),
+    },
+  };
+}
+
 /**
  * @type {import("vite").UserConfig}
  */
@@ -111,28 +137,3 @@ export default {
     port: 3000,
   },
 };
-
-function configureBasePlugin() {
-  return {
-    name: "configure-base",
-    config(config) {
-      base = config.base;
-    },
-    transformIndexHtml: {
-      enforce: "pre",
-      // eslint-disable-next-line quotes
-      transform: html => html.replace('<base href="/" />', `<base href="${base}" />`),
-    },
-  };
-}
-
-function addBuildInfoPlugin() {
-  return {
-    name: "build-info",
-    transformIndexHtml: {
-      enforce: "pre",
-      // eslint-disable-next-line quotes
-      transform: html => html.replace("__BUILD_INFO__", getBuildInfo()),
-    },
-  };
-}
