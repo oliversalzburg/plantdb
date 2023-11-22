@@ -1,4 +1,4 @@
-import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil.js";
 import { DictionaryClassifiers, EventType, UserDictionary } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
 import { t } from "i18next";

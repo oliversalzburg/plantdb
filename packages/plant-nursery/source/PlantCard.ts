@@ -1,4 +1,4 @@
-import { isNil } from "@oliversalzburg/js-utils/lib/nil";
+import { isNil } from "@oliversalzburg/js-utils/lib/nil.js";
 import { EventTypes, identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";

@@ -1,4 +1,4 @@
-import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil.js";
 import { Task } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
 import { t } from "i18next";

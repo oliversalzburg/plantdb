@@ -1,5 +1,5 @@
 import { unknownToError } from "@oliversalzburg/js-utils/lib/error-serializer";
-import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil.js";
 import {
   DatabaseFormat,
   DatabaseFormatSerialized,

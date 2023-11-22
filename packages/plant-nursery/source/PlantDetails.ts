@@ -1,4 +1,4 @@
-import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil.js";
 import { identifyLogType, LogEntry, Plant } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
