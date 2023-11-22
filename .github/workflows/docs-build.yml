@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
@@ -16,7 +16,8 @@ jobs:
       - name: Select NodeJS version
         uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4
         with:
-          node-version: 18
+          # renovate: datasource=docker depName=node versioning=node
+          node-version: "20.9.0"
 
       - name: Install dependencies
         run: yarn install
