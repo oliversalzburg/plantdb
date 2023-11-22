@@ -91,9 +91,11 @@ export class PlantPropertiesView extends View {
           .plantStoreUi=${this.plantStoreUi}
           .plant=${this.plant}
           @pn-scanning=${() => {
+            // eslint-disable-next-line wc/no-self-class
             this.classList.add("scanning");
           }}
           @pn-scanned=${() => {
+            // eslint-disable-next-line wc/no-self-class
             this.classList.remove("scanning");
           }}
         ></pn-plant-properties-form>

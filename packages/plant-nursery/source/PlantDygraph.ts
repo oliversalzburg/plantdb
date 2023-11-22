@@ -132,14 +132,10 @@ export class PlantDygraph extends LitElement {
     super.connectedCallback();
     this._plantStoreUi = mustExist(retrieveStoreUi());
     this.darkMode = this._plantStoreUi.darkMode;
-    if (this.darkMode) {
-      this.classList.add("dark-theme");
-    } else {
-      this.classList.remove("dark-theme");
-    }
+    this._handleThemeChange(this);
     this._onThemeChangeHandler = (event: Event) => {
       this.darkMode = (event as CustomEvent<"dark" | "light">).detail === "dark";
-      this._handleThemeChange();
+      this._handleThemeChange(this);
     };
     this._plantStoreUi.addEventListener("pn-theme-changed", this._onThemeChangeHandler);
   }
@@ -151,11 +147,11 @@ export class PlantDygraph extends LitElement {
     }
   }
 
-  private _handleThemeChange() {
+  private _handleThemeChange(node: HTMLElement) {
     if (this.darkMode) {
-      this.classList.add("dark-theme");
+      node.classList.add("dark-theme");
     } else {
-      this.classList.remove("dark-theme");
+      node.classList.remove("dark-theme");
     }
 
     this.renderGraph();
