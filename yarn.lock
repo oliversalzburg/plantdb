@@ -1887,7 +1887,7 @@ __metadata:
     "@oliversalzburg/js-utils": "npm:0.0.18"
     "@oliversalzburg/lit-i18n": "npm:4.0.1"
     "@plantdb/libplantdb": "workspace:*"
-    "@shoelace-style/shoelace": "npm:2.11.2"
+    "@shoelace-style/shoelace": "npm:2.12.0"
     "@types/dygraphs": "npm:2.1.9"
     "@types/gapi": "npm:0.0.47"
     "@types/gapi.client": "npm:1.0.8"
@@ -2070,9 +2070,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shoelace-style/shoelace@npm:2.11.2":
-  version: 2.11.2
-  resolution: "@shoelace-style/shoelace@npm:2.11.2"
+"@shoelace-style/shoelace@npm:2.12.0":
+  version: 2.12.0
+  resolution: "@shoelace-style/shoelace@npm:2.12.0"
   dependencies:
     "@ctrl/tinycolor": "npm:^4.0.2"
     "@floating-ui/dom": "npm:^1.5.3"
@@ -2082,7 +2082,7 @@ __metadata:
     composed-offset-position: "npm:^0.0.4"
     lit: "npm:^3.0.0"
     qr-creator: "npm:^1.0.0"
-  checksum: f9753265eb40e99deef99a402ea2ca061761af901c9f892c1cc203719fa962dbf9cd99a3e7ef74ef1baa3fc1ad1a34b7827221ab8611f126fa0dc3339b79317d
+  checksum: 55c7158cf5fa04f93692717529bd7b7c69cdcb02af4ef8383283de6259ed0bb65f20580b3d92b1e1c983d86609fe7c830b31eca1e3a38d251f42472afc141aaf
   languageName: node
   linkType: hard
 

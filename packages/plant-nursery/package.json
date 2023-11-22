@@ -17,7 +17,7 @@
     "@oliversalzburg/js-utils": "0.0.18",
     "@oliversalzburg/lit-i18n": "4.0.1",
     "@plantdb/libplantdb": "workspace:*",
-    "@shoelace-style/shoelace": "2.11.2",
+    "@shoelace-style/shoelace": "2.12.0",
     "dygraphs": "2.2.1",
     "i18next": "23.7.6",
     "i18next-browser-languagedetector": "7.2.0",
