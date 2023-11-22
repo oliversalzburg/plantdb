@@ -1876,7 +1876,7 @@ __metadata:
     "@oliversalzburg/lit-i18n": "npm:4.0.1"
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": "npm:2.11.2"
-    "@types/dygraphs": "npm:2.1.8"
+    "@types/dygraphs": "npm:2.1.9"
     "@types/gapi": "npm:0.0.47"
     "@types/gapi.client": "npm:1.0.8"
     "@types/gapi.client.drive": "npm:3.0.15"
@@ -2134,12 +2134,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/dygraphs@npm:2.1.8":
-  version: 2.1.8
-  resolution: "@types/dygraphs@npm:2.1.8"
+"@types/dygraphs@npm:2.1.9":
+  version: 2.1.9
+  resolution: "@types/dygraphs@npm:2.1.9"
   dependencies:
     "@types/google.visualization": "npm:*"
-  checksum: 04609c402cf4935c833af3b7c3d51bbb98ebde75f0d9bafda0d1aea527239a99b6473fd23b1fba14a4a545c86b80e5adc8847ff0eb50fa357087b74afc4a85c5
+  checksum: d431f1713a52dc5211b85052ab751c91516964d9e1e2dffc885fcd7e0d607a1f0a9b3cdf5ccad81e32dd4fd515756a87ce7686734a89f7123865b9e96abd35a4
   languageName: node
   linkType: hard
 
