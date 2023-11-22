@@ -1836,7 +1836,7 @@ __metadata:
   dependencies:
     "@types/chai": "npm:4.3.11"
     "@types/luxon": "npm:3.3.5"
-    "@types/mocha": "npm:10.0.4"
+    "@types/mocha": "npm:10.0.6"
     "@types/source-map-support": "npm:0.5.10"
     chai: "npm:4.3.10"
     csv-parse: "npm:5.5.2"
@@ -2241,10 +2241,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mocha@npm:10.0.4":
-  version: 10.0.4
-  resolution: "@types/mocha@npm:10.0.4"
-  checksum: 19efb41146c94a313e50385e449ccc322aa6b04edacd6f11b27aee2c027a2b07525b478e7d243163748c1533e370511fb5d9457e473a23dc0afd22692aecc882
+"@types/mocha@npm:10.0.6":
+  version: 10.0.6
+  resolution: "@types/mocha@npm:10.0.6"
+  checksum: 4526c9e88388f9e1004c6d3937c5488a39908810f26b927173c58d52b43057f3895627dc06538e96706e08b88158885f869ec6311f6b58fd72bdef715f26d6c3
   languageName: node
   linkType: hard
 
