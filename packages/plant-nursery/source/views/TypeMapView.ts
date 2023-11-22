@@ -1,4 +1,4 @@
-import { mustExist } from "@oliversalzburg/js-utils/lib/nil";
+import { mustExist } from "@oliversalzburg/js-utils/lib/nil.js";
 import { EventType } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";

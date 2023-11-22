@@ -1,5 +1,5 @@
 import { coalesceOnRejection } from "@oliversalzburg/js-utils";
-import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil";
+import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil.js";
 import {
   DatabaseFormat,
   DictionaryClassifiers,

@@ -1,4 +1,4 @@
-import { isNil } from "@oliversalzburg/js-utils/lib/nil";
+import { isNil } from "@oliversalzburg/js-utils/lib/nil.js";
 import { Plant } from "@plantdb/libplantdb";
 import { SlInput } from "@shoelace-style/shoelace";
 import { html } from "lit";

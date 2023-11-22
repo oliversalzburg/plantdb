@@ -1,4 +1,4 @@
-import { assertExists } from "@oliversalzburg/js-utils/lib/nil";
+import { assertExists } from "@oliversalzburg/js-utils/lib/nil.js";
 import { t } from "i18next";
 import { css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";

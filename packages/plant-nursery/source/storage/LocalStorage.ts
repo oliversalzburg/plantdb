@@ -1,4 +1,4 @@
-import { isNil } from "@oliversalzburg/js-utils/lib/nil";
+import { isNil } from "@oliversalzburg/js-utils/lib/nil.js";
 import {
   DatabaseFormat,
   DictionaryClassifier,
