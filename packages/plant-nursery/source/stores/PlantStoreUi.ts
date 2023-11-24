@@ -1,5 +1,5 @@
-import { prepareAsyncContext } from "@oliversalzburg/js-utils/lib/async";
-import { assertExists } from "@oliversalzburg/js-utils/lib/nil.js";
+import { prepareAsyncContext } from "@oliversalzburg/js-utils/async.js";
+import { assertExists } from "@oliversalzburg/js-utils/nil.js";
 import { LogEntry, Plant, Task } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
 import i18next, { t } from "i18next";

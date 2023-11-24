@@ -1,4 +1,4 @@
-import { isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil.js";
+import { isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { LogEntry, Plant, PlantDB, Task } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";

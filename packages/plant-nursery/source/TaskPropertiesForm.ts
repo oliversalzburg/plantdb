@@ -1,4 +1,4 @@
-import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/lib/nil.js";
+import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { Task, TaskRepeatDays, TaskRepeatFrequency, WeekDay } from "@plantdb/libplantdb";
 import { SlCheckbox, SlInput, SlRadio, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
