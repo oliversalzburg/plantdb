@@ -1,4 +1,4 @@
-import { mustExist } from "@oliversalzburg/js-utils/lib/nil.js";
+import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { SlDialog } from "@shoelace-style/shoelace";
 import { t } from "i18next";
 import { css, html, LitElement } from "lit";

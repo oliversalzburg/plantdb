@@ -6,7 +6,10 @@
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "type": "module",
   "scripts": {
-    "clean": "yarn workspaces foreach run clean",
+    "build": "yarn run build:all",
+    "build:all": "yarn workspaces foreach --exclude plantdb --parallel --worktree run build",
+    "clean": "yarn run clean:all",
+    "clean:all": "yarn workspaces foreach --all run clean",
     "docs:scripts:build": "nsd --docs-location \"packages/documentation/en-US/docs/reference/Repository Scripts/\"",
     "docs:scripts:check": "nsd --docs-location \"packages/documentation/en-US/docs/reference/Repository Scripts/\" --check-only",
     "lint:all": "yarn lint:eslint && yarn lint:prettier && yarn lint:tsc",

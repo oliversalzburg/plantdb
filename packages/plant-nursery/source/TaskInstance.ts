@@ -1,4 +1,4 @@
-import { assertExists, mustExist } from "@oliversalzburg/js-utils/lib/nil.js";
+import { assertExists, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { Task } from "@plantdb/libplantdb";
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";

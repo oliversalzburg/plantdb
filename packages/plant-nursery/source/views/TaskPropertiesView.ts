@@ -1,4 +1,4 @@
-import { assertExists } from "@oliversalzburg/js-utils/lib/nil.js";
+import { assertExists } from "@oliversalzburg/js-utils/nil.js";
 import { Task } from "@plantdb/libplantdb";
 import { t } from "i18next";
 import { css, html } from "lit";

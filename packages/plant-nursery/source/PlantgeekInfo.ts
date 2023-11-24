@@ -1,4 +1,4 @@
-import { isNil } from "@oliversalzburg/js-utils/lib/nil.js";
+import { isNil } from "@oliversalzburg/js-utils/nil.js";
 import { kindFlatten, Plant } from "@plantdb/libplantdb";
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
