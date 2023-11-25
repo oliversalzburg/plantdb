@@ -6,6 +6,7 @@ import i18next, { t } from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import { LitElement } from "lit";
+import { initLitI18n } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { registerSW } from "virtual:pwa-register";
@@ -80,6 +81,7 @@ export class PlantStoreUi extends LitElement {
     i18next
       .use(LanguageDetector)
       .use(HttpApi)
+      .use(initLitI18n)
       .init({
         backend: {
           loadPath: `${getBasePath()}locales/{{lng}}/{{ns}}.json`,

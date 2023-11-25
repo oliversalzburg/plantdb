@@ -1,7 +1,7 @@
 import { DatabaseFormat } from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
-import { t } from "i18next";
 import { css, html } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { DataExchangeView } from "./DataExchangeView";

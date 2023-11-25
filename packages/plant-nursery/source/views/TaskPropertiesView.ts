@@ -1,7 +1,7 @@
 import { assertExists } from "@oliversalzburg/js-utils/nil.js";
 import { Task } from "@plantdb/libplantdb";
-import { t } from "i18next";
 import { css, html } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property, query } from "lit/decorators.js";
 import { TaskPropertiesForm } from "../TaskPropertiesForm";
 import { View } from "./View";

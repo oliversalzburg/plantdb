@@ -3,8 +3,8 @@ import { EventTypes, identifyLogType, Plant, PlantDB } from "@plantdb/libplantdb
 import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
-import { t } from "i18next";
 import { css, html, LitElement } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 

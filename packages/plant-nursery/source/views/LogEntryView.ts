@@ -1,6 +1,6 @@
 import { assertExists } from "@oliversalzburg/js-utils/nil.js";
-import { t } from "i18next";
 import { css, html } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property, query } from "lit/decorators.js";
 import { LogEntry } from "packages/libplantdb/typings";
 import { PlantLogEntryForm } from "../PlantLogEntryForm";

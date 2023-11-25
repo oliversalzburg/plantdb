@@ -1,7 +1,7 @@
 import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { EventType } from "@plantdb/libplantdb";
-import { t } from "i18next";
 import { css, html } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { View } from "./View";
 

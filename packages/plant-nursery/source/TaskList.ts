@@ -1,8 +1,8 @@
 import { assertExists } from "@oliversalzburg/js-utils/nil.js";
 import { Task } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
-import { t } from "i18next";
 import { LitElement, css, html } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { Forms } from "./ComponentStyles";

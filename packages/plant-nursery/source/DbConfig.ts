@@ -1,8 +1,8 @@
 import { DatabaseFormat } from "@plantdb/libplantdb";
 import SlCheckbox from "@shoelace-style/shoelace/dist/components/checkbox/checkbox";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
-import { t } from "i18next";
 import { css, html, LitElement } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 

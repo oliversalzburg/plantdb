@@ -3,8 +3,8 @@ import "@shoelace-style/shoelace/dist/components/badge/badge";
 import "@shoelace-style/shoelace/dist/components/button/button";
 import "@shoelace-style/shoelace/dist/components/card/card";
 import "dygraphs/dist/dygraph.css";
-import { t } from "i18next";
 import { LitElement, css, html } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 
 export interface PlantNetResult {

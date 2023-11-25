@@ -1,7 +1,7 @@
 import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { SlDialog } from "@shoelace-style/shoelace";
-import { t } from "i18next";
 import { css, html, LitElement } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property, query } from "lit/decorators.js";
 
 @customElement("pn-confirm-dialog")

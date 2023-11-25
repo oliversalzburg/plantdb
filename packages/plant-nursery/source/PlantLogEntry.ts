@@ -7,8 +7,8 @@ import {
   MATCH_PID_ALL,
   PlantDB,
 } from "@plantdb/libplantdb";
-import { t } from "i18next";
 import { css, html, LitElement } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
 import { Typography } from "./ComponentStyles";

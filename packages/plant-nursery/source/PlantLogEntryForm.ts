@@ -1,8 +1,8 @@
 import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { LogEntry, Plant } from "@plantdb/libplantdb";
 import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
-import { t } from "i18next";
 import { LitElement, PropertyValueMap, css, html } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { Typography } from "./ComponentStyles";

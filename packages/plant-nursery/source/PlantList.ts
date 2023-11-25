@@ -1,8 +1,8 @@
 import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { Plant } from "@plantdb/libplantdb";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
-import { t } from "i18next";
 import { css, html, LitElement } from "lit";
+import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { PlantStore } from "./stores/PlantStore";
 import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
