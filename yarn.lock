@@ -1890,7 +1890,7 @@ __metadata:
     i18next-http-backend: "npm:2.4.2"
     idb: "npm:7.1.1"
     lit: "npm:3.1.0"
-    lit-html: "npm:2.8.0"
+    lit-html: "npm:3.1.0"
     lit-i18n: "npm:4.1.0"
     lunr: "npm:2.3.9"
     luxon: "npm:3.4.4"
@@ -4938,16 +4938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:2.8.0":
-  version: 2.8.0
-  resolution: "lit-html@npm:2.8.0"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.2"
-  checksum: 90057dee050803823ac884c1355b0213ab8c05fbe2ec63943c694b61aade5d36272068f3925f45a312835e504f9c9784738ef797009f0a756a750351eafb52d5
-  languageName: node
-  linkType: hard
-
-"lit-html@npm:^3.1.0":
+"lit-html@npm:3.1.0, lit-html@npm:^3.1.0":
   version: 3.1.0
   resolution: "lit-html@npm:3.1.0"
   dependencies:
