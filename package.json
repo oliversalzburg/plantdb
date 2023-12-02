@@ -34,7 +34,7 @@
     "@types/web": "0.0.123",
     "@typescript-eslint/eslint-plugin": "6.13.1",
     "@typescript-eslint/parser": "6.13.1",
-    "eslint": "8.54.0",
+    "eslint": "8.55.0",
     "eslint-plugin-jsdoc": "46.9.0",
     "eslint-plugin-lit": "1.10.1",
     "eslint-plugin-wc": "2.0.4",
