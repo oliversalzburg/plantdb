@@ -38,7 +38,7 @@
     "eslint-plugin-jsdoc": "46.9.0",
     "eslint-plugin-lit": "1.10.1",
     "eslint-plugin-wc": "2.0.4",
-    "lint-staged": "15.1.0",
+    "lint-staged": "15.2.0",
     "node-scripts-docs": "1.0.1",
     "prettier": "3.1.0",
     "prettier-package-json": "2.8.0",
