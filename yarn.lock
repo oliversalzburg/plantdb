@@ -1841,7 +1841,7 @@ __metadata:
     "@types/source-map-support": "npm:0.5.10"
     chai: "npm:4.3.10"
     csv-parse: "npm:5.5.2"
-    csv-stringify: "npm:6.4.4"
+    csv-stringify: "npm:6.4.5"
     luxon: "npm:3.4.4"
     mocha: "npm:10.2.0"
     source-map-support: "npm:0.5.21"
@@ -3148,10 +3148,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csv-stringify@npm:6.4.4":
-  version: 6.4.4
-  resolution: "csv-stringify@npm:6.4.4"
-  checksum: 52123a2391a4bef416c54c03cb1ba988d3f1b5e7798602068a4def1c5ee3942b60b8cb07c8b41bc6a0cfad57c0a2a4fe8c55debbc8f9621f035565f56acb8785
+"csv-stringify@npm:6.4.5":
+  version: 6.4.5
+  resolution: "csv-stringify@npm:6.4.5"
+  checksum: 60ea8ce0306531665a42c1b9f8faa68eb166d31f29d5a8074baf033ea612cafa56a55a7dc0fe80d2d62106e822bf31faa04b531876d4725308d09fa89e6e07da
   languageName: node
   linkType: hard
 
