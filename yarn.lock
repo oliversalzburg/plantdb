@@ -3544,16 +3544,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-lit@npm:1.10.1":
-  version: 1.10.1
-  resolution: "eslint-plugin-lit@npm:1.10.1"
+"eslint-plugin-lit@npm:1.11.0":
+  version: 1.11.0
+  resolution: "eslint-plugin-lit@npm:1.11.0"
   dependencies:
     parse5: "npm:^6.0.1"
     parse5-htmlparser2-tree-adapter: "npm:^6.0.1"
     requireindex: "npm:^1.2.0"
   peerDependencies:
     eslint: ">= 5"
-  checksum: a026a052cef0a72678e615b84e00d4538856bed920007509cfd7a6cb4854169e87be261b13be4e9721210fbfa09018d2b9bbc79a7d7db0e88589e40fe63d8f51
+  checksum: 1b808de93c1097369a44d2704708520038fd47e3f94c485bbb8d831a83c8019eb45ef94bd9f01bc7659669f5287c7aa3b5e8e3eaeae930bb54e33bc63f221bab
   languageName: node
   linkType: hard
 
@@ -5766,7 +5766,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:6.14.0"
     eslint: "npm:8.56.0"
     eslint-plugin-jsdoc: "npm:46.9.1"
-    eslint-plugin-lit: "npm:1.10.1"
+    eslint-plugin-lit: "npm:1.11.0"
     eslint-plugin-wc: "npm:2.0.4"
     lint-staged: "npm:15.2.0"
     node-scripts-docs: "npm:1.0.1"
