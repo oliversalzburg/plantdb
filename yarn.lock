@@ -1893,7 +1893,7 @@ __metadata:
     "@types/web": "npm:0.0.128"
     "@types/wicg-file-system-access": "npm:2023.10.4"
     dygraphs: "npm:2.2.1"
-    i18next: "npm:23.7.8"
+    i18next: "npm:23.7.11"
     i18next-browser-languagedetector: "npm:7.2.0"
     i18next-http-backend: "npm:2.4.2"
     idb: "npm:8.0.0"
@@ -4321,12 +4321,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:23.7.8":
-  version: 23.7.8
-  resolution: "i18next@npm:23.7.8"
+"i18next@npm:23.7.11":
+  version: 23.7.11
+  resolution: "i18next@npm:23.7.11"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 1f6c472d167f02c1f3274ed16649fba03405a561e27f34721e93a3dd4aa585e12a6a7d9c9910282f113b058127ae130b824ba505e020c205e04405035ed31f2e
+  checksum: 66f166bebbde565d4e0ed98b0f046f49d97c591fa8e4919bd9badfb6be3b1057ec137b9332beb4835b2d6714af243726dc3996d60f54949cfd23c839b0f8a3b6
   languageName: node
   linkType: hard
 
