@@ -271,10 +271,8 @@ export class PlantStoreUi extends LitElement {
     // If the path is / then allow the fallback to take its place.
     // The fallback has no / prefix, as it's the name of a view.
     // If the path is something else, slice off any / prefix.
-    const pathString = `${
-      href === "/" ? assumePathForRoot : href.startsWith("/") ? href.slice(1) : href
-    }`;
-
+    const pathString =
+      href === "/" ? assumePathForRoot : href.startsWith("/") ? href.slice(1) : href;
     const url = new URL(`${location.origin}/${pathString}`);
 
     const pathParts = pathString.split("/");

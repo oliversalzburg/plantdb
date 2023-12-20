@@ -161,7 +161,7 @@ export class PlantLogEntry extends LitElement {
       case EventTypes.PestControl:
         return {
           icon: "radioactive",
-          details: `${flattenMultiValue(logEntry?.productUsed)}`,
+          details: flattenMultiValue(logEntry?.productUsed),
         };
 
       case EventTypes.PestInfestation:
