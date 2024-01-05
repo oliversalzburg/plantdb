@@ -1844,7 +1844,7 @@ __metadata:
   resolution: "@plantdb/libplantdb@workspace:packages/libplantdb"
   dependencies:
     "@types/chai": "npm:4.3.11"
-    "@types/luxon": "npm:3.3.8"
+    "@types/luxon": "npm:3.4.0"
     "@types/mocha": "npm:10.0.6"
     "@types/source-map-support": "npm:0.5.10"
     chai: "npm:5.0.0"
@@ -1865,7 +1865,7 @@ __metadata:
   resolution: "@plantdb/plant-cli@workspace:packages/plant-cli"
   dependencies:
     "@plantdb/libplantdb": "workspace:*"
-    "@types/luxon": "npm:3.3.8"
+    "@types/luxon": "npm:3.4.0"
     "@types/minimist": "npm:1.2.5"
     "@types/node": "npm:20.10.6"
     esbuild: "npm:0.19.11"
@@ -2251,10 +2251,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:3.3.8":
-  version: 3.3.8
-  resolution: "@types/luxon@npm:3.3.8"
-  checksum: f2ffa31364eb94ca0474a196f533d301025a203bb2758ce0cf209f338cece0af169edea230b5c0b1a68a71adb02f369faa5ec0bd824deb8f0a08cac6803b1b06
+"@types/luxon@npm:3.4.0":
+  version: 3.4.0
+  resolution: "@types/luxon@npm:3.4.0"
+  checksum: fc457ad84be8491820a4fd8bcfef4240fb974c64629acc3aacde4f6e78f148aa0bf3b5186038672b1733dee3c30f40cd4a411828d68a8d94cfc8eee9626694e2
   languageName: node
   linkType: hard
 
