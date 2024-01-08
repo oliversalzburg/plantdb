@@ -37,7 +37,7 @@
     "mocha": "10.2.0",
     "source-map-support": "0.5.21",
     "tslib": "2.6.2",
-    "typedoc": "0.25.6",
+    "typedoc": "0.25.7",
     "typedoc-plugin-markdown": "3.17.1",
     "typescript": "5.3.3"
   }
