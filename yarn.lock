@@ -5779,7 +5779,7 @@ __metadata:
     prettier-package-json: "npm:2.8.0"
     prettier-plugin-organize-imports: "npm:3.2.4"
     prettier-plugin-sh: "npm:0.13.1"
-    ts-lit-plugin: "npm:2.0.1"
+    ts-lit-plugin: "npm:2.0.2"
     tslib: "npm:2.6.2"
     typescript: "npm:5.3.3"
   languageName: unknown
@@ -6779,13 +6779,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-lit-plugin@npm:2.0.1":
-  version: 2.0.1
-  resolution: "ts-lit-plugin@npm:2.0.1"
+"ts-lit-plugin@npm:2.0.2":
+  version: 2.0.2
+  resolution: "ts-lit-plugin@npm:2.0.2"
   dependencies:
     lit-analyzer: "npm:^2.0.1"
     web-component-analyzer: "npm:^2.0.0"
-  checksum: 17146c0250991d6f69f71afd136ea7abca18b50202146c5d1535f10b87f5f9bc1bab22181f9ee881d570c99cac1c8ce8607b05c9a53e5b1dabf20c67e1b4a640
+  checksum: e7d30f7aed4b62a60a4a5d9bd5cb45b7e5c98a2bd04a6652883cd3a16d9599938193432180cefbf24743b922b8e0600d90c44c242bf4dc04ed02875f5dc92540
   languageName: node
   linkType: hard
 
