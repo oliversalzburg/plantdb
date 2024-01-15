@@ -23,7 +23,7 @@
     "i18next-http-backend": "2.4.2",
     "idb": "8.0.0",
     "lit": "3.1.0",
-    "lit-html": "3.1.0",
+    "lit-html": "3.1.1",
     "lit-i18n": "4.1.0",
     "lunr": "2.3.9",
     "luxon": "3.4.4",
