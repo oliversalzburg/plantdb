@@ -5777,7 +5777,7 @@ __metadata:
     prettier: "npm:3.2.4"
     prettier-package-json: "npm:2.8.0"
     prettier-plugin-organize-imports: "npm:3.2.4"
-    prettier-plugin-sh: "npm:0.13.1"
+    prettier-plugin-sh: "npm:0.14.0"
     ts-lit-plugin: "npm:2.0.2"
     tslib: "npm:2.6.2"
     typescript: "npm:5.3.3"
@@ -5838,15 +5838,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sh@npm:0.13.1":
-  version: 0.13.1
-  resolution: "prettier-plugin-sh@npm:0.13.1"
+"prettier-plugin-sh@npm:0.14.0":
+  version: 0.14.0
+  resolution: "prettier-plugin-sh@npm:0.14.0"
   dependencies:
     mvdan-sh: "npm:^0.10.1"
     sh-syntax: "npm:^0.4.1"
   peerDependencies:
-    prettier: ^3.0.0
-  checksum: 8aff04d85885252d1430529b3dd129fc4ce2e9d0e42302030114d05e0bc0986619ac79cbf4c509b4b02296e156ca7622df546453ca7dd16e23f45e451fe9231b
+    prettier: ^3.0.3
+  checksum: 9df1a5f3a7d18b562064724809ce8be0efed6a5e03ef6eb41f1015ffca3471cd62ce83a01de5fe5e6bb13a3affb0c4c653ba4ab6b662e1e06742c65b5b646c5e
   languageName: node
   linkType: hard
 
