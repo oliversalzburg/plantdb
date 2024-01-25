@@ -1,3 +1,4 @@
+import { unknownToError } from "@oliversalzburg/js-utils";
 import { isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import {
   DatabaseFormat,
@@ -244,7 +245,7 @@ export class GoogleDrive implements StorageDriver {
           prompt: "consent",
           callback: response => {
             if (response.error !== "") {
-              reject(response);
+              reject(unknownToError(response));
             }
 
             GoogleDrive._googleDriveConnected = true;
@@ -254,7 +255,7 @@ export class GoogleDrive implements StorageDriver {
 
         this._tokenClient.requestAccessToken();
       } catch (error) {
-        reject(error);
+        reject(unknownToError(error));
       }
     });
   }
