@@ -2014,7 +2014,7 @@ __metadata:
     mocha: "npm:10.2.0"
     source-map-support: "npm:0.5.21"
     tslib: "npm:2.6.2"
-    typedoc: "npm:0.25.7"
+    typedoc: "npm:0.25.9"
     typedoc-plugin-markdown: "npm:3.17.1"
     typescript: "npm:5.3.3"
   languageName: unknown
@@ -7139,9 +7139,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.25.7":
-  version: 0.25.7
-  resolution: "typedoc@npm:0.25.7"
+"typedoc@npm:0.25.9":
+  version: 0.25.9
+  resolution: "typedoc@npm:0.25.9"
   dependencies:
     lunr: "npm:^2.3.9"
     marked: "npm:^4.3.0"
@@ -7151,7 +7151,7 @@ __metadata:
     typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x
   bin:
     typedoc: bin/typedoc
-  checksum: 10c0/e663be0534dd56f45f041a478ee0613a1bf96cad7208a5cfc771981c904d0f30d8dca51956486f125f8004237264acc5dd45920fa6a0a32e351e36d74279abb1
+  checksum: 10c0/6964bbe2bbaf3aa9f538bc5b4199086fa3affd87796895cb0464caa9d6594ad883348273385cf3babc37ff95622d264eebf305bdfb35cebb94c3570c57080cff
   languageName: node
   linkType: hard
 
