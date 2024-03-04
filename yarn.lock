@@ -2050,7 +2050,7 @@ __metadata:
     "@plantdb/libplantdb": "workspace:*"
     "@types/luxon": "npm:3.4.2"
     "@types/minimist": "npm:1.2.5"
-    "@types/node": "npm:20.11.16"
+    "@types/node": "npm:20.11.24"
     esbuild: "npm:0.20.1"
     luxon: "npm:3.4.4"
     minimist: "npm:1.2.8"
@@ -2455,21 +2455,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:20.11.24":
   version: 20.11.24
   resolution: "@types/node@npm:20.11.24"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/5a62225eb4797b41e6953f9c08c4611d607b5422ddd153312fc81ed6ed37115228ae27e3e3caa1a3bf52d88310306a196ba1cfbd8b2ec918a20f64d80dfa22c9
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:20.11.16":
-  version: 20.11.16
-  resolution: "@types/node@npm:20.11.16"
-  dependencies:
-    undici-types: "npm:~5.26.4"
-  checksum: 10c0/4886b90278e9c877a84efd3edd4667cd990e032d77268d2a798b99ebc1901ea336fa7dfbe9eaf4ad6ad1da9ce2ec31baf300038a3905838692362eb19904ebde
   languageName: node
   linkType: hard
 
