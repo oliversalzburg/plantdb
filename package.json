@@ -32,7 +32,7 @@
     "@babel/plugin-syntax-import-assertions": "7.23.3",
     "@types/babel__core": "7.20.5",
     "@types/eslint": "8.56.5",
-    "@types/web": "0.0.140",
+    "@types/web": "0.0.141",
     "@typescript-eslint/eslint-plugin": "7.1.1",
     "@typescript-eslint/parser": "7.1.1",
     "eslint": "8.57.0",
