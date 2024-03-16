@@ -16,7 +16,7 @@
     "@lit-labs/context": "0.5.1",
     "@oliversalzburg/js-utils": "0.0.27",
     "@plantdb/libplantdb": "workspace:*",
-    "@shoelace-style/shoelace": "2.13.1",
+    "@shoelace-style/shoelace": "2.14.0",
     "dygraphs": "2.2.1",
     "i18next": "23.10.1",
     "i18next-browser-languagedetector": "7.2.0",
