@@ -1858,7 +1858,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@plantdb/libplantdb@workspace:packages/libplantdb"
   dependencies:
-    "@types/chai": "npm:4.3.13"
+    "@types/chai": "npm:4.3.14"
     "@types/luxon": "npm:3.4.2"
     "@types/mocha": "npm:10.0.6"
     "@types/source-map-support": "npm:0.5.10"
@@ -2166,10 +2166,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai@npm:4.3.13":
-  version: 4.3.13
-  resolution: "@types/chai@npm:4.3.13"
-  checksum: 10c0/34a8514c4fabe8f743c506481a90269ed761ddab6bf89bd88f122061e6797bf52e7e1e23812ebbd1eda6100b128667c5c3ec9ed1f198688202ddf433d2a8f7ff
+"@types/chai@npm:4.3.14":
+  version: 4.3.14
+  resolution: "@types/chai@npm:4.3.14"
+  checksum: 10c0/7712594c1e457cb99c7227d0fe1afcbb900bbd1369494ec2d2b0d79a383057a09ab13d23d7b300287394b99995a8c017aa55e6b9a369b77910bc10310ba504af
   languageName: node
   linkType: hard
 
