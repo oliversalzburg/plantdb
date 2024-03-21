@@ -1922,7 +1922,7 @@ __metadata:
     tslib: "npm:2.6.2"
     typescript: "npm:5.4.3"
     vite: "npm:5.2.2"
-    vite-plugin-pwa: "npm:0.19.5"
+    vite-plugin-pwa: "npm:0.19.6"
     vite-plugin-static-copy: "npm:1.0.1"
   languageName: unknown
   linkType: soft
@@ -7215,9 +7215,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-pwa@npm:0.19.5":
-  version: 0.19.5
-  resolution: "vite-plugin-pwa@npm:0.19.5"
+"vite-plugin-pwa@npm:0.19.6":
+  version: 0.19.6
+  resolution: "vite-plugin-pwa@npm:0.19.6"
   dependencies:
     debug: "npm:^4.3.4"
     fast-glob: "npm:^3.3.2"
@@ -7232,7 +7232,7 @@ __metadata:
   peerDependenciesMeta:
     "@vite-pwa/assets-generator":
       optional: true
-  checksum: 10c0/b549fc1486841d9f0db03a5ca24a4b9a933d1059ab587fb12a4b3b7bfc14143ef74ef0344277bd10fb6da0bbeee11f0868595c569390def5ef6bd677a281bfae
+  checksum: 10c0/ea6a43725926f1705048d50703ca7612034a2d3898b29368f5c008db2a88f530ba6657e1918f1ad3f81017fb9de00c447fec2a5686f9165a263f2f39b741607b
   languageName: node
   linkType: hard
 
