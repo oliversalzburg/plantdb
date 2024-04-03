@@ -27,7 +27,7 @@
     "typedoc-plugin-markdown@3.12.1": "patch:typedoc-plugin-markdown@npm:3.12.1#.yarn/patches/typedoc-plugin-markdown-npm-3.12.1-73b5590d78.patch"
   },
   "devDependencies": {
-    "@babel/core": "7.24.3",
+    "@babel/core": "7.24.4",
     "@babel/eslint-parser": "7.23.10",
     "@babel/plugin-syntax-import-assertions": "7.24.1",
     "@types/babel__core": "7.20.5",
