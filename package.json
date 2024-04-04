@@ -47,7 +47,7 @@
     "prettier-plugin-sh": "0.14.0",
     "ts-lit-plugin": "2.0.2",
     "tslib": "2.6.2",
-    "typescript": "5.4.3"
+    "typescript": "5.4.4"
   },
   "packageManager": "yarn@4.1.1"
 }
