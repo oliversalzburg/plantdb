@@ -1902,7 +1902,7 @@ __metadata:
     "@types/gapi.client.drive": "npm:3.0.15"
     "@types/google.accounts": "npm:0.0.14"
     "@types/lunr": "npm:2.3.7"
-    "@types/web": "npm:0.0.142"
+    "@types/web": "npm:0.0.143"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     dygraphs: "npm:2.2.1"
     i18next: "npm:23.10.1"
@@ -2353,10 +2353,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.142":
-  version: 0.0.142
-  resolution: "@types/web@npm:0.0.142"
-  checksum: 10c0/761768bd96aa93b42a7916f7d345f549fda43e958cbe593bd8a6d65d59e0aaaa4bb59be7b4f3af4a826001963bfba2ceb7fdbe0245faabbed42027e45ef611ff
+"@types/web@npm:0.0.143":
+  version: 0.0.143
+  resolution: "@types/web@npm:0.0.143"
+  checksum: 10c0/5fd04ca94c5a9110a68c765ee429c9276df2c6cbd66e46aedefed48c9e5257f0eaccef706ec2d11debaecc4fea02d783dacd24e24d82b9ea6a3fc78b4af097cc
   languageName: node
   linkType: hard
 
@@ -5897,7 +5897,7 @@ __metadata:
     "@babel/plugin-syntax-import-assertions": "npm:7.24.1"
     "@types/babel__core": "npm:7.20.5"
     "@types/eslint": "npm:8.56.5"
-    "@types/web": "npm:0.0.142"
+    "@types/web": "npm:0.0.143"
     "@typescript-eslint/eslint-plugin": "npm:7.2.0"
     "@typescript-eslint/parser": "npm:7.2.0"
     eslint: "npm:8.57.0"
