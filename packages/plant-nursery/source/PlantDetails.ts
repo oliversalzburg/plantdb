@@ -99,7 +99,10 @@ export class PlantDetails extends LitElement {
     return (
       "Date,pH,EC\n" +
       measurements
-        .map(entry => `${entry.timestamp.toISOString()},${(entry.ph ?? 0) * 100},${entry.ec ?? 0}`)
+        .map(
+          entry =>
+            `${entry.timestamp.toISOString()},${((entry.ph ?? 0) * 100).toString()},${(entry.ec ?? 0).toString()}`,
+        )
         .join("\n")
     );
   }

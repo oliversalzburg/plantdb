@@ -15,7 +15,7 @@ export const kindSummarize = (plantKind: string | Array<string> | undefined) => 
   }
 
   if (Array.isArray(plantKind)) {
-    return `${plantKind.length} kinds`;
+    return `${plantKind.length.toString()} kinds`;
   }
 
   return plantKind;

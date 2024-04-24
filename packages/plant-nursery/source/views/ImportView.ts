@@ -1,3 +1,4 @@
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { DatabaseFormat } from "@plantdb/libplantdb";
 import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
 import { css, html } from "lit";
@@ -79,7 +80,7 @@ export class ImportView extends DataExchangeView {
       console.error(error);
       this.plantStoreUi
         ?.alert(t("import.fsUnsupported"), "danger", "x-circle")
-        .catch(console.error);
+        .catch(redirectErrorsToConsole(console));
       throw error;
     }
   }

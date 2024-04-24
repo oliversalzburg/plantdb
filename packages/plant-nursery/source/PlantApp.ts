@@ -1,3 +1,4 @@
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { DictionaryClassifiers, EventType, UserDictionary } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
@@ -8,7 +9,6 @@ import { installRouter } from "pwa-helpers/router.js";
 import { Typography } from "./ComponentStyles";
 import { PlantStore } from "./stores/PlantStore";
 import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi";
-import { executeAsyncContext } from "./tools/Async";
 
 @customElement("pn-plant-app")
 export class PlantApp extends LitElement {
@@ -89,7 +89,7 @@ export class PlantApp extends LitElement {
     });
     this._plantStoreUi.addEventListener(
       "pn-i18n-changed",
-      // @ts-expect-error wtf?
+      // @ts-expect-error We just want to assign a string here.
       () => (window.location = getBasePath()),
     );
 
@@ -104,7 +104,7 @@ export class PlantApp extends LitElement {
         );
       });
 
-      executeAsyncContext(async () => {
+      (async () => {
         try {
           await this._plantStore.loadFromCache();
         } catch (error) {
@@ -115,7 +115,7 @@ export class PlantApp extends LitElement {
             await this._plantStore.resetCache();
           }
         }
-      });
+      })().catch(redirectErrorsToConsole(console));
     });
 
     this._plantStore.addEventListener("pn-config-changed", () => {
@@ -181,10 +181,10 @@ export class PlantApp extends LitElement {
   }
 
   private _onTypeMapChanged(event: CustomEvent<UserDictionary>) {
-    this._plantStoreUi.alert(t("typeMap.updated")).catch(console.error);
+    this._plantStoreUi.alert(t("typeMap.updated")).catch(redirectErrorsToConsole(console));
     this._plantStore
       .updatePlantDb(this._plantStore.plantDb.withNewDictionary(event.detail))
-      .catch(console.error);
+      .catch(redirectErrorsToConsole(console));
     this._plantStoreUi.navigateTo("log");
   }
 

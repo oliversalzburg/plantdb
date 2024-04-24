@@ -1,3 +1,4 @@
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { css, html, LitElement } from "lit";
 import { translate as t } from "lit-i18n";
@@ -169,7 +170,7 @@ export class PlantScanner extends LitElement {
   private _retry() {
     const video = mustExist(this._video);
 
-    video.play().catch(console.error);
+    video.play().catch(redirectErrorsToConsole(console));
 
     this._imageAvailable = false;
     this.dataUrl = null;
