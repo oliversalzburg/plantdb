@@ -1,4 +1,5 @@
 import { prepareAsyncContext } from "@oliversalzburg/js-utils/async.js";
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { assertExists } from "@oliversalzburg/js-utils/nil.js";
 import { LogEntry, Plant, Task } from "@plantdb/libplantdb";
 import { getBasePath } from "@shoelace-style/shoelace";
@@ -106,7 +107,7 @@ export class PlantStoreUi extends LitElement {
         Settings.defaultLocale = i18next.language;
         this.dispatchEvent(new CustomEvent("pn-i18n-ready", { detail: i18next.language }));
       })
-      .catch(console.error);
+      .catch(redirectErrorsToConsole(console));
 
     const updateSW = registerSW({
       onNeedRefresh: prepareAsyncContext(async () => {
@@ -115,7 +116,7 @@ export class PlantStoreUi extends LitElement {
         }
       }),
       onOfflineReady: () => {
-        this.alert(t("app.offlineReady")).catch(console.error);
+        this.alert(t("app.offlineReady")).catch(redirectErrorsToConsole(console));
       },
     });
 
@@ -419,7 +420,7 @@ export class PlantStoreUi extends LitElement {
 
   async editLogEntry(logEntry: LogEntry) {
     assertExists(this.plantStore);
-    console.debug(`Editing log entry ${logEntry.id}`);
+    console.debug(`Editing log entry ${logEntry.id.toString()}`);
 
     const updatedEntry = await this.showEntryEditor(logEntry);
     if (!updatedEntry) {
@@ -433,9 +434,11 @@ export class PlantStoreUi extends LitElement {
       : this.plantStore.plantDb.withUpdatedLogEntry(updatedEntry, logEntry);
 
     if (shouldDelete) {
-      this.alert(t("log.entryDeleted"), "danger", "x-circle").catch(console.error);
+      this.alert(t("log.entryDeleted"), "danger", "x-circle").catch(
+        redirectErrorsToConsole(console),
+      );
     } else {
-      this.alert(t("log.entryUpdated")).catch(console.error);
+      this.alert(t("log.entryUpdated")).catch(redirectErrorsToConsole(console));
     }
 
     return this.plantStore.updatePlantDb(newDb);
@@ -468,7 +471,7 @@ export class PlantStoreUi extends LitElement {
   async editTask(task: Task) {
     assertExists(this.plantStore);
 
-    console.debug(`Show details dialog for task #${task.id}`);
+    console.debug(`Show details dialog for task #${task.id.toString()}`);
     const updatedTask = await this.showTaskEditor(task);
     if (!updatedTask) {
       return Promise.resolve(undefined);

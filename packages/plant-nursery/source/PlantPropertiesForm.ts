@@ -1,3 +1,4 @@
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { Plant } from "@plantdb/libplantdb";
 import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
@@ -254,7 +255,7 @@ export class PlantPropertiesForm extends LitElement {
 
   private _scanPlant() {
     this._scanning = true;
-    mustExist(this._scanner).start().catch(console.error);
+    mustExist(this._scanner).start().catch(redirectErrorsToConsole(console));
     this.dispatchEvent(new CustomEvent("pn-scanning"));
   }
 
@@ -264,8 +265,8 @@ export class PlantPropertiesForm extends LitElement {
     this.dispatchEvent(new CustomEvent("pn-scanned"));
     if (dataUrl !== null) {
       console.log(dataUrl);
-      this.plantStoreUi?.alert(t("scanner.captured")).catch(console.error);
-      this._identifyPlant(dataUrl).catch(console.error);
+      this.plantStoreUi?.alert(t("scanner.captured")).catch(redirectErrorsToConsole(console));
+      this._identifyPlant(dataUrl).catch(redirectErrorsToConsole(console));
     } else {
       this._cancelPlantIdentify();
     }
@@ -278,7 +279,9 @@ export class PlantPropertiesForm extends LitElement {
     );
     const json = (await response.json()) as PlantNetResponse | PlantNetErrorResponse;
     if ("error" in json) {
-      this.plantStoreUi?.alert(json.message, "danger", "x-circle").catch(console.error);
+      this.plantStoreUi
+        ?.alert(json.message, "danger", "x-circle")
+        .catch(redirectErrorsToConsole(console));
       this._picking = false;
       return;
     }

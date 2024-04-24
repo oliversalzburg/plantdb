@@ -1,3 +1,4 @@
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { DatabaseFormat, PlantDB } from "@plantdb/libplantdb";
 import { DateTime } from "luxon";
 import minimist from "minimist";
@@ -30,8 +31,8 @@ const main = async () => {
   }
 
   console.info(
-    `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`,
+    `Database has ${plantDb.plants.size.toString()} plants and ${plantDb.log.length.toString()} log entries with ${plantDb.entryTypes.size.toString()} different types.`,
   );
 };
 
-main().catch(console.error);
+main().catch(redirectErrorsToConsole(console));

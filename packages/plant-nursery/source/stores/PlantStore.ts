@@ -1,3 +1,4 @@
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { LogEntry, Plant, PlantDB, Task } from "@plantdb/libplantdb";
 import { LitElement } from "lit";
@@ -7,7 +8,6 @@ import { DateTime } from "luxon";
 import { GoogleDrive } from "../storage/GoogleDrive";
 import { IndexedDb } from "../storage/IndexedDb";
 import { LocalStorage } from "../storage/LocalStorage";
-import { executeAsyncContext } from "../tools/Async";
 import { rruleFromTask } from "../tools/TaskTools";
 
 // eslint-disable-next-line no-use-before-define
@@ -32,14 +32,14 @@ export class PlantStore extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     globalStore = this;
 
-    executeAsyncContext(async () => {
+    (async () => {
       await this.indexedDb.prepare();
       await this.localStorage.prepare();
       // Google Drive is not prepared until absolutely necessary!
 
       await this.indexedDb.connect();
       await this.localStorage.connect();
-    });
+    })().catch(redirectErrorsToConsole(console));
   }
 
   disconnectedCallback(): void {

@@ -1,4 +1,5 @@
 import { unknownToError } from "@oliversalzburg/js-utils/error-serializer.js";
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { assertExists } from "@oliversalzburg/js-utils/nil.js";
 import {
   DatabaseFormat,
@@ -150,7 +151,7 @@ export abstract class DataExchangeView extends View {
     }
 
     console.info(
-      `Database has ${plantDb.plants.size} plants and ${plantDb.log.length} log entries with ${plantDb.entryTypes.size} different types.`,
+      `Database has ${plantDb.plants.size.toString()} plants and ${plantDb.log.length.toString()} log entries with ${plantDb.entryTypes.size.toString()} different types.`,
     );
 
     await this.plantStore.updatePlantDb(plantDb);
@@ -164,7 +165,9 @@ export abstract class DataExchangeView extends View {
       await this.plantStore?.googleDriveConnect();
 
       this._googleDriveConnected = true;
-      this.plantStoreUi?.alert(t("import.googleDriveConnected")).catch(console.error);
+      this.plantStoreUi
+        ?.alert(t("import.googleDriveConnected"))
+        .catch(redirectErrorsToConsole(console));
 
       const lastModified = await this.plantStore?.googleDrive.lastModified();
       this._googleDriveHasDb = lastModified !== null;
@@ -186,7 +189,7 @@ export abstract class DataExchangeView extends View {
       console.error(error);
       this.plantStoreUi
         ?.alert(unknownToError(error).message, "danger", "x-circle")
-        .catch(console.error);
+        .catch(redirectErrorsToConsole(console));
     } finally {
       this._googleDriveBusy = false;
     }
@@ -206,13 +209,15 @@ export abstract class DataExchangeView extends View {
 
       this._googleDriveDbLastModified = new Date();
       this._googleDriveHelpText = t("import.googleDriveImportedHelp");
-      this.plantStoreUi?.alert(t("import.googleDriveImported")).catch(console.error);
+      this.plantStoreUi
+        ?.alert(t("import.googleDriveImported"))
+        .catch(redirectErrorsToConsole(console));
       this.requestUpdate();
     } catch (error) {
       console.error(error);
       this.plantStoreUi
         ?.alert("Unable to use Google Drive data!", "danger", "x-circle")
-        .catch(console.error);
+        .catch(redirectErrorsToConsole(console));
     } finally {
       this._googleDriveBusy = false;
     }
@@ -232,13 +237,15 @@ export abstract class DataExchangeView extends View {
 
       this._googleDriveDbLastModified = new Date();
       this._googleDriveHelpText = t("import.googleDriveSynchronizedHelp");
-      this.plantStoreUi?.alert(t("import.googleDriveSynchronized")).catch(console.error);
+      this.plantStoreUi
+        ?.alert(t("import.googleDriveSynchronized"))
+        .catch(redirectErrorsToConsole(console));
       this.requestUpdate();
     } catch (error) {
       console.error(error);
       this.plantStoreUi
         ?.alert(unknownToError(error).message, "danger", "x-circle")
-        .catch(console.error);
+        .catch(redirectErrorsToConsole(console));
     } finally {
       this._googleDriveBusy = false;
     }

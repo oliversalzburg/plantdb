@@ -1,3 +1,4 @@
+import { unknownToError } from "@oliversalzburg/js-utils/error-serializer.js";
 import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { SlDialog } from "@shoelace-style/shoelace";
 import { css, html, LitElement } from "lit";
@@ -40,7 +41,9 @@ export class ConfirmDialog extends LitElement {
     document.body.appendChild(this);
     return new Promise((resolve, reject) => {
       this._resolver = resolve;
-      this._confirmDialog?.show().catch(reject);
+      this._confirmDialog?.show().catch((error: unknown) => {
+        reject(unknownToError(error));
+      });
     });
   }
 
