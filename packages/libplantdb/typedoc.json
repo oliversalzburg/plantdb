@@ -2,6 +2,5 @@
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["./source/index.ts"],
   "out": "../documentation/en-US/docs/reference/libplantdb",
-  "excludePrivate": true,
-  "hideInPageTOC": true
+  "excludePrivate": true
 }
