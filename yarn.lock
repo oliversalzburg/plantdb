@@ -2024,7 +2024,7 @@ __metadata:
     source-map-support: "npm:0.5.21"
     tslib: "npm:2.6.2"
     typedoc: "npm:0.25.13"
-    typedoc-plugin-markdown: "npm:4.0.1"
+    typedoc-plugin-markdown: "npm:4.0.2"
     typescript: "npm:5.4.5"
   languageName: unknown
   linkType: soft
@@ -7260,12 +7260,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-plugin-markdown@npm:4.0.1":
-  version: 4.0.1
-  resolution: "typedoc-plugin-markdown@npm:4.0.1"
+"typedoc-plugin-markdown@npm:4.0.2":
+  version: 4.0.2
+  resolution: "typedoc-plugin-markdown@npm:4.0.2"
   peerDependencies:
     typedoc: 0.25.x
-  checksum: 10c0/c0fe4c655208ef07a7a9c7fcf7d98d37884fc55d5e386c15d17c9ea945f03893c6c3fbd19cca4613eeb426a6d00c07f59917df7005347f8a316d483ada6f3d9a
+  checksum: 10c0/e967edb1d98b472ae468d83a0df347d03a909ebebab26cce4b2bf3a7c58ba93533d9ad5201b3b8d4f8dddd4241b26dd354aec6d746bb505045982bca83c76867
   languageName: node
   linkType: hard
 
