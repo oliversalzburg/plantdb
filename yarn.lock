@@ -2065,7 +2065,7 @@ __metadata:
     dygraphs: "npm:2.2.1"
     i18next: "npm:23.11.4"
     i18next-browser-languagedetector: "npm:8.0.0"
-    i18next-http-backend: "npm:2.5.1"
+    i18next-http-backend: "npm:2.5.2"
     idb: "npm:8.0.0"
     lit: "npm:3.1.3"
     lit-html: "npm:3.1.3"
@@ -4677,12 +4677,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-http-backend@npm:2.5.1":
-  version: 2.5.1
-  resolution: "i18next-http-backend@npm:2.5.1"
+"i18next-http-backend@npm:2.5.2":
+  version: 2.5.2
+  resolution: "i18next-http-backend@npm:2.5.2"
   dependencies:
     cross-fetch: "npm:4.0.0"
-  checksum: 10c0/8063619a1c5b26aa10f4d35685f18179cbc5022624b40e55447aaae467fc4942e6e2949fabe460632de02e70709cdf987900d64d238e2a250af78fa732d1d962
+  checksum: 10c0/57cfbeeea40a751134e1521fac89b14b780c9ad87b74a4f7d7168a88a8b603efed9f5df455dddbb408f7e268eae5aa0a6888e47b9f10cb9482d812d4d6997ffa
   languageName: node
   linkType: hard
 
