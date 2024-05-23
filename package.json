@@ -36,7 +36,7 @@
     "@typescript-eslint/eslint-plugin": "7.10.0",
     "@typescript-eslint/parser": "7.10.0",
     "eslint": "8.57.0",
-    "eslint-plugin-jsdoc": "48.2.5",
+    "eslint-plugin-jsdoc": "48.2.6",
     "eslint-plugin-lit": "1.13.0",
     "eslint-plugin-wc": "2.1.0",
     "lint-staged": "15.2.4",
