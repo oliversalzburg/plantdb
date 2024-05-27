@@ -3,8 +3,8 @@ import { Task } from "@plantdb/libplantdb";
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { PlantStore } from "./stores/PlantStore.js";
+import { PlantStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-task-instance")
 export class TaskInstance extends LitElement {

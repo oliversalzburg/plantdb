@@ -1,10 +1,10 @@
 import { assertExists } from "@oliversalzburg/js-utils/nil.js";
+import { LogEntry } from "@plantdb/libplantdb";
 import { css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property, query } from "lit/decorators.js";
-import { LogEntry } from "packages/libplantdb/typings";
-import { PlantLogEntryForm } from "../PlantLogEntryForm";
-import { View } from "./View";
+import { PlantLogEntryForm } from "../PlantLogEntryForm.js";
+import { View } from "./View.js";
 
 @customElement("pn-log-entry-view")
 export class LogEntryView extends View {

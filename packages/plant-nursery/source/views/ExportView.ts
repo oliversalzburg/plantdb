@@ -4,7 +4,7 @@ import { css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { DataExchangeView } from "./DataExchangeView";
+import { DataExchangeView } from "./DataExchangeView.js";
 
 @customElement("pn-export-view")
 export class ExportView extends DataExchangeView {

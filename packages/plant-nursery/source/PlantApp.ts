@@ -6,9 +6,9 @@ import { t } from "i18next";
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { installRouter } from "pwa-helpers/router.js";
-import { Typography } from "./ComponentStyles";
-import { PlantStore } from "./stores/PlantStore";
-import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi";
+import { Typography } from "./ComponentStyles.js";
+import { PlantStore } from "./stores/PlantStore.js";
+import { KnownViews, PlantStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-plant-app")
 export class PlantApp extends LitElement {

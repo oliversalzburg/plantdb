@@ -11,7 +11,11 @@ import {
   UserDictionary,
   UserDictionarySerialized,
 } from "@plantdb/libplantdb";
-import { NurseryConfiguration, StorageDriver, getConfigurationFromPlantDB } from "./StorageDriver";
+import {
+  NurseryConfiguration,
+  StorageDriver,
+  getConfigurationFromPlantDB,
+} from "./StorageDriver.js";
 
 export class LocalStorage implements StorageDriver {
   prepare() {

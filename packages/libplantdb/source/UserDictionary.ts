@@ -1,4 +1,4 @@
-import { PlantDBEntity } from "./PlantDBEntity";
+import { PlantDBEntity } from "./PlantDBEntity.js";
 
 export const DictionaryClassifiers = {
   LogEntryEventType: "plantdb.logEntry.type",

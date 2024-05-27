@@ -1,7 +1,7 @@
 import { css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement } from "lit/decorators.js";
-import { View } from "./View";
+import { View } from "./View.js";
 
 @customElement("pn-page-not-found-view")
 export class PageNotFoundView extends View {

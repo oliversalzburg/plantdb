@@ -1,4 +1,4 @@
-import { PlantDBEntity } from "./PlantDBEntity";
+import { PlantDBEntity } from "./PlantDBEntity.js";
 
 /**
  * Describes a plain JS object, containing all the properties required to initialize

@@ -1,9 +1,9 @@
 import { parse } from "csv-parse/browser/esm/sync";
 import { stringify } from "csv-stringify/browser/esm/sync";
-import { DatabaseFormat } from "../DatabaseFormat";
-import { LogEntry } from "../LogEntry";
-import { Plant } from "../Plant";
-import { PlantDB } from "../PlantDB";
+import { DatabaseFormat } from "../DatabaseFormat.js";
+import { LogEntry } from "../LogEntry.js";
+import { Plant } from "../Plant.js";
+import { PlantDB } from "../PlantDB.js";
 
 /**
  * Serialize a log to CSV.

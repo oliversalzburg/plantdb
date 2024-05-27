@@ -1,14 +1,14 @@
 import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { identifyLogType, LogEntry } from "@plantdb/libplantdb";
-import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
-import SlSelect from "@shoelace-style/shoelace/dist/components/select/select";
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
+import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 import { css, html, LitElement } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property, state } from "lit/decorators.js";
-import { Forms } from "./ComponentStyles";
-import { PlantLogEntry } from "./PlantLogEntry";
-import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { Forms } from "./ComponentStyles.js";
+import { PlantLogEntry } from "./PlantLogEntry.js";
+import { PlantStore } from "./stores/PlantStore.js";
+import { PlantStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-plant-log")
 export class PlantLog extends LitElement {

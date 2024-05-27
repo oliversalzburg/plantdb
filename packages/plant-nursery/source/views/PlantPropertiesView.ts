@@ -3,8 +3,8 @@ import { Plant } from "@plantdb/libplantdb";
 import { css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property, query } from "lit/decorators.js";
-import { PlantPropertiesForm } from "../PlantPropertiesForm";
-import { View } from "./View";
+import { PlantPropertiesForm } from "../PlantPropertiesForm.js";
+import { View } from "./View.js";
 
 @customElement("pn-plant-properties-view")
 export class PlantPropertiesView extends View {

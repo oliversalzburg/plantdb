@@ -12,7 +12,7 @@ import {
   UserDictionary,
   UserDictionarySerialized,
 } from "@plantdb/libplantdb";
-import { NurseryConfiguration, StorageDriver } from "./StorageDriver";
+import { NurseryConfiguration, StorageDriver } from "./StorageDriver.js";
 
 export class GoogleDrive implements StorageDriver {
   private static _googleDriveConnected = false;

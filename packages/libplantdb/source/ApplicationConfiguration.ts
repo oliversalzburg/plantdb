@@ -1,6 +1,6 @@
-import { DatabaseFormat, DatabaseFormatSerialized } from "./DatabaseFormat";
-import { EventType } from "./LogEntry";
-import { PlantDBEntity } from "./PlantDBEntity";
+import { DatabaseFormat, DatabaseFormatSerialized } from "./DatabaseFormat.js";
+import { EventType } from "./LogEntry.js";
+import { PlantDBEntity } from "./PlantDBEntity.js";
 
 export interface ApplicationConfigurationSerialized {
   databaseFormat: DatabaseFormatSerialized;

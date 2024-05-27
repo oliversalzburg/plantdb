@@ -11,8 +11,8 @@ import { initLitI18n } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { Settings } from "luxon";
 import { registerSW } from "virtual:pwa-register";
-import { ConfirmDialog } from "../ConfirmDialog";
-import { PlantStore } from "./PlantStore";
+import { ConfirmDialog } from "../ConfirmDialog.js";
+import { PlantStore } from "./PlantStore.js";
 
 // eslint-disable-next-line no-use-before-define
 let globalStore: PlantStoreUi | undefined;

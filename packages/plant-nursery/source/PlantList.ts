@@ -1,11 +1,11 @@
 import { mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { Plant } from "@plantdb/libplantdb";
-import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { css, html, LitElement } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
-import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
+import { PlantStore } from "./stores/PlantStore.js";
+import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-plant-list")
 export class PlantList extends LitElement {

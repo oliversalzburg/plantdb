@@ -14,7 +14,7 @@ import { t } from "i18next";
 import { css } from "lit";
 import { property, state } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { View } from "./View";
+import { View } from "./View.js";
 
 export abstract class DataExchangeView extends View {
   static readonly styles = [

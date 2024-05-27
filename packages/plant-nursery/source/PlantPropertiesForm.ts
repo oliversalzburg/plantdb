@@ -2,26 +2,26 @@ import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.
 import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { Plant } from "@plantdb/libplantdb";
 import { SlCheckbox, SlDropdown, SlInput, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
-import "@shoelace-style/shoelace/dist/components/badge/badge";
-import "@shoelace-style/shoelace/dist/components/button/button";
-import "@shoelace-style/shoelace/dist/components/card/card";
+import "@shoelace-style/shoelace/dist/components/badge/badge.js";
+import "@shoelace-style/shoelace/dist/components/button/button.js";
+import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "dygraphs/dist/dygraph.css";
 import { LitElement, PropertyValueMap, css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { MultiValueEditor } from "./MultiValueEditor";
+import { MultiValueEditor } from "./MultiValueEditor.js";
 import {
   PlantIdentificationPicker,
   PlantNetErrorResponse,
   PlantNetResponse,
   PlantNetResult,
-} from "./PlantIdentificationPicker";
-import { PlantScanner } from "./PlantScanner";
-import { makeIdentificationRequest } from "./identification/Tools";
-import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi } from "./stores/PlantStoreUi";
+} from "./PlantIdentificationPicker.js";
+import { PlantScanner } from "./PlantScanner.js";
+import { makeIdentificationRequest } from "./identification/Tools.js";
+import { PlantStore } from "./stores/PlantStore.js";
+import { PlantStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-plant-properties-form")
 export class PlantPropertiesForm extends LitElement {

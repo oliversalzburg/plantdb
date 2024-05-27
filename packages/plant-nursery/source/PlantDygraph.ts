@@ -3,7 +3,7 @@ import { Plant, roundTo } from "@plantdb/libplantdb";
 import Dygraph from "dygraphs";
 import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi";
+import { PlantStoreUi, retrieveStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-plant-dygraph")
 export class PlantDygraph extends LitElement {
@@ -191,7 +191,7 @@ export class PlantDygraph extends LitElement {
             axisLabelFormatter: (v: number | Date) => {
               return String(roundTo(v.valueOf() / 100));
             },
-            valueFormatter: (y, opts, series_name) => {
+            valueFormatter: (y: number, opts: unknown, series_name: string) => {
               return String(roundTo(series_name === "pH" ? y / 100 : y));
             },
           },

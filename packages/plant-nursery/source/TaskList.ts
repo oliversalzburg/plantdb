@@ -1,13 +1,13 @@
 import { assertExists } from "@oliversalzburg/js-utils/nil.js";
 import { Task } from "@plantdb/libplantdb";
-import SlInput from "@shoelace-style/shoelace/dist/components/input/input";
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { LitElement, css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime } from "luxon";
-import { Forms } from "./ComponentStyles";
-import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { Forms } from "./ComponentStyles.js";
+import { PlantStore } from "./stores/PlantStore.js";
+import { PlantStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-task-list")
 export class TaskList extends LitElement {

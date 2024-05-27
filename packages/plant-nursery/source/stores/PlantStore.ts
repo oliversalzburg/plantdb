@@ -5,10 +5,10 @@ import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import lunr, { Index } from "lunr";
 import { DateTime } from "luxon";
-import { GoogleDrive } from "../storage/GoogleDrive";
-import { IndexedDb } from "../storage/IndexedDb";
-import { LocalStorage } from "../storage/LocalStorage";
-import { rruleFromTask } from "../tools/TaskTools";
+import { GoogleDrive } from "../storage/GoogleDrive.js";
+import { IndexedDb } from "../storage/IndexedDb.js";
+import { LocalStorage } from "../storage/LocalStorage.js";
+import { rruleFromTask } from "../tools/TaskTools.js";
 
 // eslint-disable-next-line no-use-before-define
 let globalStore: PlantStore | undefined;

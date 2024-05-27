@@ -3,8 +3,8 @@ import { Task } from "@plantdb/libplantdb";
 import { css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property, query } from "lit/decorators.js";
-import { TaskPropertiesForm } from "../TaskPropertiesForm";
-import { View } from "./View";
+import { TaskPropertiesForm } from "../TaskPropertiesForm.js";
+import { View } from "./View.js";
 
 @customElement("pn-task-properties-view")
 export class TaskPropertiesView extends View {

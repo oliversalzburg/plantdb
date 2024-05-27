@@ -5,10 +5,10 @@ import { LitElement, PropertyValueMap, css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { Typography } from "./ComponentStyles";
-import { MultiValueEditor } from "./MultiValueEditor";
-import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { Typography } from "./ComponentStyles.js";
+import { MultiValueEditor } from "./MultiValueEditor.js";
+import { PlantStore } from "./stores/PlantStore.js";
+import { PlantStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-plant-log-entry-form")
 export class PlantLogEntryForm extends LitElement {

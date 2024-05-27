@@ -4,8 +4,8 @@ import { SlInput } from "@shoelace-style/shoelace";
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { MultiValueEditor } from "./MultiValueEditor";
-import { PlantStore } from "./stores/PlantStore";
+import { MultiValueEditor } from "./MultiValueEditor.js";
+import { PlantStore } from "./stores/PlantStore.js";
 
 @customElement("pn-multi-value-pid-editor")
 export class MultiValuePidEditor extends MultiValueEditor {

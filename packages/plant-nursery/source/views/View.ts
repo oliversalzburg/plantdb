@@ -1,7 +1,7 @@
 import { css, LitElement } from "lit";
 import { property } from "lit/decorators.js";
-import { PlantStore } from "../stores/PlantStore";
-import { PlantStoreUi } from "../stores/PlantStoreUi";
+import { PlantStore } from "../stores/PlantStore.js";
+import { PlantStoreUi } from "../stores/PlantStoreUi.js";
 
 export abstract class View extends LitElement {
   static readonly styles = [

@@ -1,9 +1,9 @@
 import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
+import { LogEntry } from "@plantdb/libplantdb";
 import { css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement } from "lit/decorators.js";
-import { LogEntry } from "packages/libplantdb/typings";
-import { View } from "./View";
+import { View } from "./View.js";
 
 @customElement("pn-plant-log-view")
 export class PlantLogView extends View {

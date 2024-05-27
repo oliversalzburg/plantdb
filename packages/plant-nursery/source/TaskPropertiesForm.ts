@@ -1,9 +1,9 @@
 import { assertExists, isNil, mustExist } from "@oliversalzburg/js-utils/nil.js";
 import { Task, TaskRepeatDays, TaskRepeatFrequency, WeekDay } from "@plantdb/libplantdb";
 import { SlCheckbox, SlInput, SlRadio, SlSelect, SlTextarea } from "@shoelace-style/shoelace";
-import "@shoelace-style/shoelace/dist/components/badge/badge";
-import "@shoelace-style/shoelace/dist/components/button/button";
-import "@shoelace-style/shoelace/dist/components/card/card";
+import "@shoelace-style/shoelace/dist/components/badge/badge.js";
+import "@shoelace-style/shoelace/dist/components/button/button.js";
+import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "dygraphs/dist/dygraph.css";
 import { LitElement, PropertyValueMap, css, html } from "lit";
 import { translate as t } from "lit-i18n";
@@ -11,9 +11,9 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { DateTime } from "luxon";
-import { MultiValueEditor } from "./MultiValueEditor";
-import { PlantStore } from "./stores/PlantStore";
-import { PlantStoreUi } from "./stores/PlantStoreUi";
+import { MultiValueEditor } from "./MultiValueEditor.js";
+import { PlantStore } from "./stores/PlantStore.js";
+import { PlantStoreUi } from "./stores/PlantStoreUi.js";
 
 @customElement("pn-task-properties-form")
 export class TaskPropertiesForm extends LitElement {

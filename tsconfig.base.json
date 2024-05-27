@@ -11,8 +11,8 @@
     "incremental": true,
     "isolatedModules": true,
     "lib": ["DOM", "ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "output",
     "plugins": [
       {

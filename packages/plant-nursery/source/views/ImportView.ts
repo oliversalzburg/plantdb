@@ -1,11 +1,11 @@
 import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
 import { DatabaseFormat } from "@plantdb/libplantdb";
-import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea";
+import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea.js";
 import { css, html } from "lit";
 import { translate as t } from "lit-i18n";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { DataExchangeView } from "./DataExchangeView";
+import { DataExchangeView } from "./DataExchangeView.js";
 
 @customElement("pn-import-view")
 export class ImportView extends DataExchangeView {

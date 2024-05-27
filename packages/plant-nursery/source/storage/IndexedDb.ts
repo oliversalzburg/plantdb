@@ -11,8 +11,12 @@ import {
   UserDictionary,
 } from "@plantdb/libplantdb";
 import { IDBPDatabase, deleteDB, openDB } from "idb";
-import { LocalStorage } from "./LocalStorage";
-import { NurseryConfiguration, StorageDriver, getConfigurationFromPlantDB } from "./StorageDriver";
+import { LocalStorage } from "./LocalStorage.js";
+import {
+  NurseryConfiguration,
+  StorageDriver,
+  getConfigurationFromPlantDB,
+} from "./StorageDriver.js";
 
 export class IndexedDb implements StorageDriver {
   /**

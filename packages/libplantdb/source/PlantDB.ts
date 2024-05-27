@@ -1,8 +1,8 @@
 import { parse } from "csv-parse/browser/esm/sync";
-import { DatabaseFormat } from "./DatabaseFormat";
-import { EventTypes, LogEntry, LogEntrySerialized } from "./LogEntry";
-import { Plant, PlantSerialized } from "./Plant";
-import { Task, TaskSerialized } from "./Task";
+import { DatabaseFormat } from "./DatabaseFormat.js";
+import { EventTypes, LogEntry, LogEntrySerialized } from "./LogEntry.js";
+import { Plant, PlantSerialized } from "./Plant.js";
+import { Task, TaskSerialized } from "./Task.js";
 import {
   aggregateEventTypes,
   aggregateKinds,
@@ -12,14 +12,14 @@ import {
   aggregateProductsUsed,
   aggregateSubstrates,
   makePlantMap,
-} from "./Tools";
+} from "./Tools.js";
 import {
   DictionaryClassifier,
   DictionaryClassifiers,
   UserDictionary,
   UserDictionarySerialized,
-} from "./UserDictionary";
-import { logToCSV, plantsToCSV } from "./csv/Tools";
+} from "./UserDictionary.js";
+import { logToCSV, plantsToCSV } from "./csv/Tools.js";
 
 /**
  * The main entrypoint of a PlantDB data collection.
