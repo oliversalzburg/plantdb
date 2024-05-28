@@ -1981,10 +1981,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oliversalzburg/js-utils@npm:0.0.38":
-  version: 0.0.38
-  resolution: "@oliversalzburg/js-utils@npm:0.0.38"
-  checksum: 10c0/88f798f36960b01f05cd2145912da822cfde8c7260c79647cc67c8718538bf67d70ce39f1d0c82cdcb55240c1106102a4cbee4bb029767f6e84dd351b2a6a5af
+"@oliversalzburg/js-utils@npm:0.0.39":
+  version: 0.0.39
+  resolution: "@oliversalzburg/js-utils@npm:0.0.39"
+  checksum: 10c0/bfff436856197e1df4bff5fd312f694bfd01a7752cffe0609dffe5f999d86113ef55ead515e04c12286818a67994320558387e5dbee38bdfd0461d0a2cf2ed54
   languageName: node
   linkType: hard
 
@@ -2032,7 +2032,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@plantdb/plant-cli@workspace:packages/plant-cli"
   dependencies:
-    "@oliversalzburg/js-utils": "npm:0.0.38"
+    "@oliversalzburg/js-utils": "npm:0.0.39"
     "@plantdb/libplantdb": "workspace:*"
     "@types/luxon": "npm:3.4.2"
     "@types/minimist": "npm:1.2.5"
@@ -2050,7 +2050,7 @@ __metadata:
   resolution: "@plantdb/plant-nursery@workspace:packages/plant-nursery"
   dependencies:
     "@lit-labs/context": "npm:0.5.1"
-    "@oliversalzburg/js-utils": "npm:0.0.38"
+    "@oliversalzburg/js-utils": "npm:0.0.39"
     "@plantdb/libplantdb": "workspace:*"
     "@shoelace-style/shoelace": "npm:2.15.1"
     "@types/dygraphs": "npm:2.1.10"
