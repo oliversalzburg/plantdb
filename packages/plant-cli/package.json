@@ -12,7 +12,7 @@
     "predebug": "tsc"
   },
   "dependencies": {
-    "@oliversalzburg/js-utils": "0.0.44",
+    "@oliversalzburg/js-utils": "0.0.46",
     "@plantdb/libplantdb": "workspace:*",
     "luxon": "3.4.4",
     "minimist": "1.2.8"
