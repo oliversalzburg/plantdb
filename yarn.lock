@@ -2028,7 +2028,7 @@ __metadata:
     luxon: "npm:3.4.4"
     mocha: "npm:10.4.0"
     source-map-support: "npm:0.5.21"
-    tslib: "npm:2.6.2"
+    tslib: "npm:2.6.3"
     typedoc: "npm:0.25.13"
     typedoc-plugin-markdown: "npm:4.0.3"
     typescript: "npm:5.4.5"
@@ -2047,7 +2047,7 @@ __metadata:
     esbuild: "npm:0.21.4"
     luxon: "npm:3.4.4"
     minimist: "npm:1.2.8"
-    tslib: "npm:2.6.2"
+    tslib: "npm:2.6.3"
     typescript: "npm:5.4.5"
   languageName: unknown
   linkType: soft
@@ -2080,7 +2080,7 @@ __metadata:
     luxon: "npm:3.4.4"
     pwa-helpers: "npm:0.9.1"
     rrule: "npm:2.8.1"
-    tslib: "npm:2.6.2"
+    tslib: "npm:2.6.3"
     typescript: "npm:5.4.5"
     vite: "npm:5.2.12"
     vite-plugin-pwa: "npm:0.20.0"
@@ -6150,7 +6150,7 @@ __metadata:
     prettier-plugin-organize-imports: "npm:3.2.4"
     prettier-plugin-sh: "npm:0.14.0"
     ts-lit-plugin: "npm:2.0.2"
-    tslib: "npm:2.6.2"
+    tslib: "npm:2.6.3"
     typescript: "npm:5.4.5"
   languageName: unknown
   linkType: soft
@@ -7196,10 +7196,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.6.2, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
+"tslib@npm:2.6.2":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 10c0/e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
+  languageName: node
+  linkType: hard
+
+"tslib@npm:2.6.3, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
+  version: 2.6.3
+  resolution: "tslib@npm:2.6.3"
+  checksum: 10c0/2598aef53d9dbe711af75522464b2104724d6467b26a60f2bdac8297d2b5f1f6b86a71f61717384aa8fd897240467aaa7bcc36a0700a0faf751293d1331db39a
   languageName: node
   linkType: hard
 

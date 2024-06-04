@@ -46,7 +46,7 @@
     "prettier-plugin-organize-imports": "3.2.4",
     "prettier-plugin-sh": "0.14.0",
     "ts-lit-plugin": "2.0.2",
-    "tslib": "2.6.2",
+    "tslib": "2.6.3",
     "typescript": "5.4.5"
   },
   "packageManager": "yarn@4.2.2"
